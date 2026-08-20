@@ -78,6 +78,58 @@ export default function Footer() {
           </nav>
         </Show>
 
+        {/* Attribution and the source link. Inline SVG rather than an icon
+            font or a component-library icon: the footer rides on the landing
+            page, which ships no component-library JS and is budget-gated. */}
+        <div class="mb-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted">
+          <p class="m-0 flex items-center gap-1">
+            <For each={parts(m.common.footerMadeBy)}>
+              {(p) =>
+                'text' in p ? (
+                  <>{p.text}</>
+                ) : p.token === 'heart' ? (
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    class="inline-block text-danger"
+                    role="img"
+                    aria-label={m.common.footerHeart}
+                  >
+                    <path d="M12 21s-7.5-4.6-9.6-9A5.4 5.4 0 0 1 12 6.5 5.4 5.4 0 0 1 21.6 12c-2.1 4.4-9.6 9-9.6 9z" />
+                  </svg>
+                ) : p.token === 'company' ? (
+                  <a
+                    href="https://www.algorisys.com"
+                    // Leaves the site, so it must not be intercepted by the
+                    // client-side router.
+                    rel="external noopener"
+                    target="_blank"
+                    class="text-muted underline hover:text-accent"
+                  >
+                    Algorisys Technologies
+                  </a>
+                ) : (
+                  <></>
+                )
+              }
+            </For>
+          </p>
+
+          <a
+            href="https://github.com/algorisys-oss/yappykit"
+            rel="external noopener"
+            target="_blank"
+            class="inline-flex items-center gap-1 text-muted no-underline hover:text-accent"
+          >
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5-5.8-3.1-5.8 3.1 1.1-6.5L2.6 9.3l6.5-.9z" />
+            </svg>
+            {m.common.footerStar}
+          </a>
+        </div>
+
         <p class="max-w-2xl text-xs text-muted">
           <For each={parts(m.common.footerNote)}>
             {(p) =>

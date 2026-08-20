@@ -1,0 +1,68 @@
+- generic [active] [ref=f83e8]:
+  - generic [ref=f83e13]:
+    - complementary [ref=f83e15]:
+      - generic [ref=f83e17]:
+        - generic [ref=f83e19]:
+          - link [ref=f83e20] [cursor=pointer]:
+            - /url: /
+          - button "Switch Account" [ref=f83e27] [cursor=pointer]:
+            - generic "Pillai.rajesh@gmail.com's Account" [ref=f83e29]
+        - navigation [ref=f83e32]:
+          - generic [ref=f83e36]:
+            - button "Quick search..." [ref=f83e38] [cursor=pointer]
+            - list [ref=f83e45]
+        - button "Collapse sidebar" [expanded] [ref=f83e711] [cursor=pointer]
+    - generic [ref=f83e714]:
+      - banner [ref=f83e715]:
+        - navigation "breadcrumb" [ref=f83e718]:
+          - generic [ref=f83e719]:
+            - link "Workers & Pages" [ref=f83e720] [cursor=pointer]:
+              - /url: /b4e170f874613a0e716cbec333d7a86c/workers-and-pages
+            - generic [ref=f83e729]: yappykit
+        - generic [ref=f83e731]:
+          - button "Ask AI" [ref=f83e732] [cursor=pointer]
+          - link "Support" [ref=f83e738] [cursor=pointer]:
+            - /url: /?to=/:account/support
+          - button "User menu" [ref=f83e743] [cursor=pointer]
+      - main [ref=f83e746]:
+        - generic [ref=f83e747]:
+          - generic [ref=f83e748]:
+            - tablist [ref=f83e750]
+            - button
+            - button
+          - link "algorisys-oss/yappykit" [ref=f83e761] [cursor=pointer]:
+            - /url: https://github.com/algorisys-oss/yappykit
+        - generic [ref=f83e769]:
+          - list [ref=f83e771]:
+            - listitem [ref=f83e772]
+            - listitem [ref=f83e776]
+          - generic [ref=f83e821]:
+            - button "Enter domain" [ref=f83e829] [cursor=pointer]
+            - generic [ref=f83e827]
+            - button "Activate domain" [ref=f83e882] [cursor=pointer]
+      - contentinfo [ref=f83e796]:
+        - list [ref=f83e798]:
+          - listitem [ref=f83e799]:
+            - link "Support" [ref=f83e800] [cursor=pointer]:
+              - /url: https://support.cloudflare.com
+          - listitem [ref=f83e801]:
+            - link "System status" [ref=f83e802] [cursor=pointer]:
+              - /url: https://www.cloudflarestatus.com
+          - listitem [ref=f83e803]:
+            - link "Careers" [ref=f83e804] [cursor=pointer]:
+              - /url: https://www.cloudflare.com/careers/
+          - listitem [ref=f83e805]:
+            - link "Terms of Use" [ref=f83e806] [cursor=pointer]:
+              - /url: https://www.cloudflare.com/website-terms/
+          - listitem [ref=f83e807]:
+            - link "Report Security Issues" [ref=f83e808] [cursor=pointer]:
+              - /url: https://www.cloudflare.com/disclosure/
+          - listitem [ref=f83e809]:
+            - link "Privacy Policy" [ref=f83e810] [cursor=pointer]:
+              - /url: https://www.cloudflare.com/privacypolicy/
+          - listitem [ref=f83e811]:
+            - button "A blue and white pill with a checkmark and an x, representing privacy choices Cookie Preferences" [ref=f83e812] [cursor=pointer]
+          - listitem [ref=f83e814]:
+            - generic [ref=f83e815]: © 2026 Cloudflare, Inc.
+  - generic:
+    - region "Notifications"

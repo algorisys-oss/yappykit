@@ -28,6 +28,10 @@ const ptBR: Messages = {
     footerNote:
       'Os arquivos são processados localmente no seu navegador. Os scripts de publicidade e análise continuam fazendo requisições de rede normais: veja nossa {privacy}. O YappyKit não envia seus arquivos.',
     footerPrivacyLink: 'Política de Privacidade',
+    footerMadeBy: 'Feito com {heart} por {company}',
+    /** Accessible name for the heart icon in the footer. */
+    footerHeart: 'carinho',
+    footerStar: 'Dar estrela no GitHub',
     breadcrumbHome: 'Início',
   },
 

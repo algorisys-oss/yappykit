@@ -103,6 +103,9 @@ export default function HeaderSearch() {
           setOpen(true);
         }}
         onFocus={() => setOpen(true)}
+        // The delay covers focus moving to something inside the dropdown; the
+        // options themselves no longer rely on it, since they refuse to take
+        // focus at all (see onMouseDown below).
         onBlur={() => setTimeout(() => setOpen(false), 150)}
         onKeyDown={onKeyDown}
         placeholder={m.common.searchPlaceholder}
@@ -133,7 +136,21 @@ export default function HeaderSearch() {
                       href={tool.href}
                       tabindex={-1}
                       onMouseEnter={() => setActive(i())}
-                      onClick={() => go(tool.href)}
+                      // Keep focus in the input. Without this, mousedown blurs
+                      // it, the close timer below starts, and an ordinary click
+                      // (which holds the button down longer than that timer)
+                      // unmounts this element before mouseup lands: the result
+                      // is a dropdown that ignores mouse clicks while working
+                      // perfectly under a fast synthetic one.
+                      onMouseDown={(e) => e.preventDefault()}
+                      onClick={(e) => {
+                        // Leave modified clicks to the browser so "open in new
+                        // tab" keeps working; navigating ourselves as well
+                        // would send this tab there too.
+                        if (e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
+                        e.preventDefault();
+                        go(tool.href);
+                      }}
                       class={`block px-3 py-2 no-underline ${active() === i() ? 'bg-surface' : ''}`}
                     >
                       <span class="block text-sm font-medium text-fg">{tool.title}</span>

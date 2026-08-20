@@ -28,6 +28,10 @@ const ja: Messages = {
     footerNote:
       'ファイルはお使いのブラウザー内でローカルに処理されます。広告や解析のスクリプトは通常どおりネットワーク通信を行います。詳しくは{privacy}をご覧ください。YappyKit があなたのファイルをアップロードすることはありません。',
     footerPrivacyLink: 'プライバシーポリシー',
+    footerMadeBy: '{company} が {heart} を込めて作りました',
+    /** Accessible name for the heart icon in the footer. */
+    footerHeart: '愛情',
+    footerStar: 'GitHub でスターを付ける',
     breadcrumbHome: 'ホーム',
   },
 

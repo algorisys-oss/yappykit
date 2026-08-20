@@ -28,6 +28,10 @@ const ru: Messages = {
     footerNote:
       'Файлы обрабатываются локально в вашем браузере. Рекламные и аналитические скрипты по-прежнему выполняют обычные сетевые запросы: см. нашу {privacy}. YappyKit не загружает ваши файлы.',
     footerPrivacyLink: 'политику конфиденциальности',
+    footerMadeBy: 'Сделано с {heart} командой {company}',
+    /** Accessible name for the heart icon in the footer. */
+    footerHeart: 'любовью',
+    footerStar: 'Поставить звезду на GitHub',
     breadcrumbHome: 'Главная',
   },
 

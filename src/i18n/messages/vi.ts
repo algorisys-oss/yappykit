@@ -28,6 +28,10 @@ const vi: Messages = {
     footerNote:
       'Tệp được xử lý cục bộ ngay trong trình duyệt của bạn. Các tập lệnh quảng cáo và phân tích vẫn thực hiện những yêu cầu mạng thông thường: xem {privacy} của chúng tôi. YappyKit không tải tệp của bạn lên.',
     footerPrivacyLink: 'Chính sách quyền riêng tư',
+    footerMadeBy: 'Được làm bằng {heart} bởi {company}',
+    /** Accessible name for the heart icon in the footer. */
+    footerHeart: 'tình yêu',
+    footerStar: 'Gắn sao trên GitHub',
     breadcrumbHome: 'Trang chủ',
   },
 

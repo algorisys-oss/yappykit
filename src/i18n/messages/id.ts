@@ -28,6 +28,10 @@ const id: Messages = {
     footerNote:
       'File diproses secara lokal di browser Anda. Skrip iklan dan analitik tetap melakukan permintaan jaringan biasa: lihat {privacy} kami. YappyKit tidak mengunggah file Anda.',
     footerPrivacyLink: 'Kebijakan Privasi',
+    footerMadeBy: 'Dibuat dengan {heart} oleh {company}',
+    /** Accessible name for the heart icon in the footer. */
+    footerHeart: 'cinta',
+    footerStar: 'Beri bintang di GitHub',
     breadcrumbHome: 'Beranda',
   },
 

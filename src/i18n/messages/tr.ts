@@ -28,6 +28,10 @@ const tr: Messages = {
     footerNote:
       'Dosyalar tarayıcınızda yerel olarak işlenir. Reklam ve analiz betikleri yine de olağan ağ isteklerinde bulunur: {privacy} sayfamıza bakın. YappyKit dosyalarınızı yüklemez.',
     footerPrivacyLink: 'Gizlilik Politikası',
+    footerMadeBy: '{company} tarafından {heart} ile yapıldı',
+    /** Accessible name for the heart icon in the footer. */
+    footerHeart: 'sevgi',
+    footerStar: 'GitHub’da yıldız verin',
     breadcrumbHome: 'Ana sayfa',
   },
 

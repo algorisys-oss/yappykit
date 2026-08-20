@@ -30,6 +30,10 @@ export const en = {
     footerNote:
       'Files are processed locally in your browser. Advertising and analytics scripts still make ordinary network requests: see our {privacy}. YappyKit does not upload your files.',
     footerPrivacyLink: 'Privacy Policy',
+    footerMadeBy: 'Made with {heart} by {company}',
+    /** Accessible name for the heart icon in the footer. */
+    footerHeart: 'love',
+    footerStar: 'Star on GitHub',
     breadcrumbHome: 'Home',
   },
 

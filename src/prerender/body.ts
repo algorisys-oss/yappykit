@@ -54,6 +54,16 @@ function footer(key: RouteKey, locale: LocaleCode, m: Messages, locales: readonl
   const note = tpl(m.common.footerNote, {
     privacy: `<a href="/privacy" class="underline hover:text-accent">${esc(m.common.footerPrivacyLink)}</a>`,
   });
+  // Must mirror src/components/Footer.tsx: this is the copy a crawler and a
+  // visitor without JavaScript actually see.
+  const heart =
+    `<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" class="inline-block text-danger" role="img" aria-label="${esc(m.common.footerHeart)}">` +
+    '<path d="M12 21s-7.5-4.6-9.6-9A5.4 5.4 0 0 1 12 6.5 5.4 5.4 0 0 1 21.6 12c-2.1 4.4-9.6 9-9.6 9z" /></svg>';
+  const madeBy = tpl(m.common.footerMadeBy, {
+    heart,
+    company:
+      '<a href="https://www.algorisys.com" rel="external noopener" target="_blank" class="text-muted underline hover:text-accent">Algorisys Technologies</a>',
+  });
   const langs = locales.map((l) => {
     const href = pathFor(key, l.code);
     const current = l.code === locale;
@@ -71,6 +81,13 @@ function footer(key: RouteKey, locale: LocaleCode, m: Messages, locales: readonl
     <nav aria-label="${esc(m.common.languageLabel)}" class="mb-4">
       <ul class="flex list-none flex-wrap gap-x-4 gap-y-1 p-0 text-xs">${langs}</ul>
     </nav>
+    <div class="mb-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted">
+      <p class="m-0 flex items-center gap-1">${madeBy}</p>
+      <a href="https://github.com/algorisys-oss/yappykit" rel="external noopener" target="_blank" class="inline-flex items-center gap-1 text-muted no-underline hover:text-accent">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5-5.8-3.1-5.8 3.1 1.1-6.5L2.6 9.3l6.5-.9z" /></svg>
+        ${esc(m.common.footerStar)}
+      </a>
+    </div>
     <p class="max-w-2xl text-xs text-muted">${note}</p>
   </div>
 </footer>`;

@@ -30,6 +30,10 @@ const ar: Messages = {
     footerNote:
       'تُعالَج الملفات محليًا داخل متصفحك. أما نصوص الإعلانات والتحليلات فتُجري طلبات شبكة اعتيادية: راجع {privacy}. لا يرفع YappyKit ملفاتك.',
     footerPrivacyLink: 'سياسة الخصوصية',
+    footerMadeBy: 'صُنع بـ {heart} من {company}',
+    /** Accessible name for the heart icon in the footer. */
+    footerHeart: 'حب',
+    footerStar: 'ضع نجمة على GitHub',
     breadcrumbHome: 'الرئيسية',
   },
 

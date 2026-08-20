@@ -1,0 +1,270 @@
+- generic [active] [ref=f70e8]:
+  - generic [ref=f70e13]:
+    - complementary [ref=f70e15]:
+      - generic [ref=f70e17]:
+        - generic [ref=f70e19]:
+          - link [ref=f70e20] [cursor=pointer]:
+            - /url: /
+          - button "Switch Account" [ref=f70e27] [cursor=pointer]:
+            - generic "Pillai.rajesh@gmail.com's Account" [ref=f70e29]
+        - navigation [ref=f70e32]:
+          - generic [ref=f70e34]:
+            - generic:
+              - generic:
+                - generic:
+                  - button:
+                    - generic
+                - list:
+                  - listitem:
+                    - link:
+                      - /url: /b4e170f874613a0e716cbec333d7a86c/home
+                  - listitem:
+                    - generic
+                  - listitem:
+                    - generic
+                  - generic:
+                    - generic: Observe
+                    - list
+                  - generic:
+                    - generic: Build
+                    - list
+                  - generic:
+                    - generic: Protect & connect
+                    - list
+                  - listitem:
+                    - generic
+            - generic [ref=f70e36]:
+              - button "Quick search..." [ref=f70e38] [cursor=pointer]:
+                - generic [ref=f70e40]:
+                  - generic [ref=f70e43]: Quick search...
+                  - generic [ref=f70e44]: Ctrl K
+              - link "Back to Domains" [ref=f70e46] [cursor=pointer]:
+                - /url: /b4e170f874613a0e716cbec333d7a86c/domains/overview
+              - list [ref=f70e53]:
+                - listitem [ref=f70e54]:
+                  - link "Overview" [ref=f70e55] [cursor=pointer]:
+                    - /url: /b4e170f874613a0e716cbec333d7a86c/yappykit.com/
+                - listitem [ref=f70e62]:
+                  - generic [ref=f70e63]:
+                    - button "Recents" [ref=f70e64] [cursor=pointer]
+                    - list [ref=f70e73]
+                - listitem [ref=f70e123]:
+                  - generic [ref=f70e124]:
+                    - button "AI Crawl Control" [ref=f70e125] [cursor=pointer]
+                    - list [ref=f70e134]
+                - listitem [ref=f70e158]:
+                  - generic [ref=f70e159]:
+                    - button "Agent Readiness" [ref=f70e160] [cursor=pointer]
+                    - list [ref=f70e168]
+                - listitem [ref=f70e192]:
+                  - generic [ref=f70e193]:
+                    - button "Investigate" [ref=f70e194] [cursor=pointer]
+                    - list [ref=f70e203]
+                - listitem [ref=f70e228]:
+                  - generic [ref=f70e229]:
+                    - button "Analytics" [ref=f70e230] [cursor=pointer]
+                    - list [ref=f70e239]
+                - listitem [ref=f70e259]:
+                  - generic [ref=f70e260]:
+                    - button "DNS" [ref=f70e261] [cursor=pointer]
+                    - list [ref=f70e269]
+                - listitem [ref=f70e283]:
+                  - generic [ref=f70e284]:
+                    - button "Email" [ref=f70e285] [cursor=pointer]
+                    - list [ref=f70e295]
+                - listitem [ref=f70e309]:
+                  - generic [ref=f70e310]:
+                    - button "SSL/TLS" [ref=f70e311] [cursor=pointer]
+                    - list [ref=f70e320]
+                - listitem [ref=f70e342]:
+                  - generic [ref=f70e343]:
+                    - button "Security" [ref=f70e344] [cursor=pointer]
+                    - list [ref=f70e352]
+                - listitem [ref=f70e374]:
+                  - link "Access" [ref=f70e375] [cursor=pointer]:
+                    - /url: /b4e170f874613a0e716cbec333d7a86c/yappykit.com/access
+                - listitem [ref=f70e382]:
+                  - generic [ref=f70e383]:
+                    - button "Speed" [ref=f70e384] [cursor=pointer]
+                    - list [ref=f70e392]
+                - listitem [ref=f70e418]:
+                  - generic [ref=f70e419]:
+                    - button "Caching" [ref=f70e420] [cursor=pointer]
+                    - list [ref=f70e431]
+                - listitem [ref=f70e453]:
+                  - link "Workers Routes" [ref=f70e454] [cursor=pointer]:
+                    - /url: /b4e170f874613a0e716cbec333d7a86c/yappykit.com/workers
+                - listitem [ref=f70e462]:
+                  - generic [ref=f70e463]:
+                    - button "Rules" [ref=f70e464] [cursor=pointer]
+                    - list [ref=f70e473]
+                - listitem [ref=f70e497]:
+                  - link "Error Pages New" [ref=f70e498] [cursor=pointer]:
+                    - /url: /b4e170f874613a0e716cbec333d7a86c/yappykit.com/error-pages
+                    - generic [ref=f70e503]
+                - listitem [ref=f70e507]:
+                  - link "Network" [ref=f70e508] [cursor=pointer]:
+                    - /url: /b4e170f874613a0e716cbec333d7a86c/yappykit.com/network
+                - listitem [ref=f70e515]:
+                  - generic [ref=f70e516]:
+                    - button "Traffic" [ref=f70e517] [cursor=pointer]
+                    - list [ref=f70e525]
+                - listitem [ref=f70e547]:
+                  - link "Web3" [ref=f70e548] [cursor=pointer]:
+                    - /url: /b4e170f874613a0e716cbec333d7a86c/yappykit.com/web3
+                - listitem [ref=f70e557]:
+                  - generic [ref=f70e558]:
+                    - button "Manage account" [ref=f70e559] [cursor=pointer]
+                    - list [ref=f70e568]
+        - button "Collapse sidebar" [expanded] [ref=f70e622] [cursor=pointer]
+    - generic [ref=f70e625]:
+      - banner [ref=f70e626]:
+        - generic [ref=f70e627]:
+          - button "Star domain" [ref=f70e628] [cursor=pointer]
+          - generic [ref=f70e633] [cursor=pointer]:
+            - paragraph [ref=f70e634]: yappykit.com
+            - button "free" [ref=f70e635]
+        - generic [ref=f70e639]:
+          - button "Ask AI" [ref=f70e640] [cursor=pointer]
+          - link "Support" [ref=f70e646] [cursor=pointer]:
+            - /url: /?to=/:account/support
+          - button "User menu" [ref=f70e651] [cursor=pointer]
+      - main [ref=f70e655]:
+        - generic [ref=f70e656]:
+          - generic [ref=f70e657]:
+            - generic [ref=f70e659]:
+              - paragraph [ref=f70e660]: Overview
+              - heading "yappykit.com" [level=1] [ref=f70e662]
+              - paragraph [ref=f70e665]: This is the last step to allow Cloudflare to speed up and protect your web traffic.
+              - link "Review Cloudflare fundamentalsdocumentation" [ref=f70e666] [cursor=pointer]:
+                - /url: https://developers.cloudflare.com/fundamentals/
+                - text: Review Cloudflare fundamentals
+                - img "documentation" [ref=f70e668]
+            - region "Status Notifications"
+            - button "Add a new tag" [ref=f70e672] [cursor=pointer]: Add tag
+            - generic [ref=f70e675]:
+              - generic [ref=f70e676]:
+                - heading "Waiting for your registrar to propagate your new nameservers" [level=2] [ref=f70e677]
+                - paragraph [ref=f70e678]: We are verifying that your domain is pointing to Cloudflare. This typically takes 1-2 hours but may take up to 24 hours, depending on your registrar. We are checking your status periodically.
+                - button "Check nameservers now" [ref=f70e680] [cursor=pointer]
+              - generic [ref=f70e683]:
+                - heading "Next steps" [level=4] [ref=f70e684]
+                - generic [ref=f70e685]:
+                  - paragraph [ref=f70e687]:
+                    - text: Go to
+                    - link "DNS" [ref=f70e688] [cursor=pointer]:
+                      - /url: /b4e170f874613a0e716cbec333d7a86c/yappykit.com/dns/records
+                    - text: to verify your existing records and configure proxy status.
+                  - generic [ref=f70e690]:
+                    - paragraph [ref=f70e691]
+                    - paragraph [ref=f70e694]: Automatic SSL/TLS regularly scans your origin to set an encryption mode that suits your setup, in case you uploaded a new certificate or changed your TLS settings.
+              - generic [ref=f70e695]:
+                - list [ref=f70e696]:
+                  - listitem [ref=f70e697]:
+                    - heading "Log into your DNS provider (most likely your registrar)" [level=3] [ref=f70e698]
+                    - generic [ref=f70e699]
+                  - listitem [ref=f70e710]:
+                    - heading "Replace your current nameservers with Cloudflare nameservers" [level=3] [ref=f70e711]
+                    - generic [ref=f70e712]
+                    - button "Documentation" [ref=f70e760] [cursor=pointer]
+                - heading "Recommended" [level=3] [ref=f70e764]
+                - generic [ref=f70e765]:
+                  - generic [ref=f70e766]:
+                    - heading "Make sure DNSSEC is off" [level=4] [ref=f70e767]
+                    - paragraph [ref=f70e768]: Find and turn off the DNS security (DNSSEC) setting if it is on. You can re-enable it later through Cloudflare.
+                    - button "Documentation" [ref=f70e770] [cursor=pointer]
+                  - generic [ref=f70e774]:
+                    - heading "Only allow Cloudflare IP addresses at your origin" [level=4] [ref=f70e775]
+                    - paragraph [ref=f70e776]: Update your origin server's firewall (usually via your web hosting provider or server console) to block all incoming traffic that doesn't originate from Cloudflare.
+                    - button "Documentation" [ref=f70e778] [cursor=pointer]
+              - paragraph [ref=f70e783]:
+                - text: Need help? Follow our
+                - link "set-up documentation" [ref=f70e784] [cursor=pointer]:
+                  - /url: https://developers.cloudflare.com/fundamentals/manage-domains/add-site/
+                - text: or
+                - link "visit our support portal" [ref=f70e788] [cursor=pointer]:
+                  - /url: https://dash.cloudflare.com/?to=/:account/support
+                - text: .
+          - generic [ref=f70e792]:
+            - generic [ref=f70e794]:
+              - heading "DNS" [level=4] [ref=f70e795]
+              - generic [ref=f70e796]:
+                - generic [ref=f70e797]: "DNS Setup:"
+                - generic [ref=f70e798]: Full
+                - button "DNS setup information" [ref=f70e799] [cursor=pointer]
+              - link "DNS Records" [ref=f70e804] [cursor=pointer]:
+                - /url: /b4e170f874613a0e716cbec333d7a86c/yappykit.com/dns
+            - generic [ref=f70e808]:
+              - paragraph [ref=f70e809]: No Workers connected
+              - generic [ref=f70e810]: Build and deploy an application on Cloudflare’s global network, or connect an existing Worker to this domain.
+              - link "Create Worker" [ref=f70e812] [cursor=pointer]:
+                - /url: /b4e170f874613a0e716cbec333d7a86c/workers/services/new
+            - generic [ref=f70e817]:
+              - heading "Quick Actions" [level=4] [ref=f70e818]
+              - generic [ref=f70e820]:
+                - generic [ref=f70e821]:
+                  - generic [ref=f70e822]: Under Attack Mode
+                  - generic [ref=f70e823]:
+                    - text: Show your site visitors a non-interactive challenge once your domain is active on Cloudflare.
+                    - link "About Under Attack Mode" [ref=f70e825] [cursor=pointer]:
+                      - /url: https://developers.cloudflare.com/fundamentals/reference/under-attack-mode/
+                - generic [ref=f70e829]:
+                  - switch "Under Attack Mode" [ref=f70e830] [cursor=pointer]
+                  - checkbox [ref=f70e832]
+            - generic [ref=f70e834]:
+              - heading "Active Subscriptions" [level=4] [ref=f70e835]
+              - list [ref=f70e836]:
+                - listitem [ref=f70e837]:
+                  - generic [ref=f70e838]: Free plan
+                  - button "Change" [ref=f70e839] [cursor=pointer]
+            - generic [ref=f70e846]:
+              - heading "API" [level=3] [ref=f70e848]
+              - list [ref=f70e850]:
+                - listitem [ref=f70e851]:
+                  - generic [ref=f70e852]: Zone ID
+                  - generic [ref=f70e853]:
+                    - generic [ref=f70e854]: 17b268d41dafa5b5c428458ec172ad51
+                    - button "Copy zone ID" [ref=f70e856] [cursor=pointer]
+                - listitem [ref=f70e859]:
+                  - generic [ref=f70e860]: Account ID
+                  - generic [ref=f70e861]:
+                    - generic [ref=f70e862]: b4e170f874613a0e716cbec333d7a86c
+                    - button "Copy account ID" [ref=f70e864] [cursor=pointer]
+                - listitem [ref=f70e867]:
+                  - link "Get your API token" [ref=f70e868] [cursor=pointer]:
+                    - /url: /profile/api-tokens
+                - listitem [ref=f70e870]:
+                  - link "API documentation" [ref=f70e871] [cursor=pointer]:
+                    - /url: https://developers.cloudflare.com/api/overview/
+            - generic [ref=f70e876]:
+              - heading "Advanced Actions" [level=3] [ref=f70e877]
+              - link "Remove from Cloudflare" [ref=f70e879] [cursor=pointer]:
+                - /url: /b4e170f874613a0e716cbec333d7a86c/yappykit.com
+      - contentinfo [ref=f70e881]:
+        - list [ref=f70e883]:
+          - listitem [ref=f70e884]:
+            - link "Support" [ref=f70e885] [cursor=pointer]:
+              - /url: https://support.cloudflare.com
+          - listitem [ref=f70e886]:
+            - link "System status" [ref=f70e887] [cursor=pointer]:
+              - /url: https://www.cloudflarestatus.com
+          - listitem [ref=f70e888]:
+            - link "Careers" [ref=f70e889] [cursor=pointer]:
+              - /url: https://www.cloudflare.com/careers/
+          - listitem [ref=f70e890]:
+            - link "Terms of Use" [ref=f70e891] [cursor=pointer]:
+              - /url: https://www.cloudflare.com/website-terms/
+          - listitem [ref=f70e892]:
+            - link "Report Security Issues" [ref=f70e893] [cursor=pointer]:
+              - /url: https://www.cloudflare.com/disclosure/
+          - listitem [ref=f70e894]:
+            - link "Privacy Policy" [ref=f70e895] [cursor=pointer]:
+              - /url: https://www.cloudflare.com/privacypolicy/
+          - listitem [ref=f70e896]:
+            - button "A blue and white pill with a checkmark and an x, representing privacy choices Cookie Preferences" [ref=f70e897] [cursor=pointer]:
+              - img "A blue and white pill with a checkmark and an x, representing privacy choices" [ref=f70e898]
+              - text: Cookie Preferences
+          - listitem [ref=f70e899]:
+            - generic [ref=f70e900]: © 2026 Cloudflare, Inc.
+  - generic:
+    - region "Notifications"

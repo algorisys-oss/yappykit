@@ -28,6 +28,10 @@ const de: Messages = {
     footerNote:
       'Dateien werden lokal in Ihrem Browser verarbeitet. Werbe- und Analyseskripte stellen weiterhin ganz normale Netzwerkanfragen: siehe unsere {privacy}. YappyKit lädt Ihre Dateien nicht hoch.',
     footerPrivacyLink: 'Datenschutzerklärung',
+    footerMadeBy: 'Gemacht mit {heart} von {company}',
+    /** Accessible name for the heart icon in the footer. */
+    footerHeart: 'Liebe',
+    footerStar: 'Stern auf GitHub',
     breadcrumbHome: 'Startseite',
   },
 
