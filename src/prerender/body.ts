@@ -19,6 +19,12 @@ import { getLocale, type Locale, type LocaleCode } from '../i18n/locales';
 import { TOOL_KEYS, pathFor, relatedTools, type RouteKey, type ToolKey } from '../i18n/routes';
 import { parts } from '../i18n/format';
 import { TERMS_INTRO, TERMS_SECTIONS, TERMS_UPDATED } from '../content/terms';
+import {
+  PRIVACY_LEAD,
+  PRIVACY_SECTIONS,
+  PRIVACY_UPDATED,
+  emphasise,
+} from '../content/privacy';
 import type { Messages } from '../i18n/messages/en';
 import { esc } from './head';
 
@@ -328,6 +334,84 @@ function terms(locale: LocaleCode): string {
 </main>`;
 }
 
+/**
+ * The Privacy Policy, rendered in full.
+ *
+ * This used to emit an empty body, so the static page carried a heading and no
+ * policy: correct for anyone with JavaScript, useless to a crawler or an
+ * AdSense reviewer without it. The words come from ../content/privacy, the same
+ * module the Solid route reads, so the two cannot drift.
+ */
+function privacy(locale: LocaleCode): string {
+  // Escape first, then add the emphasis tags, so nothing in the content module
+  // can inject markup.
+  const em = (text: string) =>
+    emphasise(text)
+      .map((part) => (part.em ? `<em>${esc(part.text)}</em>` : esc(part.text)))
+      .join('');
+
+  const sections = PRIVACY_SECTIONS.map((sec) => {
+    const paras = (sec.paragraphs ?? []).map((p) => `<p class="mt-2">${em(p)}</p>`).join('');
+
+    const table = sec.table
+      ? `<div class="mt-3 overflow-x-auto rounded border border-border">
+      <table class="w-full text-left">
+        <thead><tr class="bg-surface text-muted">${sec.table.columns
+          .map((c) => `<th class="px-3 py-2 font-medium">${esc(c)}</th>`)
+          .join('')}</tr></thead>
+        <tbody>${sec.table.rows
+          .map(
+            (row) =>
+              `<tr class="border-t border-border">${row
+                .map((cell) => {
+                  const tone =
+                    cell.tone === 'good'
+                      ? ' font-semibold text-success'
+                      : cell.tone === 'muted'
+                        ? ' text-muted'
+                        : '';
+                  return `<td class="px-3 py-2${tone}">${esc(cell.text)}</td>`;
+                })
+                .join('')}</tr>`,
+          )
+          .join('')}</tbody>
+      </table>
+    </div>`
+      : '';
+
+    const bullets = sec.bullets
+      ? `<ul class="mt-2 list-disc space-y-1 ps-5">${sec.bullets
+          .map(
+            (b) =>
+              `<li>${b.label ? `<strong>${esc(b.label)}</strong> ` : ''}${esc(b.text)}</li>`,
+          )
+          .join('')}</ul>`
+      : '';
+
+    const email = sec.email
+      ? `<p class="mt-2"><a class="text-accent underline" href="mailto:${esc(sec.email)}">${esc(sec.email)}</a>.</p>`
+      : '';
+
+    return `<section id="${esc(sec.id)}">
+      <h2 class="text-lg font-semibold">${esc(sec.heading)}</h2>
+      ${paras}${table}${bullets}${email}
+    </section>`;
+  }).join('');
+
+  return `<main class="mx-auto max-w-2xl px-6 py-12">
+  <h1 class="text-3xl font-bold">Privacy Policy</h1>
+  <p class="mt-2 text-sm text-muted">Last updated: ${esc(PRIVACY_UPDATED)}</p>
+  <div class="mt-8 space-y-8 text-sm leading-relaxed text-fg">
+    <section><p>${esc(PRIVACY_LEAD.before)} <strong>${esc(PRIVACY_LEAD.claim)}</strong> ${esc(PRIVACY_LEAD.after)}</p></section>
+    ${sections}
+    <p class="border-t border-border pt-6 text-muted">
+      See also our <a href="/terms" class="text-accent underline">Terms of Use</a>, or
+      <a href="${pathFor('home', locale)}" class="text-accent underline">go back to YappyKit</a>.
+    </p>
+  </div>
+</main>`;
+}
+
 function notFound(locale: LocaleCode, m: Messages): string {
   return `<main class="mx-auto flex max-w-2xl flex-col items-center px-6 py-24 text-center">
   <p class="text-5xl font-bold text-accent">404</p>
@@ -355,7 +439,7 @@ export function buildBody({ key, locale, messages, locales }: BodyOptions): stri
   else if (key === 'about') main = about(locale, messages);
   else if (key === 'not-found') main = notFound(locale, messages);
   else if (key === 'terms') main = terms(locale);
-  else if (key === 'privacy') main = '';
+  else if (key === 'privacy') main = privacy(locale);
   else main = toolPage(key as ToolKey, locale, messages);
 
   const footerKey: RouteKey =

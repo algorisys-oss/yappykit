@@ -3,6 +3,7 @@ import { buildBody } from './body';
 import { LOCALES } from '../i18n/locales';
 import { TOOL_KEYS, pathFor } from '../i18n/routes';
 import en from '../i18n/messages/en';
+import { PRIVACY_LEAD, PRIVACY_SECTIONS } from '../content/privacy';
 
 const shipped = LOCALES.filter((l) => l.code === 'en' || l.code === 'es');
 
@@ -57,5 +58,42 @@ describe('prerendered body content', () => {
     moved.common.footerNote = 'START {privacy} END';
     const html = buildBody({ key: 'home', locale: 'en', messages: moved, locales: shipped });
     expect(html).toMatch(/START <a href="\/privacy"[^>]*>.*?<\/a> END/);
+  });
+});
+
+/**
+ * The legal pages have to be in the STATIC html.
+ *
+ * The privacy policy shipped for a while as an empty body: the route rendered
+ * it client-side, so it looked right in a browser and was invisible to anything
+ * that does not run JavaScript. It is the page docs/07 names as a hard AdSense
+ * requirement, which makes "renders eventually" the wrong bar.
+ */
+describe('the privacy policy is prerendered in full', () => {
+  const html = () => buildBody({ key: 'privacy', locale: 'en', messages: en, locales: shipped });
+
+  it('carries the exact claim we are allowed to make', () => {
+    expect(html()).toContain(PRIVACY_LEAD.claim);
+  });
+
+  it('carries every section, not just the first', () => {
+    for (const section of PRIVACY_SECTIONS) {
+      expect(html(), `${section.id} is missing from the static page`).toContain(section.heading);
+    }
+  });
+
+  it('renders the emphasis rather than leaking the asterisks', () => {
+    expect(html()).toContain('<em>content</em>');
+    expect(html()).not.toMatch(/\*[a-z]/);
+  });
+
+  it('renders the table that distinguishes your files from the page', () => {
+    expect(html()).toContain('Leaves your device?');
+    expect(html()).toContain('<table');
+  });
+
+  it('is substantially longer than its own chrome', () => {
+    // A guard against silently regressing to an empty <main>.
+    expect(html().length).toBeGreaterThan(6000);
   });
 });

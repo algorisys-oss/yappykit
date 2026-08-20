@@ -593,6 +593,20 @@ test.describe('YappyKit smoke', () => {
     await expect(page.getByRole('heading', { name: 'Limitation of liability' })).toBeVisible();
   });
 
+  test('the privacy policy is readable with JavaScript disabled', async ({ browser }) => {
+    // AdSense review and any crawler that does not run scripts must see the
+    // actual policy, not an empty page that fills in later.
+    const ctx = await browser.newContext({ javaScriptEnabled: false });
+    const p = await ctx.newPage();
+    await p.goto('/privacy');
+    await expect(p.getByRole('heading', { name: 'Privacy Policy', level: 1 })).toBeVisible();
+    await expect(p.getByText(/are not uploaded to our application servers/)).toBeVisible();
+    await expect(p.getByRole('heading', { name: 'Your rights' })).toBeVisible();
+    await expect(p.getByText(/Mumbai, Maharashtra, India/)).toBeVisible();
+    await expect(p.getByText('osappsupport@gmail.com')).toBeVisible();
+    await ctx.close();
+  });
+
   test('the disclaimer is readable with JavaScript disabled', async ({ browser }) => {
     // A liability disclaimer that only appears once JS has run is not much of a
     // disclaimer. It ships in the prerendered HTML.
