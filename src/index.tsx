@@ -1,4 +1,5 @@
 import { render } from 'solid-js/web';
+import { initAnalytics } from './lib/analytics';
 import { Router, Route, useLocation } from '@solidjs/router';
 import { createEffect, lazy, type Component, type ParentProps } from 'solid-js';
 import 'virtual:uno.css';
@@ -118,3 +119,7 @@ async function start() {
 }
 
 void start();
+
+// Deliberately not awaited: analytics must never delay the page, and it decides
+// for itself whether it is allowed to run at all (see lib/analytics).
+void initAnalytics();

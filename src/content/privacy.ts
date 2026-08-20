@@ -140,7 +140,7 @@ export const PRIVACY_SECTIONS: PrivacySection[] = [
       },
       {
         label: 'Analytics',
-        text: '(Google Analytics): measures aggregate usage, such as which tools are opened and from which country, so we can improve them. It sets cookies and receives your IP address. It never receives your files.',
+        text: '(Google Analytics): measures aggregate usage, such as which tools are opened and from which country, so we can improve them. It sets cookies and receives your IP address, and it never receives your files. It does not run at all for visitors in the EEA or the UK, see below.',
       },
       {
         label: 'Content delivery network (CDN)',
@@ -160,7 +160,8 @@ export const PRIVACY_SECTIONS: PrivacySection[] = [
     id: 'cookies',
     heading: 'Cookies and consent',
     paragraphs: [
-      'Where your jurisdiction requires it, we ask for your consent before advertising cookies that personalise ads are set. You can change or withdraw consent at any time.',
+      'If you are in the European Economic Area or the United Kingdom, analytics does not run for you. Your country is determined at the edge before anything loads, and where consent would be required first we simply do not measure you, because we have no consent dialog to ask you with. Nothing is dropped on your device for analytics purposes.',
+      'Everywhere else, analytics runs as described above. Where your jurisdiction requires it, we ask for your consent before advertising cookies that personalise ads are set, and you can change or withdraw that consent at any time.',
     ],
   },
   {
