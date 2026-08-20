@@ -80,6 +80,13 @@ export function emphasise(text: string): Array<{ text: string; em: boolean }> {
 
 export const PRIVACY_SECTIONS: PrivacySection[] = [
   {
+    id: 'who-we-are',
+    heading: 'Who "we" means',
+    paragraphs: [
+      'YappyKit is a personal project operated by Rajesh Pillai, an individual based in Mumbai, Maharashtra, India. Under India\'s Digital Personal Data Protection Act, 2023 that person is the Data Fiduciary for any personal data this site is responsible for, and can be reached at the address at the end of this policy.',
+    ],
+  },
+  {
     id: 'files-vs-page',
     heading: 'Your files vs. the page',
     paragraphs: ['Two separate things happen on a YappyKit page:'],
@@ -160,7 +167,7 @@ export const PRIVACY_SECTIONS: PrivacySection[] = [
     id: 'your-rights',
     heading: 'Your rights',
     paragraphs: [
-      "We operate from Mumbai, Maharashtra, India, so India's Digital Personal Data Protection Act, 2023 applies to us. If you are in another jurisdiction, its own law may give you further rights, for example the EU or UK GDPR.",
+      'Because we operate from India, the DPDP Act named above applies to us. If you are in another jurisdiction, its own law may give you further rights, for example the EU or UK GDPR.',
       'Those rights typically include access to personal data held about you, correction of it, erasure of it, and objecting to certain processing. In practice there is very little for us to act on: we hold no account and none of your files. Requests therefore concern the advertising and analytics providers listed above, and you can exercise your rights directly with them as well as through us.',
     ],
   },

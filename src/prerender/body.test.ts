@@ -4,6 +4,7 @@ import { LOCALES } from '../i18n/locales';
 import { TOOL_KEYS, pathFor } from '../i18n/routes';
 import en from '../i18n/messages/en';
 import { PRIVACY_LEAD, PRIVACY_SECTIONS } from '../content/privacy';
+import { esc } from './head';
 
 const shipped = LOCALES.filter((l) => l.code === 'en' || l.code === 'es');
 
@@ -73,12 +74,18 @@ describe('the privacy policy is prerendered in full', () => {
   const html = () => buildBody({ key: 'privacy', locale: 'en', messages: en, locales: shipped });
 
   it('carries the exact claim we are allowed to make', () => {
-    expect(html()).toContain(PRIVACY_LEAD.claim);
+    expect(html()).toContain(esc(PRIVACY_LEAD.claim));
   });
 
   it('carries every section, not just the first', () => {
     for (const section of PRIVACY_SECTIONS) {
-      expect(html(), `${section.id} is missing from the static page`).toContain(section.heading);
+      // Escaped the way the renderer escapes it: a heading containing quotes,
+      // such as 'Who "we" means', reaches the page as &quot; and comparing the
+      // raw string would fail on correct output.
+      expect(html(), `${section.id} is missing from the static page`).toContain(
+        esc(section.heading),
+      );
+      expect(html(), `${section.id} has no anchor`).toContain(`id="${section.id}"`);
     }
   });
 

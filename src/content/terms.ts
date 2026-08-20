@@ -11,10 +11,11 @@
  * identical words. A legal page in particular must be readable without
  * JavaScript, so it is prerendered in full.
  *
- * NOT LEGAL ADVICE. This is a standard-form disclaimer. The governing
- * jurisdiction is settled: India, with the courts at Mumbai. One thing still
- * needs a decision from the operator: the legal entity behind "we", which must
- * be the exact registered name and form rather than a trading name.
+ * NOT LEGAL ADVICE. This is a standard-form disclaimer. The operator is named
+ * as an individual, deliberately: this is a personal project for now, and
+ * attributing it to a company that is not in fact the operator would point the
+ * disclaimer at the wrong party. Revisit `who-we-are` and `governing-law`
+ * together if it ever moves under a company.
  */
 
 export interface TermsSection {
@@ -31,6 +32,13 @@ export const TERMS_INTRO =
   'These Terms of Use govern your use of YappyKit. By using the tools on this site you agree to them. They are written to be read, not to be skipped: the sections on results and liability in particular describe real limits on what these tools can promise you.';
 
 export const TERMS_SECTIONS: TermsSection[] = [
+  {
+    id: 'who-we-are',
+    heading: 'Who "we" means',
+    paragraphs: [
+      'YappyKit is a personal project operated by Rajesh Pillai, an individual based in Mumbai, Maharashtra, India. In these Terms, "we", "us" and "our" refer to that person, and "you" refers to the person using the site.',
+    ],
+  },
   {
     id: 'the-service',
     heading: 'What YappyKit provides',
@@ -113,7 +121,7 @@ export const TERMS_SECTIONS: TermsSection[] = [
     id: 'governing-law',
     heading: 'Governing law',
     paragraphs: [
-      'These Terms are governed by the laws of India. Our principal place of business is Mumbai, Maharashtra, India, and the courts at Mumbai have jurisdiction over any dispute arising out of or relating to these Terms or your use of this site.',
+      'These Terms are governed by the laws of India. The operator is based in Mumbai, Maharashtra, India, and the courts at Mumbai have jurisdiction over any dispute arising out of or relating to these Terms or your use of this site.',
       'Where mandatory consumer-protection law in your country of residence grants you stronger rights, nothing in these Terms reduces them, and you may bring proceedings in your local courts where that law allows.',
     ],
   },
