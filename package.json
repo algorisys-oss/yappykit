@@ -7,7 +7,7 @@
   "description": "Privacy-first, browser-native file and data tools. Useful tools. No uploads.",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/prerender.mjs",
+    "build": "vite build && node scripts/compress-wasm.mjs && node scripts/prerender.mjs",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",

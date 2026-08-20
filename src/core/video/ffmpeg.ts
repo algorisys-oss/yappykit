@@ -7,13 +7,40 @@
  * when the user actually compresses — never on the landing page.
  *
  * Core + wasm are imported with `?url` so Vite serves them same-origin (required
- * anyway on the isolated production route — see public/_headers and
- * spike/coop-coep/FINDINGS.md).
+ * anyway on the isolated production route — see the generated `_headers` and
+ * spike/coop-coep/FINDINGS.md). The wasm is additionally gzipped at build time
+ * to fit the host's per-file size limit; see `coreWasmUrl` below.
  */
 import { FFmpeg } from '@ffmpeg/ffmpeg';
 import { fetchFile, toBlobURL } from '@ffmpeg/util';
 import coreURL from '@ffmpeg/core?url';
 import wasmURL from '@ffmpeg/core/wasm?url';
+
+/**
+ * Fetch the core's wasm and hand ffmpeg a blob URL for it.
+ *
+ * The binary is 30.7 MB and our host refuses any file over 25 MB, so the
+ * production build ships it gzipped (9.8 MB) and we expand it here.
+ *
+ * The compressed file is named `.wasmz` rather than `.wasm.gz` deliberately: a
+ * server that recognises the `.gz` name may serve it with `Content-Encoding:
+ * gzip`, `fetch` would then decode it transparently, and the stream below would
+ * try to decompress it a second time. An extension nothing special-cases makes
+ * that class of bug unreachable.
+ *
+ * The dev server has no build step, so it serves the raw file.
+ */
+async function coreWasmUrl(): Promise<string> {
+  if (!import.meta.env.PROD) return toBlobURL(wasmURL, 'application/wasm');
+  const res = await fetch(wasmURL.replace(/\.wasm$/, '.wasmz'));
+  if (!res.ok || !res.body) {
+    throw new Error(`Could not fetch the video engine (${res.status}).`);
+  }
+  const expanded = await new Response(
+    res.body.pipeThrough(new DecompressionStream('gzip')),
+  ).arrayBuffer();
+  return URL.createObjectURL(new Blob([expanded], { type: 'application/wasm' }));
+}
 
 let instance: FFmpeg | null = null;
 let loading: Promise<FFmpeg> | null = null;
@@ -33,7 +60,7 @@ async function load(): Promise<FFmpeg> {
       });
       await ff.load({
         coreURL: await toBlobURL(coreURL, 'text/javascript'),
-        wasmURL: await toBlobURL(wasmURL, 'application/wasm'),
+        wasmURL: await coreWasmUrl(),
       });
       instance = ff;
       return ff;

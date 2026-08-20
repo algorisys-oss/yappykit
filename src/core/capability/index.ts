@@ -21,7 +21,8 @@ export type Capability =
   | 'crossOriginIsolated'
   | 'opfs'
   | 'webgpu'
-  | 'wasm';
+  | 'wasm'
+  | 'decompressionStream';
 
 export type CapabilitySnapshot = Record<Capability, boolean>;
 
@@ -48,6 +49,9 @@ export function detectCapabilities(): CapabilitySnapshot {
       typeof navigator.storage?.getDirectory === 'function',
     webgpu: typeof navigator !== 'undefined' && 'gpu' in navigator,
     wasm: typeof WebAssembly !== 'undefined',
+    // The ffmpeg core ships gzipped to fit the host's per-file size limit, so
+    // expanding it is a hard requirement of the video tool, not a nicety.
+    decompressionStream: typeof DecompressionStream !== 'undefined',
   };
 }
 

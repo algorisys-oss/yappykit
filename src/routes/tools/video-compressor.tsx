@@ -19,7 +19,10 @@ import { transcodeVideo } from '@core/video/ffmpeg';
  * spike/coop-coep) is a later speed upgrade.
  */
 
-const SPEC: CapabilitySpec = { required: ['wasm'], preferred: ['webCodecs'] };
+const SPEC: CapabilitySpec = {
+  required: ['wasm', 'decompressionStream'],
+  preferred: ['webCodecs'],
+};
 
 // Values and byte budgets are fixed; the LABELS come from the active locale.
 const TARGETS = [

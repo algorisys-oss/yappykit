@@ -33,7 +33,7 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,svg,png}'],
         // The 32 MB ffmpeg core and any wasm are excluded from precache and
         // cached at runtime instead (below).
-        globIgnores: ['**/ffmpeg-core*', '**/*.wasm'],
+        globIgnores: ['**/ffmpeg-core*', '**/*.wasm', '**/*.wasmz'],
         maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
         // Explicitly OFF. vite-plugin-pwa defaults it to 'index.html', which
         // installs a NavigationRoute bound to the precached /index.html, so
@@ -56,7 +56,8 @@ export default defineConfig({
             },
           },
           {
-            urlPattern: ({ url }) => url.pathname.endsWith('.wasm'),
+            // .wasmz is the gzipped ffmpeg core; see src/core/video/ffmpeg.ts.
+            urlPattern: ({ url }) => /\.wasmz?$/.test(url.pathname),
             handler: 'CacheFirst',
             options: { cacheName: 'yappykit-wasm', expiration: { maxEntries: 8 } },
           },
