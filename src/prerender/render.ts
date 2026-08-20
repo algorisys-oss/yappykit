@@ -2,11 +2,22 @@
  * Writes the static HTML for every route × shipped locale, plus the sitemap and
  * the 404 page.
  *
- * Output uses the directory-index form (`/compress-image-to-size/index.html`)
- * because it is the one convention every static host serves identically —
- * Cloudflare Pages, GitHub Pages, S3 and nginx all resolve `/foo` to
- * `foo/index.html`. Canonical URLs are emitted WITHOUT a trailing slash, and the
- * host is left to serve them; one canonical form, no redirect chains.
+ * Output uses the FLAT form (`/compress-image-to-size.html`), not the
+ * directory-index form, and that choice is load-bearing for SEO.
+ *
+ * Canonical URLs, hreflang alternates and the sitemap are all emitted WITHOUT a
+ * trailing slash. Cloudflare Pages resolves `/foo` against `foo.html` first and
+ * serves it directly, but when only `foo/index.html` exists it answers `/foo`
+ * with a 308 to `/foo/`. Under the directory form every canonical URL we publish
+ * therefore redirects, so the sitemap advertises 170 URLs that are all one hop
+ * from the page, and each hreflang alternate points at a redirect — which Google
+ * explicitly advises against.
+ *
+ * The trade-off is that the flat form is less portable: plain S3 and stock nginx
+ * need a rewrite rule to map `/foo` to `foo.html`, whereas the directory form
+ * needs none. Cloudflare Pages is the host (docs/05), it prefers the flat form,
+ * and scripts/serve-dist.mjs reproduces that resolution order so the test suite
+ * sees what actually ships.
  */
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
@@ -52,10 +63,16 @@ export function composePage(
   return out;
 }
 
-/** Where a URL path is written on disk. */
+/**
+ * Where a URL path is written on disk.
+ *
+ * `/de/zufallswortgenerator` becomes `de/zufallswortgenerator.html`, which the
+ * host serves at the slash-free canonical URL. The locale root `/de` becomes
+ * `de.html` and sits happily beside the `de/` directory.
+ */
 export function fileForPath(p: string): string {
   const clean = p.replace(/^\/+|\/+$/g, '');
-  return clean ? path.join(clean, 'index.html') : 'index.html';
+  return clean ? `${clean}.html` : 'index.html';
 }
 
 /**
