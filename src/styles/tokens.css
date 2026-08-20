@@ -1,0 +1,28 @@
+/*
+ * Base page styles. The COLOUR palette is no longer defined here — it comes from
+ * @algorisys/zen-ui-core/tokens.css (imported in index.tsx), the single source
+ * of truth shared by the landing utilities and zen components. Light/dark is
+ * selected by `data-theme` on <html> (set before paint in index.html).
+ *
+ * uno.config.ts maps UnoCSS colour keys onto those --zen-color-* variables, so
+ * `text-fg`, `bg-surface`, `border-border`, `bg-accent` etc. resolve to the same
+ * tokens zen uses. That's the unification.
+ */
+body {
+  margin: 0;
+  background: var(--zen-color-background);
+  color: var(--zen-color-foreground);
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/*
+ * Reset the native button background. Without this the UA's default light
+ * button face shows through in dark mode (a light box with unreadable text —
+ * measured 1.08:1 on the theme toggle). Utility bg-* classes still override this
+ * (higher specificity), so accent buttons stay accent.
+ */
+button {
+  background-color: transparent;
+}
+

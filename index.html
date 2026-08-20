@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!--
+      Everything between the seo markers is REPLACED per route and per locale by
+      the prerender step (scripts/prerender.mjs → src/prerender). The values here
+      are the English home page's, and are what `npm run dev` serves.
+
+      Do not add per-page metadata outside these markers: it would be duplicated
+      onto every one of the generated pages.
+    -->
+    <!--seo:start-->
+    <title>YappyKit — Free Private Image, PDF, Video and Data Tools</title>
+    <meta
+      name="description"
+      content="Free image, PDF, video, audio and data tools that run directly in your browser. Your files are processed on your device and are not uploaded to our servers."
+    />
+    <link rel="canonical" href="https://yappykit.com/" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="application-name" content="YappyKit" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="YappyKit" />
+    <meta property="og:url" content="https://yappykit.com/" />
+    <meta property="og:title" content="YappyKit — Free Private File Tools That Run in Your Browser" />
+    <meta
+      property="og:description"
+      content="Compress images, remove photo metadata, compare spreadsheets and more. Your files are processed on your device and are never uploaded."
+    />
+    <meta property="og:image" content="https://yappykit.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="YappyKit — Free Private File Tools" />
+    <meta
+      name="twitter:description"
+      content="Everyday image, PDF, video and data tools that run in your browser. No uploads."
+    />
+    <meta name="twitter:image" content="https://yappykit.com/og-image.png" />
+    <!--seo:end-->
+
+    <link rel="icon" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/icon-192.png" />
+    <meta name="theme-color" content="#0ea5e9" />
+
+    <script>
+      // Set the zen-ui theme before first paint so --zen-color-* tokens resolve
+      // to the right light/dark values (no flash of wrong theme). Prefer the
+      // saved choice, else follow the OS.
+      (function () {
+        var saved = localStorage.getItem('yappykit-theme');
+        document.documentElement.dataset.theme =
+          saved === 'dark' || saved === 'default'
+            ? saved
+            : window.matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'default';
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"><!--app:body--></div>
+    <script type="module" src="/src/index.tsx"></script>
+  </body>
+</html>

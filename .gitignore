@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.vite/
+coverage/
+test-results/
+playwright-report/
+*.local
+.DS_Store
+.prerender/
+.publish/
+.playwright-mcp/
