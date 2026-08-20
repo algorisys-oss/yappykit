@@ -1,6 +1,7 @@
 {
   "name": "yappykit",
   "version": "0.0.0",
+  "license": "AGPL-3.0-only",
   "private": true,
   "type": "module",
   "description": "Privacy-first, browser-native file and data tools. Useful tools. No uploads.",

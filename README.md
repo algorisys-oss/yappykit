@@ -86,3 +86,8 @@ cross-origin isolation to the video route only, so that multithreaded ffmpeg.was
 ```bash
 npm run zen:build && npm run build
 ```
+
+## Licence
+
+[GNU AGPL-3.0-only](LICENSE). If you run a modified version of this as a network
+service, section 13 requires you to offer its source to users of that service.
