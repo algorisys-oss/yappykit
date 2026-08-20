@@ -8,8 +8,10 @@ import { useSeo } from '../lib/seo';
  * loads third-party ad/analytics scripts like any site. NO component-library JS
  * (keeps it light). Precise, never overclaiming.
  *
- * BEFORE LAUNCH: confirm the jurisdiction wording with a real review — see the
- * TODO marker. The contact address is live and monitored.
+ * The operator is in Mumbai, Maharashtra, India, so the DPDP Act 2023 is the
+ * law that governs us; other regimes are named as additional rights a visitor
+ * may hold, not as claims about who we are. The contact address is live and
+ * monitored. Still worth a lawyer's read before it carries real weight.
  */
 export default function Privacy() {
   useSeo('privacy');
@@ -122,12 +124,16 @@ export default function Privacy() {
         <section>
           <h2 class="text-lg font-semibold">Your rights</h2>
           <p class="mt-2">
-            Depending on where you live (for example under the EU/UK GDPR or India's DPDP Act), you may
-            have rights to access, correct, or delete personal data held about you, and to object to
-            certain processing. Because we do not hold your files or account data, most such requests
-            concern the advertising and analytics providers listed above; you can also exercise rights
-            directly with them.
-            {/* TODO(before launch): confirm the applicable jurisdictions and rights with a review. */}
+            We operate from Mumbai, Maharashtra, India, so India's Digital Personal Data Protection
+            Act, 2023 applies to us. If you are in another jurisdiction, its own law may give you
+            further rights, for example the EU or UK GDPR.
+          </p>
+          <p class="mt-2">
+            Those rights typically include access to personal data held about you, correction of it,
+            erasure of it, and objecting to certain processing. In practice there is very little for
+            us to act on: we hold no account and none of your files. Requests therefore concern the
+            advertising and analytics providers listed above, and you can exercise your rights
+            directly with them as well as through us.
           </p>
         </section>
 

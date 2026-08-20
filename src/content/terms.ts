@@ -11,9 +11,10 @@
  * identical words. A legal page in particular must be readable without
  * JavaScript, so it is prerendered in full.
  *
- * NOT LEGAL ADVICE. This is a standard-form disclaimer. Two things still need a
- * decision from the operator before launch: the legal entity behind "we", and
- * the governing jurisdiction (see the `governing-law` section).
+ * NOT LEGAL ADVICE. This is a standard-form disclaimer. The governing
+ * jurisdiction is settled: India, with the courts at Mumbai. One thing still
+ * needs a decision from the operator: the legal entity behind "we", which must
+ * be the exact registered name and form rather than a trading name.
  */
 
 export interface TermsSection {
@@ -112,7 +113,8 @@ export const TERMS_SECTIONS: TermsSection[] = [
     id: 'governing-law',
     heading: 'Governing law',
     paragraphs: [
-      'These Terms are governed by the law applicable at our principal place of business. Where mandatory consumer-protection law in your country of residence grants you stronger rights, nothing in these Terms reduces them, and you may bring proceedings in your local courts where that law allows.',
+      'These Terms are governed by the laws of India. Our principal place of business is Mumbai, Maharashtra, India, and the courts at Mumbai have jurisdiction over any dispute arising out of or relating to these Terms or your use of this site.',
+      'Where mandatory consumer-protection law in your country of residence grants you stronger rights, nothing in these Terms reduces them, and you may bring proceedings in your local courts where that law allows.',
     ],
   },
   {
