@@ -59,6 +59,29 @@
               : 'default';
       })();
     </script>
+    <!-- Google tag (gtag.js) -->
+    <script>
+      // Guarded to the live host on purpose. `npm run dev` and the end-to-end
+      // suite load these pages hundreds of times per run, and without this every
+      // one of those would arrive in the property as real traffic, on a brand
+      // new property where it would be most of the data. It also keeps the test
+      // suite off the network.
+      (function () {
+        if (location.hostname !== 'yappykit.com') return;
+        var tag = document.createElement('script');
+        tag.async = true;
+        tag.src = 'https://www.googletagmanager.com/gtag/js?id=G-1FZ1NE7L5Y';
+        document.head.appendChild(tag);
+
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        window.gtag = gtag;
+        gtag('js', new Date());
+        gtag('config', 'G-1FZ1NE7L5Y');
+      })();
+    </script>
   </head>
   <body>
     <div id="root"><!--app:body--></div>

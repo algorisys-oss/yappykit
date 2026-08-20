@@ -140,7 +140,7 @@ export const PRIVACY_SECTIONS: PrivacySection[] = [
       },
       {
         label: 'Analytics',
-        text: ': measures aggregate, anonymous usage so we can improve the tools.',
+        text: '(Google Analytics): measures aggregate usage, such as which tools are opened and from which country, so we can improve them. It sets cookies and receives your IP address. It never receives your files.',
       },
       {
         label: 'Content delivery network (CDN)',
