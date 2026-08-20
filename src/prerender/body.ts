@@ -19,6 +19,7 @@ import { getLocale, type Locale, type LocaleCode } from '../i18n/locales';
 import { TOOL_KEYS, pathFor, relatedTools, type RouteKey, type ToolKey } from '../i18n/routes';
 import { parts } from '../i18n/format';
 import { TERMS_INTRO, TERMS_SECTIONS, TERMS_UPDATED } from '../content/terms';
+import { ARTICLES } from '../content/articles';
 import {
   PRIVACY_LEAD,
   PRIVACY_SECTIONS,
@@ -185,6 +186,18 @@ function landing(locale: LocaleCode, m: Messages): string {
 }
 
 function toolPage(key: ToolKey, locale: LocaleCode, m: Messages): string {
+  // The technical article is English only (see content/articles), so the
+  // translated pages simply do not carry it rather than carrying it in the
+  // wrong language.
+  const piece = locale === 'en' ? ARTICLES[key] : undefined;
+  const article = piece
+    ? `<article>
+      <h2 class="text-xl font-bold">${esc(piece.heading)}</h2>
+      <div class="mt-3 space-y-3 text-sm leading-relaxed text-fg">${piece.paragraphs
+        .map((p) => `<p class="max-w-prose">${esc(p)}</p>`)
+        .join('')}</div>
+    </article>`
+    : '';
   const t = m.tools[key];
   const c = t.content;
   const related = relatedTools(key);
@@ -229,6 +242,8 @@ function toolPage(key: ToolKey, locale: LocaleCode, m: Messages): string {
         ${c.tips.map((t2) => `<li>${esc(t2)}</li>`).join('')}
       </ul>
     </div>
+
+    ${article}
 
     <div>
       <h2 class="text-xl font-bold">${esc(m.content.faqHeading)}</h2>

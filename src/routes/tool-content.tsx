@@ -1,6 +1,7 @@
-import { For } from 'solid-js';
+import { For, Show } from 'solid-js';
 import { A } from '@solidjs/router';
 import { useI18n } from '../i18n/runtime';
+import { ARTICLES } from '../content/articles';
 import { relatedTools, type ToolKey } from '../i18n/routes';
 
 /**
@@ -19,7 +20,9 @@ import { relatedTools, type ToolKey } from '../i18n/routes';
  * mount would duplicate every block on first paint.
  */
 export default function ToolContent(props: { route: ToolKey }) {
-  const { m, path } = useI18n();
+  const { m, path, locale } = useI18n();
+  // English only, and deliberately: see content/articles.
+  const article = () => (locale === 'en' ? ARTICLES[props.route] : undefined);
   const tool = () => m.tools[props.route];
   const c = () => tool().content;
 
@@ -54,6 +57,17 @@ export default function ToolContent(props: { route: ToolKey }) {
           <For each={c().tips}>{(t) => <li>{t}</li>}</For>
         </ul>
       </div>
+
+      <Show when={article()}>
+        {(a) => (
+          <article>
+            <h2 class="text-xl font-bold">{a().heading}</h2>
+            <div class="mt-3 space-y-3 text-sm leading-relaxed text-fg">
+              <For each={a().paragraphs}>{(p) => <p class="max-w-prose">{p}</p>}</For>
+            </div>
+          </article>
+        )}
+      </Show>
 
       <div>
         <h2 class="text-xl font-bold">{m.content.faqHeading}</h2>
