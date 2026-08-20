@@ -278,6 +278,10 @@ function about(locale: LocaleCode, m: Messages): string {
   <p class="mt-4 max-w-prose text-lg text-muted">${esc(a.intro)}</p>
   <div class="mt-10 space-y-10 text-sm leading-relaxed text-fg">
     <section>
+      <h2 class="text-xl font-bold">${esc(a.whoHeading)}</h2>
+      <p class="mt-3 max-w-prose text-sm leading-relaxed text-fg">${esc(a.whoBody)}</p>
+    </section>
+    <section>
       <h2 class="text-xl font-bold">${esc(a.whyHeading)}</h2>
       <p class="mt-3 max-w-prose">${esc(a.whyBody1)}</p>
       <p class="mt-3 max-w-prose">${esc(a.whyBody2)}</p>

@@ -108,6 +108,9 @@ export const en = {
     h1: 'About YappyKit',
     intro:
       'YappyKit is a growing set of everyday file tools (compress an image, remove a photo’s metadata, compare spreadsheets, fit a video under a limit, make a passport photo, scan a document) that run entirely in your browser.',
+    whoHeading: 'Who runs it',
+    whoBody:
+      'YappyKit is a personal project, built and run by Rajesh Pillai in Mumbai, Maharashtra, India. The same name appears in the Terms of Use and the Privacy Policy, and answers the contact address on those pages.',
     whyHeading: 'Why we built it',
     whyBody1:
       'The usual “free online tools” make you upload your file to a server, wrap the result in heavy advertising, and hand you confusing technical knobs (quality sliders, bitrate fields, DPI values) when all you wanted was a photo under 100 KB or a video that fits in an email. Uploading a passport scan, a bank statement or a private photo to a stranger’s server just to resize it never sat right.',

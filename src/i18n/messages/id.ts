@@ -106,6 +106,9 @@ const id: Messages = {
     h1: 'Tentang YappyKit',
     intro:
       'YappyKit adalah kumpulan alat file sehari-hari yang terus bertambah (mengompres gambar, menghapus metadata foto, membandingkan spreadsheet, menyesuaikan video agar muat di batas ukuran, membuat pas foto, memindai dokumen) yang berjalan sepenuhnya di browser Anda.',
+    whoHeading: 'Siapa yang menjalankannya',
+    whoBody:
+      'YappyKit adalah proyek pribadi, dibuat dan dijalankan oleh Rajesh Pillai di Mumbai, Maharashtra, India. Nama yang sama tercantum dalam Ketentuan Penggunaan dan Kebijakan Privasi, dan menjawab di alamat kontak pada halaman tersebut.',
     whyHeading: 'Mengapa kami membuatnya',
     whyBody1:
       '“Alat online gratis” yang biasa mengharuskan Anda mengunggah file ke server, membungkus hasilnya dengan iklan yang berat, dan menyodorkan tombol teknis yang membingungkan (penggeser kualitas, kolom bitrate, nilai DPI) padahal yang Anda inginkan hanyalah foto di bawah 100 KB atau video yang muat di email. Mengunggah pindaian paspor, rekening koran, atau foto pribadi ke server orang asing hanya untuk mengubah ukurannya tidak pernah terasa benar.',

@@ -106,6 +106,9 @@ const vi: Messages = {
     h1: 'Giới thiệu YappyKit',
     intro:
       'YappyKit là bộ công cụ tệp hằng ngày ngày một mở rộng (nén ảnh, xóa metadata của ảnh, so sánh bảng tính, thu video cho vừa một giới hạn dung lượng, làm ảnh thẻ, quét tài liệu) và tất cả đều chạy trọn vẹn trong trình duyệt của bạn.',
+    whoHeading: 'Ai vận hành',
+    whoBody:
+      'YappyKit là một dự án cá nhân, do Rajesh Pillai ở Mumbai, Maharashtra, Ấn Độ xây dựng và vận hành. Cùng tên đó có trong Điều khoản sử dụng và Chính sách quyền riêng tư, và trả lời tại địa chỉ liên hệ ghi ở những trang ấy.',
     whyHeading: 'Vì sao chúng tôi làm điều này',
     whyBody1:
       'Những “công cụ trực tuyến miễn phí” quen thuộc bắt bạn tải tệp lên máy chủ, bọc kết quả trong lớp quảng cáo nặng nề và đưa ra những núm điều chỉnh kỹ thuật khó hiểu (thanh trượt chất lượng, ô bitrate, giá trị DPI) trong khi tất cả những gì bạn cần chỉ là một tấm ảnh dưới 100 KB hay một video vừa đủ gửi qua email. Việc gửi bản quét hộ chiếu, sao kê ngân hàng hay một tấm ảnh riêng tư lên máy chủ của người lạ chỉ để đổi kích thước chưa bao giờ là điều đúng đắn.',

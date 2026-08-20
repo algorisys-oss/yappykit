@@ -106,6 +106,9 @@ const fr: Messages = {
     h1: 'À propos de YappyKit',
     intro:
       'YappyKit est un ensemble grandissant d’outils du quotidien pour vos fichiers (compresser une image, supprimer les métadonnées d’une photo, comparer des feuilles de calcul, faire tenir une vidéo sous une limite, réaliser une photo d’identité, numériser un document) qui fonctionnent entièrement dans votre navigateur.',
+    whoHeading: 'Qui s’en occupe',
+    whoBody:
+      'YappyKit est un projet personnel, conçu et maintenu par Rajesh Pillai à Bombay, Maharashtra, Inde. Le même nom figure dans les Conditions d’utilisation et la Politique de confidentialité, et répond à l’adresse de contact indiquée sur ces pages.',
     whyHeading: 'Pourquoi nous l’avons créé',
     whyBody1:
       'Les habituels « outils en ligne gratuits » vous obligent à envoyer votre fichier sur un serveur, enveloppent le résultat dans une publicité envahissante et vous imposent des réglages techniques déroutants (curseurs de qualité, champs de débit, valeurs de PPP) alors que vous vouliez simplement une photo sous les 100 Ko ou une vidéo qui tienne dans un e-mail. Envoyer le scan d’un passeport, un relevé bancaire ou une photo privée sur le serveur d’un inconnu juste pour la redimensionner ne nous a jamais paru normal.',

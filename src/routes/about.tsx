@@ -21,6 +21,14 @@ export default function About() {
       <p class="mt-4 max-w-prose text-lg text-muted">{a.intro}</p>
 
       <div class="mt-10 space-y-10 text-sm leading-relaxed text-fg">
+        {/* Kept in step with the `who-we-are` section in content/terms and
+            content/privacy: three pages naming three different operators is
+            worse than not saying at all. */}
+        <section>
+          <h2 class="text-xl font-bold">{a.whoHeading}</h2>
+          <p class="mt-3 max-w-prose text-sm leading-relaxed text-fg">{a.whoBody}</p>
+        </section>
+
         <section>
           <h2 class="text-xl font-bold">{a.whyHeading}</h2>
           <p class="mt-3 max-w-prose">{a.whyBody1}</p>

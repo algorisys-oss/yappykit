@@ -106,6 +106,9 @@ const tr: Messages = {
     h1: 'YappyKit hakkında',
     intro:
       'YappyKit, büyümekte olan bir günlük dosya araçları topluluğudur: bir görseli sıkıştırmak, bir fotoğrafın üst verisini silmek, elektronik tabloları karşılaştırmak, bir videoyu boyut sınırının altına indirmek, vesikalık fotoğraf hazırlamak, belge taramak, hepsi tamamen tarayıcınızda çalışır.',
+    whoHeading: 'Siteyi kim yürütüyor',
+    whoBody:
+      'YappyKit kişisel bir proje; Mumbai, Maharashtra, Hindistan’dan Rajesh Pillai tarafından yapıldı ve yürütülüyor. Aynı isim Kullanım Koşulları’nda ve Gizlilik Politikası’nda da yazılı ve oradaki iletişim adresinden yanıt veriyor.',
     whyHeading: 'Neden yaptık',
     whyBody1:
       'Alışılmış “ücretsiz çevrimiçi araçlar” dosyanızı bir sunucuya yüklemenizi ister, sonucu ağır reklamlarla sarar ve önünüze kafa karıştırıcı teknik ayarlar koyar (kalite kaydırıcıları, bit hızı alanları, DPI değerleri) oysa tek istediğiniz 100 KB’ın altında bir fotoğraf ya da e-postaya sığan bir videoydu. Bir pasaport taramasını, banka ekstresini ya da özel bir fotoğrafı yalnızca boyutunu değiştirmek için tanımadığınız birinin sunucusuna göndermek hiçbir zaman doğru gelmedi.',
