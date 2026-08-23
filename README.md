@@ -53,6 +53,12 @@ published to npm, so its Solid binding is built from `vendor/zen-ui` and consume
 a Vite alias. Without it, neither the dev server nor the build can resolve
 `@algorisys/zen-ui-solid`.
 
+It installs only the `@algorisys/zen-ui-solid` workspace and builds only that package's
+client library — the two files the alias needs, `dist/index.js` and `dist/style.css`. The
+SSR bundle and the generated `.d.ts` chain are skipped on purpose: types come from
+`src/types/zen-ui-solid.d.ts` here, and skipping the rest keeps a cold build under a
+minute.
+
 ## Scripts
 
 | Command | What |

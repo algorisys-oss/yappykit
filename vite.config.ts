@@ -76,10 +76,13 @@ export default defineConfig({
       '@core': fileURLToPath(new URL('./src/core', import.meta.url)),
       '@routes': fileURLToPath(new URL('./src/routes', import.meta.url)),
       // zen-ui is vendored as a git submodule (not published to npm). We consume
-      // the Solid binding's built library output directly; its transitive
-      // externals (Kobalte, TanStack, zen-ui-core source) resolve from the
-      // submodule's own node_modules. Rebuild after updating the submodule:
-      //   (cd vendor/zen-ui && bun run build:lib:solid)
+      // the Solid binding's built library output directly. That bundle inlines
+      // its own dependencies (zen-ui-core, Kobalte, TanStack) and externalises
+      // only solid-js, so nothing resolves out of the submodule's node_modules
+      // at build time. Rebuild after updating the submodule with
+      //   npm run zen:build
+      // which builds ONLY that client lib — not the SSR bundle or the .d.ts
+      // chain. See README, "Keeping the Pages build inside the time limit".
       // Shared design tokens (the --zen-color-* values). Small; loads on every
       // page including the landing route so its utilities have real colours.
       '@algorisys/zen-ui-core/tokens.css': fileURLToPath(

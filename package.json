@@ -15,7 +15,7 @@
     "test:e2e": "playwright test",
     "budget": "node scripts/check-budget.mjs",
     "publish:oss": "node scripts/publish-oss.mjs",
-    "zen:build": "cd vendor/zen-ui && bun install && bun run build:lib:solid",
+    "zen:build": "cd vendor/zen-ui && bun install --frozen-lockfile --filter '@algorisys/zen-ui-solid' && cd packages/solid && bunx vite build --config vite.config.lib.ts",
     "postinstall": "test -f vendor/zen-ui/packages/solid/dist/index.js || echo '[yappykit] zen-ui not built — run: npm run zen:build (needs bun)'",
     "prerender": "node scripts/prerender.mjs",
     "serve": "node scripts/serve-dist.mjs"
