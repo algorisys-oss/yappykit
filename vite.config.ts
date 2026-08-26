@@ -3,7 +3,56 @@ import { defineConfig } from 'vite';
 import solid from 'vite-plugin-solid';
 import unocss from 'unocss/vite';
 import { VitePWA } from 'vite-plugin-pwa';
+import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
+
+const require = createRequire(import.meta.url);
+
+/** Is this bare specifier actually installed for us to bundle? */
+function installed(id: string): boolean {
+  try {
+    require.resolve(id);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+const ZEN_DIST = '/vendor/zen-ui/packages/solid/dist/';
+
+/**
+ * Leave zen-ui's uninstalled optional peers out of the bundle.
+ *
+ * A few zen-ui components reach for a heavy third-party library through a
+ * dynamic import and render a "<x> is not installed" notice when it is absent:
+ * leaflet for <Map>, jodit for the rich-text editor. They are optional by
+ * design and undeclared as peers, and we render none of those components.
+ *
+ * Rollup still resolves a dynamic import while it builds the module graph,
+ * long before the unused component is tree-shaken away, and an unresolved bare
+ * specifier is a hard error. So the ones we have not installed are declared
+ * external. Nothing survives into the output: the components are unreachable
+ * from our routes, so their chunks are dropped along with the imports.
+ *
+ * Written as a rule rather than a list of names on purpose. These resolve
+ * locally out of vendor/zen-ui/node_modules, which a full `bun install` fills
+ * in, and they do NOT exist on the Cloudflare build image, where zen:build
+ * installs only the Solid workspace. That divergence is invisible here and
+ * fails the deploy there, and it has now cost two releases: leaflet, then jodit
+ * one build later. A name we have to add by hand is a name we add after the
+ * build has already failed.
+ *
+ * `installed()` is what keeps this honest. Install one of these deliberately
+ * (to actually use <Map>, say) and it stops being external and gets bundled,
+ * with no config change.
+ */
+function externalizeUninstalledZenPeers(id: string, importer: string | undefined): boolean {
+  if (!importer?.includes(ZEN_DIST)) return false;
+  if (id.startsWith('.') || id.startsWith('/')) return false;
+  // solid-js is a real peer that we do install, and it must stay deduped.
+  if (id === 'solid-js' || id.startsWith('solid-js/')) return false;
+  return !installed(id);
+}
 
 export default defineConfig({
   plugins: [
@@ -112,20 +161,8 @@ export default defineConfig({
   build: {
     target: 'es2022',
     rollupOptions: {
-      // zen-ui's <Map> reaches leaflet through a dynamic import and renders a
-      // "leaflet is not installed" notice when it is absent, so leaflet is a
-      // peer dependency of that one component. We never render <Map>, so we do
-      // not install it — but Rollup resolves a dynamic import while building
-      // the graph, long before the unused component is tree-shaken away, and
-      // an unresolved bare specifier is a hard error.
-      //
-      // Declaring it external satisfies the graph and changes nothing in the
-      // output: <Map> is unreachable from our routes, so the chunk is dropped
-      // and no import of leaflet survives the build. Do NOT remove this
-      // without checking the Pages build: `zen:build` installs only the Solid
-      // workspace, so leaflet exists in vendor/zen-ui/node_modules locally and
-      // does not exist on the build image. That difference cost one release.
-      external: ['leaflet'],
+      // See externalizeUninstalledZenPeers above.
+      external: externalizeUninstalledZenPeers,
     },
     // No manualChunks on purpose. Each tool route is a dynamic import, so Vite
     // splits it (and its heavy deps — zen-ui/DataTable, xlsx) into its own
