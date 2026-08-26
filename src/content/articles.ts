@@ -62,6 +62,17 @@ export const ARTICLES: Partial<Record<ToolKey, ToolArticle>> = {
     ],
   },
 
+  'pdf-merge': {
+    heading: 'Why merging is the one PDF operation that loses nothing',
+    paragraphs: [
+      'A PDF is not a stream of pages, it is a graph of numbered objects. A page object holds a reference to a content stream, which is the list of drawing instructions, and to a resources dictionary naming the fonts and images that stream uses. Annotations, including links, hang off the page as their own objects. A separate page tree lists the pages in reading order. Nothing about where a page sits in the file is baked into the page itself, which is exactly why pages can be moved between documents at all.',
+      'Merging, then, is copying. Each page object is copied into a new document along with everything it references, every internal reference is renumbered so two files that both used object 7 do not collide, and the copies are appended to the new page tree in the order you set. That is all this tool does. No image is decoded, no JPEG is re-encoded, no page is rasterised. The compressed bytes of a scan arrive in the merged file exactly as they left the original, which is why the text is still text afterwards and why a 300 DPI scan is still a 300 DPI scan. Compare that with compressing to a byte target, which has no choice but to re-render each page as a picture.',
+      'Page geometry travels with the page too. Every page carries its own MediaBox measured in points, one point being 1/72 inch, so a merged document can legitimately hold an A4 scan, a US Letter payslip and a photographed receipt at their true sizes. Nothing is normalised to a single paper size. Readers display each page at its own dimensions; a printer will usually offer to scale them to whatever is in the tray, and that is a printing decision rather than something the file needs fixed in advance.',
+      'What does not survive is everything that lives above the pages, in the document catalog. Bookmarks are an outline tree hanging off the catalog, not off any page, so they do not come along. Fill-in form fields are worse, because they half survive: the field definitions live in the document’s AcroForm, while the boxes you see are widget annotations attached to the page. Copy the pages and you get the widgets, showing whatever text was filled in, with no fields behind them. The merged copy therefore looks complete and is no longer fillable. That asymmetry is unusual enough to be worth a warning before the merge rather than a discovery afterwards, so the tool checks each file for form fields and says so up front.',
+      'The output is a document created from scratch, which has a pleasant side effect. Its info dictionary starts empty, so no author, title, producing application or creation date comes across from any of the originals. Metadata sitting inside an embedded image is part of that image’s bytes and is untouched, so it is worth stripping separately when it matters. All of this runs on the main thread of your own browser tab. pdf-lib is plain JavaScript with no WebAssembly to fetch, so the only real constraint is memory: every file stays in the tab while its pages are copied, which is what limits a merge of hundreds of large scans on a modest phone.',
+    ],
+  },
+
   'metadata-remove': {
     heading: 'What a photograph carries besides the photograph',
     paragraphs: [

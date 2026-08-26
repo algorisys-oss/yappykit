@@ -340,6 +340,39 @@ export function RandomWordPreview() {
   );
 }
 
+export function PdfMergePreview() {
+  return (
+    <Frame>
+      {/* Two separate documents on the left, overlapping so they read as a pile */}
+      <rect x="16" y="30" width="40" height="52" rx="4" fill={C.paper} stroke={C.border} stroke-width="2" />
+      <rect x="34" y="20" width="40" height="52" rx="4" fill={C.paper} stroke={C.border} stroke-width="2" />
+      <g stroke={C.muted} stroke-width="2.5" stroke-linecap="round" opacity="0.55">
+        <path d="M42 34 h24" />
+        <path d="M42 44 h24" />
+        <path d="M42 54 h14" />
+      </g>
+      {/* Becoming one */}
+      <g stroke={C.accent} stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <path d="M84 51 h26" />
+        <path d="M103 44 l7 7 l-7 7" />
+      </g>
+      {/* The single document that comes out, with the page-fold corner */}
+      <path
+        d="M124 14 h32 l16 16 v56 a4 4 0 0 1 -4 4 h-44 a4 4 0 0 1 -4 -4 V18 a4 4 0 0 1 4 -4 z"
+        fill={C.accentSoft}
+        stroke={C.accent}
+        stroke-width="2"
+      />
+      <path d="M156 14 v16 h16" fill="none" stroke={C.accent} stroke-width="2" />
+      <g stroke={C.accent} stroke-width="2.5" stroke-linecap="round" opacity="0.7">
+        <path d="M132 46 h28" />
+        <path d="M132 56 h28" />
+        <path d="M132 66 h18" />
+      </g>
+    </Frame>
+  );
+}
+
 /**
  * Keyed by route KEY, not by URL: the URL differs per locale, the key does not.
  * Tools without an illustration simply have no entry — callers guard with
@@ -358,4 +391,5 @@ export const TOOL_PREVIEWS: Partial<Record<ToolKey, () => JSX.Element>> = {
   'pdf-compress': PdfPreview,
   'camera-mic-test': CameraMicPreview,
   'random-word': RandomWordPreview,
+  'pdf-merge': PdfMergePreview,
 };

@@ -27,6 +27,7 @@ export const TOOL_KEYS = [
   'pdf-compress',
   'camera-mic-test',
   'random-word',
+  'pdf-merge',
 ] as const;
 
 export type ToolKey = (typeof TOOL_KEYS)[number];
@@ -230,6 +231,21 @@ export const ROUTES: Record<RouteKey, RouteDef> = {
       tr: 'rastgele-kelime-uretici',
       vi: 'tao-tu-ngau-nhien',
       it: 'generatore-di-parole-casuali',
+    },
+  },
+  'pdf-merge': {
+    localized: true,
+    slugs: {
+      en: 'merge-pdf',
+      es: 'unir-pdf',
+      'pt-BR': 'juntar-pdf',
+      id: 'gabungkan-pdf',
+      fr: 'fusionner-pdf',
+      de: 'pdf-zusammenfuegen',
+      ru: 'obedinit-pdf',
+      tr: 'pdf-birlestir',
+      vi: 'gop-pdf',
+      it: 'unire-pdf',
     },
   },
   about: {
