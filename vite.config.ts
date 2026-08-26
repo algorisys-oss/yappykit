@@ -111,6 +111,22 @@ export default defineConfig({
   },
   build: {
     target: 'es2022',
+    rollupOptions: {
+      // zen-ui's <Map> reaches leaflet through a dynamic import and renders a
+      // "leaflet is not installed" notice when it is absent, so leaflet is a
+      // peer dependency of that one component. We never render <Map>, so we do
+      // not install it — but Rollup resolves a dynamic import while building
+      // the graph, long before the unused component is tree-shaken away, and
+      // an unresolved bare specifier is a hard error.
+      //
+      // Declaring it external satisfies the graph and changes nothing in the
+      // output: <Map> is unreachable from our routes, so the chunk is dropped
+      // and no import of leaflet survives the build. Do NOT remove this
+      // without checking the Pages build: `zen:build` installs only the Solid
+      // workspace, so leaflet exists in vendor/zen-ui/node_modules locally and
+      // does not exist on the build image. That difference cost one release.
+      external: ['leaflet'],
+    },
     // No manualChunks on purpose. Each tool route is a dynamic import, so Vite
     // splits it (and its heavy deps — zen-ui/DataTable, xlsx) into its own
     // chunk and shares common code only across the async routes that use it.
