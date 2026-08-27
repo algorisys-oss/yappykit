@@ -39,6 +39,7 @@ describe('pathFor', () => {
     expect(pathFor('camera-mic-test', 'en')).toBe('/webcam-microphone-test');
     expect(pathFor('random-word', 'en')).toBe('/random-word-generator');
     expect(pathFor('pdf-merge', 'en')).toBe('/merge-pdf');
+    expect(pathFor('screenshot-stitch', 'en')).toBe('/stitch-screenshots');
     expect(pathFor('about', 'en')).toBe('/about');
   });
 
@@ -120,6 +121,6 @@ describe('allPaths', () => {
   });
 
   it('covers every tool', () => {
-    expect(TOOL_KEYS).toHaveLength(13);
+    expect(TOOL_KEYS).toHaveLength(14);
   });
 });

@@ -28,6 +28,7 @@ export const TOOL_KEYS = [
   'camera-mic-test',
   'random-word',
   'pdf-merge',
+  'screenshot-stitch',
 ] as const;
 
 export type ToolKey = (typeof TOOL_KEYS)[number];
@@ -246,6 +247,21 @@ export const ROUTES: Record<RouteKey, RouteDef> = {
       tr: 'pdf-birlestir',
       vi: 'gop-pdf',
       it: 'unire-pdf',
+    },
+  },
+  'screenshot-stitch': {
+    localized: true,
+    slugs: {
+      en: 'stitch-screenshots',
+      es: 'unir-capturas-de-pantalla',
+      'pt-BR': 'juntar-capturas-de-tela',
+      id: 'gabungkan-tangkapan-layar',
+      fr: 'assembler-des-captures-decran',
+      de: 'screenshots-zusammenfuegen',
+      ru: 'obedinit-skrinshoty',
+      tr: 'ekran-goruntusu-birlestirme',
+      vi: 'ghep-anh-chup-man-hinh',
+      it: 'unire-screenshot',
     },
   },
   about: {

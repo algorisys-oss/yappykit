@@ -373,6 +373,52 @@ export function PdfMergePreview() {
   );
 }
 
+export function ScreenshotStitchPreview() {
+  /** A screenshot: a bar of interface at the top, then lines of content. */
+  const shot = (x: number, y: number) => (
+    <>
+      <rect x={x} y={y} width="34" height="34" rx="4" fill={C.paper} stroke={C.border} stroke-width="2" />
+      <rect x={x} y={y} width="34" height="6" rx="4" fill={C.accent} opacity="0.5" />
+      <g stroke={C.muted} stroke-width="2" stroke-linecap="round" opacity="0.55">
+        <path d={`M${x + 6} ${y + 15} h22`} />
+        <path d={`M${x + 6} ${y + 22} h22`} />
+        <path d={`M${x + 6} ${y + 29} h12`} />
+      </g>
+    </>
+  );
+
+  return (
+    <Frame>
+      {/* Three overlapping captures, stepped to read as a scroll down the page */}
+      {shot(10, 8)}
+      {shot(22, 30)}
+      {shot(34, 52)}
+
+      <g stroke={C.accent} stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <path d="M84 51 h26" />
+        <path d="M103 44 l7 7 l-7 7" />
+      </g>
+
+      {/* One tall capture: the interface bar survives once, at the top */}
+      <rect x="128" y="6" width="44" height="92" rx="5" fill={C.accentSoft} stroke={C.accent} stroke-width="2" />
+      <rect x="128" y="6" width="44" height="7" rx="5" fill={C.accent} />
+      <g stroke={C.accent} stroke-width="2" stroke-linecap="round" opacity="0.7">
+        <path d="M136 22 h28" />
+        <path d="M136 30 h28" />
+        <path d="M136 45 h28" />
+        <path d="M136 53 h28" />
+        <path d="M136 68 h28" />
+        <path d="M136 76 h18" />
+      </g>
+      {/* Where the joins landed, drawn faintly because they are meant to vanish */}
+      <g stroke={C.accent} stroke-width="1" stroke-dasharray="3 3" opacity="0.5">
+        <path d="M130 37 h40" />
+        <path d="M130 60 h40" />
+      </g>
+    </Frame>
+  );
+}
+
 /**
  * Keyed by route KEY, not by URL: the URL differs per locale, the key does not.
  * Tools without an illustration simply have no entry — callers guard with
@@ -392,4 +438,5 @@ export const TOOL_PREVIEWS: Partial<Record<ToolKey, () => JSX.Element>> = {
   'camera-mic-test': CameraMicPreview,
   'random-word': RandomWordPreview,
   'pdf-merge': PdfMergePreview,
+  'screenshot-stitch': ScreenshotStitchPreview,
 };

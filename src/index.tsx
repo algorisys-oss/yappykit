@@ -34,6 +34,7 @@ const COMPONENTS: Record<RouteKey, Component> = {
   'camera-mic-test': lazy(() => import('./routes/tools/camera-mic-test')),
   'random-word': lazy(() => import('./routes/tools/random-word')),
   'pdf-merge': lazy(() => import('./routes/tools/pdf-merger')),
+  'screenshot-stitch': lazy(() => import('./routes/tools/screenshot-stitcher')),
   about: lazy(() => import('./routes/about')),
   privacy: lazy(() => import('./routes/privacy')),
   terms: lazy(() => import('./routes/terms')),

@@ -1,5 +1,9 @@
 import { PDFDocument } from 'pdf-lib';
 
+// Re-exported so the merge UI keeps importing its list helpers from one place;
+// the screenshot stitcher shows the same kind of reorderable list.
+export { move } from '../list';
+
 /**
  * Joining several PDFs into one.
  *
@@ -82,15 +86,6 @@ export async function mergePdfs(sources: readonly PdfSource[]): Promise<Uint8Arr
     for (const page of pages) out.addPage(page);
   }
   return out.save();
-}
-
-/** A copy of `list` with the item at `from` moved to `to`. Out-of-range is a no-op. */
-export function move<T>(list: readonly T[], from: number, to: number): T[] {
-  const out = list.slice();
-  if (from < 0 || from >= out.length || to < 0 || to >= out.length) return out;
-  const [item] = out.splice(from, 1);
-  out.splice(to, 0, item!);
-  return out;
 }
 
 /** What to call the download: recognisably derived from the first file. */
