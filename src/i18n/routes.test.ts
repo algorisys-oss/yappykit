@@ -1,6 +1,14 @@
 import { describe, it, expect } from 'vitest';
 import { LOCALES, splitLocale, DEFAULT_LOCALE } from './locales';
-import { ROUTES, TOOL_KEYS, pathFor, resolveRoute, alternatesFor, allPaths } from './routes';
+import {
+  ROUTES,
+  TOOL_KEYS,
+  pathFor,
+  resolveRoute,
+  alternatesFor,
+  allPaths,
+  relatedTools,
+} from './routes';
 
 describe('splitLocale', () => {
   it('treats an unprefixed path as the default locale', () => {
@@ -122,5 +130,46 @@ describe('allPaths', () => {
 
   it('covers every tool', () => {
     expect(TOOL_KEYS).toHaveLength(14);
+  });
+});
+
+describe('relatedTools', () => {
+  it('links a tool to its topical neighbours, not to its table neighbours', () => {
+    // The regression this replaced: the cyclic walk sent /merge-pdf to
+    // screenshot-stitch, image-compress and metadata-remove, and never to the
+    // other PDF tools.
+    expect(relatedTools('pdf-merge')).toContain('pdf-compress');
+    expect(relatedTools('pdf-compress')).toContain('pdf-merge');
+    expect(relatedTools('mouse-test')).toContain('keyboard-test');
+    expect(relatedTools('image-compress')).toContain('metadata-remove');
+  });
+
+  it('returns exactly `count` distinct tools, never the page itself', () => {
+    for (const key of TOOL_KEYS) {
+      const related = relatedTools(key);
+      expect(related, `${key}`).toHaveLength(3);
+      expect(new Set(related).size, `${key} has a duplicate`).toBe(3);
+      expect(related, `${key} links to itself`).not.toContain(key);
+    }
+  });
+
+  it('leaves no tool orphaned — every tool is linked to from another tool', () => {
+    const inbound = new Set(TOOL_KEYS.flatMap((k) => relatedTools(k)));
+    for (const key of TOOL_KEYS) {
+      expect(inbound.has(key), `${key} has no inbound related link`).toBe(true);
+    }
+  });
+
+  it('pads from the catalogue when the topical list is shorter than `count`', () => {
+    const related = relatedTools('pdf-merge', 6);
+    expect(related).toHaveLength(6);
+    expect(new Set(related).size).toBe(6);
+    expect(related).not.toContain('pdf-merge');
+    // The topical neighbours still come first.
+    expect(related.slice(0, 3)).toContain('pdf-compress');
+  });
+
+  it('returns nothing for a key that is not a tool', () => {
+    expect(relatedTools('home' as never)).toEqual([]);
   });
 });

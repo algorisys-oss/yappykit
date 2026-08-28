@@ -379,17 +379,49 @@ export function allPaths(
 /**
  * The three tools cross-linked from a tool page.
  *
- * Taken cyclically from the catalogue rather than hand-listed per tool: that
- * guarantees every tool both links out and is linked to, so the internal link
- * graph stays strongly connected and no page becomes an orphan as tools are
- * added. docs/06 asks for 3–5 related links on every tool page.
+ * Hand-written by topic, because the link and its anchor text are a relevance
+ * signal and the previous version threw that away: it walked TOOL_KEYS
+ * cyclically, so /merge-pdf pointed at the screenshot stitcher and the metadata
+ * remover and never once at /compress-pdf-to-size. Connected, but telling a
+ * crawler nothing about what either page is about.
+ *
+ * What the cyclic walk did buy was the guarantee that no tool is ever orphaned,
+ * and that survives here two ways: the same walk still pads a list shorter than
+ * `count`, so a tool added to TOOL_KEYS and forgotten here still links out; and
+ * routes.test.ts asserts that every tool is linked TO from at least one other,
+ * which is the half a fallback cannot cover. Add a tool, and that test tells you
+ * to wire it into a cluster rather than leaving it stranded.
+ *
+ * docs/06 asks for 3-5 related links on every tool page.
  */
+const RELATED: Record<ToolKey, readonly ToolKey[]> = {
+  'image-compress': ['metadata-remove', 'passport-photo', 'screenshot-stitch'],
+  'metadata-remove': ['image-compress', 'passport-photo', 'document-scan'],
+  'spreadsheet-compare': ['document-scan', 'pdf-merge', 'pdf-compress'],
+  'video-compress': ['image-compress', 'camera-mic-test', 'pdf-compress'],
+  'passport-photo': ['image-compress', 'metadata-remove', 'document-scan'],
+  'document-scan': ['pdf-merge', 'pdf-compress', 'spreadsheet-compare'],
+  'mouse-test': ['keyboard-test', 'camera-mic-test', 'ruler'],
+  'keyboard-test': ['mouse-test', 'camera-mic-test', 'random-word'],
+  ruler: ['mouse-test', 'keyboard-test', 'camera-mic-test'],
+  'pdf-compress': ['pdf-merge', 'document-scan', 'image-compress'],
+  'camera-mic-test': ['mouse-test', 'keyboard-test', 'video-compress'],
+  'random-word': ['keyboard-test', 'mouse-test', 'ruler'],
+  'pdf-merge': ['pdf-compress', 'document-scan', 'screenshot-stitch'],
+  'screenshot-stitch': ['image-compress', 'pdf-merge', 'metadata-remove'],
+};
+
 export function relatedTools(key: ToolKey, count = 3): ToolKey[] {
   const i = TOOL_KEYS.indexOf(key);
   if (i < 0) return [];
-  const out: ToolKey[] = [];
+
+  const out: ToolKey[] = (RELATED[key] ?? []).slice(0, count);
+
+  // Pad from the catalogue, skipping anything already listed. Only reached when
+  // a tool has no entry above or when a caller asks for more than it has.
   for (let n = 1; out.length < count && n < TOOL_KEYS.length; n++) {
-    out.push(TOOL_KEYS[(i + n) % TOOL_KEYS.length]!);
+    const candidate = TOOL_KEYS[(i + n) % TOOL_KEYS.length]!;
+    if (!out.includes(candidate)) out.push(candidate);
   }
   return out;
 }
