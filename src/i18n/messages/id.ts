@@ -1127,7 +1127,7 @@ const id: Messages = {
       title: 'Temukan font yang bisa menampilkan teks Anda',
       blurb: 'Lihat font mana milik Anda yang punya semua karakter dalam teks Anda. Tidak ada yang diunggah.',
       tags: ['font','pencari font','cari font','cek font','font mana','cakupan glif','dukungan karakter','glif hilang','kotak kosong','simbol rupiah','font devanagari','font arab','font emoji','unicode','ttf','otf','woff','font terpasang','berkas font','huruf'],
-      seoTitle: 'Pencari Font: font mana yang punya semua karakter | YappyKit',
+      seoTitle: 'Cek karakter font: font mana yang menampilkan teks Anda | YappyKit',
       seoDescription:
         'Tempel teks Anda dan lihat font terpasang atau berkas font mana yang bisa menampilkan setiap karakternya. Tabel glif setiap font dibaca di perangkat Anda dan tidak ada yang diunggah.',
       heroTitle: 'Temukan font yang bisa menampilkan teks Anda',

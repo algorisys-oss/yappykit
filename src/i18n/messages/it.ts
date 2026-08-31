@@ -1127,7 +1127,7 @@ const it: Messages = {
       title: 'Trova un font capace di mostrare il tuo testo',
       blurb: 'Scopri quali dei tuoi font hanno tutti i caratteri del tuo testo. Non viene caricato nulla.',
       tags: ['font','carattere tipografico','trova font','cerca font','verifica font','quale font','copertura dei glifi','supporto caratteri','glifo mancante','quadrati vuoti','simbolo euro','font devanagari','font arabo','font emoji','unicode','ttf','otf','woff','font installati','file di font'],
-      seoTitle: 'Trova font: quale dei tuoi ha davvero tutti i caratteri | YappyKit',
+      seoTitle: 'Verificare i caratteri del font: quale mostra il tuo testo | YappyKit',
       seoDescription:
         'Incolla il tuo testo e scopri quali font installati o file di font riescono a mostrarne ogni carattere. La tabella dei glifi di ogni font viene letta sul tuo dispositivo e non viene caricato nulla.',
       heroTitle: 'Trova un font capace di mostrare il tuo testo',

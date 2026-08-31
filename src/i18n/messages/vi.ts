@@ -1127,7 +1127,7 @@ const vi: Messages = {
       title: 'Tìm phông chữ hiển thị được văn bản của bạn',
       blurb: 'Xem phông nào của bạn có đủ mọi ký tự trong văn bản. Không có gì được tải lên.',
       tags: ['phong chu','font','tim phong chu','tim font','kiem tra font','font nao','pham vi glyph','ho tro ky tu','thieu glyph','o vuong trong','ky hieu dong','font devanagari','font arap','font emoji','unicode','ttf','otf','woff','phong da cai','tep font','kieu chu'],
-      seoTitle: 'Tìm phông chữ: phông nào có đủ mọi ký tự của bạn | YappyKit',
+      seoTitle: 'Kiểm tra ký tự phông chữ: phông nào hiển thị được văn bản | YappyKit',
       seoDescription:
         'Dán văn bản của bạn và xem phông đã cài hoặc tệp phông nào hiển thị được từng ký tự trong đó. Bảng glyph của mỗi phông được đọc ngay trên thiết bị của bạn và không có gì được tải lên.',
       heroTitle: 'Tìm phông chữ hiển thị được văn bản của bạn',

@@ -1129,7 +1129,7 @@ export const en = {
       title: 'Find a font that can render your text',
       blurb: 'See which of your fonts have every character in your text. Nothing is uploaded.',
       tags: ['font','font finder','find a font','font checker','which font','glyph coverage','character support','missing glyph','tofu boxes','does this font support','rupee symbol','devanagari font','arabic font','emoji font','unicode font','ttf','otf','woff','installed fonts','font file'],
-      seoTitle: 'Font Finder: Which Of Your Fonts Has Every Character | YappyKit',
+      seoTitle: 'Font Character Checker: Which Fonts Can Render Your Text | YappyKit',
       seoDescription:
         'Paste your text and see which of your installed fonts or font files can render every character in it. Each font’s own glyph table is read on your device, and nothing is uploaded.',
       heroTitle: 'Find a font that can render your text',

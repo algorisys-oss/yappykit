@@ -1127,7 +1127,7 @@ const ptBR: Messages = {
       title: 'Encontre uma fonte que consiga exibir o seu texto',
       blurb: 'Veja quais das suas fontes têm todos os caracteres do seu texto. Nada é enviado.',
       tags: ['fonte','tipografia','localizador de fontes','encontrar fonte','verificar fonte','qual fonte','cobertura de glifos','suporte a caracteres','glifo faltando','quadrados vazios','simbolo do real','fonte devanagari','fonte arabe','fonte emoji','unicode','ttf','otf','woff','fontes instaladas','arquivo de fonte'],
-      seoTitle: 'Localizador de fontes: qual das suas tem todos os caracteres | YappyKit',
+      seoTitle: 'Verificar caracteres da fonte: quais exibem o seu texto | YappyKit',
       seoDescription:
         'Cole o seu texto e veja quais fontes instaladas ou arquivos de fonte conseguem exibir todos os caracteres dele. A tabela de glifos de cada fonte é lida no seu dispositivo e nada é enviado.',
       heroTitle: 'Encontre uma fonte que consiga exibir o seu texto',

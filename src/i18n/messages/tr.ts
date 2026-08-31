@@ -1127,7 +1127,7 @@ const tr: Messages = {
       title: 'Metninizi gösterebilecek bir font bulun',
       blurb: 'Fontlarınızdan hangilerinde metninizin bütün karakterleri var, görün. Hiçbir şey yüklenmez.',
       tags: ['font','yazi tipi','font bulucu','font bul','font kontrol','hangi font','glif kapsami','karakter destegi','eksik glif','bos kareler','lira isareti','devanagari fontu','arapca font','emoji fontu','unicode','ttf','otf','woff','yuklu fontlar','font dosyasi','tipografi'],
-      seoTitle: 'Font bulucu: hangi fontunuzda bütün karakterler var | YappyKit',
+      seoTitle: 'Font karakter denetleyici: hangi font metninizi gösterir | YappyKit',
       seoDescription:
         'Metninizi yapıştırın, yüklü fontlarınızdan veya font dosyalarından hangilerinin her karakteri gösterebildiğini görün. Her fontun glif tablosu cihazınızda okunur ve hiçbir şey yüklenmez.',
       heroTitle: 'Metninizi gösterebilecek bir font bulun',

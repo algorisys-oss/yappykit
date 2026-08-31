@@ -1127,7 +1127,7 @@ const de: Messages = {
       title: 'Finden Sie eine Schrift, die Ihren Text darstellen kann',
       blurb: 'Sehen Sie, welche Ihrer Schriften alle Zeichen Ihres Textes haben. Nichts wird hochgeladen.',
       tags: ['schriftart','schrift finden','schriftart pruefen','welche schriftart','font finder','zeichenabdeckung','glyphenabdeckung','fehlende glyphe','leere kaestchen','eurozeichen','devanagari schrift','arabische schrift','emoji schrift','unicode','ttf','otf','woff','installierte schriften','schriftdatei','typografie'],
-      seoTitle: 'Schriftart finden: welche hat wirklich alle Zeichen | YappyKit',
+      seoTitle: 'Schriftart-Zeichen prüfen: welche Schrift zeigt Ihren Text | YappyKit',
       seoDescription:
         'Fügen Sie Ihren Text ein und sehen Sie, welche installierten Schriften oder Schriftdateien jedes Zeichen darstellen können. Die Glyphentabelle jeder Schrift wird auf Ihrem Gerät gelesen, hochgeladen wird nichts.',
       heroTitle: 'Finden Sie eine Schrift, die Ihren Text darstellen kann',

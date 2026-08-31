@@ -1127,7 +1127,7 @@ const fr: Messages = {
       title: 'Trouvez une police capable d’afficher votre texte',
       blurb: 'Voyez lesquelles de vos polices ont tous les caractères de votre texte. Rien n’est envoyé.',
       tags: ['police','police de caracteres','trouver une police','verifier une police','quelle police','couverture des glyphes','caracteres pris en charge','glyphe manquant','carres vides','symbole euro','police devanagari','police arabe','police emoji','unicode','ttf','otf','woff','polices installees','fichier de police','typographie'],
-      seoTitle: 'Trouver une police qui a tous vos caractères | YappyKit',
+      seoTitle: 'Vérifier les caractères d’une police: laquelle affiche votre texte | YappyKit',
       seoDescription:
         'Collez votre texte et voyez quelles polices installées ou quels fichiers de police peuvent en afficher chaque caractère. La table de glyphes de chaque police est lue sur votre appareil et rien n’est envoyé.',
       heroTitle: 'Trouvez une police capable d’afficher votre texte',

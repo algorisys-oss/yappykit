@@ -1127,7 +1127,7 @@ const es: Messages = {
       title: 'Encuentra una fuente que pueda mostrar tu texto',
       blurb: 'Comprueba qué fuentes tuyas tienen todos los caracteres de tu texto. No se sube nada.',
       tags: ['fuente','tipografia','buscador de fuentes','encontrar fuente','comprobar fuente','que fuente','cobertura de glifos','caracteres compatibles','glifo que falta','cuadros vacios','simbolo del euro','fuente devanagari','fuente arabe','fuente emoji','unicode','ttf','otf','woff','fuentes instaladas','archivo de fuente'],
-      seoTitle: 'Buscador de fuentes: cuál de las tuyas tiene todos los caracteres | YappyKit',
+      seoTitle: 'Comprobar caracteres de fuente: cuáles muestran tu texto | YappyKit',
       seoDescription:
         'Pega tu texto y mira qué fuentes instaladas o archivos de fuente pueden mostrar todos sus caracteres. Se lee la tabla de glifos de cada fuente en tu dispositivo y no se sube nada.',
       heroTitle: 'Encuentra una fuente que pueda mostrar tu texto',
