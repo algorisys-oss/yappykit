@@ -6,10 +6,12 @@
  * what the text actually demands. This file joins them and does the comparing.
  */
 import { parseCmap, EMPTY_COVERAGE, type Coverage } from './cmap';
+import { readMetrics, type FontMetrics } from './metrics';
 import { openFonts, readNames, type ByteSource } from './sfnt';
 import type { RequiredChar } from './text';
 
-export type { ByteSource, Coverage, RequiredChar };
+export type { ByteSource, Coverage, RequiredChar, FontMetrics };
+export type { Panose } from './metrics';
 export { bytesSource, blobSource, openFonts, sniffFormat, FontFormatError } from './sfnt';
 export type { FontFormat, FontFormatCode } from './sfnt';
 export { requiredCharacters, codepointLabel, isIgnorable } from './text';
@@ -29,6 +31,8 @@ export interface FontEntry {
   /** How many code points the font maps to a real glyph. */
   glyphCount: number;
   symbolic: boolean;
+  /** Present only when asked for: see ReadOptions.metrics. */
+  metrics?: FontMetrics;
 }
 
 export interface ReadOptions {
@@ -40,6 +44,14 @@ export interface ReadOptions {
    * without this every member would be listed once per member.
    */
   preferName?: string;
+  /**
+   * Also read the appearance tables (OS/2, post, head, hhea).
+   *
+   * Off by default because the coverage tool has no use for them, and a scan of
+   * several hundred installed fonts should not pay for four range reads per
+   * font that nothing goes on to look at.
+   */
+  metrics?: boolean;
 }
 
 /**
@@ -58,6 +70,7 @@ export async function readFonts(src: ByteSource, options: ReadOptions): Promise<
     const names = nameTable ? readNames(nameTable) : { family: '', style: '', fullName: '' };
     const cmapTable = await resource.read('cmap');
     const coverage = cmapTable ? parseCmap(cmapTable) : EMPTY_COVERAGE;
+    const metrics = options.metrics ? await readMetrics(resource) : undefined;
 
     const fallback = baseName(options.fileName);
     const family = names.family || fallback;
@@ -72,6 +85,7 @@ export async function readFonts(src: ByteSource, options: ReadOptions): Promise<
       coverage,
       glyphCount: coverage.count,
       symbolic: coverage.symbolic,
+      ...(metrics ? { metrics } : {}),
     });
   }
 

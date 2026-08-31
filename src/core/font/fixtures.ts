@@ -141,6 +141,79 @@ export function cmap0(glyphIds: number[]): Uint8Array {
   return w.done();
 }
 
+export interface Os2Options {
+  version?: number;
+  weightClass?: number;
+  widthClass?: number;
+  /** Full 16 bits: class in the high byte, subclass in the low byte. */
+  familyClass?: number;
+  /** Exactly ten bytes. Zeros mean "any", which is what most fonts ship. */
+  panose?: number[];
+  fsSelection?: number;
+  /** Version 2 and later only. Ignored below that, as a real font would. */
+  xHeight?: number;
+  capHeight?: number;
+}
+
+/**
+ * An OS/2 table. Its length depends on its version, which is the whole point:
+ * v0 and v1 predate sxHeight, so a reader must not go looking for it there.
+ */
+export function os2(o: Os2Options = {}): Uint8Array {
+  const version = o.version ?? 4;
+  const w = new Writer();
+  w.u16(version).u16(0).u16(o.weightClass ?? 400).u16(o.widthClass ?? 5).u16(0);
+  for (let i = 0; i < 8; i++) w.u16(0); // sub- and superscript metrics
+  w.u16(0).u16(0); // strikeout size and position
+  w.u16(o.familyClass ?? 0);
+
+  const panose = o.panose ?? new Array(10).fill(0);
+  for (let i = 0; i < 10; i++) w.u8(panose[i] ?? 0);
+
+  for (let i = 0; i < 4; i++) w.u32(0); // unicode ranges
+  w.tag('TEST');
+  w.u16(o.fsSelection ?? 0).u16(0).u16(0);
+  w.u16(0).u16(0).u16(0); // typo ascender, descender, line gap
+  w.u16(0).u16(0); // win ascent, descent
+
+  if (version >= 1) w.u32(0).u32(0); // code page ranges
+  if (version >= 2) {
+    w.u16(o.xHeight ?? 0).u16(o.capHeight ?? 0);
+    w.u16(0).u16(0).u16(0); // default char, break char, max context
+  }
+  return w.done();
+}
+
+/** A post table. `italicAngle` is degrees and is stored as 16.16 fixed point. */
+export function post(italicAngle = 0, isFixedPitch = false): Uint8Array {
+  const w = new Writer();
+  w.u32(0x00030000);
+  w.u32(Math.round(italicAngle * 65536) >>> 0);
+  w.u16(0).u16(0);
+  w.u32(isFixedPitch ? 1 : 0);
+  w.u32(0).u32(0).u32(0).u32(0);
+  return w.done();
+}
+
+/** A head table. macStyle bit 0 is bold and bit 1 is italic. */
+export function head(unitsPerEm = 1000, macStyle = 0): Uint8Array {
+  const w = new Writer();
+  w.u32(0x00010000).u32(0).u32(0).u32(0x5f0f3cf5);
+  w.u16(0).u16(unitsPerEm);
+  for (let i = 0; i < 4; i++) w.u32(0); // created, modified
+  w.u16(0).u16(0).u16(0).u16(0); // bounding box
+  w.u16(macStyle).u16(8).u16(2).u16(0).u16(0);
+  return w.done();
+}
+
+/** An hhea table, for the vertical space a font asks for. */
+export function hhea(ascender = 800, descender = -200, lineGap = 0): Uint8Array {
+  const w = new Writer();
+  w.u32(0x00010000).u16(ascender).u16(descender).u16(lineGap);
+  for (let i = 0; i < 12; i++) w.u16(0);
+  return w.done();
+}
+
 export interface Subtable {
   platform: number;
   encoding: number;

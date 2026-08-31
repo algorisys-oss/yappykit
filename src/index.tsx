@@ -36,6 +36,7 @@ const COMPONENTS: Record<RouteKey, Component> = {
   'pdf-merge': lazy(() => import('./routes/tools/pdf-merger')),
   'screenshot-stitch': lazy(() => import('./routes/tools/screenshot-stitcher')),
   'font-coverage': lazy(() => import('./routes/tools/font-checker')),
+  'font-style': lazy(() => import('./routes/tools/font-stylist')),
   about: lazy(() => import('./routes/about')),
   privacy: lazy(() => import('./routes/privacy')),
   terms: lazy(() => import('./routes/terms')),

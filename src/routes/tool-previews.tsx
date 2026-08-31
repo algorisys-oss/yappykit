@@ -483,6 +483,58 @@ export function FontCoveragePreview() {
   );
 }
 
+
+export function FontStylePreview() {
+  // The same letter three times, at three stroke weights. Drawn as strokes
+  // rather than set as text: a <text> element here would render in whatever
+  // face the viewer happens to have, which is the one thing this illustration
+  // cannot afford to leave to chance.
+  const letterA = (x: number, thickness: number, colour: string) => (
+    <g stroke={colour} stroke-width={thickness} stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d={`M${x + 6} 68 L${x + 18} 34 L${x + 30} 68`} />
+      <path d={`M${x + 11} 56 h14`} />
+    </g>
+  );
+
+  const card = (x: number, thickness: number, chosen: boolean) => (
+    <>
+      <rect
+        x={x}
+        y={22}
+        width="36"
+        height="60"
+        rx="6"
+        fill={chosen ? C.accentSoft : C.paper}
+        stroke={chosen ? C.accent : C.border}
+        stroke-width="2"
+      />
+      {letterA(x, thickness, chosen ? C.accent : C.muted)}
+    </>
+  );
+
+  return (
+    <Frame>
+      {card(14, 3, false)}
+      {card(62, 7, true)}
+      {card(110, 12, false)}
+
+      {/* The chosen one, marked. */}
+      <circle cx="98" cy="28" r="9" fill={C.ok} />
+      <path d="M93.5 28 l3 3 l6 -6.5" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+
+      {/* Trait readout beside the row */}
+      <g fill={C.border}>
+        <rect x="156" y="34" width="32" height="6" rx="3" />
+        <rect x="156" y="48" width="24" height="6" rx="3" />
+        <rect x="156" y="62" width="30" height="6" rx="3" />
+      </g>
+      <circle cx="150" cy="37" r="3" fill={C.ok} />
+      <circle cx="150" cy="51" r="3" fill={C.ok} />
+      <circle cx="150" cy="65" r="3" fill={C.bad} />
+    </Frame>
+  );
+}
+
 /**
  * Keyed by route KEY, not by URL: the URL differs per locale, the key does not.
  * Tools without an illustration simply have no entry — callers guard with
@@ -504,4 +556,5 @@ export const TOOL_PREVIEWS: Partial<Record<ToolKey, () => JSX.Element>> = {
   'pdf-merge': PdfMergePreview,
   'screenshot-stitch': ScreenshotStitchPreview,
   'font-coverage': FontCoveragePreview,
+  'font-style': FontStylePreview,
 };

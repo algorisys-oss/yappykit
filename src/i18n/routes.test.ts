@@ -50,6 +50,7 @@ describe('pathFor', () => {
     expect(pathFor('pdf-merge', 'en')).toBe('/merge-pdf');
     expect(pathFor('screenshot-stitch', 'en')).toBe('/stitch-screenshots');
     expect(pathFor('font-coverage', 'en')).toBe('/font-character-checker');
+    expect(pathFor('font-style', 'en')).toBe('/font-style-finder');
     expect(pathFor('about', 'en')).toBe('/about');
   });
 
@@ -131,7 +132,7 @@ describe('allPaths', () => {
   });
 
   it('covers every tool', () => {
-    expect(TOOL_KEYS).toHaveLength(15);
+    expect(TOOL_KEYS).toHaveLength(16);
   });
 });
 

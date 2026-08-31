@@ -50,6 +50,8 @@ export interface ScanResult {
 export interface ScanOptions {
   onProgress?: (done: number, total: number) => void;
   signal?: AbortSignal;
+  /** Also read each font's appearance tables. See ReadOptions.metrics. */
+  metrics?: boolean;
 }
 
 /**
@@ -83,6 +85,7 @@ export async function scanInstalledFonts(options: ScanOptions = {}): Promise<Sca
       const read = await readFonts(blobSource(blob), {
         origin: 'installed',
         preferName: face.fullName,
+        ...(options.metrics ? { metrics: true } : {}),
       });
       // A font whose file we can open but whose coverage is empty tells the
       // user nothing and would pad the "cannot render this" list with noise.

@@ -30,6 +30,7 @@ export const TOOL_KEYS = [
   'pdf-merge',
   'screenshot-stitch',
   'font-coverage',
+  'font-style',
 ] as const;
 
 export type ToolKey = (typeof TOOL_KEYS)[number];
@@ -280,6 +281,21 @@ export const ROUTES: Record<RouteKey, RouteDef> = {
       it: 'verificare-caratteri-del-font',
     },
   },
+  'font-style': {
+    localized: true,
+    slugs: {
+      en: 'font-style-finder',
+      es: 'encontrar-fuente-por-estilo',
+      'pt-BR': 'encontrar-fonte-por-estilo',
+      id: 'cari-font-berdasarkan-gaya',
+      fr: 'trouver-une-police-par-style',
+      de: 'schriftart-nach-stil-finden',
+      ru: 'podobrat-shrift-po-stilyu',
+      tr: 'stile-gore-font-bul',
+      vi: 'tim-phong-chu-theo-phong-cach',
+      it: 'trovare-font-per-stile',
+    },
+  },
   about: {
     localized: true,
     slugs: {
@@ -487,7 +503,8 @@ const RELATED: Record<ToolKey, readonly ToolKey[]> = {
   'random-word': ['font-coverage', 'keyboard-test', 'mouse-test'],
   'pdf-merge': ['pdf-compress', 'document-scan', 'screenshot-stitch'],
   'screenshot-stitch': ['image-compress', 'pdf-merge', 'metadata-remove'],
-  'font-coverage': ['random-word', 'keyboard-test', 'ruler'],
+  'font-coverage': ['font-style', 'random-word', 'keyboard-test'],
+  'font-style': ['font-coverage', 'random-word', 'ruler'],
 };
 
 export function relatedTools(key: ToolKey, count = 3): ToolKey[] {
