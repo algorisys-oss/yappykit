@@ -489,11 +489,14 @@ test.describe('YappyKit smoke', () => {
     await expect(page.getByRole('heading', { level: 1 })).toHaveText(/prueba tu teclado/i);
     await expect(page.locator('html')).toHaveAttribute('lang', 'es');
 
-    // Tool -> tool, via the "Related tools" cross-links.
+    // Tool -> tool, via the "Related tools" cross-links. Which tools appear
+    // there is a content decision (RELATED in i18n/routes), so this follows one
+    // that the keyboard test actually links to. Deliberately not the mouse test,
+    // which the header-search step below navigates to.
     await page.getByRole('heading', { name: 'Herramientas relacionadas' }).scrollIntoViewIfNeeded();
-    await page.getByRole('link', { name: /Regla online/i }).first().click();
-    await expect(page).toHaveURL(/\/es\/regla-online$/);
-    await expect(page.getByRole('heading', { level: 1 })).toHaveText(/regla online/i);
+    await page.getByRole('link', { name: /Generador de palabras aleatorias/i }).first().click();
+    await expect(page).toHaveURL(/\/es\/generador-de-palabras-aleatorias$/);
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText(/generador de palabras/i);
 
     // Tool -> tool, via the header search.
     const search = page.getByRole('banner').getByRole('combobox');

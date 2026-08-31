@@ -22,7 +22,8 @@ export type Capability =
   | 'opfs'
   | 'webgpu'
   | 'wasm'
-  | 'decompressionStream';
+  | 'decompressionStream'
+  | 'localFonts';
 
 export type CapabilitySnapshot = Record<Capability, boolean>;
 
@@ -52,6 +53,10 @@ export function detectCapabilities(): CapabilitySnapshot {
     // The ffmpeg core ships gzipped to fit the host's per-file size limit, so
     // expanding it is a hard requirement of the video tool, not a nicety.
     decompressionStream: typeof DecompressionStream !== 'undefined',
+    // Local Font Access: reading the installed font list, behind a permission
+    // prompt. Chromium desktop only, and no tool may require it.
+    localFonts:
+      typeof (globalThis as { queryLocalFonts?: unknown }).queryLocalFonts === 'function',
   };
 }
 

@@ -12,6 +12,7 @@ const ALL_OFF: CapabilitySnapshot = {
   webgpu: false,
   wasm: false,
   decompressionStream: false,
+  localFonts: false,
 };
 
 const snapshot = (over: Partial<CapabilitySnapshot>): CapabilitySnapshot => ({

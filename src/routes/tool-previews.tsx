@@ -1,4 +1,4 @@
-import type { JSX } from 'solid-js';
+import { Show, type JSX } from 'solid-js';
 import type { ToolKey } from '../i18n/routes';
 
 /**
@@ -419,6 +419,70 @@ export function ScreenshotStitchPreview() {
   );
 }
 
+
+export function FontFinderPreview() {
+  // Glyph cells: two the font has, one it does not. The empty outlined box is
+  // the "tofu" a browser draws for a missing glyph, so it needs no text of its
+  // own to be recognised — which matters, because a preview that relied on real
+  // Devanagari or a rupee sign would render as tofu itself on a machine missing
+  // the font, right on the page telling you about missing fonts.
+  const cell = (x: number, has: boolean) => (
+    <>
+      <rect
+        x={x}
+        y={38}
+        width="24"
+        height="28"
+        rx="4"
+        fill={has ? C.accentSoft : 'none'}
+        stroke={has ? C.accent : C.muted}
+        stroke-width="2"
+        stroke-dasharray={has ? undefined : '3 3'}
+      />
+      <Show when={has}>
+        <g stroke={C.accent} stroke-width="3" stroke-linecap="round">
+          <path d={`M${x + 7} ${60} L${x + 12} ${44} L${x + 17} ${60}`} fill="none" />
+          <path d={`M${x + 9} ${54} h6`} />
+        </g>
+      </Show>
+    </>
+  );
+
+  const verdict = (y: number, ok: boolean) => (
+    <>
+      <circle cx="136" cy={y} r="9" fill={ok ? C.ok : C.bad} opacity="0.18" />
+      <g stroke={ok ? C.ok : C.bad} stroke-width="2.5" stroke-linecap="round" fill="none">
+        {ok ? (
+          <path d="M131.5 40 l3.5 3.5 l6 -7" />
+        ) : (
+          <>
+            <path d="M132.5 60.5 l7 7" />
+            <path d="M139.5 60.5 l-7 7" />
+          </>
+        )}
+      </g>
+      <rect x="152" y={y - 4} width="38" height="8" rx="4" fill={C.border} />
+    </>
+  );
+
+  return (
+    <Frame>
+      <rect x="8" y="28" width="92" height="48" rx="7" fill={C.paper} stroke={C.border} stroke-width="2" />
+      {cell(14, true)}
+      {cell(42, true)}
+      {cell(70, false)}
+
+      <g stroke={C.accent} stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <path d="M106 52 h10" />
+        <path d="M111 46 l6 6 l-6 6" />
+      </g>
+
+      {verdict(42, true)}
+      {verdict(64, false)}
+    </Frame>
+  );
+}
+
 /**
  * Keyed by route KEY, not by URL: the URL differs per locale, the key does not.
  * Tools without an illustration simply have no entry — callers guard with
@@ -439,4 +503,5 @@ export const TOOL_PREVIEWS: Partial<Record<ToolKey, () => JSX.Element>> = {
   'random-word': RandomWordPreview,
   'pdf-merge': PdfMergePreview,
   'screenshot-stitch': ScreenshotStitchPreview,
+  'font-find': FontFinderPreview,
 };

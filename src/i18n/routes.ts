@@ -29,6 +29,7 @@ export const TOOL_KEYS = [
   'random-word',
   'pdf-merge',
   'screenshot-stitch',
+  'font-find',
 ] as const;
 
 export type ToolKey = (typeof TOOL_KEYS)[number];
@@ -264,6 +265,21 @@ export const ROUTES: Record<RouteKey, RouteDef> = {
       it: 'unire-screenshot',
     },
   },
+  'font-find': {
+    localized: true,
+    slugs: {
+      en: 'font-finder',
+      es: 'buscador-de-fuentes',
+      'pt-BR': 'localizador-de-fontes',
+      id: 'pencari-font',
+      fr: 'trouver-une-police',
+      de: 'schriftart-finden',
+      ru: 'podobrat-shrift',
+      tr: 'font-bulucu',
+      vi: 'tim-phong-chu',
+      it: 'trova-font',
+    },
+  },
   about: {
     localized: true,
     slugs: {
@@ -402,13 +418,14 @@ const RELATED: Record<ToolKey, readonly ToolKey[]> = {
   'passport-photo': ['image-compress', 'metadata-remove', 'document-scan'],
   'document-scan': ['pdf-merge', 'pdf-compress', 'spreadsheet-compare'],
   'mouse-test': ['keyboard-test', 'camera-mic-test', 'ruler'],
-  'keyboard-test': ['mouse-test', 'camera-mic-test', 'random-word'],
+  'keyboard-test': ['mouse-test', 'font-find', 'random-word'],
   ruler: ['mouse-test', 'keyboard-test', 'camera-mic-test'],
   'pdf-compress': ['pdf-merge', 'document-scan', 'image-compress'],
   'camera-mic-test': ['mouse-test', 'keyboard-test', 'video-compress'],
-  'random-word': ['keyboard-test', 'mouse-test', 'ruler'],
+  'random-word': ['font-find', 'keyboard-test', 'mouse-test'],
   'pdf-merge': ['pdf-compress', 'document-scan', 'screenshot-stitch'],
   'screenshot-stitch': ['image-compress', 'pdf-merge', 'metadata-remove'],
+  'font-find': ['random-word', 'keyboard-test', 'ruler'],
 };
 
 export function relatedTools(key: ToolKey, count = 3): ToolKey[] {
