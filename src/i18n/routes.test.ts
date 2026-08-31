@@ -8,6 +8,7 @@ import {
   alternatesFor,
   allPaths,
   relatedTools,
+  redirects,
 } from './routes';
 
 describe('splitLocale', () => {
@@ -48,7 +49,7 @@ describe('pathFor', () => {
     expect(pathFor('random-word', 'en')).toBe('/random-word-generator');
     expect(pathFor('pdf-merge', 'en')).toBe('/merge-pdf');
     expect(pathFor('screenshot-stitch', 'en')).toBe('/stitch-screenshots');
-    expect(pathFor('font-find', 'en')).toBe('/font-finder');
+    expect(pathFor('font-coverage', 'en')).toBe('/font-character-checker');
     expect(pathFor('about', 'en')).toBe('/about');
   });
 
@@ -172,5 +173,37 @@ describe('relatedTools', () => {
 
   it('returns nothing for a key that is not a tool', () => {
     expect(relatedTools('home' as never)).toEqual([]);
+  });
+});
+
+describe('redirects', () => {
+  it('sends every retired URL to the page it became', () => {
+    const hits = redirects();
+    expect(hits.length).toBeGreaterThan(0);
+    for (const { from, to } of hits) {
+      expect(resolveRoute(from), `${from} is still a live route`).toBeNull();
+      expect(resolveRoute(to), `${to} is not a route`).not.toBeNull();
+    }
+  });
+
+  it('covers the font tool rename in every locale, including the ones that used the English slug', () => {
+    const map = new Map(redirects().map((r) => [r.from, r.to]));
+    expect(map.get('/font-finder')).toBe('/font-character-checker');
+    expect(map.get('/es/buscador-de-fuentes')).toBe('/es/comprobar-caracteres-de-fuente');
+    // Japanese and Arabic carry the English slug, so they moved too.
+    expect(map.get('/ja/font-finder')).toBe('/ja/font-character-checker');
+    expect(map.get('/ar/font-finder')).toBe('/ar/font-character-checker');
+  });
+
+  it('never redirects a URL to itself', () => {
+    for (const { from, to } of redirects()) expect(from).not.toBe(to);
+  });
+
+  it('keeps the locale, so a retired Spanish URL does not land on English', () => {
+    for (const { from, to } of redirects()) {
+      expect(splitLocale(to).locale, `${from} -> ${to} changed locale`).toBe(
+        splitLocale(from).locale,
+      );
+    }
   });
 });

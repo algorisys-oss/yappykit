@@ -1123,7 +1123,7 @@ const ptBR: Messages = {
         ],
       },
     },
-    'font-find': {
+    'font-coverage': {
       title: 'Encontre uma fonte que consiga exibir o seu texto',
       blurb: 'Veja quais das suas fontes têm todos os caracteres do seu texto. Nada é enviado.',
       tags: ['fonte','tipografia','localizador de fontes','encontrar fonte','verificar fonte','qual fonte','cobertura de glifos','suporte a caracteres','glifo faltando','quadrados vazios','simbolo do real','fonte devanagari','fonte arabe','fonte emoji','unicode','ttf','otf','woff','fontes instaladas','arquivo de fonte'],

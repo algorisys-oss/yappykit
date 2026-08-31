@@ -58,13 +58,18 @@ test('a shared code reproduces the same draw on a fresh load', async ({ page }) 
   await page.getByRole('button', { name: 'Use this code' }).click();
   const code = await page.getByLabel('Code').inputValue();
   expect(code).toMatch(/^[a-hjkmnp-z2-9]{6}$/);
-  const first = await page.locator('ul li button').allInnerTexts();
-  expect(first.length).toBe(10);
+  // allInnerTexts() reads whatever is there and does NOT auto-wait, so every
+  // read needs a count assertion in front of it. The words are client-rendered,
+  // and after a fresh navigation the read otherwise lands before the list
+  // exists and compares an empty array against ten words.
+  const words = page.locator('ul li button');
+  await expect(words).toHaveCount(10);
+  const first = await words.allInnerTexts();
 
   // A different browser, holding only the code, must see the same words.
   await page.goto(`/random-word-generator?seed=${code}&kind=all&n=10`);
-  const second = await page.locator('ul li button').allInnerTexts();
-  expect(second).toEqual(first);
+  await expect(words).toHaveCount(10);
+  expect(await words.allInnerTexts()).toEqual(first);
 });
 
 test('reports real strength for a passphrase and never repeats a word', async ({ page }) => {

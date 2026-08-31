@@ -183,7 +183,7 @@ export const ARTICLES: Partial<Record<ToolKey, ToolArticle>> = {
       'One deliberate omission is worth explaining. Any draw here can be reproduced from a short code, so a class or a table of players can share one code and get identical words with no account and no server. The passphrase mode is structurally excluded from that: the function that generates it takes no seed parameter at all, so the sharing mechanism cannot reach it. A passphrase anyone holding a code can reproduce is not a secret, and the safest way to enforce that is to make it impossible to express rather than to remember not to do it.',
     ],
   },
-  'font-find': {
+  'font-coverage': {
     heading: 'The table inside a font that decides whether your text appears at all',
     paragraphs: [
       'Every font file carries a lookup table called the cmap, and it is the thing that answers the only question that matters here: given this character, which drawing does this font hold for it? A renderer consults it before anything else. If the answer is glyph zero, the font has nothing, and you get the empty rectangle that designers call tofu, or a substitute quietly pulled from some other font on the machine. This tool reads the same table the renderer reads, which is why its answer is not an estimate.',

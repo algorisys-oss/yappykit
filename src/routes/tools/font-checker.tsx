@@ -2,7 +2,7 @@ import { createSignal, createMemo, onCleanup, onMount, For, Show } from 'solid-j
 import { Button } from '../../lib/zen';
 import ToolHero from '../../components/ToolHero';
 import ToolContent from '../tool-content';
-import { FontFinderPreview } from '../tool-previews';
+import { FontCoveragePreview } from '../tool-previews';
 import { useSeo } from '../../lib/seo';
 import { useI18n } from '../../i18n/runtime';
 import { detectCapabilities, evaluate, type CapabilitySpec } from '@core/capability';
@@ -43,11 +43,11 @@ const MAX_MISSING_SHOWN = 12;
 /** The near misses are worth reading; the four hundred outright failures are not. */
 const MAX_PARTIAL_SHOWN = 24;
 
-export default function FontFinder() {
+export default function FontChecker() {
   const { m, fmt } = useI18n();
-  const tt = m.tools['font-find'];
+  const tt = m.tools['font-coverage'];
   const u = tt.ui;
-  useSeo('font-find');
+  useSeo('font-coverage');
 
   const [text, setText] = createSignal(u.sampleText);
   const [fonts, setFonts] = createSignal<FontEntry[]>([]);
@@ -175,7 +175,7 @@ export default function FontFinder() {
 
   return (
     <main class="mx-auto max-w-2xl px-6 py-12">
-      <ToolHero title={tt.heroTitle} preview={FontFinderPreview}>
+      <ToolHero title={tt.heroTitle} preview={FontCoveragePreview}>
         {tt.heroNote}
       </ToolHero>
 
@@ -368,7 +368,7 @@ export default function FontFinder() {
         </Show>
       </div>
 
-      <ToolContent route="font-find" />
+      <ToolContent route="font-coverage" />
     </main>
   );
 }

@@ -1123,7 +1123,7 @@ const fr: Messages = {
         ],
       },
     },
-    'font-find': {
+    'font-coverage': {
       title: 'Trouvez une police capable d’afficher votre texte',
       blurb: 'Voyez lesquelles de vos polices ont tous les caractères de votre texte. Rien n’est envoyé.',
       tags: ['police','police de caracteres','trouver une police','verifier une police','quelle police','couverture des glyphes','caracteres pris en charge','glyphe manquant','carres vides','symbole euro','police devanagari','police arabe','police emoji','unicode','ttf','otf','woff','polices installees','fichier de police','typographie'],

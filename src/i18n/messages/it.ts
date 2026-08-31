@@ -1123,7 +1123,7 @@ const it: Messages = {
         ],
       },
     },
-    'font-find': {
+    'font-coverage': {
       title: 'Trova un font capace di mostrare il tuo testo',
       blurb: 'Scopri quali dei tuoi font hanno tutti i caratteri del tuo testo. Non viene caricato nulla.',
       tags: ['font','carattere tipografico','trova font','cerca font','verifica font','quale font','copertura dei glifi','supporto caratteri','glifo mancante','quadrati vuoti','simbolo euro','font devanagari','font arabo','font emoji','unicode','ttf','otf','woff','font installati','file di font'],

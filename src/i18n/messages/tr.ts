@@ -1123,7 +1123,7 @@ const tr: Messages = {
         ],
       },
     },
-    'font-find': {
+    'font-coverage': {
       title: 'Metninizi gösterebilecek bir font bulun',
       blurb: 'Fontlarınızdan hangilerinde metninizin bütün karakterleri var, görün. Hiçbir şey yüklenmez.',
       tags: ['font','yazi tipi','font bulucu','font bul','font kontrol','hangi font','glif kapsami','karakter destegi','eksik glif','bos kareler','lira isareti','devanagari fontu','arapca font','emoji fontu','unicode','ttf','otf','woff','yuklu fontlar','font dosyasi','tipografi'],

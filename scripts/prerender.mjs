@@ -50,7 +50,7 @@ async function main() {
         `  Add src/i18n/messages/<locale>.ts and register it in messages/all.ts to ship one.`,
     );
   }
-  console.log('  sitemap.xml + robots.txt + 404.html written\n');
+  console.log('  sitemap.xml + robots.txt + 404.html + _redirects written\n');
 }
 
 main().catch((err) => {

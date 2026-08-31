@@ -420,7 +420,7 @@ export function ScreenshotStitchPreview() {
 }
 
 
-export function FontFinderPreview() {
+export function FontCoveragePreview() {
   // Glyph cells: two the font has, one it does not. The empty outlined box is
   // the "tofu" a browser draws for a missing glyph, so it needs no text of its
   // own to be recognised — which matters, because a preview that relied on real
@@ -503,5 +503,5 @@ export const TOOL_PREVIEWS: Partial<Record<ToolKey, () => JSX.Element>> = {
   'random-word': RandomWordPreview,
   'pdf-merge': PdfMergePreview,
   'screenshot-stitch': ScreenshotStitchPreview,
-  'font-find': FontFinderPreview,
+  'font-coverage': FontCoveragePreview,
 };

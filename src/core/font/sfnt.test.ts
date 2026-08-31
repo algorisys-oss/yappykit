@@ -21,7 +21,7 @@ const CMAP = cmapTable([{ platform: 3, encoding: 1, data: cmap4([{ start: 65, en
  *
  * Over bytesSource, not blobSource: jsdom's Blob implements neither
  * arrayBuffer() nor stream(), so the Blob path is exercised in a real browser
- * by tests/e2e/font-finder.spec.ts instead. What is under test here is the read
+ * by tests/e2e/font-coverage.spec.ts instead. What is under test here is the read
  * pattern, which is the same either way.
  */
 function counting(bytes: Uint8Array): ByteSource & { readBytes: number } {

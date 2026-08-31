@@ -1123,7 +1123,7 @@ const id: Messages = {
         ],
       },
     },
-    'font-find': {
+    'font-coverage': {
       title: 'Temukan font yang bisa menampilkan teks Anda',
       blurb: 'Lihat font mana milik Anda yang punya semua karakter dalam teks Anda. Tidak ada yang diunggah.',
       tags: ['font','pencari font','cari font','cek font','font mana','cakupan glif','dukungan karakter','glif hilang','kotak kosong','simbol rupiah','font devanagari','font arab','font emoji','unicode','ttf','otf','woff','font terpasang','berkas font','huruf'],

@@ -1123,7 +1123,7 @@ const de: Messages = {
         ],
       },
     },
-    'font-find': {
+    'font-coverage': {
       title: 'Finden Sie eine Schrift, die Ihren Text darstellen kann',
       blurb: 'Sehen Sie, welche Ihrer Schriften alle Zeichen Ihres Textes haben. Nichts wird hochgeladen.',
       tags: ['schriftart','schrift finden','schriftart pruefen','welche schriftart','font finder','zeichenabdeckung','glyphenabdeckung','fehlende glyphe','leere kaestchen','eurozeichen','devanagari schrift','arabische schrift','emoji schrift','unicode','ttf','otf','woff','installierte schriften','schriftdatei','typografie'],

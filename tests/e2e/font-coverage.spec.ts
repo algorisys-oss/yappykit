@@ -45,7 +45,7 @@ const RUPEE = '₹';
 test('names the character a font is missing, and clears it when the text changes', async ({
   page,
 }) => {
-  await page.goto('/font-finder');
+  await page.goto('/font-character-checker');
   await expect(
     page.getByRole('heading', { name: /find a font that can render your text/i, level: 1 }),
   ).toBeVisible();
@@ -69,7 +69,7 @@ test('names the character a font is missing, and clears it when the text changes
 });
 
 test('says what is wrong with a file that is not a font', async ({ page }) => {
-  await page.goto('/font-finder');
+  await page.goto('/font-character-checker');
   await page.setInputFiles('#font-files', {
     name: 'notes.txt',
     mimeType: 'text/plain',
@@ -86,7 +86,7 @@ test('the font never leaves the device', async ({ page }) => {
     if (request.method() !== 'GET') uploads.push(`${request.method()} ${request.url()}`);
   });
 
-  await page.goto('/font-finder');
+  await page.goto('/font-character-checker');
   await page.locator('#font-text').fill(`ABC ${RUPEE}`);
   await addLatinFont(page);
   await expect(page.getByText('1 fonts to check.')).toBeVisible();
@@ -98,7 +98,7 @@ test('offers the installed-font scan only where the browser can do it', async ({
   page,
   browserName,
 }) => {
-  await page.goto('/font-finder');
+  await page.goto('/font-character-checker');
   const scan = page.getByRole('button', { name: 'Check my installed fonts' });
 
   if (browserName === 'chromium') {

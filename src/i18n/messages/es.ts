@@ -1123,7 +1123,7 @@ const es: Messages = {
         ],
       },
     },
-    'font-find': {
+    'font-coverage': {
       title: 'Encuentra una fuente que pueda mostrar tu texto',
       blurb: 'Comprueba qué fuentes tuyas tienen todos los caracteres de tu texto. No se sube nada.',
       tags: ['fuente','tipografia','buscador de fuentes','encontrar fuente','comprobar fuente','que fuente','cobertura de glifos','caracteres compatibles','glifo que falta','cuadros vacios','simbolo del euro','fuente devanagari','fuente arabe','fuente emoji','unicode','ttf','otf','woff','fuentes instaladas','archivo de fuente'],

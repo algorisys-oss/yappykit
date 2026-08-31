@@ -1123,7 +1123,7 @@ const vi: Messages = {
         ],
       },
     },
-    'font-find': {
+    'font-coverage': {
       title: 'Tìm phông chữ hiển thị được văn bản của bạn',
       blurb: 'Xem phông nào của bạn có đủ mọi ký tự trong văn bản. Không có gì được tải lên.',
       tags: ['phong chu','font','tim phong chu','tim font','kiem tra font','font nao','pham vi glyph','ho tro ky tu','thieu glyph','o vuong trong','ky hieu dong','font devanagari','font arap','font emoji','unicode','ttf','otf','woff','phong da cai','tep font','kieu chu'],

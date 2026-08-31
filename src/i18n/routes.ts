@@ -29,7 +29,7 @@ export const TOOL_KEYS = [
   'random-word',
   'pdf-merge',
   'screenshot-stitch',
-  'font-find',
+  'font-coverage',
 ] as const;
 
 export type ToolKey = (typeof TOOL_KEYS)[number];
@@ -265,19 +265,19 @@ export const ROUTES: Record<RouteKey, RouteDef> = {
       it: 'unire-screenshot',
     },
   },
-  'font-find': {
+  'font-coverage': {
     localized: true,
     slugs: {
-      en: 'font-finder',
-      es: 'buscador-de-fuentes',
-      'pt-BR': 'localizador-de-fontes',
-      id: 'pencari-font',
-      fr: 'trouver-une-police',
-      de: 'schriftart-finden',
-      ru: 'podobrat-shrift',
-      tr: 'font-bulucu',
-      vi: 'tim-phong-chu',
-      it: 'trova-font',
+      en: 'font-character-checker',
+      es: 'comprobar-caracteres-de-fuente',
+      'pt-BR': 'verificar-caracteres-da-fonte',
+      id: 'cek-karakter-font',
+      fr: 'verifier-les-caracteres-d-une-police',
+      de: 'schriftart-zeichen-pruefen',
+      ru: 'proverit-simvoly-shrifta',
+      tr: 'font-karakter-denetleyici',
+      vi: 'kiem-tra-ky-tu-phong-chu',
+      it: 'verificare-caratteri-del-font',
     },
   },
   about: {
@@ -322,8 +322,12 @@ export function slugFor(key: RouteKey, locale: LocaleCode): string {
 export function pathFor(key: RouteKey, locale: LocaleCode): string {
   const def = ROUTES[key];
   const effective = def.localized ? locale : DEFAULT_LOCALE;
-  const prefix = effective === DEFAULT_LOCALE ? '' : `/${localePrefix(effective)}`;
-  const slug = slugFor(key, effective);
+  return pathWithSlug(effective, slugFor(key, effective));
+}
+
+/** A locale's path for any slug, including one we have stopped serving. */
+function pathWithSlug(locale: LocaleCode, slug: string): string {
+  const prefix = locale === DEFAULT_LOCALE ? '' : `/${localePrefix(locale)}`;
   if (!slug) return prefix || '/';
   return `${prefix}/${slug}`;
 }
@@ -355,6 +359,64 @@ export function resolveRoute(pathname: string): { key: RouteKey; locale: LocaleC
     if (slugFor(key, locale) === slug) return { key, locale };
   }
   return null;
+}
+
+/**
+ * Slugs we have served and no longer serve.
+ *
+ * ROUTES only knows the URL a page has now, so a rename quietly turns
+ * yesterday's URL into a 404 for anyone holding the link, and there is nothing
+ * left in the table to notice. These rows are what `_redirects` is generated
+ * from, so the redirect cannot drift from the rename that caused it.
+ *
+ * Only add a row for a slug that actually shipped. A slug changed before it was
+ * deployed never existed and needs no redirect.
+ */
+const RETIRED: { key: ToolKey; slugs: { en: string } & Partial<Record<LocaleCode, string>> }[] = [
+  {
+    // Shipped as "font finder", renamed within the day. The generic term is
+    // mostly people wanting a typeface identified from a screenshot, which this
+    // tool deliberately does not do, so it would have earned clicks that bounce.
+    // docs/06: head terms are not the target.
+    key: 'font-coverage',
+    slugs: {
+      en: 'font-finder',
+      es: 'buscador-de-fuentes',
+      'pt-BR': 'localizador-de-fontes',
+      id: 'pencari-font',
+      fr: 'trouver-une-police',
+      de: 'schriftart-finden',
+      ru: 'podobrat-shrift',
+      tr: 'font-bulucu',
+      vi: 'tim-phong-chu',
+      it: 'trova-font',
+    },
+  },
+];
+
+export interface Redirect {
+  from: string;
+  to: string;
+}
+
+/**
+ * Every retired URL and where it lives now.
+ *
+ * Built with the same per-locale fallback the old paths were built with, so a
+ * locale that served the English slug then gets a redirect from the English
+ * slug now.
+ */
+export function redirects(locales: readonly Locale[] = LOCALES): Redirect[] {
+  const out: Redirect[] = [];
+  for (const retired of RETIRED) {
+    for (const l of locales) {
+      const from = pathWithSlug(l.code, retired.slugs[l.code] ?? retired.slugs.en);
+      const to = pathFor(retired.key, l.code);
+      // A locale whose slug did not change would otherwise redirect to itself.
+      if (from !== to) out.push({ from, to });
+    }
+  }
+  return out;
 }
 
 export interface Alternate {
@@ -418,14 +480,14 @@ const RELATED: Record<ToolKey, readonly ToolKey[]> = {
   'passport-photo': ['image-compress', 'metadata-remove', 'document-scan'],
   'document-scan': ['pdf-merge', 'pdf-compress', 'spreadsheet-compare'],
   'mouse-test': ['keyboard-test', 'camera-mic-test', 'ruler'],
-  'keyboard-test': ['mouse-test', 'font-find', 'random-word'],
+  'keyboard-test': ['mouse-test', 'font-coverage', 'random-word'],
   ruler: ['mouse-test', 'keyboard-test', 'camera-mic-test'],
   'pdf-compress': ['pdf-merge', 'document-scan', 'image-compress'],
   'camera-mic-test': ['mouse-test', 'keyboard-test', 'video-compress'],
-  'random-word': ['font-find', 'keyboard-test', 'mouse-test'],
+  'random-word': ['font-coverage', 'keyboard-test', 'mouse-test'],
   'pdf-merge': ['pdf-compress', 'document-scan', 'screenshot-stitch'],
   'screenshot-stitch': ['image-compress', 'pdf-merge', 'metadata-remove'],
-  'font-find': ['random-word', 'keyboard-test', 'ruler'],
+  'font-coverage': ['random-word', 'keyboard-test', 'ruler'],
 };
 
 export function relatedTools(key: ToolKey, count = 3): ToolKey[] {
