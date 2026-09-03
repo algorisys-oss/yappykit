@@ -62,6 +62,17 @@ export const ARTICLES: Partial<Record<ToolKey, ToolArticle>> = {
     ],
   },
 
+  'image-to-pdf': {
+    heading: 'What a PDF actually does with a photograph',
+    paragraphs: [
+      'A PDF page is a list of drawing instructions, and an image on that page is one instruction: place this XObject inside this rectangle. The XObject is a stream of bytes plus a dictionary saying how wide it is, how tall, what colour space it uses and how it is compressed. The interesting part is the compression filter, because PDF has understood DCTDecode, which is baseline JPEG, since 1993. A JPEG therefore does not need converting to go in a PDF. Its existing compressed bytes are the stream, copied across untouched, and the same is true of PNG through FlateDecode. That is why nothing here re-encodes a JPEG or a PNG: the format already speaks both.',
+      'What PDF has never understood is HEIC, and it is not going to. HEIC is HEVC video compression wearing an image container, patent-encumbered and roughly two decades newer than the filters PDF standardised. So an iPhone photograph has one honest path into a document: decode it, then encode it again as something the format knows. That happens here through libheif compiled to WebAssembly, followed by a canvas encode to JPEG at quality 0.92. It is a genuine lossy step, the only one in this tool, which is why the interface names each file it happened to rather than presenting a conversion as a copy. WebP and AVIF take the same route for the same reason.',
+      'Geometry is where an image-to-PDF tool usually gets careless. A page is measured in points, at 72 to the inch, and a photograph is measured in pixels, which are not a physical unit at all. There is no correct conversion between them, only a choice of DPI, and picking one badly produces the classic failure: a 4000 pixel wide photo declared at 72 DPI becomes a page 55 inches across, valid PDF that no printer will touch. This tool sidesteps the question by never deriving the page from the pixel count. On A4 or Letter the page is that paper, and the image is scaled to fit inside a 36 point margin. In borderless mode the page takes the image aspect ratio and is sized so its long edge equals A4 long edge, which keeps a borderless page a printable page.',
+      'Orientation is decided per image rather than per document. Each page carries its own MediaBox, so a landscape photograph gets a landscape page in the same file as a portrait one, and neither is rotated or letterboxed to match the other. This is worth stating because the alternative that most converters ship, one fixed orientation for the whole document, is what puts a photographed receipt sideways and small in the middle of a portrait sheet. The cost is that a merged document may alternate orientation, which readers handle without comment and printers offer to fit to the tray.',
+      'None of this needs a server, and pdf-lib needs no WebAssembly either, so for a batch of JPEGs the whole job is byte copying and arithmetic. The constraint is memory rather than CPU: every image is held in the tab while the document is assembled, and the assembled document is held again as a blob before it is handed back. That is what limits a very large batch on a phone, and it is a fair trade for the property that matters, which is that a passport photograph, a bank card or a signed contract never leaves the device to have a wrapper put around it.',
+    ],
+  },
+
   'pdf-merge': {
     heading: 'Why merging is the one PDF operation that loses nothing',
     paragraphs: [

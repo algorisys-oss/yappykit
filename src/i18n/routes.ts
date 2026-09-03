@@ -31,6 +31,7 @@ export const TOOL_KEYS = [
   'screenshot-stitch',
   'font-coverage',
   'font-style',
+  'image-to-pdf',
 ] as const;
 
 export type ToolKey = (typeof TOOL_KEYS)[number];
@@ -296,6 +297,21 @@ export const ROUTES: Record<RouteKey, RouteDef> = {
       it: 'trovare-font-per-stile',
     },
   },
+  'image-to-pdf': {
+    localized: true,
+    slugs: {
+      en: 'image-to-pdf',
+      es: 'imagen-a-pdf',
+      'pt-BR': 'imagem-para-pdf',
+      id: 'gambar-ke-pdf',
+      fr: 'image-en-pdf',
+      de: 'bild-in-pdf-umwandeln',
+      ru: 'izobrazhenie-v-pdf',
+      tr: 'resimden-pdf-olustur',
+      vi: 'chuyen-anh-sang-pdf',
+      it: 'immagine-in-pdf',
+    },
+  },
   about: {
     localized: true,
     slugs: {
@@ -494,17 +510,18 @@ const RELATED: Record<ToolKey, readonly ToolKey[]> = {
   'spreadsheet-compare': ['document-scan', 'pdf-merge', 'pdf-compress'],
   'video-compress': ['image-compress', 'camera-mic-test', 'pdf-compress'],
   'passport-photo': ['image-compress', 'metadata-remove', 'document-scan'],
-  'document-scan': ['pdf-merge', 'pdf-compress', 'spreadsheet-compare'],
+  'document-scan': ['image-to-pdf', 'pdf-merge', 'spreadsheet-compare'],
   'mouse-test': ['keyboard-test', 'camera-mic-test', 'ruler'],
   'keyboard-test': ['mouse-test', 'font-coverage', 'random-word'],
   ruler: ['mouse-test', 'keyboard-test', 'camera-mic-test'],
-  'pdf-compress': ['pdf-merge', 'document-scan', 'image-compress'],
+  'pdf-compress': ['pdf-merge', 'image-to-pdf', 'document-scan'],
   'camera-mic-test': ['mouse-test', 'keyboard-test', 'video-compress'],
   'random-word': ['font-coverage', 'keyboard-test', 'mouse-test'],
   'pdf-merge': ['pdf-compress', 'document-scan', 'screenshot-stitch'],
   'screenshot-stitch': ['image-compress', 'pdf-merge', 'metadata-remove'],
   'font-coverage': ['font-style', 'random-word', 'keyboard-test'],
   'font-style': ['font-coverage', 'random-word', 'ruler'],
+  'image-to-pdf': ['pdf-merge', 'pdf-compress', 'document-scan'],
 };
 
 export function relatedTools(key: ToolKey, count = 3): ToolKey[] {

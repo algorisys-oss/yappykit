@@ -535,6 +535,34 @@ export function FontStylePreview() {
   );
 }
 
+export function ImageToPdfPreview() {
+  return (
+    <Frame>
+      {/* A small stack of photographs on the left */}
+      <rect x="14" y="34" width="46" height="34" rx="5" fill={C.accentSoft} stroke={C.border} stroke-width="2" />
+      <rect x="22" y="26" width="46" height="34" rx="5" fill={C.accentSoft} stroke={C.border} stroke-width="2" />
+      <circle cx="35" cy="37" r="4" fill={C.accent} />
+      <path d="M26 55 L38 43 L46 50 L54 42 L64 55 Z" fill={C.accent} opacity="0.45" />
+      {/* Becoming one document */}
+      <g stroke={C.accent} stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <path d="M80 51 h26" />
+        <path d="M99 44 l7 7 l-7 7" />
+      </g>
+      {/* The PDF page, with the picture sitting inside its margin */}
+      <path
+        d="M124 14 h32 l16 16 v56 a4 4 0 0 1 -4 4 h-44 a4 4 0 0 1 -4 -4 V18 a4 4 0 0 1 4 -4 z"
+        fill={C.paper}
+        stroke={C.accent}
+        stroke-width="2"
+      />
+      <path d="M156 14 v16 h16" fill="none" stroke={C.accent} stroke-width="2" />
+      <rect x="131" y="40" width="34" height="26" rx="3" fill={C.accentSoft} stroke={C.accent} stroke-width="1.5" />
+      <circle cx="139" cy="48" r="3" fill={C.accent} />
+      <path d="M134 62 L143 53 L149 58 L155 51 L162 62 Z" fill={C.accent} opacity="0.5" />
+    </Frame>
+  );
+}
+
 /**
  * Keyed by route KEY, not by URL: the URL differs per locale, the key does not.
  * Tools without an illustration simply have no entry — callers guard with
@@ -557,4 +585,5 @@ export const TOOL_PREVIEWS: Partial<Record<ToolKey, () => JSX.Element>> = {
   'screenshot-stitch': ScreenshotStitchPreview,
   'font-coverage': FontCoveragePreview,
   'font-style': FontStylePreview,
+  'image-to-pdf': ImageToPdfPreview,
 };
