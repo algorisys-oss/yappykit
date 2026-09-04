@@ -20,7 +20,7 @@ import { TOOL_KEYS, pathFor, relatedTools, type RouteKey, type ToolKey } from '.
 import { parts } from '../i18n/format';
 import { TERMS_INTRO, TERMS_SECTIONS, TERMS_UPDATED } from '../content/terms';
 import { ARTICLES } from '../content/articles';
-import { supportFor, SUPPORT_VERIFIED } from '../core/capability/support';
+import { supportFor, bestBrowsers, SUPPORT_VERIFIED } from '../core/capability/support';
 import { TOOL_CAPABILITIES } from '../lib/tool-capabilities';
 import {
   PRIVACY_LEAD,
@@ -191,6 +191,15 @@ function toolPage(key: ToolKey, locale: LocaleCode, m: Messages): string {
   // The technical article is English only (see content/articles), so the
   // translated pages simply do not carry it rather than carrying it in the
   // wrong language.
+  const bestNames = bestBrowsers(TOOL_CAPABILITIES[key]).map((b) => b.label);
+  const best = bestNames.length
+    ? `<p class="mt-3 text-sm font-medium text-fg">${tpl(m.content.browserBest, {
+        browsers: esc(
+          new Intl.ListFormat(locale, { style: 'long', type: 'disjunction' }).format(bestNames),
+        ),
+      })}</p>`
+    : '';
+
   // The same table the BrowserSupport component renders, minus the live verdict
   // on the reader's own browser, which no prerender can know.
   const browsers = supportFor(TOOL_CAPABILITIES[key])
@@ -271,6 +280,7 @@ function toolPage(key: ToolKey, locale: LocaleCode, m: Messages): string {
     <div>
       <h2 class="text-xl font-bold">${esc(m.content.browserHeading)}</h2>
       <ul class="mt-3 grid list-none gap-2 p-0 sm:grid-cols-2">${browsers}</ul>
+      ${best}
       <p class="mt-2 max-w-prose text-xs text-muted">${esc(m.content.browserNote)}</p>
       <p class="mt-1 text-xs text-muted">${tpl(m.content.browserVerified, { date: esc(SUPPORT_VERIFIED) })}</p>
     </div>

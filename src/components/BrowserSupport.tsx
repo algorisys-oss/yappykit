@@ -1,7 +1,7 @@
 import { createSignal, onMount, For, Show } from 'solid-js';
 import { useI18n } from '../i18n/runtime';
 import { detectCapabilities, evaluate } from '@core/capability';
-import { supportFor, SUPPORT_VERIFIED } from '@core/capability/support';
+import { supportFor, bestBrowsers, SUPPORT_VERIFIED } from '@core/capability/support';
 import { TOOL_CAPABILITIES } from '../lib/tool-capabilities';
 import type { ToolKey } from '../i18n/routes';
 
@@ -18,7 +18,7 @@ import type { ToolKey } from '../i18n/routes';
  * visitor presses the button.
  */
 export default function BrowserSupport(props: { route: ToolKey }) {
-  const { m, fmt } = useI18n();
+  const { m, fmt, locale } = useI18n();
   const c = () => m.content;
   const spec = () => TOOL_CAPABILITIES[props.route];
   const [mine, setMine] = createSignal<'ok' | 'slow' | 'no' | null>(null);
@@ -44,6 +44,14 @@ export default function BrowserSupport(props: { route: ToolKey }) {
     return '';
   };
 
+  /** "Chrome or Edge" joins differently per language, so let Intl do it. */
+  const best = () => {
+    const names = bestBrowsers(spec()).map((b) => b.label);
+    if (names.length === 0) return '';
+    const list = new Intl.ListFormat(locale, { style: 'long', type: 'disjunction' }).format(names);
+    return fmt(c().browserBest, { browsers: list });
+  };
+
   const yours = () => {
     const v = mine();
     return v === 'ok' ? c().browserYoursOk : v === 'slow' ? c().browserYoursSlow : c().browserYoursNo;
@@ -67,6 +75,9 @@ export default function BrowserSupport(props: { route: ToolKey }) {
           )}
         </For>
       </ul>
+      <Show when={best()}>
+        <p class="mt-3 text-sm font-medium text-fg">{best()}</p>
+      </Show>
       <Show when={mine()}>
         {/* Deliberately not a live region: this is a fact about the page, not
             a result of anything the visitor did, and every tool already has a

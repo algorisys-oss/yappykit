@@ -1,5 +1,12 @@
 import { describe, it, expect } from 'vitest';
-import { supportFor, BROWSERS, BASELINE, minimumFor, type BrowserId } from './support';
+import {
+  supportFor,
+  bestBrowsers,
+  BROWSERS,
+  BASELINE,
+  minimumFor,
+  type BrowserId,
+} from './support';
 import type { CapabilitySpec } from './index';
 
 const of = (id: BrowserId, spec: CapabilitySpec) => supportFor(spec).find((b) => b.id === id)!;
@@ -82,6 +89,31 @@ describe('supportFor', () => {
 
   it('reports every browser in a stable order', () => {
     expect(supportFor({ required: [] }).map((b) => b.id)).toEqual(BROWSERS.map((b) => b.id));
+  });
+});
+
+describe('bestBrowsers', () => {
+  it('says nothing when every browser is equally good', () => {
+    // Nothing to recommend: a recommendation here would be an opinion about
+    // browsers rather than a fact about the tool.
+    expect(bestBrowsers({ required: [] })).toEqual([]);
+  });
+
+  it('says nothing when a fast path merely arrives later somewhere', () => {
+    // Firefox reaches the offscreen canvas at 105 and is then exactly as good
+    // as Chrome, so "best in Chrome" would be false.
+    expect(bestBrowsers({ required: [], preferred: ['offscreenCanvas'] })).toEqual([]);
+  });
+
+  it('names the browsers with a fast path the others never get', () => {
+    const best = bestBrowsers({ required: [], preferred: ['localFonts'] });
+    expect(best.map((b) => b.label)).toEqual(['Chrome', 'Edge']);
+  });
+
+  it('stays quiet where a browser cannot run the tool at all', () => {
+    // "Best in Chrome" would be the wrong words when the alternative is not
+    // slower but impossible, and that row already reads "not supported".
+    expect(bestBrowsers({ required: ['localFonts'], preferred: ['localFonts'] })).toEqual([]);
   });
 });
 

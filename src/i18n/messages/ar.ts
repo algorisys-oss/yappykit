@@ -151,6 +151,7 @@ const ar: Messages = {
     browserNever: 'غير مدعوم',
     browserDegraded: 'مسار أبطأ',
     browserFastFrom: 'بالسرعة الكاملة من {version}',
+    browserBest: 'الأفضل في {browsers}.',
     browserYoursOk: 'متصفحك يملك كل ما تحتاجه هذه الأداة.',
     browserYoursSlow:
       'متصفحك يستطيع تشغيل هذه الأداة، لكن عبر مسار أبطأ. وهي تنبّهك في الموضع الذي يهم فيه ذلك.',

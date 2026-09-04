@@ -149,6 +149,7 @@ const ptBR: Messages = {
     browserNever: 'Sem suporte',
     browserDegraded: 'caminho mais lento',
     browserFastFrom: 'velocidade total a partir de {version}',
+    browserBest: 'Melhor no {browsers}.',
     browserYoursOk: 'Seu navegador tem tudo o que esta ferramenta precisa.',
     browserYoursSlow:
       'Seu navegador consegue usar esta ferramenta, mas por um caminho mais lento. Ele avisa no momento em que isso importa.',

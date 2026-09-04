@@ -149,6 +149,7 @@ const de: Messages = {
     browserNever: 'Nicht unterstützt',
     browserDegraded: 'langsamerer Weg',
     browserFastFrom: 'volle Geschwindigkeit ab {version}',
+    browserBest: 'Am besten in {browsers}.',
     browserYoursOk: 'Dein Browser hat alles, was dieses Werkzeug braucht.',
     browserYoursSlow:
       'Dein Browser kann dieses Werkzeug ausführen, aber auf einem langsameren Weg. Es sagt das an der Stelle, wo es zählt.',

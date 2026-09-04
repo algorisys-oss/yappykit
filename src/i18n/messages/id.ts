@@ -149,6 +149,7 @@ const id: Messages = {
     browserNever: 'Tidak didukung',
     browserDegraded: 'jalur lebih lambat',
     browserFastFrom: 'kecepatan penuh sejak {version}',
+    browserBest: 'Paling baik di {browsers}.',
     browserYoursOk: 'Peramban kamu punya semua yang dibutuhkan alat ini.',
     browserYoursSlow:
       'Peramban kamu bisa menjalankan alat ini, tapi lewat jalur yang lebih lambat. Alatnya memberi tahu saat hal itu berpengaruh.',

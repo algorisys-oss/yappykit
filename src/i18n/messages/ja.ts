@@ -149,6 +149,7 @@ const ja: Messages = {
     browserNever: '非対応',
     browserDegraded: '低速な経路',
     browserFastFrom: '{version} 以降で全速',
+    browserBest: '{browsers} が最適です。',
     browserYoursOk: 'このブラウザには、このツールに必要なものがすべてそろっています。',
     browserYoursSlow: 'このブラウザでも動きますが、低速な経路になります。影響が出る場面でその旨を表示します。',
     browserYoursNo: 'このブラウザにはこのツールに必要なものが足りないため、ここでは動きません。',

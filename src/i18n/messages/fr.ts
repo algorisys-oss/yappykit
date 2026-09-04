@@ -149,6 +149,7 @@ const fr: Messages = {
     browserNever: 'Non pris en charge',
     browserDegraded: 'chemin plus lent',
     browserFastFrom: 'pleine vitesse à partir de {version}',
+    browserBest: 'Idéal dans {browsers}.',
     browserYoursOk: 'Votre navigateur a tout ce dont cet outil a besoin.',
     browserYoursSlow:
       'Votre navigateur peut faire tourner cet outil, mais par un chemin plus lent. Il le signale au moment où cela compte.',

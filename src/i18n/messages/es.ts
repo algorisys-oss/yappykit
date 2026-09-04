@@ -149,6 +149,7 @@ const es: Messages = {
     browserNever: 'No compatible',
     browserDegraded: 'ruta más lenta',
     browserFastFrom: 'a pleno rendimiento desde {version}',
+    browserBest: 'Mejor en {browsers}.',
     browserYoursOk: 'Tu navegador tiene todo lo que esta herramienta necesita.',
     browserYoursSlow:
       'Tu navegador puede usar esta herramienta, pero por una ruta más lenta. Te lo indica en el momento en que importa.',

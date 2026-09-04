@@ -107,6 +107,28 @@ export function supportFor(spec: CapabilitySpec): BrowserVerdict[] {
   });
 }
 
+/**
+ * The browsers worth recommending for this tool, or nothing.
+ *
+ * "Best in Chrome or Edge" is only worth saying when it is a fact about the
+ * tool rather than an opinion about browsers, which means exactly one case:
+ * every browser can run it, and some of them have a fast path the others will
+ * never get. A capability that merely arrives later somewhere does not count,
+ * because that browser is just as good once it catches up, and a tool that runs
+ * identically everywhere has nothing to recommend at all.
+ *
+ * A browser that cannot run the tool is not a reason to recommend the others
+ * either. "Best in" would be the wrong words for it, and the row already reads
+ * "not supported", which is the stronger statement.
+ */
+export function bestBrowsers(spec: CapabilitySpec): BrowserVerdict[] {
+  const all = supportFor(spec);
+  if (all.some((b) => b.minVersion === null)) return [];
+  const withFastPath = all.filter((b) => b.fastVersion !== null);
+  if (withFastPath.length === 0 || withFastPath.length === all.length) return [];
+  return withFastPath;
+}
+
 /** Just the version floors, keyed by browser. Convenient for tests and copy. */
 export function minimumFor(spec: CapabilitySpec): Record<BrowserId, number | null> {
   const out = {} as Record<BrowserId, number | null>;

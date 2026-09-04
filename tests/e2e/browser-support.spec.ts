@@ -62,6 +62,30 @@ test('it reaches a verdict on the browser actually reading the page', async ({ p
   ).toBeVisible();
 });
 
+test('names the best browsers only where that is a fact about the tool', async ({ page }) => {
+  // Local Font Access is Chromium-only, so the font tools genuinely are better
+  // there and say so.
+  await page.goto('/font-character-checker');
+  await expect(page.getByText('Best in Chrome or Edge.')).toBeVisible();
+
+  // The compressor is identical everywhere once Firefox catches up at 105, so
+  // recommending a browser would be an opinion rather than a fact.
+  await page.goto('/compress-image-to-size');
+  await expect(page.getByText(/^Best in /)).toHaveCount(0);
+
+  // And a tool that needs nothing has nothing to recommend.
+  await page.goto('/merge-pdf');
+  await expect(page.getByText(/^Best in /)).toHaveCount(0);
+});
+
+test('the recommendation is prerendered and translated', async ({ request }) => {
+  const en = await (await request.get('/font-style-finder')).text();
+  expect(en).toContain('Best in Chrome or Edge.');
+  // Intl.ListFormat joins the two names per language, not with a literal "or".
+  const de = await (await request.get('/de/schriftart-nach-stil-finden')).text();
+  expect(de).toContain('Chrome oder Edge');
+});
+
 test('it says when the numbers were last checked', async ({ page }) => {
   await page.goto('/merge-pdf');
   await expect(page.getByText(/Version numbers checked on \d{4}-\d{2}-\d{2}\./)).toBeVisible();
