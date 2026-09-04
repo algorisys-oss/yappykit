@@ -20,6 +20,8 @@ import { TOOL_KEYS, pathFor, relatedTools, type RouteKey, type ToolKey } from '.
 import { parts } from '../i18n/format';
 import { TERMS_INTRO, TERMS_SECTIONS, TERMS_UPDATED } from '../content/terms';
 import { ARTICLES } from '../content/articles';
+import { supportFor, SUPPORT_VERIFIED } from '../core/capability/support';
+import { TOOL_CAPABILITIES } from '../lib/tool-capabilities';
 import {
   PRIVACY_LEAD,
   PRIVACY_SECTIONS,
@@ -189,6 +191,21 @@ function toolPage(key: ToolKey, locale: LocaleCode, m: Messages): string {
   // The technical article is English only (see content/articles), so the
   // translated pages simply do not carry it rather than carrying it in the
   // wrong language.
+  // The same table the BrowserSupport component renders, minus the live verdict
+  // on the reader's own browser, which no prerender can know.
+  const browsers = supportFor(TOOL_CAPABILITIES[key])
+    .map(
+      (b) => `<li class="flex items-baseline justify-between gap-3 rounded border border-border bg-surface px-3 py-2">
+        <span class="text-sm font-medium text-fg">${esc(b.label)}</span>
+        <span class="text-xs text-muted">${
+          b.minVersion === null
+            ? esc(m.content.browserNever)
+            : tpl(m.content.browserVersion, { version: esc(String(b.minVersion)) })
+        }${b.degraded ? ` &middot; ${esc(m.content.browserDegraded)}` : ''}</span>
+      </li>`,
+    )
+    .join('');
+
   const piece = locale === 'en' ? ARTICLES[key] : undefined;
   const article = piece
     ? `<article>
@@ -241,6 +258,13 @@ function toolPage(key: ToolKey, locale: LocaleCode, m: Messages): string {
       <ul class="mt-3 max-w-prose list-disc space-y-1 ps-5 text-sm leading-relaxed text-fg">
         ${c.tips.map((t2) => `<li>${esc(t2)}</li>`).join('')}
       </ul>
+    </div>
+
+    <div>
+      <h2 class="text-xl font-bold">${esc(m.content.browserHeading)}</h2>
+      <ul class="mt-3 grid list-none gap-2 p-0 sm:grid-cols-2">${browsers}</ul>
+      <p class="mt-2 max-w-prose text-xs text-muted">${esc(m.content.browserNote)}</p>
+      <p class="mt-1 text-xs text-muted">${tpl(m.content.browserVerified, { date: esc(SUPPORT_VERIFIED) })}</p>
     </div>
 
     ${article}

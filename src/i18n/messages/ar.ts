@@ -146,6 +146,17 @@ const ar: Messages = {
   },
 
   content: {
+    browserHeading: 'دعم المتصفحات',
+    browserVersion: '{version} وما بعدها',
+    browserNever: 'غير مدعوم',
+    browserDegraded: 'مسار أبطأ',
+    browserYoursOk: 'متصفحك يملك كل ما تحتاجه هذه الأداة.',
+    browserYoursSlow:
+      'متصفحك يستطيع تشغيل هذه الأداة، لكن عبر مسار أبطأ. وهي تنبّهك في الموضع الذي يهم فيه ذلك.',
+    browserYoursNo: 'ينقص متصفحك شيء تحتاجه هذه الأداة، لذلك لا تعمل هنا.',
+    browserNote:
+      'هذه أقدم الإصدارات التي تملك كل ما تستخدمه الأداة. تُحسب من الأداة نفسها، فتتغير كلما تغيّرت.',
+    browserVerified: 'جرى التحقق من أرقام الإصدارات في {date}.',
     howItWorksHeading: 'كيف يعمل',
     howToUseHeading: 'طريقة الاستخدام',
     goodToKnowHeading: 'معلومات مفيدة',

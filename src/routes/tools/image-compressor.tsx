@@ -5,7 +5,8 @@ import { ImagePreview } from '../tool-previews';
 import ToolContent from '../tool-content';
 import { useSeo } from '../../lib/seo';
 import { useI18n } from '../../i18n/runtime';
-import { detectCapabilities, evaluate, type CapabilitySpec } from '@core/capability';
+import { detectCapabilities, evaluate } from '@core/capability';
+import { TOOL_CAPABILITIES } from '../../lib/tool-capabilities';
 import { targetSize } from '@core/target-size';
 import { decodeImage, makeEncoder, type DecodedImage } from '@core/image/canvas-codec';
 
@@ -22,10 +23,6 @@ import { decodeImage, makeEncoder, type DecodedImage } from '@core/image/canvas-
 
 // Canvas encoding is universally available; createImageBitmap/OffscreenCanvas
 // are fast-path niceties the tool degrades without.
-const SPEC: CapabilitySpec = {
-  required: [],
-  preferred: ['createImageBitmap', 'offscreenCanvas'],
-};
 
 // Values and byte budgets are fixed; the LABELS come from the active locale.
 const TARGETS = [
@@ -55,7 +52,7 @@ export default function ImageCompressor() {
 
   let decoded: DecodedImage | null = null;
 
-  onMount(() => setDegraded(!evaluate(SPEC, detectCapabilities()).fastPath));
+  onMount(() => setDegraded(!evaluate(TOOL_CAPABILITIES['image-compress'], detectCapabilities()).fastPath));
 
   const cleanup = () => {
     const o = original();

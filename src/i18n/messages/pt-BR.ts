@@ -144,6 +144,18 @@ const ptBR: Messages = {
   },
 
   content: {
+    browserHeading: 'Compatibilidade com navegadores',
+    browserVersion: '{version} ou mais recente',
+    browserNever: 'Sem suporte',
+    browserDegraded: 'caminho mais lento',
+    browserYoursOk: 'Seu navegador tem tudo o que esta ferramenta precisa.',
+    browserYoursSlow:
+      'Seu navegador consegue usar esta ferramenta, mas por um caminho mais lento. Ele avisa no momento em que isso importa.',
+    browserYoursNo:
+      'Falta ao seu navegador algo de que esta ferramenta precisa, então ela não roda aqui.',
+    browserNote:
+      'Estas são as versões mais antigas que têm tudo o que a ferramenta usa. Elas saem da própria ferramenta, então mudam quando ela muda.',
+    browserVerified: 'Números de versão conferidos em {date}.',
     howItWorksHeading: 'Como funciona',
     howToUseHeading: 'Como usar',
     goodToKnowHeading: 'Bom saber',

@@ -5,7 +5,8 @@ import ToolContent from '../tool-content';
 import { ImageToPdfPreview } from '../tool-previews';
 import { useSeo } from '../../lib/seo';
 import { useI18n } from '../../i18n/runtime';
-import { detectCapabilities, evaluate, type CapabilitySpec } from '@core/capability';
+import { detectCapabilities, evaluate } from '@core/capability';
+import { TOOL_CAPABILITIES } from '../../lib/tool-capabilities';
 import { move } from '@core/list';
 import { decodeImage, makeEncoder } from '@core/image/canvas-codec';
 import {
@@ -29,10 +30,6 @@ import {
  * hiding it would be the dishonest kind of convenience.
  */
 
-const SPEC: CapabilitySpec = {
-  required: [],
-  preferred: ['createImageBitmap'],
-};
 
 /** Good enough that a photographed page is still readable; small enough to send. */
 const CONVERT_QUALITY = 0.92;
@@ -104,7 +101,7 @@ export default function ImageToPdf() {
     null,
   );
 
-  onMount(() => setDegraded(!evaluate(SPEC, detectCapabilities()).fastPath));
+  onMount(() => setDegraded(!evaluate(TOOL_CAPABILITIES['image-to-pdf'], detectCapabilities()).fastPath));
 
   const revoke = () => {
     const r = result();

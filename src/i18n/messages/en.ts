@@ -146,6 +146,18 @@ export const en = {
   },
 
   content: {
+    browserHeading: 'Browser support',
+    browserVersion: '{version} and later',
+    browserNever: 'Not supported',
+    browserDegraded: 'slower path',
+    browserYoursOk: 'Your browser has everything this tool needs.',
+    browserYoursSlow:
+      'Your browser can run this tool, but on a slower path. It says so at the point where that matters.',
+    browserYoursNo:
+      'Your browser is missing something this tool needs, so it cannot run here.',
+    browserNote:
+      'These are the oldest versions with everything the tool uses. They are worked out from the tool itself, so they change when it does.',
+    browserVerified: 'Version numbers checked on {date}.',
     howItWorksHeading: 'How it works',
     howToUseHeading: 'How to use it',
     goodToKnowHeading: 'Good to know',

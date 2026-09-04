@@ -144,6 +144,18 @@ const vi: Messages = {
   },
 
   content: {
+    browserHeading: 'Trình duyệt hỗ trợ',
+    browserVersion: '{version} trở lên',
+    browserNever: 'Không hỗ trợ',
+    browserDegraded: 'đường chậm hơn',
+    browserYoursOk: 'Trình duyệt của bạn có đủ mọi thứ công cụ này cần.',
+    browserYoursSlow:
+      'Trình duyệt của bạn chạy được công cụ này, nhưng theo một đường chậm hơn. Công cụ sẽ báo đúng lúc điều đó có ảnh hưởng.',
+    browserYoursNo:
+      'Trình duyệt của bạn thiếu một thứ mà công cụ này cần, nên nó không chạy được ở đây.',
+    browserNote:
+      'Đây là các phiên bản cũ nhất có đủ những gì công cụ dùng. Chúng được tính ra từ chính công cụ, nên thay đổi theo công cụ.',
+    browserVerified: 'Số phiên bản được kiểm tra ngày {date}.',
     howItWorksHeading: 'Cách hoạt động',
     howToUseHeading: 'Cách sử dụng',
     goodToKnowHeading: 'Điều nên biết',

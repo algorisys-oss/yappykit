@@ -5,7 +5,8 @@ import ToolContent from '../tool-content';
 import { ScreenshotStitchPreview } from '../tool-previews';
 import { useSeo } from '../../lib/seo';
 import { useI18n } from '../../i18n/runtime';
-import { detectCapabilities, evaluate, type CapabilitySpec } from '@core/capability';
+import { detectCapabilities, evaluate } from '@core/capability';
+import { TOOL_CAPABILITIES } from '../../lib/tool-capabilities';
 import { move } from '@core/list';
 import { planStitch, type StitchPlan } from '@core/screenshot/stitch';
 import {
@@ -28,10 +29,6 @@ import { slicePages, sliceHeightFor, buildPdf } from '@core/screenshot/pdf';
  * back, so those are the only two questions asked.
  */
 
-const SPEC: CapabilitySpec = {
-  required: [],
-  preferred: ['createImageBitmap', 'offscreenCanvas'],
-};
 
 type Output = 'png' | 'jpeg' | 'pdf';
 
@@ -73,7 +70,7 @@ export default function ScreenshotStitcher() {
   const [shrunkTo, setShrunkTo] = createSignal(1);
   const [result, setResult] = createSignal<Result | null>(null);
 
-  onMount(() => setDegraded(!evaluate(SPEC, detectCapabilities()).fastPath));
+  onMount(() => setDegraded(!evaluate(TOOL_CAPABILITIES['screenshot-stitch'], detectCapabilities()).fastPath));
 
   const revoke = () => {
     const r = result();

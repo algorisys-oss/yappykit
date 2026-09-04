@@ -144,6 +144,18 @@ const id: Messages = {
   },
 
   content: {
+    browserHeading: 'Dukungan peramban',
+    browserVersion: '{version} ke atas',
+    browserNever: 'Tidak didukung',
+    browserDegraded: 'jalur lebih lambat',
+    browserYoursOk: 'Peramban kamu punya semua yang dibutuhkan alat ini.',
+    browserYoursSlow:
+      'Peramban kamu bisa menjalankan alat ini, tapi lewat jalur yang lebih lambat. Alatnya memberi tahu saat hal itu berpengaruh.',
+    browserYoursNo:
+      'Peramban kamu tidak punya sesuatu yang dibutuhkan alat ini, jadi alatnya tidak bisa berjalan di sini.',
+    browserNote:
+      'Ini versi paling lama yang punya semua yang dipakai alat ini. Angkanya dihitung dari alatnya sendiri, jadi ikut berubah kalau alatnya berubah.',
+    browserVerified: 'Nomor versi diperiksa pada {date}.',
     howItWorksHeading: 'Cara kerjanya',
     howToUseHeading: 'Cara memakainya',
     goodToKnowHeading: 'Perlu diketahui',

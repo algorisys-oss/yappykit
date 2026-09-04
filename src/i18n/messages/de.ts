@@ -144,6 +144,18 @@ const de: Messages = {
   },
 
   content: {
+    browserHeading: 'Browser-Unterstützung',
+    browserVersion: '{version} und neuer',
+    browserNever: 'Nicht unterstützt',
+    browserDegraded: 'langsamerer Weg',
+    browserYoursOk: 'Dein Browser hat alles, was dieses Werkzeug braucht.',
+    browserYoursSlow:
+      'Dein Browser kann dieses Werkzeug ausführen, aber auf einem langsameren Weg. Es sagt das an der Stelle, wo es zählt.',
+    browserYoursNo:
+      'Deinem Browser fehlt etwas, das dieses Werkzeug braucht, es läuft hier also nicht.',
+    browserNote:
+      'Das sind die ältesten Versionen mit allem, was das Werkzeug benutzt. Sie werden aus dem Werkzeug selbst errechnet und ändern sich also mit ihm.',
+    browserVerified: 'Versionsnummern geprüft am {date}.',
     howItWorksHeading: 'So funktioniert es',
     howToUseHeading: 'So verwenden Sie es',
     goodToKnowHeading: 'Gut zu wissen',

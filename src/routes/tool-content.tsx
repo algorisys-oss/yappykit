@@ -3,6 +3,7 @@ import { A } from '@solidjs/router';
 import { useI18n } from '../i18n/runtime';
 import { ARTICLES } from '../content/articles';
 import { relatedTools, type ToolKey } from '../i18n/routes';
+import BrowserSupport from '../components/BrowserSupport';
 
 /**
  * Per-tool content: How it works, a step-by-step, "Good to know", an FAQ and
@@ -57,6 +58,8 @@ export default function ToolContent(props: { route: ToolKey }) {
           <For each={c().tips}>{(t) => <li>{t}</li>}</For>
         </ul>
       </div>
+
+      <BrowserSupport route={props.route} />
 
       <Show when={article()}>
         {(a) => (

@@ -144,6 +144,18 @@ const tr: Messages = {
   },
 
   content: {
+    browserHeading: 'Tarayıcı desteği',
+    browserVersion: '{version} ve üzeri',
+    browserNever: 'Desteklenmiyor',
+    browserDegraded: 'daha yavaş yol',
+    browserYoursOk: 'Tarayıcında bu aracın ihtiyaç duyduğu her şey var.',
+    browserYoursSlow:
+      'Tarayıcın bu aracı çalıştırabilir, ama daha yavaş bir yoldan. Bunun önem kazandığı yerde araç sana söyler.',
+    browserYoursNo:
+      'Tarayıcında bu aracın ihtiyaç duyduğu bir şey eksik, bu yüzden burada çalışmıyor.',
+    browserNote:
+      'Bunlar aracın kullandığı her şeye sahip en eski sürümler. Aracın kendisinden hesaplanır, yani araç değiştikçe değişirler.',
+    browserVerified: 'Sürüm numaraları {date} tarihinde denetlendi.',
     howItWorksHeading: 'Nasıl çalışır',
     howToUseHeading: 'Nasıl kullanılır',
     goodToKnowHeading: 'Bilmekte fayda var',

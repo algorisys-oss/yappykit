@@ -15,7 +15,8 @@ import ToolContent from '../tool-content';
 import { WatermarkPreview } from '../tool-previews';
 import { useSeo } from '../../lib/seo';
 import { useI18n } from '../../i18n/runtime';
-import { detectCapabilities, evaluate, type CapabilitySpec } from '@core/capability';
+import { detectCapabilities, evaluate } from '@core/capability';
+import { TOOL_CAPABILITIES } from '../../lib/tool-capabilities';
 import { decodeImage, encodeCanvas, type DecodedImage } from '@core/image/canvas-codec';
 import {
   defaultsFor,
@@ -46,10 +47,6 @@ import { zip, uniqueNames } from '@core/archive/zip';
  * therefore says out loud.
  */
 
-const SPEC: CapabilitySpec = {
-  required: [],
-  preferred: ['createImageBitmap'],
-};
 
 /** High enough that a watermarked photograph is still the photograph. */
 const QUALITY = 0.92;
@@ -127,7 +124,7 @@ export default function ImageWatermark() {
   let previewRef: HTMLCanvasElement | undefined;
   const [previewSource, setPreviewSource] = createSignal<DecodedImage | null>(null);
 
-  onMount(() => setDegraded(!evaluate(SPEC, detectCapabilities()).fastPath));
+  onMount(() => setDegraded(!evaluate(TOOL_CAPABILITIES['image-watermark'], detectCapabilities()).fastPath));
 
   const spec = createMemo<WatermarkSpec>(() => ({
     ...defaultsFor(purpose()),

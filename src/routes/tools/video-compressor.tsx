@@ -5,7 +5,8 @@ import { VideoPreview } from '../tool-previews';
 import ToolContent from '../tool-content';
 import { useSeo } from '../../lib/seo';
 import { useI18n } from '../../i18n/runtime';
-import { detectCapabilities, evaluate, type CapabilitySpec } from '@core/capability';
+import { detectCapabilities, evaluate } from '@core/capability';
+import { TOOL_CAPABILITIES } from '../../lib/tool-capabilities';
 import { planBitrate } from '@core/video/bitrate';
 import { transcodeVideo } from '@core/video/ffmpeg';
 
@@ -19,10 +20,6 @@ import { transcodeVideo } from '@core/video/ffmpeg';
  * spike/coop-coep) is a later speed upgrade.
  */
 
-const SPEC: CapabilitySpec = {
-  required: ['wasm', 'decompressionStream'],
-  preferred: ['webCodecs'],
-};
 
 // Values and byte budgets are fixed; the LABELS come from the active locale.
 const TARGETS = [
@@ -65,7 +62,7 @@ export default function VideoCompressor() {
 
   let file: File | null = null;
 
-  onMount(() => setSupported(evaluate(SPEC, detectCapabilities()).supported));
+  onMount(() => setSupported(evaluate(TOOL_CAPABILITIES['video-compress'], detectCapabilities()).supported));
 
   const cleanup = () => {
     const o = original();

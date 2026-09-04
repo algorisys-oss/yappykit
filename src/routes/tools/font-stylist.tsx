@@ -5,7 +5,8 @@ import ToolContent from '../tool-content';
 import { FontStylePreview } from '../tool-previews';
 import { useSeo } from '../../lib/seo';
 import { useI18n } from '../../i18n/runtime';
-import { detectCapabilities, evaluate, type CapabilitySpec } from '@core/capability';
+import { detectCapabilities, evaluate } from '@core/capability';
+import { TOOL_CAPABILITIES } from '../../lib/tool-capabilities';
 import { blobSource, readFonts, FontFormatError, type FontEntry, type FontFormatCode } from '@core/font';
 import { scanInstalledFonts, LocalFontsError } from '@core/font/local';
 import { rankByFeel, FEEL_IDS, type FeelId, type TraitId, type StyleMatch } from '@core/font/style';
@@ -24,10 +25,6 @@ import { rankByFeel, FEEL_IDS, type FeelId, type TraitId, type StyleMatch } from
  * rather than asserted.
  */
 
-const SPEC: CapabilitySpec = {
-  required: [],
-  preferred: ['localFonts'],
-};
 
 const MAX_PARTIAL_SHOWN = 24;
 
@@ -48,7 +45,7 @@ export default function FontStylist() {
   const [fileFamilies, setFileFamilies] = createSignal(new Map<string, string>());
   const registered: FontFace[] = [];
 
-  onMount(() => setCanScan(evaluate(SPEC, detectCapabilities()).fastPath));
+  onMount(() => setCanScan(evaluate(TOOL_CAPABILITIES['font-style'], detectCapabilities()).fastPath));
   onCleanup(() => {
     for (const face of registered) document.fonts.delete(face);
   });

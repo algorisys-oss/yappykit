@@ -144,6 +144,18 @@ const it: Messages = {
   },
 
   content: {
+    browserHeading: 'Browser supportati',
+    browserVersion: '{version} e successive',
+    browserNever: 'Non supportato',
+    browserDegraded: 'percorso più lento',
+    browserYoursOk: 'Il tuo browser ha tutto ciò che serve a questo strumento.',
+    browserYoursSlow:
+      'Il tuo browser può usare questo strumento, ma su un percorso più lento. Te lo dice nel punto in cui la cosa conta.',
+    browserYoursNo:
+      'Al tuo browser manca qualcosa che serve a questo strumento, quindi qui non funziona.',
+    browserNote:
+      'Queste sono le versioni più vecchie che hanno tutto ciò che lo strumento usa. Si ricavano dallo strumento stesso, quindi cambiano insieme a lui.',
+    browserVerified: 'Numeri di versione verificati il {date}.',
     howItWorksHeading: 'Come funziona',
     howToUseHeading: 'Come si usa',
     goodToKnowHeading: 'Buono a sapersi',

@@ -4,7 +4,8 @@ import ToolHero from '../../components/ToolHero';
 import ToolContent from '../tool-content';
 import { useSeo } from '../../lib/seo';
 import { useI18n } from '../../i18n/runtime';
-import { detectCapabilities, evaluate, type CapabilitySpec } from '@core/capability';
+import { detectCapabilities, evaluate } from '@core/capability';
+import { TOOL_CAPABILITIES } from '../../lib/tool-capabilities';
 import { targetSize } from '@core/target-size';
 import { loadPdf, makePdfEncoder, type LoadedPdf } from '@core/pdf/compress';
 import { summarise } from '@core/pdf/plan';
@@ -25,7 +26,6 @@ import { summarise } from '@core/pdf/plan';
 
 // pdf.js parses in a worker and the pages are rasterised on a canvas; neither is
 // optional, so there is no degraded path worth offering here.
-const SPEC: CapabilitySpec = { required: [], preferred: ['offscreenCanvas'] };
 
 const TARGETS = [
   { value: '100kb', labelKey: 'targetUnder100kb', bytes: 100 * 1024 },
@@ -145,7 +145,7 @@ export default function PdfCompressor() {
     }
   }
 
-  const degraded = () => !evaluate(SPEC, detectCapabilities()).fastPath;
+  const degraded = () => !evaluate(TOOL_CAPABILITIES['pdf-compress'], detectCapabilities()).fastPath;
 
   return (
     <main class="mx-auto max-w-2xl px-6 py-12">

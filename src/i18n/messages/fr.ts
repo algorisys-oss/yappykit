@@ -144,6 +144,18 @@ const fr: Messages = {
   },
 
   content: {
+    browserHeading: 'Navigateurs compatibles',
+    browserVersion: '{version} et suivantes',
+    browserNever: 'Non pris en charge',
+    browserDegraded: 'chemin plus lent',
+    browserYoursOk: 'Votre navigateur a tout ce dont cet outil a besoin.',
+    browserYoursSlow:
+      'Votre navigateur peut faire tourner cet outil, mais par un chemin plus lent. Il le signale au moment où cela compte.',
+    browserYoursNo:
+      'Il manque à votre navigateur quelque chose dont cet outil a besoin, il ne peut donc pas fonctionner ici.',
+    browserNote:
+      'Ce sont les plus anciennes versions qui ont tout ce que l’outil utilise. Elles sont calculées à partir de l’outil lui-même, donc elles changent avec lui.',
+    browserVerified: 'Numéros de version vérifiés le {date}.',
     howItWorksHeading: 'Comment ça marche',
     howToUseHeading: 'Comment l’utiliser',
     goodToKnowHeading: 'Bon à savoir',

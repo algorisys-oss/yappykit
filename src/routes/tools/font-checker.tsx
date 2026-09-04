@@ -5,7 +5,8 @@ import ToolContent from '../tool-content';
 import { FontCoveragePreview } from '../tool-previews';
 import { useSeo } from '../../lib/seo';
 import { useI18n } from '../../i18n/runtime';
-import { detectCapabilities, evaluate, type CapabilitySpec } from '@core/capability';
+import { detectCapabilities, evaluate } from '@core/capability';
+import { TOOL_CAPABILITIES } from '../../lib/tool-capabilities';
 import {
   blobSource,
   codepointLabel,
@@ -33,10 +34,6 @@ import { scanInstalledFonts, LocalFontsError } from '@core/font/local';
  * needs no permission and works in every browser, so the tool is never useless.
  */
 
-const SPEC: CapabilitySpec = {
-  required: [],
-  preferred: ['localFonts'],
-};
 
 /** Missing characters are chips, and a hundred of them is not a list any more. */
 const MAX_MISSING_SHOWN = 12;
@@ -62,7 +59,7 @@ export default function FontChecker() {
   const [fileFamilies, setFileFamilies] = createSignal(new Map<string, string>());
   const registered: FontFace[] = [];
 
-  onMount(() => setCanScan(evaluate(SPEC, detectCapabilities()).fastPath));
+  onMount(() => setCanScan(evaluate(TOOL_CAPABILITIES['font-coverage'], detectCapabilities()).fastPath));
   onCleanup(() => {
     for (const face of registered) document.fonts.delete(face);
   });

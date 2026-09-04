@@ -144,6 +144,16 @@ const ja: Messages = {
   },
 
   content: {
+    browserHeading: '対応ブラウザ',
+    browserVersion: '{version} 以降',
+    browserNever: '非対応',
+    browserDegraded: '低速な経路',
+    browserYoursOk: 'このブラウザには、このツールに必要なものがすべてそろっています。',
+    browserYoursSlow: 'このブラウザでも動きますが、低速な経路になります。影響が出る場面でその旨を表示します。',
+    browserYoursNo: 'このブラウザにはこのツールに必要なものが足りないため、ここでは動きません。',
+    browserNote:
+      'ツールが使う機能がすべてそろっている最も古いバージョンです。ツール自身から算出しているので、ツールが変われば数字も変わります。',
+    browserVerified: 'バージョン番号の確認日: {date}。',
     howItWorksHeading: '仕組み',
     howToUseHeading: '使い方',
     goodToKnowHeading: '知っておくと便利なこと',
