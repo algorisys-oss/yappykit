@@ -563,6 +563,30 @@ export function ImageToPdfPreview() {
   );
 }
 
+export function WatermarkPreview() {
+  return (
+    <Frame>
+      {/* The photograph */}
+      <rect x="30" y="14" width="140" height="76" rx="6" fill={C.paper} stroke={C.border} stroke-width="2" />
+      <circle cx="54" cy="34" r="6" fill={C.accentSoft} />
+      <path d="M36 78 L64 50 L82 66 L104 44 L136 78 Z" fill={C.accentSoft} />
+      {/* The mark, repeated across it on the diagonal */}
+      <g fill={C.accent} opacity="0.5">
+        <g transform="rotate(-30 100 52)">
+          <rect x="34" y="26" width="34" height="7" rx="3.5" />
+          <rect x="82" y="26" width="34" height="7" rx="3.5" />
+          <rect x="130" y="26" width="34" height="7" rx="3.5" />
+          <rect x="58" y="48" width="34" height="7" rx="3.5" />
+          <rect x="106" y="48" width="34" height="7" rx="3.5" />
+          <rect x="34" y="70" width="34" height="7" rx="3.5" />
+          <rect x="82" y="70" width="34" height="7" rx="3.5" />
+          <rect x="130" y="70" width="34" height="7" rx="3.5" />
+        </g>
+      </g>
+    </Frame>
+  );
+}
+
 /**
  * Keyed by route KEY, not by URL: the URL differs per locale, the key does not.
  * Tools without an illustration simply have no entry — callers guard with
@@ -586,4 +610,5 @@ export const TOOL_PREVIEWS: Partial<Record<ToolKey, () => JSX.Element>> = {
   'font-coverage': FontCoveragePreview,
   'font-style': FontStylePreview,
   'image-to-pdf': ImageToPdfPreview,
+  'image-watermark': WatermarkPreview,
 };

@@ -62,6 +62,17 @@ async function createImageBitmapFromDrawable(
   return createImageBitmap(canvas);
 }
 
+/** Encode an already-painted canvas. PNG ignores `quality` and keeps alpha. */
+export async function encodeCanvas(
+  canvas: HTMLCanvasElement,
+  type: RasterType | 'image/png',
+  quality?: number,
+): Promise<Uint8Array> {
+  const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, type, quality));
+  if (!blob) throw new Error('Canvas encode failed');
+  return new Uint8Array(await blob.arrayBuffer());
+}
+
 /** Build an `encode(params)` bound to a decoded image and output type. */
 export function makeEncoder(
   image: DecodedImage,
@@ -76,10 +87,6 @@ export function makeEncoder(
     const ctx = canvas.getContext('2d');
     if (!ctx) throw new Error('2D canvas unavailable');
     ctx.drawImage(image.bitmap, 0, 0, w, h);
-    const blob = await new Promise<Blob | null>((resolve) =>
-      canvas.toBlob(resolve, type, quality),
-    );
-    if (!blob) throw new Error('Canvas encode failed');
-    return new Uint8Array(await blob.arrayBuffer());
+    return encodeCanvas(canvas, type, quality);
   };
 }

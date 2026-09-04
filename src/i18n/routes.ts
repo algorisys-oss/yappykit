@@ -32,6 +32,7 @@ export const TOOL_KEYS = [
   'font-coverage',
   'font-style',
   'image-to-pdf',
+  'image-watermark',
 ] as const;
 
 export type ToolKey = (typeof TOOL_KEYS)[number];
@@ -312,6 +313,21 @@ export const ROUTES: Record<RouteKey, RouteDef> = {
       it: 'immagine-in-pdf',
     },
   },
+  'image-watermark': {
+    localized: true,
+    slugs: {
+      en: 'add-watermark-to-image',
+      es: 'agregar-marca-de-agua-a-imagen',
+      'pt-BR': 'adicionar-marca-dagua-em-imagem',
+      id: 'tambah-watermark-ke-gambar',
+      fr: 'ajouter-un-filigrane-a-une-image',
+      de: 'wasserzeichen-zu-bild-hinzufuegen',
+      ru: 'dobavit-vodyanoy-znak-na-izobrazhenie',
+      tr: 'resme-filigran-ekle',
+      vi: 'them-hinh-mo-vao-anh',
+      it: 'aggiungere-filigrana-a-immagine',
+    },
+  },
   about: {
     localized: true,
     slugs: {
@@ -505,8 +521,8 @@ export function allPaths(
  * docs/06 asks for 3-5 related links on every tool page.
  */
 const RELATED: Record<ToolKey, readonly ToolKey[]> = {
-  'image-compress': ['metadata-remove', 'passport-photo', 'screenshot-stitch'],
-  'metadata-remove': ['image-compress', 'passport-photo', 'document-scan'],
+  'image-compress': ['metadata-remove', 'image-watermark', 'screenshot-stitch'],
+  'metadata-remove': ['image-compress', 'passport-photo', 'image-watermark'],
   'spreadsheet-compare': ['document-scan', 'pdf-merge', 'pdf-compress'],
   'video-compress': ['image-compress', 'camera-mic-test', 'pdf-compress'],
   'passport-photo': ['image-compress', 'metadata-remove', 'document-scan'],
@@ -522,6 +538,7 @@ const RELATED: Record<ToolKey, readonly ToolKey[]> = {
   'font-coverage': ['font-style', 'random-word', 'keyboard-test'],
   'font-style': ['font-coverage', 'random-word', 'ruler'],
   'image-to-pdf': ['pdf-merge', 'pdf-compress', 'document-scan'],
+  'image-watermark': ['metadata-remove', 'image-compress', 'passport-photo'],
 };
 
 export function relatedTools(key: ToolKey, count = 3): ToolKey[] {
