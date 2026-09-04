@@ -201,7 +201,15 @@ function toolPage(key: ToolKey, locale: LocaleCode, m: Messages): string {
           b.minVersion === null
             ? esc(m.content.browserNever)
             : tpl(m.content.browserVersion, { version: esc(String(b.minVersion)) })
-        }${b.degraded ? ` &middot; ${esc(m.content.browserDegraded)}` : ''}</span>
+        }${
+          b.minVersion === null || b.fastVersion === null
+            ? b.minVersion === null
+              ? ''
+              : ` &middot; ${esc(m.content.browserDegraded)}`
+            : b.fastVersion > b.minVersion
+              ? ` &middot; ${tpl(m.content.browserFastFrom, { version: esc(String(b.fastVersion)) })}`
+              : ''
+        }</span>
       </li>`,
     )
     .join('');

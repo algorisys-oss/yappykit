@@ -148,6 +148,7 @@ const it: Messages = {
     browserVersion: '{version} e successive',
     browserNever: 'Non supportato',
     browserDegraded: 'percorso più lento',
+    browserFastFrom: 'a piena velocità da {version}',
     browserYoursOk: 'Il tuo browser ha tutto ciò che serve a questo strumento.',
     browserYoursSlow:
       'Il tuo browser può usare questo strumento, ma su un percorso più lento. Te lo dice nel punto in cui la cosa conta.',

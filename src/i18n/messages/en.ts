@@ -150,6 +150,7 @@ export const en = {
     browserVersion: '{version} and later',
     browserNever: 'Not supported',
     browserDegraded: 'slower path',
+    browserFastFrom: 'full speed from {version}',
     browserYoursOk: 'Your browser has everything this tool needs.',
     browserYoursSlow:
       'Your browser can run this tool, but on a slower path. It says so at the point where that matters.',

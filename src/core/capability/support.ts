@@ -69,8 +69,16 @@ export interface BrowserVerdict {
   label: string;
   /** Lowest version that can run the tool at all. null: this browser cannot. */
   minVersion: number | null;
-  /** Runs, but without a fast path this browser has never shipped. */
-  degraded: boolean;
+  /**
+   * Lowest version that also gets every fast path. null: this browser never
+   * does, either because it cannot run the tool or because one of the
+   * preferred capabilities has never shipped here.
+   *
+   * Equal to `minVersion` when there is no gap, which is the common case. When
+   * it is higher, the versions in between run and run slowly, and saying only
+   * "works from `minVersion`" would promise them a speed they do not have.
+   */
+  fastVersion: number | null;
 }
 
 export function supportFor(spec: CapabilitySpec): BrowserVerdict[] {
@@ -84,12 +92,18 @@ export function supportFor(spec: CapabilitySpec): BrowserVerdict[] {
       }
       if (min !== null) min = Math.max(min, since);
     }
-    return {
-      id,
-      label,
-      minVersion: min,
-      degraded: min !== null && (spec.preferred ?? []).some((cap) => SINCE[cap][id] === null),
-    };
+
+    let fast: number | null = min;
+    for (const cap of spec.preferred ?? []) {
+      const since = SINCE[cap][id];
+      if (since === null) {
+        fast = null;
+        break;
+      }
+      if (fast !== null) fast = Math.max(fast, since);
+    }
+
+    return { id, label, minVersion: min, fastVersion: fast };
   });
 }
 

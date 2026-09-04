@@ -148,6 +148,7 @@ const ru: Messages = {
     browserVersion: '{version} и новее',
     browserNever: 'Не поддерживается',
     browserDegraded: 'более медленный путь',
+    browserFastFrom: 'полная скорость с {version}',
     browserYoursOk: 'В вашем браузере есть всё, что нужно этому инструменту.',
     browserYoursSlow:
       'Ваш браузер справится с этим инструментом, но по более медленному пути. Он скажет об этом там, где это важно.',

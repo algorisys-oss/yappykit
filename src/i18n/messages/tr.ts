@@ -148,6 +148,7 @@ const tr: Messages = {
     browserVersion: '{version} ve üzeri',
     browserNever: 'Desteklenmiyor',
     browserDegraded: 'daha yavaş yol',
+    browserFastFrom: '{version} sürümünden itibaren tam hız',
     browserYoursOk: 'Tarayıcında bu aracın ihtiyaç duyduğu her şey var.',
     browserYoursSlow:
       'Tarayıcın bu aracı çalıştırabilir, ama daha yavaş bir yoldan. Bunun önem kazandığı yerde araç sana söyler.',

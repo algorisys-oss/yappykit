@@ -28,6 +28,22 @@ export default function BrowserSupport(props: { route: ToolKey }) {
     setMine(!verdict.supported ? 'no' : verdict.fastPath ? 'ok' : 'slow');
   });
 
+  /**
+   * What to add after the version, if anything.
+   *
+   * Silence is the common case and means the version that runs is the version
+   * that runs fast. Anything else would be noise on fifteen of the eighteen
+   * tools.
+   */
+  const qualifier = (b: { minVersion: number | null; fastVersion: number | null }) => {
+    if (b.minVersion === null) return '';
+    if (b.fastVersion === null) return ` · ${c().browserDegraded}`;
+    if (b.fastVersion > b.minVersion) {
+      return ` · ${fmt(c().browserFastFrom, { version: b.fastVersion })}`;
+    }
+    return '';
+  };
+
   const yours = () => {
     const v = mine();
     return v === 'ok' ? c().browserYoursOk : v === 'slow' ? c().browserYoursSlow : c().browserYoursNo;
@@ -45,7 +61,7 @@ export default function BrowserSupport(props: { route: ToolKey }) {
                 {b.minVersion === null
                   ? c().browserNever
                   : fmt(c().browserVersion, { version: b.minVersion })}
-                {b.degraded ? ` · ${c().browserDegraded}` : ''}
+                {qualifier(b)}
               </span>
             </li>
           )}

@@ -148,6 +148,7 @@ const vi: Messages = {
     browserVersion: '{version} trở lên',
     browserNever: 'Không hỗ trợ',
     browserDegraded: 'đường chậm hơn',
+    browserFastFrom: 'đầy đủ tốc độ từ {version}',
     browserYoursOk: 'Trình duyệt của bạn có đủ mọi thứ công cụ này cần.',
     browserYoursSlow:
       'Trình duyệt của bạn chạy được công cụ này, nhưng theo một đường chậm hơn. Công cụ sẽ báo đúng lúc điều đó có ảnh hưởng.',

@@ -26,6 +26,19 @@ test('a tool that needs more asks for more', async ({ page }) => {
   await expect(mark).toContainText('93 and later');
 });
 
+test('separates the version that runs from the version that runs fast', async ({ page }) => {
+  // The regression this covers: the compressor prefers an offscreen canvas,
+  // which Firefox only shipped at 105, and the page used to advertise 93 with
+  // no qualification at all, promising 93 to 104 a speed they do not have.
+  await page.goto('/compress-image-to-size');
+  const ff = page.locator('li', { hasText: 'Firefox' }).last();
+  await expect(ff).toContainText('93 and later');
+  await expect(ff).toContainText('full speed from 105');
+
+  // Where there is no gap, nothing is added.
+  await expect(page.locator('li', { hasText: 'Chrome' }).last()).not.toContainText('full speed');
+});
+
 test('a Chromium-only fast path is shown as slower, not as broken', async ({ page }) => {
   // Local Font Access never shipped outside Chromium, but the font tools work
   // everywhere by asking for a file instead.
