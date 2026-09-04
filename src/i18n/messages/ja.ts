@@ -10,6 +10,12 @@ import type { Messages } from './en';
  */
 const ja: Messages = {
   common: {
+    versionHeading: '変更点',
+    versionAdded: '追加',
+    versionFixed: '修正',
+    versionRefresh: '更新',
+    versionRefreshing: '更新中…',
+    versionRefreshHint: '新しいバージョンが出ていれば取得します。',
     tagline: '便利なツール。アップロードなし。',
     backToTools: 'ツール一覧',
     headerNoUploads: 'ファイルのアップロードなし',

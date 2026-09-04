@@ -10,6 +10,12 @@ import type { Messages } from './en';
  */
 const id: Messages = {
   common: {
+    versionHeading: 'Yang berubah',
+    versionAdded: 'Ditambahkan',
+    versionFixed: 'Diperbaiki',
+    versionRefresh: 'Segarkan',
+    versionRefreshing: 'Menyegarkan…',
+    versionRefreshHint: 'Mengambil versi terbaru kalau sudah ada yang dirilis.',
     tagline: 'Alat yang berguna. Tanpa unggah.',
     backToTools: 'Alat',
     headerNoUploads: 'Tidak ada file yang diunggah',

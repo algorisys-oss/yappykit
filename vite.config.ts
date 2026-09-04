@@ -4,9 +4,28 @@ import solid from 'vite-plugin-solid';
 import unocss from 'unocss/vite';
 import { VitePWA } from 'vite-plugin-pwa';
 import { createRequire } from 'node:module';
+import { execSync } from 'node:child_process';
+import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 const require = createRequire(import.meta.url);
+
+const { version } = JSON.parse(readFileSync('./package.json', 'utf8')) as { version: string };
+
+/**
+ * The commit the bundle was built from.
+ *
+ * Cloudflare Pages builds the mirror from a git checkout, so this resolves
+ * there too. It is only ever decoration, so a build without git still works and
+ * simply says nothing.
+ */
+function commit(): string {
+  try {
+    return execSync('git rev-parse --short HEAD', { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
+  } catch {
+    return '';
+  }
+}
 
 /** Is this bare specifier actually installed for us to bundle? */
 function installed(id: string): boolean {
@@ -157,6 +176,10 @@ export default defineConfig({
       'Cross-Origin-Opener-Policy': 'same-origin',
       'Cross-Origin-Embedder-Policy': 'require-corp',
     },
+  },
+  define: {
+    __APP_VERSION__: JSON.stringify(version),
+    __APP_COMMIT__: JSON.stringify(commit()),
   },
   build: {
     target: 'es2022',

@@ -30,6 +30,7 @@ import {
 } from '../content/privacy';
 import type { Messages } from '../i18n/messages/en';
 import { esc } from './head';
+import { VERSION } from '../version';
 
 const YAPPYDRAW = 'https://yappydraw.com';
 
@@ -97,7 +98,8 @@ function footer(key: RouteKey, locale: LocaleCode, m: Messages, locales: readonl
         ${esc(m.common.footerStar)}
       </a>
     </div>
-    <p class="max-w-2xl text-xs text-muted">${note}</p>
+    <div class="text-xs text-muted"><span class="font-mono">v${esc(VERSION)}</span></div>
+    <p class="mt-4 max-w-2xl text-xs text-muted">${note}</p>
   </div>
 </footer>`;
 }

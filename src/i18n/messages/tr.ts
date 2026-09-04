@@ -10,6 +10,12 @@ import type { Messages } from './en';
  */
 const tr: Messages = {
   common: {
+    versionHeading: 'Neler değişti',
+    versionAdded: 'Eklendi',
+    versionFixed: 'Düzeltildi',
+    versionRefresh: 'Yenile',
+    versionRefreshing: 'Yenileniyor…',
+    versionRefreshHint: 'Yeni bir sürüm çıktıysa onu alır.',
     tagline: 'Faydalı araçlar. Yükleme yok.',
     backToTools: 'Araçlar',
     headerNoUploads: 'Dosya yüklenmiyor',

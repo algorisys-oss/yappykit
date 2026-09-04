@@ -10,6 +10,12 @@ import type { Messages } from './en';
  */
 const it: Messages = {
   common: {
+    versionHeading: 'Cosa è cambiato',
+    versionAdded: 'Aggiunto',
+    versionFixed: 'Corretto',
+    versionRefresh: 'Aggiorna',
+    versionRefreshing: 'Aggiornamento…',
+    versionRefreshHint: 'Prende la versione più recente, se ne è uscita una.',
     tagline: 'Strumenti utili. Nessun caricamento.',
     backToTools: 'Strumenti',
     headerNoUploads: 'Nessun file caricato',

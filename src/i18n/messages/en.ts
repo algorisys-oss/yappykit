@@ -12,6 +12,12 @@
  */
 export const en = {
   common: {
+    versionHeading: 'What changed',
+    versionAdded: 'Added',
+    versionFixed: 'Fixed',
+    versionRefresh: 'Refresh',
+    versionRefreshing: 'Refreshing…',
+    versionRefreshHint: 'Takes the newest version if one has been released.',
     tagline: 'Useful tools. No uploads.',
     backToTools: 'Tools',
     headerNoUploads: 'No file uploads',

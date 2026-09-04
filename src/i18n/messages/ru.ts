@@ -10,6 +10,12 @@ import type { Messages } from './en';
  */
 const ru: Messages = {
   common: {
+    versionHeading: 'Что изменилось',
+    versionAdded: 'Добавлено',
+    versionFixed: 'Исправлено',
+    versionRefresh: 'Обновить',
+    versionRefreshing: 'Обновление…',
+    versionRefreshHint: 'Возьмёт самую свежую версию, если она вышла.',
     tagline: 'Полезные инструменты. Без загрузки на сервер.',
     backToTools: 'Инструменты',
     headerNoUploads: 'Файлы не загружаются',

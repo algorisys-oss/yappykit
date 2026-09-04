@@ -10,6 +10,12 @@ import type { Messages } from './en';
  */
 const ptBR: Messages = {
   common: {
+    versionHeading: 'O que mudou',
+    versionAdded: 'Adicionado',
+    versionFixed: 'Corrigido',
+    versionRefresh: 'Atualizar',
+    versionRefreshing: 'Atualizando…',
+    versionRefreshHint: 'Pega a versão mais nova, se houver uma publicada.',
     tagline: 'Ferramentas úteis. Sem uploads.',
     backToTools: 'Ferramentas',
     headerNoUploads: 'Nenhum arquivo é enviado',

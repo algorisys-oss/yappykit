@@ -10,6 +10,12 @@ import type { Messages } from './en';
  */
 const vi: Messages = {
   common: {
+    versionHeading: 'Có gì thay đổi',
+    versionAdded: 'Thêm mới',
+    versionFixed: 'Đã sửa',
+    versionRefresh: 'Làm mới',
+    versionRefreshing: 'Đang làm mới…',
+    versionRefreshHint: 'Lấy phiên bản mới nhất nếu đã có bản phát hành.',
     tagline: 'Công cụ hữu ích. Không tải tệp lên.',
     backToTools: 'Công cụ',
     headerNoUploads: 'Không tải tệp lên',

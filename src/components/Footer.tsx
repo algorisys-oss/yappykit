@@ -2,6 +2,7 @@ import { For, Show } from 'solid-js';
 import { A, useLocation } from '@solidjs/router';
 import { useI18n, SHIPPED } from '../i18n/runtime';
 import { resolveRoute, pathFor } from '../i18n/routes';
+import VersionBadge from './VersionBadge';
 
 /**
  * Site-wide footer.
@@ -130,7 +131,9 @@ export default function Footer() {
           </a>
         </div>
 
-        <p class="max-w-2xl text-xs text-muted">
+        <VersionBadge />
+
+        <p class="mt-4 max-w-2xl text-xs text-muted">
           <For each={parts(m.common.footerNote)}>
             {(p) =>
               'text' in p ? (

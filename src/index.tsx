@@ -6,6 +6,7 @@ import 'virtual:uno.css';
 import '@algorisys/zen-ui-core/tokens.css'; // shared --zen-color-* palette (light + dark)
 import './styles/tokens.css';
 import { registerSW } from 'virtual:pwa-register';
+import { rememberUpdater } from './lib/sw';
 import Landing from './routes/index';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -14,7 +15,9 @@ import { getLocale } from './i18n/locales';
 import { ROUTE_KEYS, ROUTES, pathFor, resolveRoute, type RouteKey } from './i18n/routes';
 
 // Register the service worker so the tools keep working offline once cached.
-registerSW({ immediate: true });
+// The updater is kept so the footer can offer "refresh" and actually activate a
+// waiting build rather than reloading into the same cache.
+rememberUpdater(registerSW({ immediate: true }));
 
 // Tool routes are lazy so their (eventually heavy) code and WASM never land in
 // the landing-page bundle. The landing route is imported eagerly because it is

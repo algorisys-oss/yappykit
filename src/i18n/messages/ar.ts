@@ -12,6 +12,12 @@ import type { Messages } from './en';
  */
 const ar: Messages = {
   common: {
+    versionHeading: 'ما الذي تغيّر',
+    versionAdded: 'أُضيف',
+    versionFixed: 'أُصلح',
+    versionRefresh: 'تحديث',
+    versionRefreshing: 'جارٍ التحديث…',
+    versionRefreshHint: 'يجلب أحدث إصدار إن كان قد صدر.',
     tagline: 'أدوات مفيدة. بلا رفع للملفات.',
     backToTools: 'الأدوات',
     headerNoUploads: 'لا يتم رفع أي ملف',
