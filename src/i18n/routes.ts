@@ -36,6 +36,9 @@ export const TOOL_KEYS = [
   'file-inspect',
   'image-convert',
   'pdf-split',
+  'pdf-to-images',
+  'redact',
+  'sheet-clean',
 ] as const;
 
 export type ToolKey = (typeof TOOL_KEYS)[number];
@@ -376,6 +379,51 @@ export const ROUTES: Record<RouteKey, RouteDef> = {
       it: 'dividere-un-pdf',
     },
   },
+  'pdf-to-images': {
+    localized: true,
+    slugs: {
+      en: 'pdf-to-images',
+      es: 'pdf-a-imagenes',
+      'pt-BR': 'pdf-para-imagens',
+      id: 'pdf-ke-gambar',
+      fr: 'pdf-en-images',
+      de: 'pdf-in-bilder-umwandeln',
+      ru: 'pdf-v-izobrazheniya',
+      tr: 'pdf-den-resme',
+      vi: 'pdf-sang-anh',
+      it: 'pdf-in-immagini',
+    },
+  },
+  redact: {
+    localized: true,
+    slugs: {
+      en: 'redact-a-document',
+      es: 'censurar-un-documento',
+      'pt-BR': 'tarjar-um-documento',
+      id: 'sensor-dokumen',
+      fr: 'caviarder-un-document',
+      de: 'dokument-schwaerzen',
+      ru: 'zakrasit-dannye-v-dokumente',
+      tr: 'belgeyi-karart',
+      vi: 'che-thong-tin-trong-tai-lieu',
+      it: 'oscurare-un-documento',
+    },
+  },
+  'sheet-clean': {
+    localized: true,
+    slugs: {
+      en: 'clean-up-a-spreadsheet',
+      es: 'limpiar-una-hoja-de-calculo',
+      'pt-BR': 'limpar-uma-planilha',
+      id: 'bersihkan-spreadsheet',
+      fr: 'nettoyer-une-feuille-de-calcul',
+      de: 'tabelle-bereinigen',
+      ru: 'ochistit-tablitsu',
+      tr: 'elektronik-tabloyu-temizle',
+      vi: 'don-dep-bang-tinh',
+      it: 'pulire-un-foglio-di-calcolo',
+    },
+  },
   about: {
     localized: true,
     slugs: {
@@ -570,8 +618,8 @@ export function allPaths(
  */
 const RELATED: Record<ToolKey, readonly ToolKey[]> = {
   'image-compress': ['image-convert', 'metadata-remove', 'image-watermark'],
-  'metadata-remove': ['file-inspect', 'image-compress', 'passport-photo'],
-  'spreadsheet-compare': ['document-scan', 'pdf-merge', 'pdf-compress'],
+  'metadata-remove': ['redact', 'file-inspect', 'image-compress'],
+  'spreadsheet-compare': ['sheet-clean', 'file-inspect', 'pdf-merge'],
   'video-compress': ['image-compress', 'camera-mic-test', 'pdf-compress'],
   'passport-photo': ['image-compress', 'metadata-remove', 'document-scan'],
   'document-scan': ['image-to-pdf', 'pdf-merge', 'spreadsheet-compare'],
@@ -585,11 +633,14 @@ const RELATED: Record<ToolKey, readonly ToolKey[]> = {
   'screenshot-stitch': ['image-compress', 'pdf-merge', 'metadata-remove'],
   'font-coverage': ['font-style', 'random-word', 'keyboard-test'],
   'font-style': ['font-coverage', 'random-word', 'ruler'],
-  'image-to-pdf': ['screenshot-stitch', 'pdf-merge', 'pdf-split'],
+  'image-to-pdf': ['pdf-to-images', 'screenshot-stitch', 'pdf-merge'],
   'image-watermark': ['metadata-remove', 'image-compress', 'passport-photo'],
   'file-inspect': ['image-convert', 'metadata-remove', 'image-compress'],
   'image-convert': ['image-compress', 'metadata-remove', 'file-inspect'],
-  'pdf-split': ['pdf-merge', 'pdf-compress', 'document-scan'],
+  'pdf-split': ['pdf-to-images', 'pdf-merge', 'pdf-compress'],
+  'pdf-to-images': ['image-to-pdf', 'pdf-split', 'image-convert'],
+  redact: ['metadata-remove', 'sheet-clean', 'file-inspect'],
+  'sheet-clean': ['spreadsheet-compare', 'redact', 'file-inspect'],
 };
 
 /**
@@ -615,9 +666,12 @@ export const TOOL_CATEGORY: Record<ToolKey, Category> = {
   'pdf-compress': 'pdf',
   'pdf-merge': 'pdf',
   'pdf-split': 'pdf',
+  'pdf-to-images': 'pdf',
+  redact: 'pdf',
   'document-scan': 'pdf',
   'video-compress': 'video',
   'spreadsheet-compare': 'data',
+  'sheet-clean': 'data',
   'file-inspect': 'data',
   'font-coverage': 'text',
   'font-style': 'text',

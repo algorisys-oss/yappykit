@@ -156,6 +156,79 @@ export function PdfSplitPreview() {
   );
 }
 
+export function PdfToImagesPreview() {
+  return (
+    <Frame>
+      {/* the document */}
+      <g transform="translate(22 24)">
+        <rect x="0" y="0" width="46" height="58" rx="5" fill={C.paper} stroke={C.border} stroke-width="2" />
+        <g fill={C.accentSoft}>
+          <rect x="8" y="10" width="30" height="5" rx="2.5" />
+          <rect x="8" y="21" width="22" height="5" rx="2.5" />
+          <rect x="8" y="32" width="30" height="5" rx="2.5" />
+        </g>
+        <text x="23" y="52" fill={C.muted} font-size="10" font-weight="700" text-anchor="middle">
+          PDF
+        </text>
+      </g>
+      <g stroke={C.accent} stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M78 52 h22" />
+        <path d="M96 46 l8 6 l-8 6" fill="none" />
+      </g>
+      {/* the pages, now pictures */}
+      {[0, 1].map((i) => (
+        <g transform={`translate(${116 + i * 30} ${26 + i * 14})`}>
+          <rect x="0" y="0" width="46" height="46" rx="5" fill={C.accentSoft} stroke={C.border} stroke-width="2" />
+          <circle cx="14" cy="15" r="5" fill={C.accent} />
+          <path d="M5 38 L18 22 L26 30 L34 20 L41 38 Z" fill={C.accent} opacity="0.45" />
+        </g>
+      ))}
+    </Frame>
+  );
+}
+
+export function RedactPreview() {
+  return (
+    <Frame>
+      <g transform="translate(40 18)">
+        <rect x="0" y="0" width="120" height="68" rx="6" fill={C.paper} stroke={C.border} stroke-width="2" />
+        <g fill={C.accentSoft}>
+          <rect x="12" y="12" width="60" height="7" rx="3.5" />
+          <rect x="12" y="44" width="96" height="7" rx="3.5" />
+          <rect x="12" y="56" width="70" height="7" rx="3.5" />
+        </g>
+        {/* the line that is gone, not covered */}
+        <rect x="12" y="26" width="84" height="12" rx="2" fill={C.fg} />
+      </g>
+    </Frame>
+  );
+}
+
+export function SheetCleanPreview() {
+  const row = (y: number, fill: string, w = 92) => <rect x="0" y={y} width={w} height="9" rx="2" fill={fill} />;
+  return (
+    <Frame>
+      <g transform="translate(28 22)">
+        <rect x="-6" y="-6" width="104" height="72" rx="6" fill={C.paper} stroke={C.border} stroke-width="2" />
+        {row(0, C.accentSoft)}
+        {row(13, C.accentSoft)}
+        {/* the duplicate and the blank, on their way out */}
+        {row(26, C.bad)}
+        {row(39, C.border, 40)}
+        {row(52, C.accentSoft)}
+      </g>
+      <g stroke={C.accent} stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M136 52 h22" />
+        <path d="M154 46 l8 6 l-8 6" fill="none" />
+      </g>
+      <g transform="translate(150 34)">
+        <circle cx="14" cy="18" r="14" fill={C.ok} opacity="0.18" />
+        <path d="M7 18 l5 5 l10 -11" fill="none" stroke={C.ok} stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+      </g>
+    </Frame>
+  );
+}
+
 export function SpreadsheetPreview() {
   const grid = (ox: number, marks: Record<number, string>) => (
     <g transform={`translate(${ox} 24)`}>
@@ -694,4 +767,7 @@ export const TOOL_PREVIEWS: Partial<Record<ToolKey, () => JSX.Element>> = {
   'file-inspect': FileInspectPreview,
   'image-convert': ImageConvertPreview,
   'pdf-split': PdfSplitPreview,
+  'pdf-to-images': PdfToImagesPreview,
+  redact: RedactPreview,
+  'sheet-clean': SheetCleanPreview,
 };

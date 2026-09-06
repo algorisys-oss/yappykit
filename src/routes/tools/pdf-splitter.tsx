@@ -1,5 +1,5 @@
 import { createMemo, createSignal, onCleanup, For, Show } from 'solid-js';
-import { Button } from '../../lib/zen';
+import { Button, SegmentedControl } from '../../lib/zen';
 import ToolHero from '../../components/ToolHero';
 import { PdfSplitPreview } from '../tool-previews';
 import ToolContent from '../tool-content';
@@ -15,6 +15,7 @@ import {
   splitToFiles,
   extractedName,
 } from '@core/pdf/split';
+import { splitBySize, type SizeChunk } from '@core/pdf/split-size';
 
 /**
  * PDF splitter.
@@ -31,6 +32,20 @@ import {
 const kb = (n: number) =>
   n < 1024 * 1024 ? `${(n / 1024).toFixed(1)} KB` : `${(n / 1024 / 1024).toFixed(2)} MB`;
 
+/**
+ * The sizes people are actually up against: an email attachment limit, a
+ * portal's upload cap. Stated as the situation rather than as a number of
+ * megabytes to work out for yourself.
+ */
+const BUDGETS = [
+  { value: '5mb', labelKey: 'budget5mb', bytes: 5 * 1024 * 1024 },
+  { value: '10mb', labelKey: 'budget10mb', bytes: 10 * 1024 * 1024 },
+  { value: '25mb', labelKey: 'budget25mb', bytes: 25 * 1024 * 1024 },
+] as const;
+
+type BudgetValue = (typeof BUDGETS)[number]['value'];
+type Mode = 'pages' | 'size';
+
 interface Output {
   url: string;
   name: string;
@@ -46,6 +61,10 @@ export default function PdfSplitter() {
 
   const [source, setSource] = createSignal<{ name: string; pages: number; size: number; hasForm: boolean } | null>(null);
   const [spec, setSpec] = createSignal('');
+  const [mode, setMode] = createSignal<Mode>('pages');
+  const [budget, setBudget] = createSignal<BudgetValue>('10mb');
+  const [parts, setParts] = createSignal<SizeChunk[]>([]);
+  const [progress, setProgress] = createSignal(0);
   const [output, setOutput] = createSignal<Output | null>(null);
   const [error, setError] = createSignal('');
   const [busy, setBusy] = createSignal(false);
@@ -56,6 +75,8 @@ export default function PdfSplitter() {
     const o = output();
     if (o) URL.revokeObjectURL(o.url);
     setOutput(null);
+    setParts([]);
+    setProgress(0);
   };
   onCleanup(clearOutput);
 
@@ -147,6 +168,34 @@ export default function PdfSplitter() {
     }
   };
 
+  async function runBySize() {
+    const src = source();
+    if (!src || !bytes) return;
+    clearOutput();
+    setError('');
+    setBusy(true);
+    try {
+      const limit = BUDGETS.find((b) => b.value === budget())!.bytes;
+      const chunks = await splitBySize(bytes, limit, src.name, setProgress);
+      setParts(chunks);
+      // One part means the document already fitted. Handing back a ZIP holding
+      // a single identical file would be noise, so say so instead.
+      if (chunks.length > 1) {
+        const archive = zip(chunks.map((c) => ({ name: c.name, bytes: c.bytes })));
+        setOutput({
+          url: URL.createObjectURL(new Blob([archive as BlobPart], { type: 'application/zip' })),
+          name: `${src.name.replace(/\.pdf$/i, '')}-parts.zip`,
+          bytes: archive.byteLength,
+          files: chunks.length,
+        });
+      }
+    } catch {
+      setError(u.failed);
+    } finally {
+      setBusy(false);
+    }
+  }
+
   return (
     <main class="mx-auto max-w-2xl px-6 py-12">
       <ToolHero title={tt.heroTitle} preview={PdfSplitPreview}>
@@ -191,6 +240,69 @@ export default function PdfSplitter() {
         <Show when={source()}>
           {(s) => (
             <>
+              <div>
+                <label class="mb-2 block text-sm font-medium">{u.modeLabel}</label>
+                <SegmentedControl
+                  aria-label={u.modeLabel}
+                  options={[
+                    { value: 'pages' as const, label: u.modePages },
+                    { value: 'size' as const, label: u.modeSize },
+                  ]}
+                  value={mode()}
+                  onChange={(v) => {
+                    clearOutput();
+                    setMode(v);
+                  }}
+                />
+              </div>
+
+              <Show when={mode() === 'size'}>
+                <div>
+                  <label class="mb-2 block text-sm font-medium">{u.budgetLabel}</label>
+                  <SegmentedControl
+                    aria-label={u.budgetLabel}
+                    options={BUDGETS.map((b) => ({ value: b.value, label: u[b.labelKey] }))}
+                    value={budget()}
+                    onChange={(v) => {
+                      clearOutput();
+                      setBudget(v);
+                    }}
+                  />
+                  <p class="mt-2 text-xs text-muted">{u.budgetNote}</p>
+                  <div class="mt-4">
+                    <Button onClick={() => void runBySize()} disabled={busy()}>
+                      {busy() ? fmt(u.workingSize, { percent: Math.round(progress() * 100) }) : u.actionSize}
+                    </Button>
+                  </div>
+                  <Show when={parts().length === 1}>
+                    <p class="mt-4 rounded border border-success bg-success-soft p-3 text-sm text-fg" role="status">
+                      {u.alreadyFits}
+                    </p>
+                  </Show>
+                  <Show when={parts().length > 1}>
+                    <ul class="mt-4 list-none space-y-2 p-0">
+                      <For each={parts()}>
+                        {(part) => (
+                          <li class="rounded border border-border bg-surface p-3 text-sm">
+                            <span class="block text-fg">{part.name}</span>
+                            <span class="block text-xs text-muted">
+                              {fmt(u.partMeta, {
+                                pages: pagesLabel(part.pages.length),
+                                size: kb(part.bytes.byteLength),
+                              })}
+                            </span>
+                            <Show when={part.oversize}>
+                              <span class="mt-1 block text-xs text-danger">{u.partOversize}</span>
+                            </Show>
+                          </li>
+                        )}
+                      </For>
+                    </ul>
+                  </Show>
+                </div>
+              </Show>
+
+              <Show when={mode() === 'pages'}>
               <div>
                 <label class="mb-2 block text-sm font-medium" for="split-range">
                   {u.rangeLabel}
@@ -290,6 +402,7 @@ export default function PdfSplitter() {
                     {u.actionSplit}
                   </button>
                 </div>
+              </Show>
               </Show>
             </>
           )}

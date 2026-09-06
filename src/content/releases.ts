@@ -23,6 +23,16 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '0.6.0',
+    date: '2026-09-06',
+    added: [
+      'Redact a document or photo. The boxes are burned into the pixels rather than drawn on top, so what was underneath is destroyed rather than covered. A black rectangle laid over a PDF hides text on screen while leaving it in the file, which is how documents get published with their secrets intact; this cannot fail that way, at the cost of the output no longer being searchable.',
+      'PDF to images: every page as a JPG or PNG, at a resolution chosen by what the pictures are for rather than by a number of dots per inch.',
+      'Clean up a spreadsheet: remove duplicate and blank rows, trim the stray spaces that break every lookup, and mask or delete the columns a recipient does not need. Trimming runs before the duplicate check, which is why duplicates that other tools miss are caught here.',
+      'The PDF splitter can also split by file size. Pages are packed in order until the next one would not fit, measured rather than estimated, and nothing is re-encoded.',
+    ],
+  },
+  {
     version: '0.5.0',
     date: '2026-09-06',
     added: [

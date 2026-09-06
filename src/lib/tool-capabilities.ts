@@ -38,12 +38,18 @@ export const TOOL_CAPABILITIES: Record<ToolKey, CapabilitySpec> = {
   'document-scan': { required: [], preferred: ['createImageBitmap', 'wasm'] },
   // Parsing and diffing in plain JavaScript.
   'spreadsheet-compare': { required: [], preferred: [] },
+  // Parsing and rewriting a sheet in plain JavaScript, through SheetJS.
+  'sheet-clean': { required: [], preferred: [] },
   'metadata-remove': { required: [], preferred: [] },
+  // Rasterises a PDF through pdf.js, or decodes an image, then repaints it.
+  redact: { required: [], preferred: ['createImageBitmap', 'offscreenCanvas'] },
   // Reads headers and metadata; a bitmap decode is only for an image's size.
   'file-inspect': { required: [], preferred: ['createImageBitmap'] },
   'pdf-merge': { required: [], preferred: [] },
   // Copying pages is plain JavaScript through pdf-lib; nothing is rasterised.
   'pdf-split': { required: [], preferred: [] },
+  // Rasterises through pdf.js, which is WebAssembly, and encodes on a canvas.
+  'pdf-to-images': { required: [], preferred: ['offscreenCanvas'] },
   'random-word': { required: [], preferred: [] },
   // Input and display tests: no file ever enters them.
   'mouse-test': { required: [], preferred: [] },

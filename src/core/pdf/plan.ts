@@ -1,5 +1,9 @@
 /**
- * PDF compression planning — the arithmetic, kept away from the browser APIs.
+ * PDF planning — the arithmetic, kept away from the browser APIs.
+ *
+ * Everything here is pure and therefore testable: pdfjs-dist cannot even be
+ * imported under jsdom (it reaches for DOMMatrix at module load), so anything
+ * that needs a test has to live on this side of the line.
  *
  * The compressor works by re-rendering each page as a JPEG and rebuilding the
  * document around those images. That is the only approach that can reliably hit
@@ -108,4 +112,31 @@ export function summarise(
     dpi: Math.round(scaleToDpi(dpiToScale(BASE_DPI) * scale)),
     percentSmaller: grew ? null : Math.round((1 - outputBytes / originalBytes) * 100),
   };
+}
+
+
+/** Image export: what the pages are for. The resolution follows from this. */
+export const OUTPUT_KINDS = ['screen', 'print'] as const;
+
+export type OutputKind = (typeof OUTPUT_KINDS)[number];
+
+export type ImageType = 'image/jpeg' | 'image/png';
+
+/**
+ * 150 DPI reads cleanly on any screen and keeps a page to a few hundred KB. 300
+ * DPI is the long-standing print floor, and at A4 it stays inside MAX_RENDER_PX,
+ * so nothing is silently truncated.
+ */
+export function dpiFor(kind: OutputKind): number {
+  return kind === 'print' ? 300 : 150;
+}
+
+export function extensionFor(type: ImageType): string {
+  return type === 'image/png' ? 'png' : 'jpg';
+}
+
+/** `report.pdf` page 3 becomes `report-p3.jpg`. */
+export function imageName(sourceName: string, page: number, type: ImageType): string {
+  const stem = sourceName.replace(/\.pdf$/i, '');
+  return `${stem}-p${page}.${extensionFor(type)}`;
 }
