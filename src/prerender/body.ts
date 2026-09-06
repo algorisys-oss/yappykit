@@ -239,6 +239,7 @@ function landing(locale: LocaleCode, m: Messages): string {
       <ol class="mt-8 grid list-none gap-6 p-0 sm:grid-cols-3">${steps}</ol>
       <div class="mt-8 border-s-2 border-accent ps-4">
         <p class="max-w-2xl text-sm text-fg"><strong>${esc(l.checkLabel)}</strong> ${esc(l.checkBody)}</p>
+        <p class="mt-3 text-sm"><a href="/how-it-works" class="text-accent underline">${esc(m.common.footerHowItWorks)} &rarr;</a></p>
       </div>
     </div>
   </section>
@@ -424,6 +425,7 @@ function about(locale: LocaleCode, m: Messages): string {
       <h2 class="text-xl font-bold">${esc(a.howHeading)}</h2>
       <p class="mt-3 max-w-prose">${how1}</p>
       <p class="mt-3 max-w-prose">${esc(a.howBody2)}</p>
+      <p class="mt-3 max-w-prose"><a href="/how-it-works" class="text-accent underline">${esc(m.common.footerHowItWorks)} &rarr;</a></p>
     </section>
     <section>
       <h2 class="text-xl font-bold">${esc(a.isHeading)}</h2>
@@ -518,7 +520,11 @@ function howItWorks(locale: LocaleCode): string {
   </nav>
   <div class="mt-10 space-y-10 text-sm leading-relaxed text-fg">
     ${sections}
-    <p class="border-t border-border pt-6 text-muted">
+    <p class="border-t border-border pt-6">
+      Want it tool by tool, with the code?
+      <a href="/build" class="text-accent underline">Read the build guides</a>.
+    </p>
+    <p class="text-muted">
       See our <a href="/privacy" class="text-accent underline">Privacy Policy</a> for what the
       page itself does, or
       <a href="${pathFor('home', locale)}" class="text-accent underline">browse the tools</a>.

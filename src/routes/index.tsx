@@ -187,6 +187,13 @@ export default function Landing() {
             <p class="max-w-2xl text-sm text-fg">
               <strong>{l.checkLabel}</strong> {l.checkBody}
             </p>
+            {/* The long version. Reuses the footer's label rather than adding a
+                thirteenth string to translate for a link. */}
+            <p class="mt-3 text-sm">
+              <A href="/how-it-works" class="text-accent underline">
+                {m.common.footerHowItWorks} →
+              </A>
+            </p>
           </div>
         </div>
       </section>

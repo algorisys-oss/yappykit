@@ -59,7 +59,15 @@ export default function HowItWorks() {
           )}
         </For>
 
-        <p class="border-t border-border pt-6 text-muted">
+        <p class="border-t border-border pt-6">
+          Want it tool by tool, with the code?{' '}
+          <A href="/build" class="text-accent underline">
+            Read the build guides
+          </A>
+          .
+        </p>
+
+        <p class="text-muted">
           See our{' '}
           <A href="/privacy" class="text-accent underline">
             Privacy Policy

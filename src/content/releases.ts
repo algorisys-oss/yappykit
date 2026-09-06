@@ -23,6 +23,13 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '0.12.1',
+    date: '2026-09-07',
+    fixed: [
+      'The new pages were only reachable from the footer. The home page now links to the full explanation from the "check it yourself" note, the About page links to it from its own summary of the same subject, and the explanation hands you on to the per-tool build guides. A link in a footer is somewhere a reader arrives by accident; these are where someone is already reading about the thing.',
+    ],
+  },
+  {
     version: '0.12.0',
     date: '2026-09-07',
     added: [

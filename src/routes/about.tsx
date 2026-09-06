@@ -49,6 +49,11 @@ export default function About() {
             </For>
           </p>
           <p class="mt-3 max-w-prose">{a.howBody2}</p>
+          <p class="mt-3 max-w-prose">
+            <A href="/how-it-works" class="text-accent underline">
+              {m.common.footerHowItWorks} →
+            </A>
+          </p>
         </section>
 
         <section>
