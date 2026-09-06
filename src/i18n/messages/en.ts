@@ -192,6 +192,80 @@ export const en = {
   },
 
   tools: {
+    'image-resize': {
+      title: 'Resize an image to an exact size',
+      blurb: 'Exactly 1080 by 1080, and an honest answer about the shape. No upload.',
+      tags: ['resize','resize image','exact size','1080x1080','image dimensions','crop to square','profile picture size','thumbnail size','pixel size','scale image','make image smaller'],
+      seoTitle: 'Resize an Image to Exact Pixel Dimensions, Free and Private | YappyKit',
+      seoDescription:
+        'Resize a photo to exact pixel dimensions, cropping to fill or fitting inside with a border. It says which one will happen before you download. Runs in your browser and nothing is uploaded.',
+      heroTitle: 'Resize an image to an exact size',
+      heroNote:
+        'Give the width and height you need. If the picture is not that shape, it either crops or gets a border, and the page says which before you press the button. Everything happens in this browser tab.',
+      ui: {
+        pickLabel: 'Choose an image',
+        pickHint: 'JPEG, PNG, WebP, or an iPhone HEIC photo.',
+        readError: 'That image could not be read.',
+        needImage: 'Choose an image first.',
+        sourceMeta: '{name}, {width} x {height}',
+        sizeLabel: 'The size you need',
+        widthLabel: 'Width',
+        heightLabel: 'Height',
+        presetSquare: 'Square 1080',
+        presetProfile: 'Profile 400',
+        presetThumbnail: 'Thumbnail 1280x720',
+        presetHd: 'HD 1920x1080',
+        presetSource: 'Same as the original',
+        modeLabel: 'If the shape does not match',
+        modeCover: 'Crop to fill',
+        modeContain: 'Fit inside, add a border',
+        willCrop:
+          'The picture is a different shape, so the edges will be trimmed. The middle is kept.',
+        willPad: 'The whole picture is kept and a white border fills the rest.',
+        willFitExactly: 'The picture is already this shape, so nothing is cropped or padded.',
+        upscaleWarning:
+          'This is larger than the original, so it will be stretched up. No detail is added by making an image bigger, and the result will look softer than the original.',
+        formatLabel: 'Format',
+        formatJpeg: 'JPG',
+        formatPng: 'PNG',
+        sizeNote:
+          'This sets the dimensions, not the file size. To land under a byte limit, compress it afterwards.',
+        action: 'Resize to {width} x {height}',
+        working: 'Resizing…',
+        doneStatus: 'Done: {width} x {height}, {size}.',
+        download: 'Download',
+        failed: 'That did not work.',
+      },
+      content: {
+        howItWorks: [
+          'Something wants an image of an exact size. A profile picture that must be square, a thumbnail that must be 1280 by 720, a form that will only take 600 by 600. The photo you have is almost never that shape, and what happens next is the whole question: a picture that is not square cannot become square without either losing part of itself or gaining a border.',
+          'The third possibility, stretching it to fit, is what most resizers quietly do, and it is the one answer nobody wants. A stretched face is instantly wrong in a way people notice without being able to name. So it is not offered here. Crop to fill keeps the middle and trims the edges, which is what a profile picture or a thumbnail needs. Fit inside keeps the whole picture and puts a border around it, which is what a fixed frame or a print slot needs.',
+          'Which one is about to happen is stated before you press the button, not discovered in the download. If the shapes already match, it says that too, and nothing is cropped or padded at all. An upscale is called out separately: making an image larger cannot add detail that was never captured, so the result is softer than the original, and knowing that in advance is usually enough to go and find a bigger source.',
+          'The resampling itself is done at the browser’s high-quality setting, which matters more here than in most tools, because changing dimensions is the entire product rather than a side effect of it. Everything happens on your own device, and re-encoding drops the photo’s metadata as a side effect, so the resized copy no longer carries the location it was taken.',
+        ],
+        steps: [
+          'Choose an image, or paste one straight from your clipboard.',
+          'Type the width and height, or pick one of the common sizes.',
+          'Choose whether to crop to fill or fit inside a border. The page says what that will do.',
+          'Press Resize, check the result, and download it.',
+        ],
+        tips: [
+          'This sets the dimensions, not the file size. For a byte limit, compress the result afterwards.',
+          'Crop to fill keeps the centre. If the subject is off to one side, crop it yourself first and then resize.',
+          'Making an image bigger cannot add detail. The tool says so rather than pretending otherwise.',
+          'Fitting inside adds a white border. Choose PNG if you would rather have transparency than white.',
+          'Re-encoding drops the metadata, so the resized copy carries no GPS location.',
+        ],
+        faqs: [
+          { q: 'How do I resize an image to exactly 1080 by 1080?', a: 'Choose the picture, type 1080 in both boxes or press the Square 1080 preset, and pick whether to crop or add a border. The output is exactly those dimensions, every time, which is the point of the tool.' },
+          { q: 'Why does my photo get cropped?', a: 'Because it is not the shape you asked for. A 4:3 photo cannot fill a square without something leaving the frame. Crop to fill trims the edges and keeps the middle; if you would rather keep all of it, choose Fit inside and it gets a border instead.' },
+          { q: 'Can I resize without cropping or a border?', a: 'Only if the picture is already the right shape, in which case both modes do the same thing and the page says so. The alternative would be stretching the image, which distorts everything in it, so it is not offered.' },
+          { q: 'Does making an image bigger improve it?', a: 'No. Upscaling invents pixels by interpolating between the ones that exist, so the result is larger and softer, never more detailed. The tool warns when the size you asked for is bigger than the original.' },
+          { q: 'Will this get my file under a size limit?', a: 'Not directly. This controls dimensions, and a smaller image is usually a smaller file, but the relationship is not exact. If you need to be under a specific number of kilobytes, use the image compressor, which searches for the quality that fits.' },
+          { q: 'Are my photos uploaded?', a: 'No. The image is decoded, redrawn and re-encoded inside this browser tab by your own device. You can watch the Network tab while you work: nothing carrying the photo goes out.' },
+        ],
+      },
+    },
     'sheet-clean': {
       title: 'Clean up a spreadsheet',
       blurb: 'Drop duplicates and blanks, and hide the columns nobody else needs. No upload.',

@@ -48,6 +48,7 @@ const COMPONENTS: Record<RouteKey, Component> = {
   'pdf-to-images': lazy(() => import('./routes/tools/pdf-to-images')),
   redact: lazy(() => import('./routes/tools/redact')),
   'sheet-clean': lazy(() => import('./routes/tools/sheet-clean')),
+  'image-resize': lazy(() => import('./routes/tools/image-resize')),
   about: lazy(() => import('./routes/about')),
   privacy: lazy(() => import('./routes/privacy')),
   terms: lazy(() => import('./routes/terms')),

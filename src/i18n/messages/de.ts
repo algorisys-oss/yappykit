@@ -190,6 +190,81 @@ const de: Messages = {
   },
 
   tools: {
+    'image-resize': {
+      title: 'Ein Bild auf eine genaue Größe bringen',
+      blurb: 'Genau 1080 mal 1080, und eine ehrliche Antwort zur Form. Kein Upload.',
+      tags: ['größe ändern','bild skalieren','genaue größe','1080x1080','bildabmessungen','auf quadrat zuschneiden','profilbild größe','vorschaubild','pixel'],
+      seoTitle: 'Bild auf genaue Pixelmaße bringen, kostenlos und privat | YappyKit',
+      seoDescription:
+        'Bringen Sie ein Foto auf genaue Pixelmaße, zugeschnitten oder mit Rand eingepasst. Was passieren wird, steht vor dem Herunterladen da. Läuft im Browser, nichts wird hochgeladen.',
+      heroTitle: 'Ein Bild auf eine genaue Größe bringen',
+      heroNote:
+        'Geben Sie Breite und Höhe an. Hat das Bild diese Form nicht, wird entweder zugeschnitten oder ein Rand ergänzt, und die Seite sagt vorher, was davon. Alles geschieht in diesem Browser-Tab.',
+      ui: {
+        pickLabel: 'Bild auswählen',
+        pickHint: 'JPEG, PNG, WebP oder ein iPhone-HEIC-Foto.',
+        readError: 'Dieses Bild konnte nicht gelesen werden.',
+        needImage: 'Wählen Sie zuerst ein Bild.',
+        sourceMeta: '{name}, {width} x {height}',
+        sizeLabel: 'Die gewünschte Größe',
+        widthLabel: 'Breite',
+        heightLabel: 'Höhe',
+        presetSquare: 'Quadrat 1080',
+        presetProfile: 'Profil 400',
+        presetThumbnail: 'Vorschaubild 1280x720',
+        presetHd: 'HD 1920x1080',
+        presetSource: 'Wie das Original',
+        modeLabel: 'Wenn die Form nicht passt',
+        modeCover: 'Zuschneiden und füllen',
+        modeContain: 'Einpassen, mit Rand',
+        willCrop:
+          'Das Bild hat eine andere Form, deshalb werden die Ränder abgeschnitten. Die Mitte bleibt.',
+        willPad: 'Das ganze Bild bleibt erhalten, ein weißer Rand füllt den Rest.',
+        willFitExactly:
+          'Das Bild hat bereits diese Form, es wird also weder zugeschnitten noch ergänzt.',
+        upscaleWarning:
+          'Das ist größer als das Original, wird also hochskaliert. Ein Bild zu vergrößern fügt keine Details hinzu, das Ergebnis wirkt weicher als das Original.',
+        formatLabel: 'Format',
+        formatJpeg: 'JPG',
+        formatPng: 'PNG',
+        sizeNote:
+          'Das legt die Maße fest, nicht die Dateigröße. Für ein Byte-Limit danach komprimieren.',
+        action: 'Auf {width} x {height} bringen',
+        working: 'Wird angepasst…',
+        doneStatus: 'Fertig: {width} x {height}, {size}.',
+        download: 'Herunterladen',
+        failed: 'Das hat nicht geklappt.',
+      },
+      content: {
+        howItWorks: [
+          'Irgendetwas verlangt ein Bild in einer genauen Größe. Ein Profilbild, das quadratisch sein muss, ein Vorschaubild mit 1280 mal 720, ein Formular, das nur 600 mal 600 nimmt. Das Foto, das Sie haben, hat fast nie diese Form, und was dann geschieht, ist die ganze Frage: ein Bild, das nicht quadratisch ist, kann nicht quadratisch werden, ohne einen Teil von sich zu verlieren oder einen Rand zu bekommen.',
+          'Die dritte Möglichkeit, es passend zu ziehen, machen die meisten Programme stillschweigend, und sie ist die einzige Antwort, die niemand will. Ein gezerrtes Gesicht wirkt sofort falsch, auf eine Art, die Menschen bemerken, ohne sie benennen zu können. Deshalb wird sie hier nicht angeboten. Zuschneiden und füllen behält die Mitte und schneidet die Ränder ab, was ein Profilbild oder ein Vorschaubild braucht. Einpassen behält das ganze Bild und legt einen Rand darum, was ein fester Rahmen oder ein Druckplatz braucht.',
+          'Was von beidem gleich passiert, steht vor dem Knopfdruck da und wird nicht erst im Download entdeckt. Passen die Formen schon, sagt die Seite auch das, und es wird weder zugeschnitten noch ergänzt. Eine Vergrößerung wird eigens genannt: ein Bild größer zu machen kann keine Details hinzufügen, die nie aufgenommen wurden, das Ergebnis ist also weicher, und das vorher zu wissen genügt meist, um doch eine größere Vorlage zu suchen.',
+          'Das Neuberechnen der Pixel geschieht in der hohen Qualitätsstufe des Browsers, was hier mehr zählt als anderswo, weil das Ändern der Maße das ganze Produkt ist und kein Nebeneffekt. Alles läuft auf Ihrem Gerät, und das Neukodieren wirft nebenbei die Metadaten weg, die verkleinerte Kopie trägt den Aufnahmeort also nicht mehr.',
+        ],
+        steps: [
+          'Wählen Sie ein Bild, oder fügen Sie eines aus der Zwischenablage ein.',
+          'Tragen Sie Breite und Höhe ein, oder nehmen Sie eine der üblichen Größen.',
+          'Entscheiden Sie zwischen Zuschneiden und Einpassen. Die Seite sagt, was das bewirkt.',
+          'Auf Anpassen tippen, das Ergebnis prüfen und herunterladen.',
+        ],
+        tips: [
+          'Das legt die Maße fest, nicht die Dateigröße. Für ein Byte-Limit das Ergebnis danach komprimieren.',
+          'Zuschneiden behält die Mitte. Steht das Motiv am Rand, schneiden Sie es vorher selbst zu.',
+          'Ein Bild zu vergrößern kann keine Details hinzufügen. Das Werkzeug sagt das, statt etwas anderes vorzugeben.',
+          'Einpassen ergänzt einen weißen Rand. Nehmen Sie PNG, wenn Ihnen Transparenz lieber ist als Weiß.',
+          'Das Neukodieren wirft die Metadaten weg, die angepasste Kopie trägt also keinen GPS-Ort.',
+        ],
+        faqs: [
+          { q: 'Wie bringe ich ein Bild auf genau 1080 mal 1080?', a: 'Wählen Sie das Bild, tragen Sie 1080 in beide Felder ein oder nehmen Sie die Vorgabe Quadrat 1080, und entscheiden Sie zwischen Zuschneiden und Rand. Die Ausgabe hat genau diese Maße, jedes Mal, und genau darum geht es.' },
+          { q: 'Warum wird mein Foto zugeschnitten?', a: 'Weil es nicht die Form hat, die Sie verlangt haben. Ein Foto im Verhältnis 4:3 kann ein Quadrat nicht füllen, ohne dass etwas aus dem Bild fällt. Zuschneiden entfernt die Ränder und behält die Mitte; wollen Sie alles behalten, wählen Sie Einpassen und es bekommt stattdessen einen Rand.' },
+          { q: 'Geht es auch ohne Zuschneiden und ohne Rand?', a: 'Nur wenn das Bild schon die richtige Form hat, dann tun beide Modi dasselbe und die Seite sagt es. Die Alternative wäre, das Bild zu ziehen, was alles darin verzerrt, deshalb wird sie nicht angeboten.' },
+          { q: 'Wird ein Bild durch Vergrößern besser?', a: 'Nein. Hochskalieren erfindet Pixel, indem es zwischen den vorhandenen interpoliert, das Ergebnis ist also größer und weicher, nie detaillierter. Das Werkzeug warnt, wenn die gewünschte Größe über der des Originals liegt.' },
+          { q: 'Komme ich damit unter ein Größenlimit?', a: 'Nicht direkt. Das hier steuert die Maße, und ein kleineres Bild ist meist eine kleinere Datei, aber der Zusammenhang ist nicht exakt. Wenn Sie unter eine bestimmte Zahl Kilobyte müssen, nehmen Sie den Bildkompressor, der die passende Qualität sucht.' },
+          { q: 'Werden meine Fotos hochgeladen?', a: 'Nein. Das Bild wird in diesem Browser-Tab von Ihrem eigenen Gerät dekodiert, neu gezeichnet und neu kodiert. Sie können dabei den Tab Netzwerk beobachten: es geht nichts hinaus, das das Foto trägt.' },
+        ],
+      },
+    },
     'sheet-clean': {
       title: 'Eine Tabelle bereinigen',
       blurb: 'Doppelte und leere Zeilen raus, und die Spalten verbergen, die niemand sonst braucht. Kein Upload.',

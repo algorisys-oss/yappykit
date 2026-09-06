@@ -39,6 +39,7 @@ export const TOOL_KEYS = [
   'pdf-to-images',
   'redact',
   'sheet-clean',
+  'image-resize',
 ] as const;
 
 export type ToolKey = (typeof TOOL_KEYS)[number];
@@ -424,6 +425,21 @@ export const ROUTES: Record<RouteKey, RouteDef> = {
       it: 'pulire-un-foglio-di-calcolo',
     },
   },
+  'image-resize': {
+    localized: true,
+    slugs: {
+      en: 'resize-image-to-exact-size',
+      es: 'redimensionar-imagen-a-medida-exacta',
+      'pt-BR': 'redimensionar-imagem-para-medida-exata',
+      id: 'ubah-ukuran-gambar-persis',
+      fr: 'redimensionner-une-image-en-pixels-exacts',
+      de: 'bild-auf-genaue-groesse-bringen',
+      ru: 'izmenit-razmer-izobrazheniya-tochno',
+      tr: 'resmi-tam-olcuye-getir',
+      vi: 'doi-kich-thuoc-anh-chinh-xac',
+      it: 'ridimensionare-immagine-a-misura-esatta',
+    },
+  },
   about: {
     localized: true,
     slugs: {
@@ -617,7 +633,7 @@ export function allPaths(
  * docs/06 asks for 3-5 related links on every tool page.
  */
 const RELATED: Record<ToolKey, readonly ToolKey[]> = {
-  'image-compress': ['image-convert', 'metadata-remove', 'image-watermark'],
+  'image-compress': ['image-resize', 'metadata-remove', 'image-convert'],
   'metadata-remove': ['redact', 'file-inspect', 'image-compress'],
   'spreadsheet-compare': ['sheet-clean', 'file-inspect', 'pdf-merge'],
   'video-compress': ['image-compress', 'camera-mic-test', 'pdf-compress'],
@@ -636,7 +652,8 @@ const RELATED: Record<ToolKey, readonly ToolKey[]> = {
   'image-to-pdf': ['pdf-to-images', 'screenshot-stitch', 'pdf-merge'],
   'image-watermark': ['metadata-remove', 'image-compress', 'passport-photo'],
   'file-inspect': ['image-convert', 'metadata-remove', 'image-compress'],
-  'image-convert': ['image-compress', 'metadata-remove', 'file-inspect'],
+  'image-convert': ['image-resize', 'image-compress', 'image-watermark'],
+  'image-resize': ['image-compress', 'image-convert', 'passport-photo'],
   'pdf-split': ['pdf-to-images', 'pdf-merge', 'pdf-compress'],
   'pdf-to-images': ['image-to-pdf', 'pdf-split', 'image-convert'],
   redact: ['metadata-remove', 'sheet-clean', 'file-inspect'],
@@ -658,6 +675,7 @@ export type Category = (typeof CATEGORIES)[number];
 export const TOOL_CATEGORY: Record<ToolKey, Category> = {
   'image-compress': 'image',
   'image-convert': 'image',
+  'image-resize': 'image',
   'image-watermark': 'image',
   'metadata-remove': 'image',
   'passport-photo': 'image',

@@ -29,6 +29,16 @@ export interface ToolArticle {
 }
 
 export const ARTICLES: Partial<Record<ToolKey, ToolArticle>> = {
+  'image-resize': {
+    heading: 'Three ways to fit a rectangle in a square, and only two of them are honest',
+    paragraphs: [
+      'The request sounds simple and contains a contradiction. Make this photo 1080 by 1080. The photo is 4032 by 3024, which is 4:3, and no amount of arithmetic turns a 4:3 rectangle into a 1:1 square while keeping every pixel in proportion. Something has to give: either part of the picture leaves the frame, or the frame gains ground the picture does not cover, or the picture is distorted to fill it. Every image resizer answers this question. Most do not tell you which answer they picked.',
+      'Stretching is the answer nobody asks for and many tools default to, because it is the one that needs no decision: scale x and y independently until the numbers match. The result is a face 33 percent too wide, and the striking thing is how reliably people notice something is wrong without being able to say what. Faces in particular are processed by dedicated machinery in the visual system that is exquisitely sensitive to proportion, which is why a stretched portrait reads as uncanny while a stretched landscape merely reads as slightly odd.',
+      'Cropping to fill is what social platforms do. Scale by the larger of the two ratios so the box is covered, then trim the overflow. The subject stays in proportion and the edges are lost, which is fine for a profile picture where the face is in the middle and wrong for a group photo where someone is standing at the edge. Centring the crop is the only defensible default, since the tool has no idea what the subject is, and saying so plainly is better than pretending the choice was intelligent.',
+      'Fitting inside does the opposite: scale by the smaller ratio so the whole picture survives, then fill the remainder with a background. Nothing is lost and the result has bands along two sides. This is what a fixed frame wants, and what a printer expects when the paper is not the aspect ratio of the photograph. The bands are only invisible when the background matches whatever the image will sit on, which is why the colour matters more than it looks like it should.',
+      'Rounding deserves a mention because it is where exactness quietly fails. Scale factors are rarely whole numbers, so the computed draw size lands at 249.6 pixels and something has to decide what that means. Rounding the drawn image is fine; rounding the CANVAS is not, because a canvas of 1079 pixels when 1080 was requested breaks the one promise the tool makes. The canvas is therefore set to the requested integers first and the drawing is fitted into it, rather than the other way around. The same applies at the small end: a one-pixel target is legal, and a plan that rounds a dimension to zero would produce a blank image instead of a tiny one.',
+    ],
+  },
   'sheet-clean': {
     heading: 'Why your duplicate rows survive every attempt to remove them',
     paragraphs: [

@@ -21,6 +21,8 @@ export const TOOL_CAPABILITIES: Record<ToolKey, CapabilitySpec> = {
   // Decodes (HEIC through wasm) and re-encodes; which output formats a browser
   // can actually write is probed at runtime rather than assumed.
   'image-convert': { required: [], preferred: ['createImageBitmap', 'wasm'] },
+  // Decodes, redraws at the requested size and re-encodes, all on a canvas.
+  'image-resize': { required: [], preferred: ['createImageBitmap', 'wasm'] },
   'image-watermark': { required: [], preferred: ['createImageBitmap'] },
   'image-to-pdf': { required: [], preferred: ['createImageBitmap'] },
   'screenshot-stitch': { required: [], preferred: ['createImageBitmap', 'offscreenCanvas'] },

@@ -190,6 +190,80 @@ const es: Messages = {
   },
 
   tools: {
+    'image-resize': {
+      title: 'Redimensiona una imagen a una medida exacta',
+      blurb: 'Exactamente 1080 por 1080, y una respuesta honesta sobre la forma. Sin subidas.',
+      tags: ['redimensionar','cambiar tamaño','medida exacta','1080x1080','dimensiones de imagen','recortar a cuadrado','tamaño foto de perfil','miniatura','píxeles'],
+      seoTitle: 'Redimensionar una imagen a píxeles exactos, gratis y privado | YappyKit',
+      seoDescription:
+        'Redimensiona una foto a píxeles exactos, recortando para llenar o encajándola con un borde. Te dice cuál de las dos ocurrirá antes de descargar. Funciona en tu navegador y no se sube nada.',
+      heroTitle: 'Redimensiona una imagen a una medida exacta',
+      heroNote:
+        'Indica el ancho y el alto que necesitas. Si la foto no tiene esa forma, se recorta o se le añade un borde, y la página te dice cuál antes de pulsar el botón. Todo ocurre en esta pestaña.',
+      ui: {
+        pickLabel: 'Elige una imagen',
+        pickHint: 'JPEG, PNG, WebP o una foto HEIC de iPhone.',
+        readError: 'No se ha podido leer esa imagen.',
+        needImage: 'Elige primero una imagen.',
+        sourceMeta: '{name}, {width} x {height}',
+        sizeLabel: 'La medida que necesitas',
+        widthLabel: 'Ancho',
+        heightLabel: 'Alto',
+        presetSquare: 'Cuadrado 1080',
+        presetProfile: 'Perfil 400',
+        presetThumbnail: 'Miniatura 1280x720',
+        presetHd: 'HD 1920x1080',
+        presetSource: 'Igual que el original',
+        modeLabel: 'Si la forma no coincide',
+        modeCover: 'Recortar para llenar',
+        modeContain: 'Encajar dentro, con borde',
+        willCrop:
+          'La foto tiene otra forma, así que se recortarán los bordes. Se conserva el centro.',
+        willPad: 'Se conserva la foto entera y un borde blanco rellena el resto.',
+        willFitExactly: 'La foto ya tiene esta forma, así que no se recorta ni se rellena nada.',
+        upscaleWarning:
+          'Esto es más grande que el original, así que se ampliará. Agrandar una imagen no añade detalle, y el resultado se verá menos nítido que el original.',
+        formatLabel: 'Formato',
+        formatJpeg: 'JPG',
+        formatPng: 'PNG',
+        sizeNote:
+          'Esto fija las dimensiones, no el peso del archivo. Para bajar de un límite en bytes, comprime después.',
+        action: 'Redimensionar a {width} x {height}',
+        working: 'Redimensionando…',
+        doneStatus: 'Listo: {width} x {height}, {size}.',
+        download: 'Descargar',
+        failed: 'No ha funcionado.',
+      },
+      content: {
+        howItWorks: [
+          'Algo pide una imagen de una medida exacta. Una foto de perfil que debe ser cuadrada, una miniatura que debe medir 1280 por 720, un formulario que solo acepta 600 por 600. La foto que tienes casi nunca tiene esa forma, y lo que pasa a continuación es toda la cuestión: una imagen que no es cuadrada no puede volverse cuadrada sin perder parte de sí misma o ganar un borde.',
+          'La tercera posibilidad, estirarla para que encaje, es lo que hacen en silencio casi todos los redimensionadores, y es la única respuesta que nadie quiere. Una cara estirada se ve mal al instante de un modo que la gente nota sin saber nombrarlo. Por eso aquí no se ofrece. Recortar para llenar conserva el centro y recorta los bordes, que es lo que necesita una foto de perfil o una miniatura. Encajar dentro conserva la foto entera y le pone un borde, que es lo que necesita un marco fijo o una plantilla de impresión.',
+          'Cuál de las dos va a ocurrir se dice antes de pulsar el botón, no se descubre en la descarga. Si las formas ya coinciden, también lo dice, y no se recorta ni se rellena nada. La ampliación se avisa aparte: agrandar una imagen no puede añadir detalle que nunca se capturó, así que el resultado se ve menos nítido, y saberlo de antemano suele bastar para ir a buscar un original más grande.',
+          'El remuestreo se hace con el ajuste de alta calidad del navegador, algo que importa más aquí que en otras herramientas, porque cambiar las dimensiones es el producto entero y no un efecto secundario. Todo ocurre en tu dispositivo, y volver a codificar elimina de paso los metadatos, así que la copia redimensionada ya no lleva el lugar donde se tomó.',
+        ],
+        steps: [
+          'Elige una imagen, o pégala directamente desde el portapapeles.',
+          'Escribe el ancho y el alto, o elige una de las medidas habituales.',
+          'Decide si recortar para llenar o encajar dentro con borde. La página dice qué hará.',
+          'Pulsa Redimensionar, comprueba el resultado y descárgalo.',
+        ],
+        tips: [
+          'Esto fija las dimensiones, no el peso. Para un límite en bytes, comprime el resultado después.',
+          'Recortar para llenar conserva el centro. Si el sujeto está a un lado, recorta tú primero y redimensiona después.',
+          'Agrandar una imagen no puede añadir detalle. La herramienta lo dice en vez de fingir lo contrario.',
+          'Encajar dentro añade un borde blanco. Elige PNG si prefieres transparencia en vez de blanco.',
+          'Volver a codificar elimina los metadatos, así que la copia redimensionada no lleva ubicación GPS.',
+        ],
+        faqs: [
+          { q: '¿Cómo redimensiono una imagen a exactamente 1080 por 1080?', a: 'Elige la foto, escribe 1080 en ambas casillas o pulsa el ajuste Cuadrado 1080, y decide si recortar o añadir borde. El resultado mide exactamente eso, siempre, que es justo el objetivo de la herramienta.' },
+          { q: '¿Por qué se recorta mi foto?', a: 'Porque no tiene la forma que has pedido. Una foto 4:3 no puede llenar un cuadrado sin que algo salga del encuadre. Recortar para llenar quita los bordes y conserva el centro; si prefieres conservarlo todo, elige Encajar dentro y se le pondrá un borde.' },
+          { q: '¿Puedo redimensionar sin recortar ni borde?', a: 'Solo si la foto ya tiene la forma correcta, y en ese caso ambos modos hacen lo mismo y la página lo indica. La alternativa sería estirar la imagen, que deforma todo lo que hay en ella, así que no se ofrece.' },
+          { q: '¿Agrandar una imagen la mejora?', a: 'No. Ampliar inventa píxeles interpolando entre los que existen, así que el resultado es más grande y menos nítido, nunca más detallado. La herramienta avisa cuando la medida que pides supera la del original.' },
+          { q: '¿Esto hará que mi archivo baje de un límite de tamaño?', a: 'No directamente. Esto controla las dimensiones, y una imagen más pequeña suele pesar menos, pero la relación no es exacta. Si necesitas bajar de un número concreto de kilobytes, usa el compresor de imágenes, que busca la calidad que encaja.' },
+          { q: '¿Se suben mis fotos?', a: 'No. La imagen se decodifica, se redibuja y se vuelve a codificar dentro de esta pestaña, en tu propio dispositivo. Puedes mirar la pestaña Red mientras trabajas: no sale nada que lleve la foto.' },
+        ],
+      },
+    },
     'sheet-clean': {
       title: 'Limpia una hoja de cálculo',
       blurb: 'Quita duplicados y filas vacías, y oculta las columnas que nadie más necesita. Sin subidas.',

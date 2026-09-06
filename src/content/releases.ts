@@ -23,6 +23,13 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '0.7.0',
+    date: '2026-09-06',
+    added: [
+      'Resize an image to an exact size. Give the width and height, and if the photo is not that shape it either crops to fill or gets a border. Which one is about to happen is stated before you press the button, and stretching is not offered at all: it is the only option that needs no decision, which is why other tools default to it and why a stretched face always looks wrong.',
+    ],
+  },
+  {
     version: '0.6.0',
     date: '2026-09-06',
     added: [

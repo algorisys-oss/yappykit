@@ -190,6 +190,80 @@ const fr: Messages = {
   },
 
   tools: {
+    'image-resize': {
+      title: 'Redimensionnez une image aux pixels près',
+      blurb: 'Exactement 1080 sur 1080, et une réponse honnête sur la forme. Aucun envoi.',
+      tags: ['redimensionner','taille exacte','1080x1080','dimensions d’image','recadrer en carré','taille photo de profil','miniature','pixels'],
+      seoTitle: 'Redimensionner une image aux pixels près, gratuitement et en privé | YappyKit',
+      seoDescription:
+        'Redimensionnez une photo aux pixels près, en recadrant pour remplir ou en l’insérant avec une bordure. La page dit lequel des deux arrivera avant le téléchargement. Tout se passe dans votre navigateur.',
+      heroTitle: 'Redimensionnez une image aux pixels près',
+      heroNote:
+        'Donnez la largeur et la hauteur voulues. Si la photo n’a pas cette forme, elle est recadrée ou reçoit une bordure, et la page le dit avant que vous appuyiez. Tout se passe dans cet onglet.',
+      ui: {
+        pickLabel: 'Choisissez une image',
+        pickHint: 'JPEG, PNG, WebP ou une photo HEIC d’iPhone.',
+        readError: 'Cette image n’a pas pu être lue.',
+        needImage: 'Choisissez d’abord une image.',
+        sourceMeta: '{name}, {width} x {height}',
+        sizeLabel: 'La taille voulue',
+        widthLabel: 'Largeur',
+        heightLabel: 'Hauteur',
+        presetSquare: 'Carré 1080',
+        presetProfile: 'Profil 400',
+        presetThumbnail: 'Miniature 1280x720',
+        presetHd: 'HD 1920x1080',
+        presetSource: 'Comme l’original',
+        modeLabel: 'Si la forme ne correspond pas',
+        modeCover: 'Recadrer pour remplir',
+        modeContain: 'Insérer, avec bordure',
+        willCrop:
+          'La photo a une autre forme, les bords seront donc rognés. Le centre est conservé.',
+        willPad: 'Toute la photo est conservée et une bordure blanche remplit le reste.',
+        willFitExactly: 'La photo a déjà cette forme : rien n’est rogné ni ajouté.',
+        upscaleWarning:
+          'C’est plus grand que l’original, l’image sera donc agrandie. Agrandir n’ajoute aucun détail, et le résultat paraîtra plus flou que l’original.',
+        formatLabel: 'Format',
+        formatJpeg: 'JPG',
+        formatPng: 'PNG',
+        sizeNote:
+          'Ceci fixe les dimensions, pas le poids du fichier. Pour passer sous une limite en octets, compressez ensuite.',
+        action: 'Redimensionner en {width} x {height}',
+        working: 'Redimensionnement…',
+        doneStatus: 'Terminé : {width} x {height}, {size}.',
+        download: 'Télécharger',
+        failed: 'Cela n’a pas fonctionné.',
+      },
+      content: {
+        howItWorks: [
+          'Quelque chose réclame une image d’une taille précise. Une photo de profil qui doit être carrée, une miniature en 1280 sur 720, un formulaire qui n’accepte que du 600 sur 600. La photo que vous avez n’a presque jamais cette forme, et ce qui se passe ensuite est toute la question : une image qui n’est pas carrée ne peut pas le devenir sans perdre une partie d’elle-même ou gagner une bordure.',
+          'La troisième possibilité, l’étirer pour qu’elle rentre, est ce que font discrètement la plupart des outils, et c’est la seule réponse dont personne ne veut. Un visage étiré paraît immédiatement faux, d’une manière que les gens remarquent sans pouvoir la nommer. Elle n’est donc pas proposée ici. Recadrer pour remplir garde le centre et rogne les bords, ce que veut une photo de profil ou une miniature. Insérer garde toute la photo et l’entoure d’une bordure, ce que veut un cadre fixe ou un emplacement d’impression.',
+          'Lequel des deux va se produire est annoncé avant le clic, pas découvert dans le téléchargement. Si les formes correspondent déjà, la page le dit aussi, et rien n’est rogné ni ajouté. Un agrandissement est signalé à part : agrandir une image ne peut pas ajouter un détail jamais capturé, le résultat est donc plus flou, et le savoir d’avance suffit en général à aller chercher une source plus grande.',
+          'Le rééchantillonnage utilise le réglage de haute qualité du navigateur, ce qui compte davantage ici qu’ailleurs, car changer les dimensions est le produit entier et non un effet secondaire. Tout se passe sur votre appareil, et le réencodage supprime au passage les métadonnées : la copie redimensionnée ne porte plus le lieu de prise de vue.',
+        ],
+        steps: [
+          'Choisissez une image, ou collez-en une depuis le presse-papiers.',
+          'Saisissez la largeur et la hauteur, ou prenez l’une des tailles courantes.',
+          'Choisissez entre recadrer pour remplir et insérer avec bordure. La page dit ce que cela fera.',
+          'Appuyez sur Redimensionner, vérifiez le résultat et téléchargez-le.',
+        ],
+        tips: [
+          'Ceci fixe les dimensions, pas le poids. Pour une limite en octets, compressez le résultat ensuite.',
+          'Le recadrage garde le centre. Si le sujet est sur un côté, recadrez vous-même d’abord, puis redimensionnez.',
+          'Agrandir une image ne peut pas ajouter de détail. L’outil le dit plutôt que de prétendre le contraire.',
+          'L’insertion ajoute une bordure blanche. Choisissez PNG si vous préférez la transparence au blanc.',
+          'Le réencodage supprime les métadonnées : la copie redimensionnée ne porte aucune position GPS.',
+        ],
+        faqs: [
+          { q: 'Comment redimensionner une image en exactement 1080 sur 1080 ?', a: 'Choisissez la photo, saisissez 1080 dans les deux champs ou appuyez sur le préréglage Carré 1080, puis choisissez entre recadrer et ajouter une bordure. La sortie fait exactement ces dimensions, à chaque fois, et c’est tout l’objet de l’outil.' },
+          { q: 'Pourquoi ma photo est-elle recadrée ?', a: 'Parce qu’elle n’a pas la forme demandée. Une photo en 4:3 ne peut pas remplir un carré sans que quelque chose sorte du cadre. Recadrer rogne les bords et garde le centre ; si vous préférez tout garder, choisissez Insérer et elle recevra une bordure.' },
+          { q: 'Puis-je redimensionner sans recadrage ni bordure ?', a: 'Seulement si la photo a déjà la bonne forme, auquel cas les deux modes font la même chose et la page le signale. L’autre solution serait d’étirer l’image, ce qui déforme tout ce qu’elle contient : elle n’est pas proposée.' },
+          { q: 'Agrandir une image l’améliore-t-il ?', a: 'Non. L’agrandissement invente des pixels en interpolant ceux qui existent : le résultat est plus grand et plus flou, jamais plus détaillé. L’outil prévient quand la taille demandée dépasse celle de l’original.' },
+          { q: 'Cela fera-t-il passer mon fichier sous une limite de poids ?', a: 'Pas directement. Ceci contrôle les dimensions, et une image plus petite pèse généralement moins, mais la relation n’est pas exacte. Si vous devez passer sous un nombre précis de kilo-octets, utilisez le compresseur d’images, qui cherche la qualité qui tient.' },
+          { q: 'Mes photos sont-elles envoyées ?', a: 'Non. L’image est décodée, redessinée et réencodée dans cet onglet par votre appareil. Vous pouvez surveiller l’onglet Réseau pendant l’opération : rien qui contienne la photo ne sort.' },
+        ],
+      },
+    },
     'sheet-clean': {
       title: 'Nettoyez une feuille de calcul',
       blurb: 'Supprimez doublons et lignes vides, et masquez les colonnes dont personne d’autre n’a besoin. Aucun envoi.',

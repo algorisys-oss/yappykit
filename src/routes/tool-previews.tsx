@@ -229,6 +229,33 @@ export function SheetCleanPreview() {
   );
 }
 
+export function ImageResizePreview() {
+  return (
+    <Frame>
+      {/* the original, and the exact box it has to land in */}
+      {pictureGlyph(20, 20, 76, 64)}
+      <g stroke={C.accent} stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M104 52 h20" />
+        <path d="M120 46 l8 6 l-8 6" fill="none" />
+      </g>
+      <rect
+        x="138"
+        y="26"
+        width="52"
+        height="52"
+        rx="5"
+        fill={C.accentSoft}
+        stroke={C.accent}
+        stroke-width="2.5"
+        stroke-dasharray="6 4"
+      />
+      <text x="164" y="57" fill={C.fg} font-size="12" font-weight="700" text-anchor="middle">
+        1:1
+      </text>
+    </Frame>
+  );
+}
+
 export function SpreadsheetPreview() {
   const grid = (ox: number, marks: Record<number, string>) => (
     <g transform={`translate(${ox} 24)`}>
@@ -770,4 +797,5 @@ export const TOOL_PREVIEWS: Partial<Record<ToolKey, () => JSX.Element>> = {
   'pdf-to-images': PdfToImagesPreview,
   redact: RedactPreview,
   'sheet-clean': SheetCleanPreview,
+  'image-resize': ImageResizePreview,
 };
