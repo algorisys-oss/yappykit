@@ -33,6 +33,8 @@ export const TOOL_KEYS = [
   'font-style',
   'image-to-pdf',
   'image-watermark',
+  'file-inspect',
+  'image-convert',
 ] as const;
 
 export type ToolKey = (typeof TOOL_KEYS)[number];
@@ -328,6 +330,36 @@ export const ROUTES: Record<RouteKey, RouteDef> = {
       it: 'aggiungere-filigrana-a-immagine',
     },
   },
+  'file-inspect': {
+    localized: true,
+    slugs: {
+      en: 'inspect-a-file',
+      es: 'inspeccionar-un-archivo',
+      'pt-BR': 'inspecionar-um-arquivo',
+      id: 'periksa-isi-file',
+      fr: 'inspecter-un-fichier',
+      de: 'datei-untersuchen',
+      ru: 'proverit-fayl',
+      tr: 'dosyayi-incele',
+      vi: 'kiem-tra-tep',
+      it: 'ispezionare-un-file',
+    },
+  },
+  'image-convert': {
+    localized: true,
+    slugs: {
+      en: 'convert-image-format',
+      es: 'convertir-formato-de-imagen',
+      'pt-BR': 'converter-formato-de-imagem',
+      id: 'konversi-format-gambar',
+      fr: 'convertir-le-format-dune-image',
+      de: 'bildformat-umwandeln',
+      ru: 'konvertirovat-format-izobrazheniya',
+      tr: 'resim-bicimini-donustur',
+      vi: 'chuyen-doi-dinh-dang-anh',
+      it: 'convertire-formato-immagine',
+    },
+  },
   about: {
     localized: true,
     slugs: {
@@ -521,8 +553,8 @@ export function allPaths(
  * docs/06 asks for 3-5 related links on every tool page.
  */
 const RELATED: Record<ToolKey, readonly ToolKey[]> = {
-  'image-compress': ['metadata-remove', 'image-watermark', 'screenshot-stitch'],
-  'metadata-remove': ['image-compress', 'passport-photo', 'image-watermark'],
+  'image-compress': ['image-convert', 'metadata-remove', 'image-watermark'],
+  'metadata-remove': ['file-inspect', 'image-compress', 'passport-photo'],
   'spreadsheet-compare': ['document-scan', 'pdf-merge', 'pdf-compress'],
   'video-compress': ['image-compress', 'camera-mic-test', 'pdf-compress'],
   'passport-photo': ['image-compress', 'metadata-remove', 'document-scan'],
@@ -539,6 +571,8 @@ const RELATED: Record<ToolKey, readonly ToolKey[]> = {
   'font-style': ['font-coverage', 'random-word', 'ruler'],
   'image-to-pdf': ['pdf-merge', 'pdf-compress', 'document-scan'],
   'image-watermark': ['metadata-remove', 'image-compress', 'passport-photo'],
+  'file-inspect': ['image-convert', 'metadata-remove', 'image-compress'],
+  'image-convert': ['image-compress', 'metadata-remove', 'file-inspect'],
 };
 
 export function relatedTools(key: ToolKey, count = 3): ToolKey[] {

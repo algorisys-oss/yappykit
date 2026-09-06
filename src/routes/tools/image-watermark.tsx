@@ -15,6 +15,7 @@ import ToolContent from '../tool-content';
 import { WatermarkPreview } from '../tool-previews';
 import { useSeo } from '../../lib/seo';
 import { useI18n } from '../../i18n/runtime';
+import { usePasteImages } from '../../lib/paste';
 import { detectCapabilities, evaluate } from '@core/capability';
 import { TOOL_CAPABILITIES } from '../../lib/tool-capabilities';
 import { decodeImage, encodeCanvas, type DecodedImage } from '@core/image/canvas-codec';
@@ -247,8 +248,15 @@ export default function ImageWatermark() {
   };
 
   async function onPick(e: Event & { currentTarget: HTMLInputElement }) {
-    const files = [...(e.currentTarget.files ?? [])].sort((a, b) => byName.compare(a.name, b.name));
+    const picked = [...(e.currentTarget.files ?? [])];
     e.currentTarget.value = '';
+    await accept(picked);
+  }
+
+  usePasteImages((files) => void accept(files));
+
+  async function accept(incoming: File[]) {
+    const files = [...incoming].sort((a, b) => byName.compare(a.name, b.name));
     if (files.length === 0) return;
 
     setBusy(true);
@@ -374,6 +382,7 @@ export default function ImageWatermark() {
             class="block w-full cursor-pointer rounded border border-border bg-surface p-2 text-sm text-fg file:me-3 file:cursor-pointer file:rounded file:border-0 file:bg-accent file:px-3 file:py-1.5 file:text-accent-fg"
           />
           <p class="mt-2 text-xs text-muted">{u.pickHint}</p>
+          <p class="mt-2 text-xs text-muted">{m.content.pasteHint}</p>
         </div>
 
         <Show when={error()}>

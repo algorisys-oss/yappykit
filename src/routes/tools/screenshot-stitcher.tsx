@@ -5,6 +5,7 @@ import ToolContent from '../tool-content';
 import { ScreenshotStitchPreview } from '../tool-previews';
 import { useSeo } from '../../lib/seo';
 import { useI18n } from '../../i18n/runtime';
+import { usePasteImages } from '../../lib/paste';
 import { detectCapabilities, evaluate } from '@core/capability';
 import { TOOL_CAPABILITIES } from '../../lib/tool-capabilities';
 import { move } from '@core/list';
@@ -91,11 +92,17 @@ export default function ScreenshotStitcher() {
   };
 
   async function onPick(e: Event & { currentTarget: HTMLInputElement }) {
-    const files = [...(e.currentTarget.files ?? [])];
+    const picked = [...(e.currentTarget.files ?? [])];
     // Clearing the input lets the same file be added again after it was removed.
     e.currentTarget.value = '';
-    if (files.length === 0) return;
-    files.sort((a, b) => byName.compare(a.name, b.name));
+    await accept(picked);
+  }
+
+  usePasteImages((files) => void accept(files));
+
+  async function accept(incoming: File[]) {
+    if (incoming.length === 0) return;
+    const files = [...incoming].sort((a, b) => byName.compare(a.name, b.name));
 
     setBusy(true);
     setError('');
@@ -233,6 +240,7 @@ export default function ScreenshotStitcher() {
             class="block w-full cursor-pointer rounded border border-border bg-surface p-2 text-sm text-fg file:me-3 file:cursor-pointer file:rounded file:border-0 file:bg-accent file:px-3 file:py-1.5 file:text-accent-fg"
           />
           <p class="mt-2 text-xs text-muted">{u.pickHint}</p>
+          <p class="mt-2 text-xs text-muted">{m.content.pasteHint}</p>
         </div>
 
         <Show when={error()}>

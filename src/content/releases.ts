@@ -23,6 +23,15 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '0.2.0',
+    date: '2026-09-06',
+    added: [
+      'Paste an image straight into a tool with Ctrl+V, or Cmd+V on a Mac. Every tool that takes images accepts it, so a screenshot no longer has to be saved to disk first just to be picked up again.',
+      'File inspector: what a file really is, read from its leading bytes rather than its name, and what it carries with it. The location a photo was taken, the author and producing software of a PDF, and whether a Word or Excel document contains a macro project.',
+      'Image converter: HEIC from an iPhone, plus WebP, AVIF, PNG and JPEG, converted to whichever format the site in front of you accepts. Several at once, at full resolution, with the batch available as a single ZIP.',
+    ],
+  },
+  {
     version: '0.1.0',
     date: '2026-09-04',
     added: [

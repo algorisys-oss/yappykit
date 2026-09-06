@@ -31,6 +31,7 @@ import {
 import type { Messages } from '../i18n/messages/en';
 import { esc } from './head';
 import { VERSION } from '../version';
+import { contributeUrl } from '../lib/support';
 
 const YAPPYDRAW = 'https://yappydraw.com';
 
@@ -80,6 +81,19 @@ function footer(key: RouteKey, locale: LocaleCode, m: Messages, locales: readonl
     return `<li><a href="${href}" hreflang="${l.code}" lang="${l.code}" rel="external"${current ? ' aria-current="true"' : ''} class="text-muted no-underline hover:text-accent${current ? ' font-semibold text-fg' : ''}">${esc(l.name)}</a></li>`;
   }).join('');
 
+  // Mirrors the same block in components/Footer.tsx; absent when the build
+  // environment supplies no payment URL.
+  const url = contributeUrl();
+  const contribute = url
+    ? `<div class="mb-4">
+      <a href="${esc(url)}" rel="external noopener" target="_blank" class="inline-flex items-center gap-1.5 rounded bg-accent-soft px-3 py-1.5 text-xs font-medium text-accent no-underline transition hover:bg-accent hover:text-accent-fg">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9A5.4 5.4 0 0 1 12 6.5 5.4 5.4 0 0 1 21.6 12c-2.1 4.4-9.6 9-9.6 9z" /></svg>
+        ${esc(m.common.contribute)}
+      </a>
+      <p class="mt-2 max-w-prose text-xs text-muted">${esc(m.common.contributeNote)}</p>
+    </div>`
+    : '';
+
   return `<footer class="border-t border-border">
   <div class="mx-auto max-w-4xl px-6 py-8">
     <nav class="mb-3 flex gap-4 text-sm" aria-label="${esc(m.common.footerNav)}">
@@ -98,6 +112,7 @@ function footer(key: RouteKey, locale: LocaleCode, m: Messages, locales: readonl
         ${esc(m.common.footerStar)}
       </a>
     </div>
+    ${contribute}
     <div class="text-xs text-muted"><span class="font-mono">v${esc(VERSION)}</span></div>
     <p class="mt-4 max-w-2xl text-xs text-muted">${note}</p>
   </div>

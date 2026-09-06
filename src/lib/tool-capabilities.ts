@@ -18,6 +18,9 @@ import type { ToolKey } from '../i18n/routes';
 export const TOOL_CAPABILITIES: Record<ToolKey, CapabilitySpec> = {
   // Canvas encode in a loop; a bitmap and an offscreen canvas make it quicker.
   'image-compress': { required: [], preferred: ['createImageBitmap', 'offscreenCanvas'] },
+  // Decodes (HEIC through wasm) and re-encodes; which output formats a browser
+  // can actually write is probed at runtime rather than assumed.
+  'image-convert': { required: [], preferred: ['createImageBitmap', 'wasm'] },
   'image-watermark': { required: [], preferred: ['createImageBitmap'] },
   'image-to-pdf': { required: [], preferred: ['createImageBitmap'] },
   'screenshot-stitch': { required: [], preferred: ['createImageBitmap', 'offscreenCanvas'] },
@@ -36,6 +39,8 @@ export const TOOL_CAPABILITIES: Record<ToolKey, CapabilitySpec> = {
   // Parsing and diffing in plain JavaScript.
   'spreadsheet-compare': { required: [], preferred: [] },
   'metadata-remove': { required: [], preferred: [] },
+  // Reads headers and metadata; a bitmap decode is only for an image's size.
+  'file-inspect': { required: [], preferred: ['createImageBitmap'] },
   'pdf-merge': { required: [], preferred: [] },
   'random-word': { required: [], preferred: [] },
   // Input and display tests: no file ever enters them.

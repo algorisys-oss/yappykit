@@ -65,7 +65,7 @@ async function createImageBitmapFromDrawable(
 /** Encode an already-painted canvas. PNG ignores `quality` and keeps alpha. */
 export async function encodeCanvas(
   canvas: HTMLCanvasElement,
-  type: RasterType | 'image/png',
+  type: RasterType | 'image/png' | 'image/avif',
   quality?: number,
 ): Promise<Uint8Array> {
   const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, type, quality));

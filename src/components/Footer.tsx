@@ -3,6 +3,7 @@ import { A, useLocation } from '@solidjs/router';
 import { useI18n, SHIPPED } from '../i18n/runtime';
 import { resolveRoute, pathFor } from '../i18n/routes';
 import VersionBadge from './VersionBadge';
+import { contributeUrl } from '../lib/support';
 
 /**
  * Site-wide footer.
@@ -130,6 +131,26 @@ export default function Footer() {
             {m.common.footerStar}
           </a>
         </div>
+
+        {/* Absent rather than broken when the host supplies no payment URL. */}
+        <Show when={contributeUrl()}>
+          {(url) => (
+            <div class="mb-4">
+              <a
+                href={url()}
+                rel="external noopener"
+                target="_blank"
+                class="inline-flex items-center gap-1.5 rounded bg-accent-soft px-3 py-1.5 text-xs font-medium text-accent no-underline transition hover:bg-accent hover:text-accent-fg"
+              >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 21s-7.5-4.6-9.6-9A5.4 5.4 0 0 1 12 6.5 5.4 5.4 0 0 1 21.6 12c-2.1 4.4-9.6 9-9.6 9z" />
+                </svg>
+                {m.common.contribute}
+              </a>
+              <p class="mt-2 max-w-prose text-xs text-muted">{m.common.contributeNote}</p>
+            </div>
+          )}
+        </Show>
 
         <VersionBadge />
 

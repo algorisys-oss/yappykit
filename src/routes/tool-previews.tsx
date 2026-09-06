@@ -76,6 +76,56 @@ export function MetadataPreview() {
   );
 }
 
+export function FileInspectPreview() {
+  return (
+    <Frame>
+      {/* the file, with a corner fold and a couple of lines of content */}
+      <path
+        d="M44 18 h44 l22 22 v46 a6 6 0 0 1 -6 6 h-60 a6 6 0 0 1 -6 -6 v-62 a6 6 0 0 1 6 -6 z"
+        fill={C.paper}
+        stroke={C.border}
+        stroke-width="2"
+      />
+      <path d="M88 18 v22 h22" fill="none" stroke={C.border} stroke-width="2" />
+      <g fill={C.accentSoft}>
+        <rect x="54" y="50" width="40" height="6" rx="3" />
+        <rect x="54" y="62" width="30" height="6" rx="3" />
+      </g>
+      {/* what the reading found: a location pin the owner did not put there */}
+      <path
+        d="M64 74 C69 74 73 78 73 83 C73 89 64 96 64 96 C64 96 55 89 55 83 C55 78 59 74 64 74 Z"
+        fill={C.bad}
+        opacity="0.85"
+      />
+      {/* the lens */}
+      <circle cx="132" cy="52" r="26" fill={C.accentSoft} opacity="0.5" />
+      <circle cx="132" cy="52" r="26" fill="none" stroke={C.accent} stroke-width="4" />
+      <path d="M151 71 l18 18" stroke={C.accent} stroke-width="7" stroke-linecap="round" />
+    </Frame>
+  );
+}
+
+export function ImageConvertPreview() {
+  const label = (x: number, text: string, fill: string, color: string) => (
+    <g transform={`translate(${x} 38)`}>
+      <rect x="0" y="0" width="56" height="28" rx="6" fill={fill} stroke={C.border} stroke-width="2" />
+      <text x="28" y="19" fill={color} font-size="13" font-weight="700" text-anchor="middle">
+        {text}
+      </text>
+    </g>
+  );
+  return (
+    <Frame>
+      {label(16, 'HEIC', C.accentSoft, C.fg)}
+      <g stroke={C.accent} stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M82 52 h34" />
+        <path d="M110 46 l8 6 l-8 6" fill="none" />
+      </g>
+      {label(128, 'JPG', C.accent, '#fff')}
+    </Frame>
+  );
+}
+
 export function SpreadsheetPreview() {
   const grid = (ox: number, marks: Record<number, string>) => (
     <g transform={`translate(${ox} 24)`}>
@@ -611,4 +661,6 @@ export const TOOL_PREVIEWS: Partial<Record<ToolKey, () => JSX.Element>> = {
   'font-style': FontStylePreview,
   'image-to-pdf': ImageToPdfPreview,
   'image-watermark': WatermarkPreview,
+  'file-inspect': FileInspectPreview,
+  'image-convert': ImageConvertPreview,
 };

@@ -5,6 +5,7 @@ import { MetadataPreview } from '../tool-previews';
 import ToolContent from '../tool-content';
 import { useSeo } from '../../lib/seo';
 import { useI18n } from '../../i18n/runtime';
+import { usePasteImages } from '../../lib/paste';
 import { readMetadata, type MetadataSummary } from '@core/metadata/read';
 import { stripMetadata } from '@core/metadata/strip';
 
@@ -40,7 +41,12 @@ export default function MetadataCleaner() {
 
   async function onPick(e: Event & { currentTarget: HTMLInputElement }) {
     const file = e.currentTarget.files?.[0];
-    if (!file) return;
+    if (file) await accept(file);
+  }
+
+  usePasteImages((files) => void accept(files[0]!));
+
+  async function accept(file: File) {
     cleanup();
     setCleaned(null);
     setError('');
@@ -80,6 +86,7 @@ export default function MetadataCleaner() {
             onChange={onPick}
             class="block w-full cursor-pointer rounded border border-border bg-surface p-2 text-sm text-fg file:me-3 file:cursor-pointer file:rounded file:border-0 file:bg-accent file:px-3 file:py-1.5 file:text-accent-fg"
           />
+          <p class="mt-2 text-xs text-muted">{msg.content.pasteHint}</p>
           <Show when={fileName()}>
             <p class="mt-2 text-xs text-muted">{fileName()}</p>
           </Show>
