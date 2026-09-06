@@ -190,6 +190,87 @@ const tr: Messages = {
   },
 
   tools: {
+    'pdf-password': {
+      title: 'PDF’yi parolayla koruyun',
+      blurb: 'Dosyayı yalnızca parolası olanın açabilmesi için parola ekleyin. Hiçbir şey yüklenmez.',
+      tags: ['pdf parola koruma','pdf şifreleme','pdf kilitleme','pdf’ye parola ekleme','pdf parolasını kaldırma','pdf kilidini açma','pdf parolası','güvenli pdf'],
+      seoTitle: 'PDF Parola Koruma, Ücretsiz ve Yükleme Yapmadan | YappyKit',
+      seoDescription:
+        'Tarayıcınızda bir PDF’ye parola ekleyin ya da kaldırın. Gerçek AES-256 şifreleme; herhangi bir okuyucunun yok sayabileceği bir izin işareti değil. Dosya cihazınızdan hiç çıkmaz.',
+      heroTitle: 'PDF’yi parolayla koruyun',
+      heroNote:
+        'Dosya yalnızca parolası olan için açılsın diye parola ekleyin ya da zaten açabildiğiniz bir dosyadan parolayı kaldırın. Şifreleme AES-256 ve cihazınızda gerçekleştiği için ne dosya ne de parola hiçbir yere gönderilir.',
+      ui: {
+        unsupported:
+          'Bu tarayıcı PDF şifreleme motorunu burada çalıştıramıyor. WebAssembly destekli güncel bir tarayıcı gerekiyor ve sayfanın paylaşımlı belleği kullanabilmesi lazım; bazı tarayıcılar bunu gömülü bir çerçeve içinde engeller. Bu sayfayı doğrudan açmak genellikle çözer.',
+        pickLabel: 'Bir PDF seçin',
+        pickHint: 'Cihazınızda okunur, yüklenmez.',
+        fileMeta: '{name}, {size}',
+        modeLabel: 'Ne yapmak istiyorsunuz?',
+        modeAdd: 'Parola ekle',
+        modeRemove: 'Parolayı kaldır',
+        detectedProtected:
+          'Bu PDF’de zaten parola var, bu yüzden kaldırma seçili. Değiştirmek istediyseniz seçimi değiştirin.',
+        passwordLabel: 'Parola',
+        passwordLabelExisting: 'Bu dosyanın açıldığı parola',
+        passwordHint:
+          'Ne isterseniz, en fazla 127 karakter. Uzun olması karmaşık olmasından iyidir.',
+        confirmLabel: 'Bir daha yazın',
+        showPassword: 'Parolayı göster',
+        hidePassword: 'Parolayı gizle',
+        mismatch: 'Bu ikisi aynı değil.',
+        emptyPassword: 'Bir parola girin.',
+        tooLongPassword:
+          'Bu çok uzun. PDF şifrelemesi 127 bayt taşır, fazlası sessizce yok sayılır; elinizde yazdığınız şeyle açılmayan bir dosya kalır.',
+        needFile: 'Önce bir PDF seçin.',
+        noRecovery:
+          'Devam etmeden önce parolayı bir yere not edin. Saklanmaz, hiçbir yere gönderilmez ve ne burada ne başka yerde onsuz dosyayı kurtarabilecek bir şey vardır.',
+        actionAdd: 'Parolayı ekle',
+        actionRemove: 'Parolayı kaldır',
+        working: 'Çalışıyor…',
+        doneAdd: 'Tamam. Bu dosya artık açılmadan önce parolayı soruyor.',
+        doneRemove: 'Tamam. Bu dosya parolasız açılıyor.',
+        download: 'İndir',
+        wrongPassword:
+          'Bu parola dosyayı açmadı. Kontrol edip tekrar deneyin; dosyanın kendisinde sorun yok.',
+        notPdf: 'Bu dosya bir PDF değil.',
+        damaged:
+          'Bu PDF okunamadı. Korumalı olmaktan çok bozuk görünüyor; varsa özgün dosyayı deneyin.',
+        notIsolated:
+          'Şifreleme motoru bu sayfada başlatılamadı. Sayfayı yenilemek genellikle çözer.',
+        failed: 'Bu işe yaramadı.',
+      },
+      content: {
+        howItWorks: [
+          'PDF’deki parola gerçek bir şifrelemedir, bir ayar değil. Dosyanın içeriği paroladan türetilen bir anahtarla şifrelenir, dolayısıyla parolası olmayan bir okuyucunun gösterecek hiçbir şeyi olmaz: ne metin, ne görseller, ne de sayfa sayısı. Bunu söylemek gerekir, çünkü bir PDF’nin taşıyabileceği öteki şey buna benzer ama bu değildir. Bir PDF hiç şifrelenmemişken «yazdırmayın» ya da «kopyalamayın» diye işaretlenebilir; bu işaretler okuyucu yazılıma yapılmış bir ricadır, dosyaya konmuş bir kısıt değil. Herhangi bir okuyucu bunları yok sayabilir ve pek çoğu sayar. Bu araç parola koyar; tutan cinsten olanı.',
+          'Buradaki şifreleme AES-256, PDF belirtiminin tanımladığı en güçlüsü ve sunulan tek seçenek. Eski PDF’ler 40 ya da 128 bitlik RC4 kullanırdı; bunlar yeterince kırılmış durumda, öyle ki şifrelemeyi yapan araç açıkça söylenmedikçe onları yazmayı reddediyor. Ona hiç söylenmiyor. Seçilecek bir şifre ya da ayarlanacak bir anahtar uzunluğu yok, çünkü savunulabilir tek bir yanıt var ve bunu bir karar gibi sunmak yalnızca daha kötüsünü davet ederdi.',
+          'İşi qpdf yapıyor: uzun süredir var olan bir PDF aracının WebAssembly’ye derlenmiş ve bu sayfanın içinde çalışan hâli. Bu kulağa geldiğinden önemli: PDF şifrelemesini elle yazmak, bir güvenlik özelliği için kriptografi kodu yazmak demektir ve ne kadar dikkatli yazılırsa yazılsın, algoritma ne kadar ayrıntılı belirtilmiş olursa olsun yapılmaması gereken şeydir. Yıllardır kullanımda ve inceleme altında olan bir uygulamayı kullanmak zaten bütün mesele.',
+          'Tek bir parola konur ve bu hem belgeyi açan hem de izinleri yöneten parola olur. Bir PDF iki ayrı parola taşıyabilir ve bu ayrım insanları sürekli yanıltır: yalnızca sahip parolası olan bir dosya çift tıklayan herkes için açılır, ama her özette «parola korumalı» görünür. Burada bir parola koyarsanız, dosyanın açılmak için ona ihtiyacı olur. Tek anlamı budur.',
+          'Parola sayfadan hiç çıkmadığı için, kaybolursa dosyayı kurtarabilecek hiçbir şey yoktur. Sıfırlama yok, kurtarma adresi yok, hiçbir yerde saklanan bir kopya yok; bu doğrudan dosyanın hiç yüklenmemesinin sonucu. Sekmeyi kapatmadan önce not edin.',
+        ],
+        steps: [
+          'Bir PDF seçin. Zaten parolalıysa araç bunu fark eder ve kaldırmayı önerir.',
+          'Parolayı yazın, sonra bir daha yazın ki yazım hatası sizi dışarıda bırakmasın.',
+          'Parolayı ekleyin ya da kaldırın ve sonucu indirin.',
+          'Parolayı bir yere kaydedin. Burada onu kurtarabilecek bir şey yok.',
+        ],
+        tips: [
+          'Şifreleme AES-256, PDF biçiminin tanımladığı en güçlüsü. Daha zayıf RC4 seçenekleri sunulmuyor.',
+          'Tek parola, tek anlam: dosyanın açılmak için ona ihtiyacı var. Belgeyi herkese okunur bırakan yalnızca-sahip kipi yok.',
+          'Mevcut parolayı verebildiğiniz sürece, parola konulduğu kadar kolay kaldırılır.',
+          'Uzun parola karmaşık parolayı yener. Tahmini pratik olmaktan çıkaran şey uzunluktur.',
+          'Dosya da parola da cihazınızda işlenir, dolayısıyla ikisi de aktarılmaz ya da saklanmaz.',
+        ],
+        faqs: [
+          { q: 'Bu gerçek şifreleme mi, yoksa yalnızca bir kısıtlama işareti mi?', a: 'Gerçek şifreleme. İçerik, parolanızdan türetilen bir anahtarla AES-256 kullanılarak şifrelenir; parolası olmayan bir okuyucu metni de görselleri de gösteremez. Bu, bir PDF’nin taşıyabileceği «yazdırmayın» ve «kopyalamayın» işaretlerinden farklıdır: onlar şifrelenmemiştir, okuyucu yazılıma yapılmış ricalardır ve herhangi bir program onları yok sayabilir.' },
+          { q: 'Parolayı unutursam ne olur?', a: 'Dosya açılamaz; ne sizin ne de bizim tarafımızdan. Parola hiçbir yere gönderilmez ve hiçbir şey saklanmaz, dolayısıyla sıfırlama da kurtarma da yoktur. Aracı güvenli kılan da aynı özelliktir ve iki yönlü keser. Sekmeyi kapatmadan önce parolayı not edin.' },
+          { q: 'Bir PDF’den parolayı kaldırabilir miyim?', a: 'Evet, şu anda açıldığı parolayı verebiliyorsanız. Dosyayı seçin; araç korumalı olduğunu görüp parolayı kaldırmayı önerecektir. Bilmediğiniz bir parolayı kaldıramaz: o zaten şifreleme olmazdı.' },
+          { q: 'Hangi şifrelemeyi kullanıyor?', a: 'AES-256, başka hiçbiri değil. PDF belirtiminin tanımladığı en güçlüsü. 40 ve 128 bitlik eski RC4 seçenekleri kırılmış sayılıyor ve alttaki araç, bu aracın ona hiç vermediği açık bir izin olmadan onları yazmayı reddediyor.' },
+          { q: 'Parolayı neden iki kez soruyor?', a: 'Çünkü göremediğiniz bir paroladaki yazım hatası, bilmediğiniz bir şeyle açılan bir dosya üretir ve bunu ancak bir dahaki ihtiyacınızda fark edersiniz. İki kez yazmak bunu, henüz hiçbir maliyeti yokken yakalar.' },
+          { q: 'Dosyam yükleniyor mu?', a: 'Hayır. PDF, kendi cihazınız tarafından bu tarayıcı sekmesinin içinde okunur, şifrelenir ve geri verilir; parola da sayfadan çıkmaz. Çalışırken tarayıcınızın Ağ sekmesini izleyebilirsiniz: dosyayı ya da parolayı taşıyan hiçbir şey dışarı gitmez.' },
+        ],
+      },
+    },
     'sheet-convert': {
       title: 'CSV’den Excel’e ve geri',
       blurb: 'İki yönde de dönüştürün, Excel baştaki sıfırları yemeden. Hiçbir şey yüklenmez.',

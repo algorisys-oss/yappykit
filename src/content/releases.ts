@@ -23,6 +23,13 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '0.11.0',
+    date: '2026-09-06',
+    added: [
+      "Password-protect a PDF, and take the password back off. This is real encryption rather than a permissions flag: the contents are enciphered with AES-256 using a key derived from the password, so a reader without it has nothing to show. That is worth distinguishing, because a PDF can also be marked \"do not print\" or \"do not copy\" while remaining completely unencrypted, and those marks are a request to the reader software that any program may ignore. One password is set, used both to open the document and to govern permissions: a PDF can carry two, and a file with only an owner password opens for anybody who double-clicks it while still appearing as protected in every summary, which is the misunderstanding this tool exists not to ship. There is no cipher to choose, because AES-256 is the only defensible answer and the weaker RC4 options are refused outright. The password is asked for twice, since a typo in a field you cannot read produces a file that opens with something you do not know, and it is capped at the 127 bytes the standard actually holds rather than being silently truncated past that. The work is done by qpdf compiled to WebAssembly, on your device: neither the file nor the password is ever sent anywhere, which also means a forgotten password cannot be recovered by us or by anyone.",
+    ],
+  },
+  {
     version: '0.10.0',
     date: '2026-09-06',
     added: [

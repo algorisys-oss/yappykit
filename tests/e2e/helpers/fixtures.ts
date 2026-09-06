@@ -202,13 +202,14 @@ export async function dragAcross(
  * opened. A redaction spec built on a byte search passes whether or not the
  * tool does anything at all.
  */
-export async function pdfText(bytes: Buffer | Uint8Array): Promise<string[]> {
+export async function pdfText(bytes: Buffer | Uint8Array, password?: string): Promise<string[]> {
   const require = createRequire(import.meta.url);
   const pdfjs = await import('pdfjs-dist/legacy/build/pdf.mjs');
   pdfjs.GlobalWorkerOptions.workerSrc = require.resolve('pdfjs-dist/legacy/build/pdf.worker.mjs');
   const doc = await pdfjs.getDocument({
     data: new Uint8Array(bytes),
     standardFontDataUrl: dirname(require.resolve('pdfjs-dist/package.json')) + '/standard_fonts/',
+    password,
   }).promise;
   const out: string[] = [];
   for (let n = 1; n <= doc.numPages; n += 1) {
@@ -218,6 +219,29 @@ export async function pdfText(bytes: Buffer | Uint8Array): Promise<string[]> {
     }
   }
   return out;
+}
+
+/**
+ * Does a reader demand a password for this PDF?
+ *
+ * The companion to `pdfText`, and it exists for the same reason: the only proof
+ * that a file is encrypted is that a reader refuses to open it. A byte search
+ * for `/Encrypt` would pass on a file that merely says it is protected, and the
+ * whole point of the tool is that the contents are actually unreadable.
+ *
+ * Returns pdf.js's own reason, so a wrong password and a corrupt file are
+ * distinguishable rather than both being "it did not open".
+ */
+export async function pdfNeedsPassword(
+  bytes: Buffer | Uint8Array,
+  password?: string,
+): Promise<{ opened: boolean; reason?: string }> {
+  try {
+    await pdfText(bytes, password);
+    return { opened: true };
+  } catch (e) {
+    return { opened: false, reason: (e as Error).name };
+  }
 }
 
 /**

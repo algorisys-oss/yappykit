@@ -192,6 +192,87 @@ export const en = {
   },
 
   tools: {
+    'pdf-password': {
+      title: 'Password-protect a PDF',
+      blurb: 'Add a password so only someone who has it can open the file. Nothing is uploaded.',
+      tags: ['password protect pdf','encrypt pdf','lock pdf','add password to pdf','remove pdf password','unlock pdf','pdf password','secure pdf'],
+      seoTitle: 'Password Protect a PDF, Free and Without Uploading | YappyKit',
+      seoDescription:
+        'Add a password to a PDF, or take one off, in your browser. Real AES-256 encryption, not a permissions flag any reader can ignore. The file never leaves your device.',
+      heroTitle: 'Password-protect a PDF',
+      heroNote:
+        'Add a password so the file opens only for someone who has it, or take a password off one you can already open. The encryption is AES-256, and because it happens on your device the file and the password are never sent anywhere.',
+      ui: {
+        unsupported:
+          'This browser cannot run the PDF encryption engine here. It needs a recent browser with WebAssembly, and the page must be able to use shared memory, which some browsers block inside an embedded frame. Opening this page directly usually fixes it.',
+        pickLabel: 'Choose a PDF',
+        pickHint: 'It is read on your device, not uploaded.',
+        fileMeta: '{name}, {size}',
+        modeLabel: 'What do you want to do?',
+        modeAdd: 'Add a password',
+        modeRemove: 'Remove a password',
+        detectedProtected:
+          'This PDF already has a password, so removing one is selected. Switch if you meant to change it instead.',
+        passwordLabel: 'Password',
+        passwordLabelExisting: 'The password this file opens with',
+        passwordHint:
+          'Anything you like, up to 127 characters. Longer is better than more complicated.',
+        confirmLabel: 'Type it again',
+        showPassword: 'Show password',
+        hidePassword: 'Hide password',
+        mismatch: 'Those two do not match.',
+        emptyPassword: 'Enter a password.',
+        tooLongPassword:
+          'That is too long. PDF encryption holds 127 bytes, and anything past that is quietly ignored, which would leave you with a file that will not open with what you typed.',
+        needFile: 'Choose a PDF first.',
+        noRecovery:
+          'Write the password down somewhere before you continue. It is not stored, it is not sent anywhere, and there is nothing here or anywhere else that can recover the file without it.',
+        actionAdd: 'Add the password',
+        actionRemove: 'Remove the password',
+        working: 'Working…',
+        doneAdd: 'Done. This file now asks for the password before it opens.',
+        doneRemove: 'Done. This file opens without a password.',
+        download: 'Download',
+        wrongPassword:
+          'That password did not open the file. Check it and try again; the file itself is fine.',
+        notPdf: 'That file is not a PDF.',
+        damaged:
+          'That PDF could not be read. It looks damaged rather than protected, so try the original if you have it.',
+        notIsolated:
+          'The encryption engine could not start on this page. Reloading usually fixes it.',
+        failed: 'That did not work.',
+      },
+      content: {
+        howItWorks: [
+          'A password on a PDF is real encryption, not a setting. The contents of the file are enciphered with a key derived from the password, so a reader that does not have it has nothing to show: not the text, not the images, not the page count. This is worth stating because the other thing a PDF can carry looks similar and is not. A PDF can be marked "do not print" or "do not copy" while remaining completely unencrypted, and those flags are a request to the reader software rather than a restriction on the file. Any reader may ignore them, and plenty do. This tool sets a password, which is the kind that holds.',
+          'The encryption here is AES-256, which is the strongest the PDF specification defines and the only option offered. Older PDFs used RC4 at 40 or 128 bits, and those are broken well enough that the tool that does the encrypting refuses to write them without being explicitly told to. It is never told to. There is no cipher to choose and no key length to set, because there is exactly one defensible answer and presenting it as a decision would only invite a worse one.',
+          'The work is done by qpdf, a long-standing PDF tool compiled to WebAssembly and running inside this page. That matters more than it might sound: implementing PDF encryption by hand would mean writing cryptographic code for a security feature, which is the wrong thing to do no matter how carefully it is written or how thoroughly the algorithm is specified. Using an implementation that has been in use and under scrutiny for years is the whole point.',
+          'One password is set, and it is used both as the password that opens the document and as the one that governs permissions. A PDF can have two different passwords, and the distinction traps people constantly: a file with only an owner password opens for anybody who double-clicks it, while appearing in every summary as "password protected". If you set a password here, the file needs it to open. That is the only meaning it has.',
+          'Because the password never leaves the page, nothing can recover the file if it is lost. There is no reset, no recovery address and no copy kept anywhere, which is a direct consequence of the file never being uploaded. Write it down before you close the tab.',
+        ],
+        steps: [
+          'Choose a PDF. If it already has a password, the tool notices and offers to take it off instead.',
+          'Type the password, and type it again so a mistyped one cannot lock you out.',
+          'Add the password, or remove it, and download the result.',
+          'Save the password somewhere. Nothing here can recover it.',
+        ],
+        tips: [
+          'The encryption is AES-256, the strongest the PDF format defines. The weaker RC4 options are not offered.',
+          'One password, one meaning: the file needs it to open. There is no owner-only mode that leaves the document readable by everyone.',
+          'A password can be removed as easily as added, provided you can supply the current one.',
+          'A long password beats a complicated one. Length is what makes guessing impractical.',
+          'The file and the password are both processed on your device, so neither is ever transmitted or stored.',
+        ],
+        faqs: [
+          { q: 'Is this real encryption, or just a restriction flag?', a: 'Real encryption. The contents are enciphered with AES-256 using a key derived from your password, so a reader without it cannot show the text or the images. That is different from the "do not print" and "do not copy" flags a PDF can also carry, which are unencrypted requests to the reader software and can be ignored by any program that chooses to.' },
+          { q: 'What happens if I forget the password?', a: 'The file cannot be opened, by you or by us. The password is never sent anywhere and nothing is stored, so there is no reset and no recovery. That is the same property that makes the tool safe to use, and it cuts both ways. Write the password down before you close the tab.' },
+          { q: 'Can I remove a password from a PDF?', a: 'Yes, if you can supply the password it currently opens with. Choose the file and the tool will notice it is protected and offer to take the password off. It cannot remove a password you do not know: that would not be encryption.' },
+          { q: 'Which encryption does it use?', a: 'AES-256, and nothing else. It is the strongest the PDF specification defines. The older RC4 options at 40 and 128 bits are considered broken, and the underlying tool refuses to write them without an explicit override, which this tool never gives it.' },
+          { q: 'Why does it ask for the password twice?', a: 'Because a typo in a password you cannot see produces a file that opens with something you do not know, and you would not find out until the next time you needed it. Typing it twice catches that while it still costs nothing.' },
+          { q: 'Is my file uploaded?', a: 'No. The PDF is read, encrypted and handed back inside this browser tab by your own device, and the password never leaves the page either. You can watch your browser’s Network tab while it works: nothing carrying the file or the password goes out.' },
+        ],
+      },
+    },
     'sheet-convert': {
       title: 'CSV to Excel, and back',
       blurb: 'Convert either way, without Excel eating your leading zeros. Nothing is uploaded.',

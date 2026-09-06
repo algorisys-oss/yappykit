@@ -190,6 +190,87 @@ const fr: Messages = {
   },
 
   tools: {
+    'pdf-password': {
+      title: 'Protéger un PDF par mot de passe',
+      blurb: 'Ajoutez un mot de passe pour que seul celui qui l’a puisse ouvrir le fichier. Rien n’est envoyé.',
+      tags: ['protéger un pdf par mot de passe','chiffrer un pdf','verrouiller un pdf','mettre un mot de passe sur un pdf','supprimer le mot de passe d’un pdf','déverrouiller un pdf','mot de passe pdf','pdf sécurisé'],
+      seoTitle: 'Protéger un PDF par mot de passe, gratuit et sans téléversement | YappyKit',
+      seoDescription:
+        'Ajoutez un mot de passe à un PDF, ou retirez-le, dans votre navigateur. Un vrai chiffrement AES-256, pas un indicateur d’autorisation que n’importe quelle visionneuse peut ignorer. Le fichier ne quitte jamais votre appareil.',
+      heroTitle: 'Protéger un PDF par mot de passe',
+      heroNote:
+        'Ajoutez un mot de passe pour que le fichier ne s’ouvre que pour celui qui l’a, ou retirez-le d’un fichier que vous pouvez déjà ouvrir. Le chiffrement est en AES-256 et, comme tout se passe sur votre appareil, ni le fichier ni le mot de passe ne sont envoyés où que ce soit.',
+      ui: {
+        unsupported:
+          'Ce navigateur ne peut pas exécuter le moteur de chiffrement PDF ici. Il faut un navigateur récent avec WebAssembly, et la page doit pouvoir utiliser la mémoire partagée, ce que certains navigateurs bloquent à l’intérieur d’un cadre intégré. Ouvrir cette page directement suffit en général.',
+        pickLabel: 'Choisissez un PDF',
+        pickHint: 'Il est lu sur votre appareil, pas envoyé.',
+        fileMeta: '{name}, {size}',
+        modeLabel: 'Que voulez-vous faire ?',
+        modeAdd: 'Ajouter un mot de passe',
+        modeRemove: 'Retirer le mot de passe',
+        detectedProtected:
+          'Ce PDF a déjà un mot de passe, donc le retrait est sélectionné. Changez si vous vouliez plutôt le remplacer.',
+        passwordLabel: 'Mot de passe',
+        passwordLabelExisting: 'Le mot de passe avec lequel ce fichier s’ouvre',
+        passwordHint:
+          'Ce que vous voulez, jusqu’à 127 caractères. Long vaut mieux que compliqué.',
+        confirmLabel: 'Saisissez-le à nouveau',
+        showPassword: 'Afficher le mot de passe',
+        hidePassword: 'Masquer le mot de passe',
+        mismatch: 'Ces deux-là ne correspondent pas.',
+        emptyPassword: 'Saisissez un mot de passe.',
+        tooLongPassword:
+          'C’est trop long. Le chiffrement PDF retient 127 octets, et tout ce qui dépasse est ignoré sans le dire : vous vous retrouveriez avec un fichier qui ne s’ouvre pas avec ce que vous avez saisi.',
+        needFile: 'Choisissez d’abord un PDF.',
+        noRecovery:
+          'Notez le mot de passe quelque part avant de continuer. Il n’est pas conservé, il n’est envoyé nulle part, et rien ici ni ailleurs ne peut récupérer le fichier sans lui.',
+        actionAdd: 'Ajouter le mot de passe',
+        actionRemove: 'Retirer le mot de passe',
+        working: 'En cours…',
+        doneAdd: 'Terminé. Ce fichier demande maintenant le mot de passe avant de s’ouvrir.',
+        doneRemove: 'Terminé. Ce fichier s’ouvre sans mot de passe.',
+        download: 'Télécharger',
+        wrongPassword:
+          'Ce mot de passe n’a pas ouvert le fichier. Vérifiez-le et réessayez : le fichier lui-même va bien.',
+        notPdf: 'Ce fichier n’est pas un PDF.',
+        damaged:
+          'Ce PDF n’a pas pu être lu. Il semble endommagé plutôt que protégé, alors essayez l’original si vous l’avez.',
+        notIsolated:
+          'Le moteur de chiffrement n’a pas pu démarrer sur cette page. Recharger suffit en général.',
+        failed: 'Cela n’a pas fonctionné.',
+      },
+      content: {
+        howItWorks: [
+          'Un mot de passe sur un PDF, c’est du vrai chiffrement, pas un réglage. Le contenu du fichier est chiffré avec une clé dérivée du mot de passe, si bien qu’une visionneuse qui ne l’a pas n’a rien à montrer : ni le texte, ni les images, ni le nombre de pages. Cela mérite d’être dit, car l’autre chose qu’un PDF peut porter y ressemble sans en être. Un PDF peut être marqué « ne pas imprimer » ou « ne pas copier » tout en n’étant pas chiffré du tout, et ces indicateurs sont une demande adressée au logiciel de lecture, pas une restriction du fichier. N’importe quelle visionneuse peut les ignorer, et beaucoup le font. Cet outil pose un mot de passe, celui qui tient.',
+          'Le chiffrement ici est l’AES-256, le plus solide que définit la spécification PDF et la seule option proposée. Les anciens PDF utilisaient le RC4 sur 40 ou 128 bits, suffisamment cassés pour que l’outil qui chiffre refuse de les écrire sans qu’on le lui ordonne explicitement. On ne le lui ordonne jamais. Il n’y a pas de chiffrement à choisir ni de longueur de clé à régler, parce qu’il existe exactement une réponse défendable et que la présenter comme une décision ne ferait qu’en inviter une moins bonne.',
+          'Le travail est fait par qpdf, un outil PDF de longue date compilé en WebAssembly et exécuté dans cette page. Cela compte plus qu’il n’y paraît : implémenter le chiffrement PDF à la main reviendrait à écrire du code cryptographique pour une fonction de sécurité, ce qu’il ne faut pas faire, si soigneusement que ce soit écrit et si précisément que l’algorithme soit spécifié. Utiliser une implémentation en service et scrutée depuis des années, c’est tout l’intérêt.',
+          'Un seul mot de passe est posé, et il sert à la fois à ouvrir le document et à régir les autorisations. Un PDF peut porter deux mots de passe distincts, et la distinction piège constamment : un fichier n’ayant qu’un mot de passe propriétaire s’ouvre pour quiconque double-clique, tout en apparaissant partout comme « protégé par mot de passe ». Si vous posez un mot de passe ici, le fichier en a besoin pour s’ouvrir. C’est son seul sens.',
+          'Comme le mot de passe ne quitte jamais la page, rien ne peut récupérer le fichier s’il est perdu. Pas de réinitialisation, pas d’adresse de récupération, aucune copie conservée nulle part, ce qui découle directement du fait que le fichier n’est jamais envoyé. Notez-le avant de fermer l’onglet.',
+        ],
+        steps: [
+          'Choisissez un PDF. S’il a déjà un mot de passe, l’outil le remarque et propose de le retirer.',
+          'Saisissez le mot de passe, puis saisissez-le à nouveau pour qu’une faute de frappe ne vous enferme pas dehors.',
+          'Ajoutez le mot de passe, ou retirez-le, et téléchargez le résultat.',
+          'Conservez le mot de passe quelque part. Rien ici ne peut le récupérer.',
+        ],
+        tips: [
+          'Le chiffrement est en AES-256, le plus solide que définit le format PDF. Les options RC4, plus faibles, ne sont pas proposées.',
+          'Un mot de passe, un sens : le fichier en a besoin pour s’ouvrir. Il n’y a pas de mode propriétaire seul qui laisserait le document lisible par tous.',
+          'Un mot de passe se retire aussi facilement qu’il se pose, à condition de pouvoir fournir l’actuel.',
+          'Un mot de passe long vaut mieux qu’un mot de passe compliqué. C’est la longueur qui rend le devinage impraticable.',
+          'Le fichier et le mot de passe sont traités sur votre appareil : ni l’un ni l’autre n’est transmis ou stocké.',
+        ],
+        faqs: [
+          { q: 'Est-ce du vrai chiffrement ou juste un indicateur de restriction ?', a: 'Du vrai chiffrement. Le contenu est chiffré en AES-256 avec une clé dérivée de votre mot de passe, de sorte qu’une visionneuse qui ne l’a pas ne peut afficher ni le texte ni les images. C’est différent des indicateurs « ne pas imprimer » et « ne pas copier » qu’un PDF peut aussi porter : ceux-là ne sont pas chiffrés, ce sont des demandes au logiciel de lecture, et n’importe quel programme peut les ignorer.' },
+          { q: 'Que se passe-t-il si j’oublie le mot de passe ?', a: 'Le fichier ne peut pas être ouvert, ni par vous ni par nous. Le mot de passe n’est envoyé nulle part et rien n’est conservé, donc il n’y a ni réinitialisation ni récupération. C’est la propriété même qui rend l’outil sûr, et elle joue dans les deux sens. Notez le mot de passe avant de fermer l’onglet.' },
+          { q: 'Puis-je retirer le mot de passe d’un PDF ?', a: 'Oui, si vous pouvez fournir celui avec lequel il s’ouvre actuellement. Choisissez le fichier et l’outil verra qu’il est protégé et proposera de retirer le mot de passe. Il ne peut pas retirer un mot de passe que vous ignorez : ce ne serait pas du chiffrement.' },
+          { q: 'Quel chiffrement est utilisé ?', a: 'L’AES-256, et rien d’autre. C’est le plus solide que définit la spécification PDF. Les anciennes options RC4, sur 40 et 128 bits, sont considérées comme cassées, et l’outil sous-jacent refuse de les écrire sans une dérogation explicite que cet outil ne lui donne jamais.' },
+          { q: 'Pourquoi demander le mot de passe deux fois ?', a: 'Parce qu’une faute de frappe dans un mot de passe que vous ne voyez pas produit un fichier qui s’ouvre avec quelque chose que vous ne connaissez pas, et vous ne le découvririez qu’à la prochaine fois que vous en auriez besoin. Le saisir deux fois attrape cela tant que cela ne coûte encore rien.' },
+          { q: 'Mon fichier est-il envoyé ?', a: 'Non. Le PDF est lu, chiffré et rendu dans cet onglet par votre propre appareil, et le mot de passe ne quitte pas non plus la page. Vous pouvez surveiller l’onglet Réseau de votre navigateur pendant qu’il travaille : rien qui transporte le fichier ou le mot de passe ne sort.' },
+        ],
+      },
+    },
     'sheet-convert': {
       title: 'CSV vers Excel, et retour',
       blurb: 'Convertissez dans les deux sens, sans qu’Excel avale vos zéros de tête. Rien n’est envoyé.',

@@ -36,6 +36,12 @@ export const TOOL_CAPABILITIES: Record<ToolKey, CapabilitySpec> = {
   // ffmpeg is WebAssembly, and its core ships gzipped to fit the host's
   // per-file limit, so expanding it is a hard requirement rather than a nicety.
   'video-compress': { required: ['wasm', 'decompressionStream'], preferred: ['webCodecs'] },
+  // qpdf is WebAssembly and its only build imports SHARED memory, so this tool
+  // needs real cross-origin isolation — unlike the video tool, which has a
+  // single-threaded core to fall back to. Without isolation qpdf does not fail,
+  // it hangs (spike/qpdf-encrypt/FINDINGS.md), so this has to be a hard gate
+  // rather than something the tool discovers once the user has picked a file.
+  'pdf-password': { required: ['wasm', 'crossOriginIsolated'], preferred: [] },
   // Reading the installed font list is Chromium-only. Everywhere else the tool
   // asks for a font file instead, which works and is simply more work.
   'font-coverage': { required: [], preferred: ['localFonts'] },

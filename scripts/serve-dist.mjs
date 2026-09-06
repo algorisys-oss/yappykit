@@ -13,6 +13,12 @@
  * redirected in production and nothing here noticed, because the emulator was
  * kinder than the host. An emulator that is easier to satisfy than production is
  * worse than no emulator at all.
+ *
+ * It also applies `dist/_headers`, and that is not a nicety either. The PDF
+ * password tool needs COOP/COEP to get SharedArrayBuffer, and without it qpdf
+ * does not fail, it HANGS (spike/qpdf-encrypt/FINDINGS.md). An emulator that
+ * withholds a header production sends makes that tool untestable and every
+ * other isolated route a guess.
  */
 import { createServer } from 'node:http';
 import { readFile, stat } from 'node:fs/promises';
@@ -36,6 +42,43 @@ const TYPES = {
   '.webp': 'image/webp',
   '.wasm': 'application/wasm',
 };
+
+/**
+ * Parse `dist/_headers` into [matcher, headers] pairs.
+ *
+ * Only the two shapes this site generates are supported: an exact path, and a
+ * `/prefix/*` wildcard. Pages' full syntax has more in it, and guessing at the
+ * rest would make this emulator confidently wrong rather than usefully narrow.
+ * Later rules win, which is how Pages applies them.
+ */
+async function loadHeaderRules() {
+  const raw = await readFile(path.join(DIST, '_headers'), 'utf8').catch(() => null);
+  if (!raw) return [];
+  const rules = [];
+  let current = null;
+  for (const line of raw.split('\n')) {
+    if (!line.trim() || line.trimStart().startsWith('#')) continue;
+    if (!/^\s/.test(line)) {
+      current = { pattern: line.trim(), headers: {} };
+      rules.push(current);
+      continue;
+    }
+    const at = line.indexOf(':');
+    if (at > 0 && current) current.headers[line.slice(0, at).trim()] = line.slice(at + 1).trim();
+  }
+  return rules;
+}
+
+function headersFor(rules, urlPath) {
+  const out = {};
+  for (const { pattern, headers } of rules) {
+    const hit = pattern.endsWith('/*')
+      ? urlPath.startsWith(pattern.slice(0, -1))
+      : pattern === urlPath || `${pattern}/` === urlPath;
+    if (hit) Object.assign(out, headers);
+  }
+  return out;
+}
 
 async function readIfFile(p) {
   try {
@@ -83,7 +126,11 @@ async function resolve(urlPath) {
   return null;
 }
 
+const HEADER_RULES = await loadHeaderRules();
+
 createServer(async (req, res) => {
+  const urlPath = decodeURIComponent((req.url ?? '/').split('?')[0]);
+  const extra = headersFor(HEADER_RULES, urlPath);
   const hit = await resolve(req.url ?? '/');
   if (hit?.redirect) {
     res.writeHead(308, { location: hit.redirect });
@@ -91,7 +138,10 @@ createServer(async (req, res) => {
     return;
   }
   if (hit) {
-    res.writeHead(200, { 'content-type': TYPES[path.extname(hit.file)] ?? 'application/octet-stream' });
+    res.writeHead(200, {
+      'content-type': TYPES[path.extname(hit.file)] ?? 'application/octet-stream',
+      ...extra,
+    });
     res.end(hit.body);
     return;
   }

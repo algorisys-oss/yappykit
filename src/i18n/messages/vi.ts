@@ -190,6 +190,87 @@ const vi: Messages = {
   },
 
   tools: {
+    'pdf-password': {
+      title: 'Đặt mật khẩu cho PDF',
+      blurb: 'Thêm mật khẩu để chỉ người có nó mới mở được tệp. Không có gì được tải lên.',
+      tags: ['đặt mật khẩu cho pdf','mã hoá pdf','khoá pdf','thêm mật khẩu vào pdf','gỡ mật khẩu pdf','mở khoá pdf','mật khẩu pdf','pdf an toàn'],
+      seoTitle: 'Đặt mật khẩu cho PDF, miễn phí và không cần tải lên | YappyKit',
+      seoDescription:
+        'Thêm mật khẩu cho PDF, hoặc gỡ ra, ngay trong trình duyệt. Mã hoá AES-256 thật sự, không phải cờ quyền hạn mà trình đọc nào cũng có thể bỏ qua. Tệp không bao giờ rời khỏi thiết bị của bạn.',
+      heroTitle: 'Đặt mật khẩu cho PDF',
+      heroNote:
+        'Thêm mật khẩu để tệp chỉ mở cho người có nó, hoặc gỡ mật khẩu khỏi tệp bạn đã mở được. Mã hoá là AES-256, và vì diễn ra trên thiết bị của bạn nên cả tệp lẫn mật khẩu đều không được gửi đi đâu.',
+      ui: {
+        unsupported:
+          'Trình duyệt này không chạy được bộ mã hoá PDF ở đây. Cần một trình duyệt mới có WebAssembly, và trang phải được phép dùng bộ nhớ chia sẻ, điều mà vài trình duyệt chặn bên trong khung nhúng. Mở thẳng trang này thường là đủ.',
+        pickLabel: 'Chọn một PDF',
+        pickHint: 'Tệp được đọc trên thiết bị của bạn, không tải lên.',
+        fileMeta: '{name}, {size}',
+        modeLabel: 'Bạn muốn làm gì?',
+        modeAdd: 'Thêm mật khẩu',
+        modeRemove: 'Gỡ mật khẩu',
+        detectedProtected:
+          'PDF này đã có mật khẩu nên mục gỡ được chọn sẵn. Hãy đổi nếu bạn định thay mật khẩu.',
+        passwordLabel: 'Mật khẩu',
+        passwordLabelExisting: 'Mật khẩu hiện mở được tệp này',
+        passwordHint:
+          'Tuỳ bạn, tối đa 127 ký tự. Dài thì hơn là phức tạp.',
+        confirmLabel: 'Gõ lại lần nữa',
+        showPassword: 'Hiện mật khẩu',
+        hidePassword: 'Ẩn mật khẩu',
+        mismatch: 'Hai ô này không khớp.',
+        emptyPassword: 'Hãy nhập mật khẩu.',
+        tooLongPassword:
+          'Dài quá. Mã hoá PDF chứa được 127 byte, phần vượt quá bị bỏ qua mà không báo, và bạn sẽ có một tệp không mở được bằng đúng thứ bạn đã gõ.',
+        needFile: 'Hãy chọn một PDF trước.',
+        noRecovery:
+          'Hãy ghi mật khẩu lại đâu đó trước khi tiếp tục. Nó không được lưu, không được gửi đi đâu, và không có gì ở đây hay nơi nào khác khôi phục được tệp nếu thiếu nó.',
+        actionAdd: 'Thêm mật khẩu',
+        actionRemove: 'Gỡ mật khẩu',
+        working: 'Đang xử lý…',
+        doneAdd: 'Xong. Tệp này giờ hỏi mật khẩu trước khi mở.',
+        doneRemove: 'Xong. Tệp này mở mà không cần mật khẩu.',
+        download: 'Tải xuống',
+        wrongPassword:
+          'Mật khẩu đó không mở được tệp. Hãy kiểm tra rồi thử lại; bản thân tệp vẫn ổn.',
+        notPdf: 'Tệp đó không phải PDF.',
+        damaged:
+          'Không đọc được PDF đó. Nó có vẻ hỏng chứ không phải được bảo vệ, nên hãy thử bản gốc nếu bạn còn giữ.',
+        notIsolated:
+          'Bộ mã hoá không khởi động được trên trang này. Tải lại trang thường là đủ.',
+        failed: 'Cách đó không thành.',
+      },
+      content: {
+        howItWorks: [
+          'Mật khẩu trên PDF là mã hoá thật sự, không phải một tuỳ chọn. Nội dung tệp được mã hoá bằng khoá dẫn xuất từ mật khẩu, nên trình đọc không có mật khẩu thì chẳng có gì để hiện: không chữ, không ảnh, không cả số trang. Điều này đáng nói vì thứ còn lại mà một PDF có thể mang theo trông rất giống mà lại không phải. Một PDF có thể bị đánh dấu «không in» hay «không sao chép» trong khi hoàn toàn không được mã hoá, và những dấu đó là lời đề nghị với phần mềm đọc chứ không phải hạn chế trên tệp. Trình đọc nào cũng có thể bỏ qua, và nhiều trình làm vậy. Công cụ này đặt mật khẩu, loại giữ được.',
+          'Mã hoá ở đây là AES-256, mạnh nhất mà đặc tả PDF định nghĩa và là lựa chọn duy nhất được đưa ra. PDF cũ dùng RC4 40 hay 128 bit, và chúng đã bị phá đủ để công cụ mã hoá từ chối ghi ra nếu không được yêu cầu rõ ràng. Nó không bao giờ được yêu cầu. Không có thuật toán nào để chọn, không có độ dài khoá nào để chỉnh, vì chỉ có đúng một câu trả lời bảo vệ được, và trình bày nó như một quyết định chỉ mời gọi câu trả lời tệ hơn.',
+          'Phần việc do qpdf đảm nhiệm, một công cụ PDF lâu đời được biên dịch sang WebAssembly và chạy ngay trong trang này. Điều đó quan trọng hơn vẻ ngoài của nó: tự viết mã hoá PDF nghĩa là viết mã mật mã cho một tính năng bảo mật, và đó là việc không nên làm dù viết cẩn thận đến đâu và thuật toán được đặc tả kỹ đến đâu. Dùng một cài đặt đã được sử dụng và soi xét nhiều năm chính là điểm mấu chốt.',
+          'Chỉ một mật khẩu được đặt, và nó vừa là mật khẩu mở tài liệu vừa là mật khẩu chi phối quyền hạn. Một PDF có thể mang hai mật khẩu khác nhau, và sự phân biệt đó liên tục đánh lừa người dùng: tệp chỉ có mật khẩu chủ sở hữu vẫn mở cho bất cứ ai nhấp đúp, trong khi mọi bản tóm tắt đều ghi là «được bảo vệ bằng mật khẩu». Nếu bạn đặt mật khẩu ở đây, tệp cần nó để mở. Đó là ý nghĩa duy nhất của nó.',
+          'Vì mật khẩu không bao giờ rời khỏi trang, không gì khôi phục được tệp nếu mất mật khẩu. Không có đặt lại, không có địa chỉ khôi phục, không có bản sao lưu ở đâu cả, hệ quả trực tiếp của việc tệp không bao giờ được tải lên. Hãy ghi lại trước khi đóng thẻ.',
+        ],
+        steps: [
+          'Chọn một PDF. Nếu tệp đã có mật khẩu, công cụ nhận ra và đề nghị gỡ giúp.',
+          'Gõ mật khẩu, rồi gõ lại lần nữa để một lỗi đánh máy không khoá bạn ở ngoài.',
+          'Thêm mật khẩu, hoặc gỡ đi, rồi tải kết quả về.',
+          'Hãy lưu mật khẩu ở đâu đó. Ở đây không có gì khôi phục được nó.',
+        ],
+        tips: [
+          'Mã hoá là AES-256, mạnh nhất mà định dạng PDF định nghĩa. Các lựa chọn RC4 yếu hơn không được đưa ra.',
+          'Một mật khẩu, một ý nghĩa: tệp cần nó để mở. Không có chế độ chỉ-chủ-sở-hữu để tài liệu vẫn đọc được với tất cả mọi người.',
+          'Gỡ mật khẩu dễ như đặt, miễn là bạn cung cấp được mật khẩu hiện tại.',
+          'Mật khẩu dài hơn hẳn mật khẩu phức tạp. Chính độ dài làm việc đoán trở nên bất khả thi.',
+          'Tệp và mật khẩu đều được xử lý trên thiết bị của bạn, nên cả hai không bao giờ được truyền đi hay lưu lại.',
+        ],
+        faqs: [
+          { q: 'Đây là mã hoá thật hay chỉ là cờ hạn chế?', a: 'Mã hoá thật. Nội dung được mã hoá bằng AES-256 với khoá dẫn xuất từ mật khẩu của bạn, nên trình đọc không có mật khẩu thì không hiện được chữ lẫn ảnh. Điều đó khác với các dấu «không in» và «không sao chép» mà một PDF cũng có thể mang: chúng không được mã hoá, chỉ là lời đề nghị với phần mềm đọc, và chương trình nào cũng có thể bỏ qua.' },
+          { q: 'Nếu tôi quên mật khẩu thì sao?', a: 'Tệp sẽ không mở được, cả bạn lẫn chúng tôi. Mật khẩu không bao giờ được gửi đi đâu và không có gì được lưu, nên không có đặt lại và không có khôi phục. Chính đặc tính đó làm công cụ này an toàn, và nó cắt cả hai chiều. Hãy ghi mật khẩu lại trước khi đóng thẻ.' },
+          { q: 'Tôi có gỡ được mật khẩu khỏi PDF không?', a: 'Có, nếu bạn cung cấp được mật khẩu hiện đang mở tệp. Chọn tệp và công cụ sẽ thấy nó được bảo vệ rồi đề nghị gỡ mật khẩu. Nó không gỡ được mật khẩu mà bạn không biết: như vậy thì đã chẳng phải mã hoá.' },
+          { q: 'Công cụ dùng mã hoá nào?', a: 'AES-256, và không gì khác. Đó là loại mạnh nhất đặc tả PDF định nghĩa. Các lựa chọn RC4 cũ, 40 và 128 bit, bị coi là đã phá được, và công cụ bên dưới từ chối ghi chúng nếu không có sự cho phép rõ ràng mà công cụ này không bao giờ đưa ra.' },
+          { q: 'Sao lại hỏi mật khẩu hai lần?', a: 'Vì một lỗi đánh máy trong mật khẩu bạn không nhìn thấy sẽ tạo ra tệp mở bằng thứ bạn không biết, và bạn chỉ phát hiện vào lần cần đến kế tiếp. Gõ hai lần bắt được lỗi đó khi nó còn chưa tốn gì.' },
+          { q: 'Tệp của tôi có bị tải lên không?', a: 'Không. PDF được chính thiết bị của bạn đọc, mã hoá và trả lại ngay trong thẻ trình duyệt này, và mật khẩu cũng không rời khỏi trang. Bạn có thể theo dõi thẻ Network của trình duyệt khi nó chạy: không có gì mang theo tệp hay mật khẩu đi ra ngoài.' },
+        ],
+      },
+    },
     'sheet-convert': {
       title: 'CSV sang Excel, và ngược lại',
       blurb: 'Chuyển cả hai chiều, không để Excel nuốt mất số 0 ở đầu. Không có gì được tải lên.',

@@ -190,6 +190,87 @@ const de: Messages = {
   },
 
   tools: {
+    'pdf-password': {
+      title: 'PDF mit Passwort schützen',
+      blurb: 'Vergeben Sie ein Passwort, damit die Datei nur öffnet, wer es hat. Nichts wird hochgeladen.',
+      tags: ['pdf mit passwort schützen','pdf verschlüsseln','pdf sperren','passwort für pdf','pdf passwort entfernen','pdf entsperren','pdf passwort','sicheres pdf'],
+      seoTitle: 'PDF mit Passwort schützen, kostenlos und ohne Hochladen | YappyKit',
+      seoDescription:
+        'Vergeben Sie ein Passwort für ein PDF oder nehmen Sie eines weg, direkt im Browser. Echte AES-256-Verschlüsselung, kein Berechtigungsflag, das jeder Betrachter ignorieren kann. Die Datei verlässt Ihr Gerät nie.',
+      heroTitle: 'PDF mit Passwort schützen',
+      heroNote:
+        'Vergeben Sie ein Passwort, damit die Datei nur für den öffnet, der es hat, oder nehmen Sie das Passwort von einer Datei, die Sie bereits öffnen können. Verschlüsselt wird mit AES-256, und da das auf Ihrem Gerät geschieht, werden weder die Datei noch das Passwort irgendwohin gesendet.',
+      ui: {
+        unsupported:
+          'Dieser Browser kann die PDF-Verschlüsselung hier nicht ausführen. Nötig sind ein aktueller Browser mit WebAssembly und eine Seite, die gemeinsamen Speicher nutzen darf, was manche Browser innerhalb eines eingebetteten Rahmens blockieren. Diese Seite direkt zu öffnen hilft meistens.',
+        pickLabel: 'PDF auswählen',
+        pickHint: 'Sie wird auf Ihrem Gerät gelesen, nicht hochgeladen.',
+        fileMeta: '{name}, {size}',
+        modeLabel: 'Was möchten Sie tun?',
+        modeAdd: 'Passwort vergeben',
+        modeRemove: 'Passwort entfernen',
+        detectedProtected:
+          'Dieses PDF hat bereits ein Passwort, daher ist Entfernen ausgewählt. Wechseln Sie, wenn Sie es stattdessen ersetzen wollten.',
+        passwordLabel: 'Passwort',
+        passwordLabelExisting: 'Das Passwort, mit dem diese Datei öffnet',
+        passwordHint:
+          'Was Sie möchten, bis zu 127 Zeichen. Lang ist besser als kompliziert.',
+        confirmLabel: 'Noch einmal eingeben',
+        showPassword: 'Passwort anzeigen',
+        hidePassword: 'Passwort verbergen',
+        mismatch: 'Die beiden stimmen nicht überein.',
+        emptyPassword: 'Geben Sie ein Passwort ein.',
+        tooLongPassword:
+          'Das ist zu lang. Die PDF-Verschlüsselung fasst 127 Bytes, alles darüber wird stillschweigend ignoriert; Sie hätten dann eine Datei, die sich mit dem Eingegebenen nicht öffnen lässt.',
+        needFile: 'Wählen Sie zuerst ein PDF.',
+        noRecovery:
+          'Notieren Sie das Passwort, bevor Sie fortfahren. Es wird nicht gespeichert, nirgendwohin gesendet, und weder hier noch anderswo gibt es etwas, das die Datei ohne es wiederherstellen könnte.',
+        actionAdd: 'Passwort vergeben',
+        actionRemove: 'Passwort entfernen',
+        working: 'Wird bearbeitet…',
+        doneAdd: 'Fertig. Diese Datei fragt jetzt nach dem Passwort, bevor sie öffnet.',
+        doneRemove: 'Fertig. Diese Datei öffnet ohne Passwort.',
+        download: 'Herunterladen',
+        wrongPassword:
+          'Mit diesem Passwort ließ sich die Datei nicht öffnen. Prüfen Sie es und versuchen Sie es erneut; mit der Datei selbst ist alles in Ordnung.',
+        notPdf: 'Diese Datei ist kein PDF.',
+        damaged:
+          'Dieses PDF ließ sich nicht lesen. Es wirkt beschädigt und nicht geschützt, versuchen Sie es also mit dem Original, falls Sie es haben.',
+        notIsolated:
+          'Die Verschlüsselung konnte auf dieser Seite nicht starten. Neu laden hilft meistens.',
+        failed: 'Das hat nicht geklappt.',
+      },
+      content: {
+        howItWorks: [
+          'Ein Passwort auf einem PDF ist echte Verschlüsselung, keine Einstellung. Der Inhalt der Datei wird mit einem aus dem Passwort abgeleiteten Schlüssel chiffriert, sodass ein Betrachter ohne dieses Passwort nichts anzuzeigen hat: keinen Text, keine Bilder, nicht einmal die Seitenzahl. Das ist erwähnenswert, weil das andere, was ein PDF tragen kann, ähnlich aussieht und es nicht ist. Ein PDF kann als «nicht drucken» oder «nicht kopieren» markiert sein und dabei völlig unverschlüsselt bleiben; solche Markierungen sind eine Bitte an die Lesesoftware, keine Einschränkung der Datei. Jeder Betrachter darf sie ignorieren, und viele tun es. Dieses Werkzeug setzt ein Passwort, und das ist die Sorte, die hält.',
+          'Verschlüsselt wird mit AES-256, dem stärksten Verfahren, das die PDF-Spezifikation kennt, und der einzigen angebotenen Option. Ältere PDFs nutzten RC4 mit 40 oder 128 Bit; die gelten als hinreichend gebrochen, dass das verschlüsselnde Werkzeug sich weigert, sie ohne ausdrückliche Anweisung zu schreiben. Diese Anweisung bekommt es nie. Es gibt kein Verfahren zu wählen und keine Schlüssellänge einzustellen, denn es gibt genau eine vertretbare Antwort, und sie als Entscheidung zu präsentieren lüde nur zu einer schlechteren ein.',
+          'Die Arbeit erledigt qpdf, ein seit Langem etabliertes PDF-Werkzeug, nach WebAssembly übersetzt und in dieser Seite ausgeführt. Das wiegt schwerer, als es klingt: PDF-Verschlüsselung selbst zu implementieren hieße, kryptografischen Code für eine Sicherheitsfunktion zu schreiben, und das ist das Falsche, so sorgfältig er auch geschrieben und so genau der Algorithmus auch spezifiziert wäre. Eine Implementierung zu nutzen, die seit Jahren im Einsatz und unter Beobachtung steht, ist genau der Punkt.',
+          'Es wird ein einziges Passwort gesetzt, und es dient sowohl zum Öffnen des Dokuments als auch zur Steuerung der Berechtigungen. Ein PDF kann zwei verschiedene Passwörter tragen, und diese Unterscheidung führt ständig in die Irre: Eine Datei mit nur einem Besitzerpasswort öffnet für jeden, der doppelklickt, erscheint aber in jeder Übersicht als «passwortgeschützt». Wenn Sie hier ein Passwort setzen, braucht die Datei es zum Öffnen. Das ist seine einzige Bedeutung.',
+          'Da das Passwort die Seite nie verlässt, kann nichts die Datei wiederherstellen, wenn es verloren geht. Es gibt kein Zurücksetzen, keine Wiederherstellungsadresse und nirgends eine Kopie, eine unmittelbare Folge davon, dass die Datei nie hochgeladen wird. Notieren Sie es, bevor Sie den Tab schließen.',
+        ],
+        steps: [
+          'Wählen Sie ein PDF. Hat es bereits ein Passwort, bemerkt das Werkzeug es und bietet an, es zu entfernen.',
+          'Geben Sie das Passwort ein, und geben Sie es noch einmal ein, damit ein Tippfehler Sie nicht aussperrt.',
+          'Vergeben Sie das Passwort oder entfernen Sie es, und laden Sie das Ergebnis herunter.',
+          'Bewahren Sie das Passwort auf. Hier gibt es nichts, was es wiederherstellen kann.',
+        ],
+        tips: [
+          'Verschlüsselt wird mit AES-256, dem stärksten Verfahren, das das PDF-Format kennt. Die schwächeren RC4-Optionen werden nicht angeboten.',
+          'Ein Passwort, eine Bedeutung: Die Datei braucht es zum Öffnen. Es gibt keinen Nur-Besitzer-Modus, der das Dokument für alle lesbar ließe.',
+          'Ein Passwort lässt sich so leicht entfernen wie vergeben, sofern Sie das aktuelle angeben können.',
+          'Ein langes Passwort schlägt ein kompliziertes. Die Länge macht das Raten undurchführbar.',
+          'Datei und Passwort werden auf Ihrem Gerät verarbeitet, also wird keines von beiden übertragen oder gespeichert.',
+        ],
+        faqs: [
+          { q: 'Ist das echte Verschlüsselung oder nur ein Einschränkungsflag?', a: 'Echte Verschlüsselung. Der Inhalt wird mit AES-256 und einem aus Ihrem Passwort abgeleiteten Schlüssel chiffriert, sodass ein Betrachter ohne dieses Passwort weder Text noch Bilder anzeigen kann. Das unterscheidet sich von den Markierungen «nicht drucken» und «nicht kopieren», die ein PDF ebenfalls tragen kann: Die sind unverschlüsselt, sind Bitten an die Lesesoftware und dürfen von jedem Programm ignoriert werden.' },
+          { q: 'Was passiert, wenn ich das Passwort vergesse?', a: 'Die Datei lässt sich nicht öffnen, weder von Ihnen noch von uns. Das Passwort wird nirgendwohin gesendet und nichts wird gespeichert, also gibt es kein Zurücksetzen und keine Wiederherstellung. Genau diese Eigenschaft macht das Werkzeug sicher, und sie schneidet in beide Richtungen. Notieren Sie das Passwort, bevor Sie den Tab schließen.' },
+          { q: 'Kann ich ein Passwort von einem PDF entfernen?', a: 'Ja, wenn Sie das Passwort angeben können, mit dem es derzeit öffnet. Wählen Sie die Datei, und das Werkzeug erkennt, dass sie geschützt ist, und bietet an, das Passwort zu entfernen. Ein Passwort, das Sie nicht kennen, kann es nicht entfernen; das wäre keine Verschlüsselung.' },
+          { q: 'Welche Verschlüsselung wird verwendet?', a: 'AES-256, und sonst keine. Es ist die stärkste, die die PDF-Spezifikation definiert. Die älteren RC4-Optionen mit 40 und 128 Bit gelten als gebrochen, und das zugrunde liegende Werkzeug weigert sich, sie ohne ausdrückliche Übersteuerung zu schreiben, die dieses Werkzeug ihm nie gibt.' },
+          { q: 'Warum wird das Passwort zweimal abgefragt?', a: 'Weil ein Tippfehler in einem Passwort, das Sie nicht sehen, eine Datei erzeugt, die sich mit etwas öffnet, das Sie nicht kennen, und Sie würden es erst bemerken, wenn Sie sie das nächste Mal brauchen. Zweimal eingeben fängt das ab, solange es noch nichts kostet.' },
+          { q: 'Wird meine Datei hochgeladen?', a: 'Nein. Das PDF wird von Ihrem eigenen Gerät in diesem Browsertab gelesen, verschlüsselt und zurückgegeben, und auch das Passwort verlässt die Seite nicht. Sie können den Netzwerk-Tab Ihres Browsers dabei beobachten: Nichts, was die Datei oder das Passwort trägt, geht hinaus.' },
+        ],
+      },
+    },
     'sheet-convert': {
       title: 'CSV zu Excel und zurück',
       blurb: 'In beide Richtungen umwandeln, ohne dass Excel führende Nullen frisst. Nichts wird hochgeladen.',

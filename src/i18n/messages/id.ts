@@ -190,6 +190,87 @@ const id: Messages = {
   },
 
   tools: {
+    'pdf-password': {
+      title: 'Proteksi PDF dengan kata sandi',
+      blurb: 'Tambahkan kata sandi agar hanya yang memilikinya bisa membuka berkas. Tidak ada yang diunggah.',
+      tags: ['proteksi pdf dengan kata sandi','enkripsi pdf','kunci pdf','beri kata sandi pdf','hapus kata sandi pdf','buka kunci pdf','kata sandi pdf','pdf aman'],
+      seoTitle: 'Proteksi PDF dengan Kata Sandi, Gratis dan Tanpa Unggah | YappyKit',
+      seoDescription:
+        'Beri kata sandi pada PDF, atau lepaskan, di peramban Anda. Enkripsi AES-256 sungguhan, bukan penanda izin yang bisa diabaikan pembaca mana pun. Berkas tidak pernah meninggalkan perangkat Anda.',
+      heroTitle: 'Proteksi PDF dengan kata sandi',
+      heroNote:
+        'Tambahkan kata sandi agar berkas hanya terbuka bagi yang memilikinya, atau lepaskan kata sandi dari berkas yang sudah bisa Anda buka. Enkripsinya AES-256, dan karena berjalan di perangkat Anda, baik berkas maupun kata sandi tidak dikirim ke mana pun.',
+      ui: {
+        unsupported:
+          'Peramban ini tidak dapat menjalankan mesin enkripsi PDF di sini. Diperlukan peramban terbaru dengan WebAssembly, dan halaman harus boleh memakai memori bersama, sesuatu yang diblokir sebagian peramban di dalam bingkai tersemat. Membuka halaman ini secara langsung biasanya mengatasinya.',
+        pickLabel: 'Pilih PDF',
+        pickHint: 'Dibaca di perangkat Anda, tidak diunggah.',
+        fileMeta: '{name}, {size}',
+        modeLabel: 'Apa yang ingin Anda lakukan?',
+        modeAdd: 'Tambahkan kata sandi',
+        modeRemove: 'Hapus kata sandi',
+        detectedProtected:
+          'PDF ini sudah punya kata sandi, jadi opsi menghapus yang dipilih. Ganti kalau maksud Anda menggantinya.',
+        passwordLabel: 'Kata sandi',
+        passwordLabelExisting: 'Kata sandi pembuka berkas ini',
+        passwordHint:
+          'Terserah Anda, sampai 127 karakter. Panjang lebih baik daripada rumit.',
+        confirmLabel: 'Ketik sekali lagi',
+        showPassword: 'Tampilkan kata sandi',
+        hidePassword: 'Sembunyikan kata sandi',
+        mismatch: 'Keduanya tidak sama.',
+        emptyPassword: 'Masukkan kata sandi.',
+        tooLongPassword:
+          'Itu terlalu panjang. Enkripsi PDF menampung 127 bita, dan kelebihannya diabaikan tanpa pemberitahuan, sehingga Anda akan punya berkas yang tidak terbuka dengan apa yang Anda ketik.',
+        needFile: 'Pilih PDF dulu.',
+        noRecovery:
+          'Catat kata sandinya sebelum melanjutkan. Kata sandi tidak disimpan, tidak dikirim ke mana pun, dan tidak ada apa pun di sini atau di tempat lain yang bisa memulihkan berkas tanpanya.',
+        actionAdd: 'Tambahkan kata sandi',
+        actionRemove: 'Hapus kata sandi',
+        working: 'Sedang bekerja…',
+        doneAdd: 'Selesai. Berkas ini kini meminta kata sandi sebelum terbuka.',
+        doneRemove: 'Selesai. Berkas ini terbuka tanpa kata sandi.',
+        download: 'Unduh',
+        wrongPassword:
+          'Kata sandi itu tidak membuka berkas. Periksa lagi dan coba ulang; berkasnya sendiri baik-baik saja.',
+        notPdf: 'Berkas itu bukan PDF.',
+        damaged:
+          'PDF itu tidak dapat dibaca. Tampaknya rusak, bukan terproteksi, jadi coba yang asli kalau Anda punya.',
+        notIsolated:
+          'Mesin enkripsi tidak dapat dijalankan di halaman ini. Memuat ulang biasanya mengatasinya.',
+        failed: 'Itu tidak berhasil.',
+      },
+      content: {
+        howItWorks: [
+          'Kata sandi pada PDF adalah enkripsi sungguhan, bukan sekadar pengaturan. Isi berkas disandikan dengan kunci yang diturunkan dari kata sandi, sehingga pembaca yang tidak memilikinya tidak punya apa pun untuk ditampilkan: tidak teksnya, tidak gambarnya, tidak juga jumlah halamannya. Ini perlu dikatakan karena hal lain yang bisa dibawa sebuah PDF tampak serupa padahal bukan. Sebuah PDF bisa ditandai «jangan cetak» atau «jangan salin» sambil sama sekali tidak terenkripsi, dan penanda itu adalah permintaan kepada perangkat lunak pembaca, bukan pembatasan pada berkas. Pembaca mana pun boleh mengabaikannya, dan banyak yang begitu. Alat ini memasang kata sandi, yang jenisnya memang menahan.',
+          'Enkripsi di sini adalah AES-256, yang terkuat yang didefinisikan spesifikasi PDF dan satu-satunya pilihan yang ditawarkan. PDF lama memakai RC4 40 atau 128 bita, dan itu sudah cukup rapuh sehingga alat yang mengenkripsi menolak menulisnya tanpa diperintahkan secara eksplisit. Perintah itu tidak pernah diberikan. Tidak ada sandi yang perlu dipilih dan tidak ada panjang kunci yang perlu diatur, karena hanya ada satu jawaban yang bisa dipertahankan, dan menyajikannya sebagai keputusan hanya mengundang jawaban yang lebih buruk.',
+          'Pekerjaannya dilakukan qpdf, alat PDF yang sudah lama ada, dikompilasi ke WebAssembly dan berjalan di dalam halaman ini. Itu lebih penting daripada kedengarannya: menerapkan enkripsi PDF sendiri berarti menulis kode kriptografi untuk fitur keamanan, dan itu keliru betapapun hati-hatinya ditulis dan betapapun rincinya algoritmanya dispesifikasikan. Memakai implementasi yang sudah bertahun-tahun dipakai dan diteliti justru itulah intinya.',
+          'Satu kata sandi dipasang, dan dipakai baik sebagai pembuka dokumen maupun pengatur izin. Sebuah PDF bisa punya dua kata sandi berbeda, dan pembedaan itu terus-menerus menjebak orang: berkas yang hanya punya kata sandi pemilik akan terbuka bagi siapa pun yang mengekliknya dua kali, sementara di setiap ringkasan tertulis «terproteksi kata sandi». Kalau Anda memasang kata sandi di sini, berkas membutuhkannya untuk terbuka. Hanya itu maknanya.',
+          'Karena kata sandi tidak pernah meninggalkan halaman ini, tidak ada yang bisa memulihkan berkas jika kata sandinya hilang. Tidak ada penyetelan ulang, tidak ada alamat pemulihan, dan tidak ada salinan yang disimpan di mana pun, dan itu akibat langsung dari berkas yang tidak pernah diunggah. Catat sebelum Anda menutup tab.',
+        ],
+        steps: [
+          'Pilih PDF. Kalau sudah berkata sandi, alat ini menyadarinya dan menawarkan untuk melepaskannya.',
+          'Ketik kata sandinya, lalu ketik sekali lagi supaya salah ketik tidak mengunci Anda di luar.',
+          'Tambahkan kata sandinya, atau hapus, lalu unduh hasilnya.',
+          'Simpan kata sandinya. Tidak ada apa pun di sini yang bisa memulihkannya.',
+        ],
+        tips: [
+          'Enkripsinya AES-256, yang terkuat yang didefinisikan format PDF. Opsi RC4 yang lebih lemah tidak ditawarkan.',
+          'Satu kata sandi, satu makna: berkas membutuhkannya untuk terbuka. Tidak ada mode khusus pemilik yang membiarkan dokumen terbaca semua orang.',
+          'Kata sandi bisa dilepas semudah dipasang, asalkan Anda bisa memberikan yang sekarang.',
+          'Kata sandi panjang mengalahkan yang rumit. Panjanglah yang membuat penebakan tidak praktis.',
+          'Berkas dan kata sandi diproses di perangkat Anda, jadi keduanya tidak pernah dikirim atau disimpan.',
+        ],
+        faqs: [
+          { q: 'Ini enkripsi sungguhan atau sekadar penanda pembatasan?', a: 'Enkripsi sungguhan. Isinya disandikan dengan AES-256 memakai kunci yang diturunkan dari kata sandi Anda, sehingga pembaca tanpa kata sandi itu tidak dapat menampilkan teks maupun gambarnya. Itu berbeda dari penanda «jangan cetak» dan «jangan salin» yang juga bisa dibawa sebuah PDF: penanda itu tidak terenkripsi, hanya permintaan kepada perangkat lunak pembaca, dan boleh diabaikan program mana pun.' },
+          { q: 'Bagaimana kalau saya lupa kata sandinya?', a: 'Berkasnya tidak bisa dibuka, baik oleh Anda maupun oleh kami. Kata sandi tidak pernah dikirim ke mana pun dan tidak ada yang disimpan, jadi tidak ada penyetelan ulang dan tidak ada pemulihan. Sifat itu juga yang membuat alat ini aman, dan ia berlaku dua arah. Catat kata sandinya sebelum menutup tab.' },
+          { q: 'Bisakah saya menghapus kata sandi dari PDF?', a: 'Bisa, kalau Anda dapat memberikan kata sandi yang sekarang membukanya. Pilih berkasnya dan alat ini akan melihat bahwa berkas terproteksi lalu menawarkan untuk melepas kata sandinya. Ia tidak bisa melepas kata sandi yang tidak Anda ketahui: itu namanya bukan enkripsi.' },
+          { q: 'Enkripsi apa yang dipakai?', a: 'AES-256, dan tidak ada yang lain. Itu yang terkuat yang didefinisikan spesifikasi PDF. Opsi RC4 lama, 40 dan 128 bita, dianggap rapuh, dan alat yang mendasarinya menolak menulisnya tanpa penggantian eksplisit yang tidak pernah diberikan alat ini.' },
+          { q: 'Kenapa kata sandinya diminta dua kali?', a: 'Karena salah ketik pada kata sandi yang tidak terlihat menghasilkan berkas yang terbuka dengan sesuatu yang tidak Anda ketahui, dan Anda baru sadar saat berikutnya membutuhkannya. Mengetiknya dua kali menangkap itu selagi masih tidak ada ruginya.' },
+          { q: 'Apakah berkas saya diunggah?', a: 'Tidak. PDF-nya dibaca, dienkripsi, dan dikembalikan di dalam tab peramban ini oleh perangkat Anda sendiri, dan kata sandinya pun tidak meninggalkan halaman. Anda bisa memantau tab Jaringan peramban selagi bekerja: tidak ada yang membawa berkas atau kata sandi keluar.' },
+        ],
+      },
+    },
     'sheet-convert': {
       title: 'CSV ke Excel, dan sebaliknya',
       blurb: 'Konversi dua arah, tanpa Excel memakan nol di depan. Tidak ada yang diunggah.',

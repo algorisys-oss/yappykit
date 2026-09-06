@@ -643,6 +643,45 @@ export function RandomWordPreview() {
   );
 }
 
+export function PdfPasswordPreview() {
+  return (
+    <Frame>
+      {/* The document, with the page-fold corner the other PDF scenes use */}
+      <path
+        d="M40 12 h34 l18 18 v60 a4 4 0 0 1 -4 4 h-48 a4 4 0 0 1 -4 -4 V16 a4 4 0 0 1 4 -4 z"
+        fill={C.paper}
+        stroke={C.border}
+        stroke-width="2"
+      />
+      <path d="M74 12 v18 h18" fill="none" stroke={C.border} stroke-width="2" />
+      {/* Lines of text, fading out: what a reader without the password gets */}
+      <g stroke={C.muted} stroke-width="2.5" stroke-linecap="round">
+        <path d="M48 44 h30" opacity="0.5" />
+        <path d="M48 54 h30" opacity="0.32" />
+        <path d="M48 64 h18" opacity="0.18" />
+      </g>
+      {/* The padlock, closed, sitting over the document's edge */}
+      <rect x="92" y="52" width="44" height="34" rx="6" fill={C.accent} />
+      <path
+        d="M101 52 v-9 a13 13 0 0 1 26 0 v9"
+        fill="none"
+        stroke={C.accent}
+        stroke-width="6"
+        stroke-linecap="round"
+      />
+      <circle cx="114" cy="66" r="4.5" fill={C.paper} />
+      <path d="M114 69 v6" stroke={C.paper} stroke-width="3" stroke-linecap="round" />
+      {/* The key, as the thing that opens it rather than a second decoration */}
+      <g stroke={C.accent} stroke-width="3" stroke-linecap="round" fill="none" opacity="0.75">
+        <circle cx="160" cy="34" r="9" />
+        <path d="M160 43 v26" />
+        <path d="M160 57 h9" />
+        <path d="M160 65 h7" />
+      </g>
+    </Frame>
+  );
+}
+
 export function PdfMergePreview() {
   return (
     <Frame>
@@ -926,4 +965,5 @@ export const TOOL_PREVIEWS: Partial<Record<ToolKey, () => JSX.Element>> = {
   'sheet-clean': SheetCleanPreview,
   'image-resize': ImageResizePreview,
   'image-crop': ImageCropPreview,
+  'pdf-password': PdfPasswordPreview,
 };

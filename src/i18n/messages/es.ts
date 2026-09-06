@@ -190,6 +190,87 @@ const es: Messages = {
   },
 
   tools: {
+    'pdf-password': {
+      title: 'Proteger un PDF con contraseña',
+      blurb: 'Añade una contraseña para que solo pueda abrirlo quien la tenga. No se sube nada.',
+      tags: ['proteger pdf con contraseña','cifrar pdf','bloquear pdf','poner contraseña a un pdf','quitar contraseña pdf','desbloquear pdf','contraseña pdf','pdf seguro'],
+      seoTitle: 'Proteger un PDF con contraseña, gratis y sin subir archivos | YappyKit',
+      seoDescription:
+        'Pon una contraseña a un PDF, o quítasela, en tu navegador. Cifrado AES-256 real, no una marca de permisos que cualquier lector puede ignorar. El archivo nunca sale de tu dispositivo.',
+      heroTitle: 'Proteger un PDF con contraseña',
+      heroNote:
+        'Añade una contraseña para que el archivo solo se abra para quien la tenga, o quítasela a uno que ya puedas abrir. El cifrado es AES-256 y, como ocurre en tu dispositivo, ni el archivo ni la contraseña se envían a ninguna parte.',
+      ui: {
+        unsupported:
+          'Este navegador no puede ejecutar aquí el motor de cifrado de PDF. Necesita un navegador reciente con WebAssembly, y la página debe poder usar memoria compartida, algo que algunos navegadores bloquean dentro de un marco incrustado. Abrir esta página directamente suele resolverlo.',
+        pickLabel: 'Elige un PDF',
+        pickHint: 'Se lee en tu dispositivo, no se sube.',
+        fileMeta: '{name}, {size}',
+        modeLabel: '¿Qué quieres hacer?',
+        modeAdd: 'Añadir una contraseña',
+        modeRemove: 'Quitar la contraseña',
+        detectedProtected:
+          'Este PDF ya tiene contraseña, así que está seleccionado quitarla. Cambia la opción si lo que querías era sustituirla.',
+        passwordLabel: 'Contraseña',
+        passwordLabelExisting: 'La contraseña con la que se abre el archivo',
+        passwordHint:
+          'La que quieras, hasta 127 caracteres. Es mejor que sea larga que complicada.',
+        confirmLabel: 'Escríbela otra vez',
+        showPassword: 'Mostrar la contraseña',
+        hidePassword: 'Ocultar la contraseña',
+        mismatch: 'Esas dos no coinciden.',
+        emptyPassword: 'Escribe una contraseña.',
+        tooLongPassword:
+          'Es demasiado larga. El cifrado de PDF admite 127 bytes y lo que pase de ahí se ignora sin avisar, así que te quedarías con un archivo que no se abre con lo que escribiste.',
+        needFile: 'Elige un PDF primero.',
+        noRecovery:
+          'Apunta la contraseña en algún sitio antes de continuar. No se guarda, no se envía a ninguna parte y no hay nada aquí ni en otro lugar que pueda recuperar el archivo sin ella.',
+        actionAdd: 'Añadir la contraseña',
+        actionRemove: 'Quitar la contraseña',
+        working: 'Trabajando…',
+        doneAdd: 'Listo. Este archivo ya pide la contraseña antes de abrirse.',
+        doneRemove: 'Listo. Este archivo se abre sin contraseña.',
+        download: 'Descargar',
+        wrongPassword:
+          'Esa contraseña no ha abierto el archivo. Compruébala e inténtalo otra vez: el archivo en sí está bien.',
+        notPdf: 'Ese archivo no es un PDF.',
+        damaged:
+          'No se ha podido leer ese PDF. Parece dañado más que protegido, así que prueba con el original si lo tienes.',
+        notIsolated:
+          'El motor de cifrado no ha podido arrancar en esta página. Recargar suele resolverlo.',
+        failed: 'Eso no ha funcionado.',
+      },
+      content: {
+        howItWorks: [
+          'Una contraseña en un PDF es cifrado de verdad, no un ajuste. El contenido del archivo se cifra con una clave derivada de la contraseña, así que un lector que no la tenga no tiene nada que mostrar: ni el texto, ni las imágenes, ni el número de páginas. Merece la pena decirlo porque lo otro que puede llevar un PDF se parece y no es lo mismo. Un PDF puede marcarse como «no imprimir» o «no copiar» sin estar cifrado en absoluto, y esas marcas son una petición al programa lector, no una restricción del archivo. Cualquier lector puede ignorarlas, y muchos lo hacen. Esta herramienta pone una contraseña, que es de las que aguantan.',
+          'El cifrado aquí es AES-256, el más fuerte que define la especificación PDF y la única opción que se ofrece. Los PDF antiguos usaban RC4 de 40 o 128 bits, y están rotos lo bastante como para que la herramienta que cifra se niegue a escribirlos si no se le ordena expresamente. Nunca se le ordena. No hay cifrado que elegir ni longitud de clave que ajustar, porque hay exactamente una respuesta defendible y presentarla como una decisión solo invitaría a una peor.',
+          'El trabajo lo hace qpdf, una herramienta de PDF veterana compilada a WebAssembly y ejecutándose dentro de esta página. Eso importa más de lo que parece: implementar el cifrado de PDF a mano significaría escribir código criptográfico para una función de seguridad, que es lo que no hay que hacer por muy cuidadosamente que se escriba y por muy especificado que esté el algoritmo. Usar una implementación que lleva años en uso y bajo escrutinio es justamente el objetivo.',
+          'Se establece una sola contraseña, y sirve tanto para abrir el documento como para gobernar los permisos. Un PDF puede tener dos contraseñas distintas, y la diferencia engaña a todo el mundo constantemente: un archivo que solo tiene contraseña de propietario se abre para cualquiera que haga doble clic, mientras aparece en todos los resúmenes como «protegido con contraseña». Si pones una contraseña aquí, el archivo la necesita para abrirse. Ese es su único significado.',
+          'Como la contraseña nunca sale de la página, nada puede recuperar el archivo si se pierde. No hay restablecimiento, ni dirección de recuperación, ni copia guardada en ningún sitio, y es consecuencia directa de que el archivo nunca se suba. Apúntala antes de cerrar la pestaña.',
+        ],
+        steps: [
+          'Elige un PDF. Si ya tiene contraseña, la herramienta lo detecta y te ofrece quitarla.',
+          'Escribe la contraseña, y escríbela otra vez para que una errata no te deje fuera.',
+          'Añade la contraseña, o quítala, y descarga el resultado.',
+          'Guarda la contraseña en algún sitio. Aquí no hay nada que pueda recuperarla.',
+        ],
+        tips: [
+          'El cifrado es AES-256, el más fuerte que define el formato PDF. Las opciones RC4, más débiles, no se ofrecen.',
+          'Una contraseña, un significado: el archivo la necesita para abrirse. No hay un modo de solo propietario que deje el documento legible para todos.',
+          'Quitar una contraseña es tan fácil como ponerla, siempre que puedas aportar la actual.',
+          'Una contraseña larga es mejor que una complicada. La longitud es lo que hace inviable adivinarla.',
+          'El archivo y la contraseña se procesan en tu dispositivo, así que ninguno de los dos se transmite ni se almacena.',
+        ],
+        faqs: [
+          { q: '¿Esto es cifrado de verdad o solo una marca de restricción?', a: 'Cifrado de verdad. El contenido se cifra con AES-256 usando una clave derivada de tu contraseña, así que un lector que no la tenga no puede mostrar el texto ni las imágenes. Eso es distinto de las marcas «no imprimir» y «no copiar» que un PDF también puede llevar, que van sin cifrar, son peticiones al programa lector y cualquier programa puede ignorarlas.' },
+          { q: '¿Qué pasa si olvido la contraseña?', a: 'El archivo no se puede abrir, ni por ti ni por nosotros. La contraseña no se envía a ninguna parte y no se guarda nada, así que no hay restablecimiento ni recuperación. Es la misma propiedad que hace segura la herramienta, y funciona en los dos sentidos. Apunta la contraseña antes de cerrar la pestaña.' },
+          { q: '¿Puedo quitar la contraseña de un PDF?', a: 'Sí, si puedes aportar la contraseña con la que se abre ahora. Elige el archivo y la herramienta detectará que está protegido y te ofrecerá quitarla. No puede quitar una contraseña que no conoces: eso no sería cifrado.' },
+          { q: '¿Qué cifrado usa?', a: 'AES-256, y ninguno más. Es el más fuerte que define la especificación PDF. Las opciones RC4 antiguas, de 40 y 128 bits, se consideran rotas, y la herramienta subyacente se niega a escribirlas sin una orden expresa que esta herramienta nunca le da.' },
+          { q: '¿Por qué pide la contraseña dos veces?', a: 'Porque una errata en una contraseña que no ves produce un archivo que se abre con algo que desconoces, y no te enterarías hasta la próxima vez que lo necesitaras. Escribirla dos veces detecta eso mientras todavía no cuesta nada.' },
+          { q: '¿Se sube mi archivo?', a: 'No. El PDF se lee, se cifra y se te devuelve dentro de esta pestaña, en tu propio dispositivo, y la contraseña tampoco sale de la página. Puedes mirar la pestaña Red de tu navegador mientras trabaja: no sale nada que lleve el archivo ni la contraseña.' },
+        ],
+      },
+    },
     'sheet-convert': {
       title: 'CSV a Excel, y al revés',
       blurb: 'Convierte en ambos sentidos, sin que Excel se coma los ceros iniciales. No se sube nada.',

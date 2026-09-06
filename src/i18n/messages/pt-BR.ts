@@ -190,6 +190,87 @@ const ptBR: Messages = {
   },
 
   tools: {
+    'pdf-password': {
+      title: 'Proteger um PDF com senha',
+      blurb: 'Adicione uma senha para que só quem a tiver consiga abrir o arquivo. Nada é enviado.',
+      tags: ['proteger pdf com senha','criptografar pdf','bloquear pdf','colocar senha em pdf','remover senha do pdf','desbloquear pdf','senha pdf','pdf seguro'],
+      seoTitle: 'Proteger PDF com senha, grátis e sem enviar arquivos | YappyKit',
+      seoDescription:
+        'Coloque uma senha em um PDF, ou tire uma, no seu navegador. Criptografia AES-256 de verdade, não uma marca de permissão que qualquer leitor pode ignorar. O arquivo nunca sai do seu dispositivo.',
+      heroTitle: 'Proteger um PDF com senha',
+      heroNote:
+        'Adicione uma senha para que o arquivo abra apenas para quem a tiver, ou tire a senha de um que você já consegue abrir. A criptografia é AES-256 e, como acontece no seu dispositivo, nem o arquivo nem a senha são enviados a lugar nenhum.',
+      ui: {
+        unsupported:
+          'Este navegador não consegue executar o motor de criptografia de PDF aqui. Ele precisa de um navegador recente com WebAssembly, e a página precisa poder usar memória compartilhada, algo que alguns navegadores bloqueiam dentro de um quadro incorporado. Abrir esta página diretamente costuma resolver.',
+        pickLabel: 'Escolha um PDF',
+        pickHint: 'Ele é lido no seu dispositivo, não enviado.',
+        fileMeta: '{name}, {size}',
+        modeLabel: 'O que você quer fazer?',
+        modeAdd: 'Adicionar uma senha',
+        modeRemove: 'Remover a senha',
+        detectedProtected:
+          'Este PDF já tem senha, então remover está selecionado. Troque se a intenção era substituí-la.',
+        passwordLabel: 'Senha',
+        passwordLabelExisting: 'A senha com que este arquivo abre',
+        passwordHint:
+          'O que você quiser, até 127 caracteres. Longa é melhor do que complicada.',
+        confirmLabel: 'Digite de novo',
+        showPassword: 'Mostrar a senha',
+        hidePassword: 'Ocultar a senha',
+        mismatch: 'Essas duas não são iguais.',
+        emptyPassword: 'Digite uma senha.',
+        tooLongPassword:
+          'Essa é longa demais. A criptografia de PDF comporta 127 bytes, e o que passa disso é ignorado sem aviso, o que deixaria você com um arquivo que não abre com o que você digitou.',
+        needFile: 'Escolha um PDF primeiro.',
+        noRecovery:
+          'Anote a senha em algum lugar antes de continuar. Ela não é guardada, não é enviada a lugar nenhum, e não existe nada aqui nem em outro lugar capaz de recuperar o arquivo sem ela.',
+        actionAdd: 'Adicionar a senha',
+        actionRemove: 'Remover a senha',
+        working: 'Trabalhando…',
+        doneAdd: 'Pronto. Este arquivo agora pede a senha antes de abrir.',
+        doneRemove: 'Pronto. Este arquivo abre sem senha.',
+        download: 'Baixar',
+        wrongPassword:
+          'Essa senha não abriu o arquivo. Confira e tente de novo: o arquivo em si está bem.',
+        notPdf: 'Esse arquivo não é um PDF.',
+        damaged:
+          'Não foi possível ler esse PDF. Ele parece danificado, e não protegido, então tente o original se você o tiver.',
+        notIsolated:
+          'O motor de criptografia não conseguiu iniciar nesta página. Recarregar costuma resolver.',
+        failed: 'Isso não funcionou.',
+      },
+      content: {
+        howItWorks: [
+          'Uma senha em um PDF é criptografia de verdade, não uma configuração. O conteúdo do arquivo é cifrado com uma chave derivada da senha, então um leitor que não a tenha não tem nada a mostrar: nem o texto, nem as imagens, nem a contagem de páginas. Vale dizer isso porque a outra coisa que um PDF pode carregar se parece com essa e não é a mesma. Um PDF pode ser marcado como «não imprimir» ou «não copiar» sem estar criptografado, e essas marcas são um pedido ao programa leitor, não uma restrição do arquivo. Qualquer leitor pode ignorá-las, e muitos ignoram. Esta ferramenta coloca uma senha, que é do tipo que segura.',
+          'A criptografia aqui é AES-256, a mais forte que a especificação do PDF define e a única opção oferecida. PDFs antigos usavam RC4 de 40 ou 128 bits, e esses estão quebrados o bastante para que a ferramenta que criptografa se recuse a escrevê-los sem uma ordem explícita. Ela nunca recebe essa ordem. Não há cifra para escolher nem tamanho de chave para ajustar, porque existe exatamente uma resposta defensável e apresentá-la como decisão só convidaria a uma pior.',
+          'O trabalho é feito pelo qpdf, uma ferramenta de PDF veterana compilada para WebAssembly e rodando dentro desta página. Isso importa mais do que parece: implementar a criptografia de PDF à mão significaria escrever código criptográfico para um recurso de segurança, que é o que não se deve fazer por mais cuidado que se tenha e por mais especificado que o algoritmo esteja. Usar uma implementação que está em uso e sob escrutínio há anos é justamente o ponto.',
+          'Uma única senha é definida, e ela serve tanto para abrir o documento quanto para governar as permissões. Um PDF pode ter duas senhas diferentes, e a distinção engana as pessoas o tempo todo: um arquivo só com senha de proprietário abre para qualquer um que dê dois cliques, enquanto aparece em todo resumo como «protegido por senha». Se você define uma senha aqui, o arquivo precisa dela para abrir. Esse é o único significado que ela tem.',
+          'Como a senha nunca sai da página, nada pode recuperar o arquivo se ela se perder. Não há redefinição, endereço de recuperação nem cópia guardada em lugar algum, o que é consequência direta de o arquivo nunca ser enviado. Anote antes de fechar a aba.',
+        ],
+        steps: [
+          'Escolha um PDF. Se ele já tiver senha, a ferramenta percebe e oferece removê-la.',
+          'Digite a senha, e digite de novo para que um erro de digitação não tranque você para fora.',
+          'Adicione a senha, ou remova, e baixe o resultado.',
+          'Guarde a senha em algum lugar. Nada aqui consegue recuperá-la.',
+        ],
+        tips: [
+          'A criptografia é AES-256, a mais forte que o formato PDF define. As opções RC4, mais fracas, não são oferecidas.',
+          'Uma senha, um significado: o arquivo precisa dela para abrir. Não há modo só de proprietário que deixe o documento legível para todo mundo.',
+          'Uma senha pode ser removida tão facilmente quanto adicionada, desde que você possa fornecer a atual.',
+          'Uma senha longa vence uma complicada. O comprimento é o que torna a adivinhação inviável.',
+          'O arquivo e a senha são processados no seu dispositivo, então nenhum dos dois é transmitido ou armazenado.',
+        ],
+        faqs: [
+          { q: 'Isso é criptografia de verdade ou só uma marca de restrição?', a: 'Criptografia de verdade. O conteúdo é cifrado com AES-256 usando uma chave derivada da sua senha, então um leitor sem ela não consegue mostrar o texto nem as imagens. Isso é diferente das marcas «não imprimir» e «não copiar» que um PDF também pode carregar, que ficam sem criptografia, são pedidos ao programa leitor e podem ser ignoradas por qualquer programa.' },
+          { q: 'O que acontece se eu esquecer a senha?', a: 'O arquivo não pode ser aberto, nem por você nem por nós. A senha nunca é enviada a lugar nenhum e nada é guardado, então não há redefinição nem recuperação. É a mesma propriedade que torna a ferramenta segura, e ela funciona nos dois sentidos. Anote a senha antes de fechar a aba.' },
+          { q: 'Posso remover a senha de um PDF?', a: 'Sim, se você puder fornecer a senha com que ele abre atualmente. Escolha o arquivo e a ferramenta perceberá que ele está protegido e oferecerá remover a senha. Ela não consegue remover uma senha que você não sabe: isso não seria criptografia.' },
+          { q: 'Qual criptografia ela usa?', a: 'AES-256, e nenhuma outra. É a mais forte que a especificação do PDF define. As opções RC4 antigas, de 40 e 128 bits, são consideradas quebradas, e a ferramenta subjacente se recusa a escrevê-las sem uma permissão explícita que esta ferramenta nunca concede.' },
+          { q: 'Por que ela pede a senha duas vezes?', a: 'Porque um erro de digitação numa senha que você não vê produz um arquivo que abre com algo que você desconhece, e você só descobriria na próxima vez que precisasse dele. Digitar duas vezes pega isso enquanto ainda não custa nada.' },
+          { q: 'Meu arquivo é enviado?', a: 'Não. O PDF é lido, criptografado e devolvido dentro desta aba do navegador pelo seu próprio dispositivo, e a senha também não sai da página. Você pode observar a aba Rede do seu navegador enquanto ela trabalha: nada que carregue o arquivo ou a senha sai daqui.' },
+        ],
+      },
+    },
     'sheet-convert': {
       title: 'CSV para Excel, e de volta',
       blurb: 'Converte nos dois sentidos, sem o Excel comer os zeros à esquerda. Nada é enviado.',

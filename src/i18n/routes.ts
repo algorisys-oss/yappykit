@@ -45,6 +45,7 @@ export const TOOL_KEYS = [
   'sheet-clean',
   'image-resize',
   'image-crop',
+  'pdf-password',
 ] as const;
 
 export type ToolKey = (typeof TOOL_KEYS)[number];
@@ -323,6 +324,21 @@ export const ROUTES: Record<RouteKey, RouteDef> = {
       tr: 'toplu-resim-yeniden-adlandirma',
       vi: 'doi-ten-hang-loat-anh',
       it: 'rinominare-immagini-in-blocco',
+    },
+  },
+  'pdf-password': {
+    localized: true,
+    slugs: {
+      en: 'password-protect-pdf',
+      es: 'proteger-pdf-con-contrasena',
+      'pt-BR': 'proteger-pdf-com-senha',
+      id: 'proteksi-pdf-dengan-kata-sandi',
+      fr: 'proteger-un-pdf-par-mot-de-passe',
+      de: 'pdf-mit-passwort-schuetzen',
+      ru: 'zashchitit-pdf-parolem',
+      tr: 'pdf-parola-koruma',
+      vi: 'dat-mat-khau-cho-pdf',
+      it: 'proteggere-pdf-con-password',
     },
   },
   'sheet-convert': {
@@ -725,7 +741,7 @@ const RELATED: Record<ToolKey, readonly ToolKey[]> = {
   'pdf-compress': ['pdf-split', 'pdf-merge', 'image-to-pdf'],
   'camera-mic-test': ['mouse-test', 'keyboard-test', 'video-compress'],
   'random-word': ['font-coverage', 'keyboard-test', 'mouse-test'],
-  'pdf-merge': ['pdf-split', 'pdf-compress', 'document-scan'],
+  'pdf-merge': ['pdf-split', 'pdf-compress', 'pdf-password'],
   'screenshot-stitch': ['screenshot-split', 'image-compress', 'pdf-merge'],
   'screenshot-split': ['screenshot-stitch', 'image-crop', 'image-compress'],
   'color-picker': ['image-convert', 'font-style', 'image-crop'],
@@ -739,10 +755,11 @@ const RELATED: Record<ToolKey, readonly ToolKey[]> = {
   'image-convert': ['image-resize', 'image-compress', 'image-watermark'],
   'image-resize': ['image-crop', 'image-compress', 'image-convert'],
   'image-crop': ['image-resize', 'image-compress', 'passport-photo'],
-  'pdf-split': ['pdf-to-images', 'pdf-merge', 'pdf-compress'],
+  'pdf-split': ['pdf-to-images', 'pdf-merge', 'pdf-password'],
   'pdf-to-images': ['image-to-pdf', 'pdf-split', 'image-convert'],
-  redact: ['metadata-remove', 'sheet-clean', 'file-inspect'],
+  redact: ['metadata-remove', 'pdf-password', 'file-inspect'],
   'sheet-clean': ['sheet-convert', 'spreadsheet-compare', 'redact'],
+  'pdf-password': ['redact', 'metadata-remove', 'pdf-merge'],
 };
 
 /**
@@ -770,6 +787,7 @@ export const TOOL_CATEGORY: Record<ToolKey, Category> = {
   'color-picker': 'image',
   'batch-rename': 'image',
   'sheet-convert': 'data',
+  'pdf-password': 'pdf',
   'image-to-pdf': 'pdf',
   'pdf-compress': 'pdf',
   'pdf-merge': 'pdf',

@@ -1,4 +1,4 @@
-import { readdirSync } from 'node:fs';
+import { readdirSync, statSync } from 'node:fs';
 import { expect, test } from '@playwright/test';
 
 /**
@@ -50,8 +50,16 @@ test('the gzipped ffmpeg core expands into a valid wasm module', async ({ page }
 test('the raw oversized wasm is not deployed alongside it', async ({ page }) => {
   // Leaving it behind would fail the upload for exactly the reason the
   // compression exists to avoid.
-  const assets = readdirSync(new URL('../../dist/assets', import.meta.url));
-  expect(assets.filter((f) => f.endsWith('.wasm'))).toEqual([]);
+  //
+  // The rule is about SIZE, not about the extension. This used to assert that
+  // dist/assets held no .wasm at all, which was the same thing only while
+  // ffmpeg was the one engine here; qpdf's 2.2 MiB core is well under the limit
+  // and ships uncompressed, as it should.
+  const dir = new URL('../../dist/assets/', import.meta.url);
+  const oversized = readdirSync(dir)
+    .filter((f) => f.endsWith('.wasm'))
+    .filter((f) => statSync(new URL(f, dir)).size > 25 * 1024 * 1024);
+  expect(oversized, 'a wasm over the host limit is being deployed raw').toEqual([]);
 
   const res = await page.request.get(`/assets/${packedCoreName().replace(/z$/, '')}`);
   expect(res.status()).toBe(404);
