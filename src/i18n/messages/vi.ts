@@ -71,6 +71,14 @@ const vi: Messages = {
     ],
     toolsHeading: 'Các công cụ',
     toolsCount: '{n} công cụ',
+    filterLabel: 'Lọc công cụ theo loại',
+    categoryAll: 'Tất cả',
+    categoryImage: 'Hình ảnh',
+    categoryPdf: 'PDF',
+    categoryVideo: 'Video',
+    categoryData: 'Dữ liệu và tệp',
+    categoryText: 'Văn bản và phông chữ',
+    categoryDevice: 'Kiểm tra thiết bị',
     toolsSub:
       'Chúng tôi liên tục bổ sung công cụ mới. Tất cả đều chạy trong trình duyệt của bạn. Dùng ô tìm kiếm phía trên để tìm nhanh.',
     comingSoon: 'Sắp có',
@@ -174,6 +182,7 @@ const vi: Messages = {
     faqHeading: 'Câu hỏi thường gặp',
     relatedHeading: 'Công cụ liên quan',
     pasteHint: 'Bạn cũng có thể dán ảnh bằng Ctrl+V, hoặc ⌘V trên máy Mac.',
+    pasteHintFile: 'Bạn cũng có thể dán tệp bằng Ctrl+V, hoặc ⌘V trên máy Mac.',
     verifyNote:
       'Tệp của bạn được xử lý trên thiết bị và không được tải lên. Bạn có thể kiểm chứng trong công cụ dành cho nhà phát triển của trình duyệt, ở thẻ Network.',
   },

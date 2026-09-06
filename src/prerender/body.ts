@@ -16,7 +16,7 @@
  * entry in uno.config.ts.
  */
 import { getLocale, type Locale, type LocaleCode } from '../i18n/locales';
-import { TOOL_KEYS, pathFor, relatedTools, type RouteKey, type ToolKey } from '../i18n/routes';
+import { TOOL_KEYS, pathFor, relatedTools, CATEGORIES, type Category, type RouteKey, type ToolKey } from '../i18n/routes';
 import { parts } from '../i18n/format';
 import { TERMS_INTRO, TERMS_SECTIONS, TERMS_UPDATED } from '../content/terms';
 import { ARTICLES } from '../content/articles';
@@ -119,6 +119,29 @@ function footer(key: RouteKey, locale: LocaleCode, m: Messages, locales: readonl
 </footer>`;
 }
 
+/**
+ * The category filter, drawn but not yet wired: this markup is static and the
+ * behaviour arrives with the page's JavaScript. Every tool is listed below it
+ * regardless, so a crawler and a visitor without JS lose nothing.
+ */
+function pills(l: Messages['landing']): string {
+  const labels: Record<Category, string> = {
+    image: l.categoryImage,
+    pdf: l.categoryPdf,
+    video: l.categoryVideo,
+    data: l.categoryData,
+    text: l.categoryText,
+    device: l.categoryDevice,
+  };
+  const pill = (label: string, active: boolean) =>
+    `<button type="button" aria-pressed="${active}" class="min-h-9 cursor-pointer rounded-full border px-3.5 py-1.5 text-sm font-medium transition ${
+      active
+        ? 'border-accent bg-accent text-accent-fg'
+        : 'border-border bg-surface text-muted hover:border-accent hover:text-accent'
+    }">${esc(label)}</button>`;
+  return pill(l.categoryAll, true) + CATEGORIES.map((c) => pill(labels[c], false)).join('');
+}
+
 function toolCard(k: ToolKey, locale: LocaleCode, m: Messages): string {
   const t = m.tools[k];
   return `<a href="${pathFor(k, locale)}" class="group relative flex flex-col rounded-lg border p-5 no-underline transition-all duration-150 cursor-pointer overflow-hidden border-border bg-surface shadow-sm hover:-translate-y-0.5 hover:border-accent hover:shadow-md">
@@ -157,10 +180,11 @@ function landing(locale: LocaleCode, m: Messages): string {
 
   return `<main>
   <section class="relative overflow-hidden border-b border-border">
-    <div class="relative mx-auto max-w-4xl px-6 py-20 sm:py-28">
+    <div class="relative mx-auto max-w-4xl px-6 pb-20 pt-12 sm:pb-28 sm:pt-16">
       <p class="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium text-muted">${esc(l.badge)}</p>
       <h1 class="mt-5 max-w-3xl text-4xl font-bold leading-[1.1] tracking-tight sm:text-6xl">${esc(l.h1)}</h1>
       <p class="mt-5 max-w-2xl text-lg text-muted sm:text-xl">${esc(l.sub)}</p>
+    <p class="mt-6 text-4xl font-bold tracking-tight text-highlight sm:text-5xl">${tpl(l.toolsCount, { n: String(TOOL_KEYS.length) })}</p>
       <div class="mt-8 flex flex-wrap items-center gap-3">
         <a href="${pathFor(TOOL_KEYS[0]!, locale)}" class="inline-flex items-center rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-accent-fg no-underline shadow-sm transition hover:opacity-90">${esc(l.ctaOpen)}</a>
         <a href="#how" class="inline-flex items-center rounded-lg border border-border px-5 py-2.5 text-sm font-semibold text-fg no-underline transition hover:border-accent">${esc(l.ctaHow)}</a>
@@ -180,6 +204,7 @@ function landing(locale: LocaleCode, m: Messages): string {
       <span class="rounded-full bg-surface px-2.5 py-0.5 text-xs font-medium text-muted">${tpl(l.toolsCount, { n: String(TOOL_KEYS.length) })}</span>
     </div>
     <p class="mt-1 text-muted">${esc(l.toolsSub)}</p>
+    <div class="mt-5 flex flex-wrap gap-2" role="group" aria-label="${esc(l.filterLabel)}">${pills(l)}</div>
     <div class="mt-6 grid gap-4 sm:grid-cols-2">${TOOL_KEYS.map((k) => toolCard(k, locale, m)).join('')}</div>
   </section>
 

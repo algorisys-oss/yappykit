@@ -73,6 +73,14 @@ export const en = {
     ],
     toolsHeading: 'The tools',
     toolsCount: '{n} tools',
+    filterLabel: 'Filter tools by kind',
+    categoryAll: 'All',
+    categoryImage: 'Images',
+    categoryPdf: 'PDF',
+    categoryVideo: 'Video',
+    categoryData: 'Data & files',
+    categoryText: 'Text & fonts',
+    categoryDevice: 'Device tests',
     toolsSub:
       'More tools are being added. Each one runs in your browser. Use the search box above to find one fast.',
     comingSoon: 'Coming soon',
@@ -176,6 +184,7 @@ export const en = {
     faqHeading: 'Frequently asked questions',
     relatedHeading: 'Related tools',
     pasteHint: 'You can also paste an image with Ctrl+V, or ⌘V on a Mac.',
+    pasteHintFile: 'You can also paste a file with Ctrl+V, or ⌘V on a Mac.',
     verifyNote:
       'Your files are processed on your device and are not uploaded. You can verify this in your browser’s developer tools under the Network tab.',
   },

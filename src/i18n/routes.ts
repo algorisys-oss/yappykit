@@ -592,6 +592,46 @@ const RELATED: Record<ToolKey, readonly ToolKey[]> = {
   'pdf-split': ['pdf-merge', 'pdf-compress', 'document-scan'],
 };
 
+/**
+ * What kind of job each tool does, for the filter on the landing page.
+ *
+ * Structural rather than editorial: the labels translate, the grouping does
+ * not. Every tool must appear exactly once, which routes.test.ts enforces, so
+ * adding a tool without categorising it fails the build rather than quietly
+ * dropping it out of every filter.
+ */
+export const CATEGORIES = ['image', 'pdf', 'video', 'data', 'text', 'device'] as const;
+
+export type Category = (typeof CATEGORIES)[number];
+
+export const TOOL_CATEGORY: Record<ToolKey, Category> = {
+  'image-compress': 'image',
+  'image-convert': 'image',
+  'image-watermark': 'image',
+  'metadata-remove': 'image',
+  'passport-photo': 'image',
+  'screenshot-stitch': 'image',
+  'image-to-pdf': 'pdf',
+  'pdf-compress': 'pdf',
+  'pdf-merge': 'pdf',
+  'pdf-split': 'pdf',
+  'document-scan': 'pdf',
+  'video-compress': 'video',
+  'spreadsheet-compare': 'data',
+  'file-inspect': 'data',
+  'font-coverage': 'text',
+  'font-style': 'text',
+  'random-word': 'text',
+  'mouse-test': 'device',
+  'keyboard-test': 'device',
+  'camera-mic-test': 'device',
+  ruler: 'device',
+};
+
+export function toolsInCategory(category: Category): ToolKey[] {
+  return TOOL_KEYS.filter((k) => TOOL_CATEGORY[k] === category);
+}
+
 export function relatedTools(key: ToolKey, count = 3): ToolKey[] {
   const i = TOOL_KEYS.indexOf(key);
   if (i < 0) return [];

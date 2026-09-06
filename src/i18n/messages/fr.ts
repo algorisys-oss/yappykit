@@ -71,6 +71,14 @@ const fr: Messages = {
     ],
     toolsHeading: 'Les outils',
     toolsCount: '{n} outils',
+    filterLabel: 'Filtrer les outils par type',
+    categoryAll: 'Tout',
+    categoryImage: 'Images',
+    categoryPdf: 'PDF',
+    categoryVideo: 'Vidéo',
+    categoryData: 'Données et fichiers',
+    categoryText: 'Texte et polices',
+    categoryDevice: 'Tests de l’appareil',
     toolsSub:
       'De nouveaux outils arrivent régulièrement. Chacun fonctionne dans votre navigateur. Utilisez la recherche ci-dessus pour en trouver un rapidement.',
     comingSoon: 'Bientôt disponible',
@@ -174,6 +182,7 @@ const fr: Messages = {
     faqHeading: 'Questions fréquentes',
     relatedHeading: 'Outils associés',
     pasteHint: 'Vous pouvez aussi coller une image avec Ctrl+V, ou ⌘V sur un Mac.',
+    pasteHintFile: 'Vous pouvez aussi coller un fichier avec Ctrl+V, ou ⌘V sur un Mac.',
     verifyNote:
       'Vos fichiers sont traités sur votre appareil et ne sont pas envoyés. Vous pouvez le vérifier dans les outils de développement de votre navigateur, sous l’onglet Réseau.',
   },

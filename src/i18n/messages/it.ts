@@ -71,6 +71,14 @@ const it: Messages = {
     ],
     toolsHeading: 'Gli strumenti',
     toolsCount: '{n} strumenti',
+    filterLabel: 'Filtra gli strumenti per tipo',
+    categoryAll: 'Tutti',
+    categoryImage: 'Immagini',
+    categoryPdf: 'PDF',
+    categoryVideo: 'Video',
+    categoryData: 'Dati e file',
+    categoryText: 'Testo e caratteri',
+    categoryDevice: 'Test del dispositivo',
     toolsSub:
       'Ne aggiungiamo di nuovi di continuo. Funzionano tutti nel tuo browser. Usa la ricerca qui sopra per trovarne uno rapidamente.',
     comingSoon: 'In arrivo',
@@ -174,6 +182,7 @@ const it: Messages = {
     faqHeading: 'Domande frequenti',
     relatedHeading: 'Strumenti correlati',
     pasteHint: 'Puoi anche incollare un’immagine con Ctrl+V, o ⌘V su un Mac.',
+    pasteHintFile: 'Puoi anche incollare un file con Ctrl+V, o ⌘V su un Mac.',
     verifyNote:
       'I tuoi file vengono elaborati sul tuo dispositivo e non vengono caricati: puoi verificarlo negli strumenti per sviluppatori del browser, nella scheda Rete.',
   },

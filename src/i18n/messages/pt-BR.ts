@@ -71,6 +71,14 @@ const ptBR: Messages = {
     ],
     toolsHeading: 'As ferramentas',
     toolsCount: '{n} ferramentas',
+    filterLabel: 'Filtrar ferramentas por tipo',
+    categoryAll: 'Tudo',
+    categoryImage: 'Imagens',
+    categoryPdf: 'PDF',
+    categoryVideo: 'Vídeo',
+    categoryData: 'Dados e arquivos',
+    categoryText: 'Texto e fontes',
+    categoryDevice: 'Testes do aparelho',
     toolsSub:
       'Novas ferramentas estão sendo adicionadas. Todas funcionam no seu navegador. Use a busca acima para encontrar uma rapidamente.',
     comingSoon: 'Em breve',
@@ -174,6 +182,7 @@ const ptBR: Messages = {
     faqHeading: 'Perguntas frequentes',
     relatedHeading: 'Ferramentas relacionadas',
     pasteHint: 'Você também pode colar uma imagem com Ctrl+V, ou ⌘V no Mac.',
+    pasteHintFile: 'Você também pode colar um arquivo com Ctrl+V, ou ⌘V no Mac.',
     verifyNote:
       'Seus arquivos são processados no seu dispositivo e não são enviados. Você pode verificar isso nas ferramentas de desenvolvedor do seu navegador, na aba Rede.',
   },

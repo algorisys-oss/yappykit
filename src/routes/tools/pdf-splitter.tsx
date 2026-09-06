@@ -5,6 +5,7 @@ import { PdfSplitPreview } from '../tool-previews';
 import ToolContent from '../tool-content';
 import { useSeo } from '../../lib/seo';
 import { useI18n } from '../../i18n/runtime';
+import { usePasteFiles, isPdf } from '../../lib/paste';
 import { move } from '@core/list';
 import { zip } from '@core/archive/zip';
 import { readPdf, PdfReadError } from '@core/pdf/merge';
@@ -79,7 +80,12 @@ export default function PdfSplitter() {
   async function onPick(e: Event & { currentTarget: HTMLInputElement }) {
     const file = e.currentTarget.files?.[0];
     e.currentTarget.value = '';
-    if (!file) return;
+    if (file) await accept(file);
+  }
+
+  usePasteFiles(isPdf, (files) => void accept(files[0]!));
+
+  async function accept(file: File) {
 
     clearOutput();
     setError('');
@@ -160,6 +166,7 @@ export default function PdfSplitter() {
             class="block w-full cursor-pointer rounded border border-border bg-surface p-2 text-sm text-fg file:me-3 file:cursor-pointer file:rounded file:border-0 file:bg-accent file:px-3 file:py-1.5 file:text-accent-fg"
           />
           <p class="mt-2 text-xs text-muted">{u.pickHint}</p>
+          <p class="mt-2 text-xs text-muted">{msg.content.pasteHintFile}</p>
           <Show when={source()}>
             {(s) => (
               <p class="mt-2 text-xs text-muted">

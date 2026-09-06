@@ -7,6 +7,26 @@ import { defineConfig, presetWind } from 'unocss';
 // these; use the *-soft / surface / muted tokens for lighter surfaces instead.
 export default defineConfig({
   presets: [presetWind()],
+  /*
+   * Make the border utilities actually draw.
+   *
+   * `border` and `border-t` only ever set a WIDTH. CSS defaults border-style to
+   * `none`, and a border with no style computes to 0px however wide it claims to
+   * be, so every bordered box on the site was rendering flat: the file inputs,
+   * the result tables, the footer's own top rule. Tailwind avoids this with a
+   * preflight; UnoCSS ships its resets separately and this project loads none,
+   * so the one rule that matters is stated here rather than pulling in a whole
+   * reset that would also restyle typography and spacing.
+   *
+   * The pairing is deliberate: `border-style: solid` alone would make every
+   * element render its default `medium` width, so the width has to be zeroed at
+   * the same time. Elements then show a border only where a utility asks.
+   */
+  preflights: [
+    {
+      getCSS: () => `*,::before,::after{border-width:0;border-style:solid;border-color:var(--zen-color-border)}`,
+    },
+  ],
   // The prerendered static HTML (src/prerender) is emitted by a separate SSR
   // build, so its markup never passes through the client module graph and Uno
   // would not see the utility classes it uses. Scan it from disk instead, or
@@ -32,6 +52,9 @@ export default defineConfig({
       surface: 'var(--zen-color-muted)', // soft neutral background
       muted: 'var(--zen-color-muted-fg)', // secondary/muted text
       border: 'var(--zen-color-border)',
+      // Theme-aware yellow for the landing page's tool count; see
+      // src/styles/tokens.css for why it is not one value.
+      highlight: 'var(--yk-highlight)',
       accent: {
         DEFAULT: 'var(--zen-color-primary)',
         fg: 'var(--zen-color-primary-fg)',

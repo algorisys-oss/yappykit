@@ -4,7 +4,7 @@ import { FileInspectPreview } from '../tool-previews';
 import ToolContent from '../tool-content';
 import { useSeo } from '../../lib/seo';
 import { useI18n } from '../../i18n/runtime';
-import { usePasteImages } from '../../lib/paste';
+import { usePasteFiles, anyFile } from '../../lib/paste';
 import { inspect, type Finding, type Inspection } from '@core/inspect';
 
 /**
@@ -37,7 +37,7 @@ export default function FileInspector() {
     if (file) await accept(file);
   }
 
-  usePasteImages((files) => void accept(files[0]!));
+  usePasteFiles(anyFile, (files) => void accept(files[0]!));
 
   async function accept(file: File) {
     setError('');
@@ -84,7 +84,7 @@ export default function FileInspector() {
             class="block w-full cursor-pointer rounded border border-border bg-surface p-2 text-sm text-fg file:me-3 file:cursor-pointer file:rounded file:border-0 file:bg-accent file:px-3 file:py-1.5 file:text-accent-fg"
           />
           <p class="mt-2 text-xs text-muted">{u.pickHint}</p>
-          <p class="mt-2 text-xs text-muted">{msg.content.pasteHint}</p>
+          <p class="mt-2 text-xs text-muted">{msg.content.pasteHintFile}</p>
         </div>
 
         <Show when={error()}>

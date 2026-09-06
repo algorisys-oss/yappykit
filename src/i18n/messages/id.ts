@@ -71,6 +71,14 @@ const id: Messages = {
     ],
     toolsHeading: 'Alat-alatnya',
     toolsCount: '{n} alat',
+    filterLabel: 'Saring alat menurut jenis',
+    categoryAll: 'Semua',
+    categoryImage: 'Gambar',
+    categoryPdf: 'PDF',
+    categoryVideo: 'Video',
+    categoryData: 'Data dan berkas',
+    categoryText: 'Teks dan fon',
+    categoryDevice: 'Uji perangkat',
     toolsSub:
       'Alat baru terus ditambahkan. Semuanya berjalan di browser Anda. Gunakan kotak pencarian di atas untuk menemukannya dengan cepat.',
     comingSoon: 'Segera hadir',
@@ -174,6 +182,7 @@ const id: Messages = {
     faqHeading: 'Pertanyaan yang sering diajukan',
     relatedHeading: 'Alat terkait',
     pasteHint: 'Anda juga dapat menempelkan gambar dengan Ctrl+V, atau ⌘V di Mac.',
+    pasteHintFile: 'Anda juga dapat menempelkan berkas dengan Ctrl+V, atau ⌘V di Mac.',
     verifyNote:
       'File Anda diproses di perangkat Anda dan tidak diunggah. Anda bisa memverifikasinya di alat pengembang browser Anda, pada tab Network.',
   },

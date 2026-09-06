@@ -1,6 +1,9 @@
 import { describe, it, expect } from 'vitest';
 import { LOCALES, splitLocale, DEFAULT_LOCALE } from './locales';
 import {
+  CATEGORIES,
+  TOOL_CATEGORY,
+  toolsInCategory,
   ROUTES,
   TOOL_KEYS,
   pathFor,
@@ -205,6 +208,25 @@ describe('redirects', () => {
       expect(splitLocale(to).locale, `${from} -> ${to} changed locale`).toBe(
         splitLocale(from).locale,
       );
+    }
+  });
+});
+
+describe('tool categories', () => {
+  it('files every tool exactly once, so none drops out of every filter', () => {
+    const counted = CATEGORIES.flatMap((c) => toolsInCategory(c));
+    expect(counted.sort()).toEqual([...TOOL_KEYS].sort());
+  });
+
+  it('leaves no category empty, which would render a pill that finds nothing', () => {
+    for (const c of CATEGORIES) {
+      expect(toolsInCategory(c).length, `${c} has no tools`).toBeGreaterThan(0);
+    }
+  });
+
+  it('uses only declared categories', () => {
+    for (const [tool, category] of Object.entries(TOOL_CATEGORY)) {
+      expect(CATEGORIES, `${tool}`).toContain(category);
     }
   });
 });

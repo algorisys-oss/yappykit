@@ -1,8 +1,12 @@
 import { describe, it, expect } from 'vitest';
-import { clipboardImages, isEditableTarget } from './paste';
+import { clipboardFiles, isEditableTarget, isImage, isPdf, anyFile } from './paste';
 
-const img = (name: string, type: string) => new File([new Uint8Array([1, 2, 3])], name, { type });
+const file = (name: string, type: string) => new File([new Uint8Array([1, 2, 3])], name, { type });
+const img = file;
 const transfer = (files: File[]) => ({ files: files as unknown as FileList });
+
+const clipboardImages = (data: Parameters<typeof clipboardFiles>[0], start?: number) =>
+  clipboardFiles(data, isImage, start);
 
 describe('clipboardImages', () => {
   it('is empty when there is no clipboard payload', () => {
@@ -90,5 +94,41 @@ describe('isEditableTarget', () => {
     const el = document.createElement('input');
     el.type = 'file';
     expect(isEditableTarget(el)).toBe(false);
+  });
+});
+
+describe('clipboardFiles with other kinds of file', () => {
+  it('takes a PDF, which is what a file manager puts on the clipboard', () => {
+    const files = clipboardFiles(transfer([file('statement.pdf', 'application/pdf')]), isPdf);
+    expect(files.map((f) => f.name)).toEqual(['statement.pdf']);
+  });
+
+  it('trusts the extension when the clipboard gives no type', () => {
+    // Some file managers hand over a File with an empty `type`.
+    const files = clipboardFiles(transfer([file('statement.pdf', '')]), isPdf);
+    expect(files).toHaveLength(1);
+  });
+
+  it('leaves a pasted image alone on a PDF tool', () => {
+    const files = clipboardFiles(transfer([file('cat.png', 'image/png')]), isPdf);
+    expect(files).toEqual([]);
+  });
+
+  it('takes anything at all when the tool accepts anything', () => {
+    const files = clipboardFiles(
+      transfer([file('a.pdf', 'application/pdf'), file('b.xlsx', 'application/vnd.ms-excel'), file('c.png', 'image/png')]),
+      anyFile,
+    );
+    expect(files).toHaveLength(3);
+  });
+
+  it('still ignores a paste that carries no file at all', () => {
+    expect(clipboardFiles(transfer([]), anyFile)).toEqual([]);
+    expect(clipboardFiles(null, anyFile)).toEqual([]);
+  });
+
+  it('names an unnamed PDF with the right extension', () => {
+    const files = clipboardFiles(transfer([file('', 'application/pdf')]), isPdf);
+    expect(files[0]!.name).toBe('pasted-1.pdf');
   });
 });

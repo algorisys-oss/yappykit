@@ -71,6 +71,14 @@ const es: Messages = {
     ],
     toolsHeading: 'Las herramientas',
     toolsCount: '{n} herramientas',
+    filterLabel: 'Filtrar herramientas por tipo',
+    categoryAll: 'Todo',
+    categoryImage: 'Imágenes',
+    categoryPdf: 'PDF',
+    categoryVideo: 'Vídeo',
+    categoryData: 'Datos y archivos',
+    categoryText: 'Texto y fuentes',
+    categoryDevice: 'Pruebas del equipo',
     toolsSub:
       'Seguimos añadiendo herramientas. Todas funcionan en tu navegador. Usa el buscador de arriba para encontrar una rápidamente.',
     comingSoon: 'Próximamente',
@@ -174,6 +182,7 @@ const es: Messages = {
     faqHeading: 'Preguntas frecuentes',
     relatedHeading: 'Herramientas relacionadas',
     pasteHint: 'También puedes pegar una imagen con Ctrl+V, o ⌘V en un Mac.',
+    pasteHintFile: 'También puedes pegar un archivo con Ctrl+V, o ⌘V en un Mac.',
     verifyNote:
       'Tus archivos se procesan en tu dispositivo y no se suben; puedes comprobarlo en las herramientas de desarrollo de tu navegador, en la pestaña Red.',
   },

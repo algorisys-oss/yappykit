@@ -71,6 +71,14 @@ const de: Messages = {
     ],
     toolsHeading: 'Die Werkzeuge',
     toolsCount: '{n} Werkzeuge',
+    filterLabel: 'Werkzeuge nach Art filtern',
+    categoryAll: 'Alle',
+    categoryImage: 'Bilder',
+    categoryPdf: 'PDF',
+    categoryVideo: 'Video',
+    categoryData: 'Daten und Dateien',
+    categoryText: 'Text und Schriften',
+    categoryDevice: 'Gerätetests',
     toolsSub:
       'Es kommen laufend neue Werkzeuge dazu. Jedes läuft in Ihrem Browser. Nutzen Sie die Suche oben, um schnell eines zu finden.',
     comingSoon: 'Demnächst',
@@ -174,6 +182,7 @@ const de: Messages = {
     faqHeading: 'Häufige Fragen',
     relatedHeading: 'Verwandte Werkzeuge',
     pasteHint: 'Sie können ein Bild auch mit Strg+V einfügen, auf einem Mac mit ⌘V.',
+    pasteHintFile: 'Sie können eine Datei auch mit Strg+V einfügen, auf einem Mac mit ⌘V.',
     verifyNote:
       'Ihre Dateien werden auf Ihrem Gerät verarbeitet und nicht hochgeladen. Sie können das in den Entwicklerwerkzeugen Ihres Browsers unter dem Tab „Netzwerk“ überprüfen.',
   },

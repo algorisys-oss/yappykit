@@ -1,9 +1,10 @@
 import { A } from '@solidjs/router';
-import { For, Show, createMemo, type JSX } from 'solid-js';
+import { For, Show, createMemo, createSignal, type JSX } from 'solid-js';
 import { TOOL_PREVIEWS } from './tool-previews';
 import { useSeo } from '../lib/seo';
 import { useI18n } from '../i18n/runtime';
 import { toolList, type Tool } from '../lib/tools';
+import { CATEGORIES, TOOL_CATEGORY, type Category } from '../i18n/routes';
 
 /**
  * Landing / content page — the SEO asset and the first impression.
@@ -30,6 +31,20 @@ export default function Landing() {
   const l = m.landing;
   useSeo('home');
   const tools = createMemo(() => toolList(m, locale));
+  // 'all' is a filter state, not a category, so it is not in CATEGORIES.
+  const [filter, setFilter] = createSignal<Category | 'all'>('all');
+  const shown = createMemo(() =>
+    filter() === 'all' ? tools() : tools().filter((t) => TOOL_CATEGORY[t.key] === filter()),
+  );
+  const categoryLabel = (c: Category) =>
+    ({
+      image: l.categoryImage,
+      pdf: l.categoryPdf,
+      video: l.categoryVideo,
+      data: l.categoryData,
+      text: l.categoryText,
+      device: l.categoryDevice,
+    })[c];
 
   return (
     <main>
@@ -43,7 +58,7 @@ export default function Landing() {
               'radial-gradient(60% 60% at 20% 0%, color-mix(in srgb, var(--zen-color-primary) 16%, transparent), transparent 70%)',
           }}
         />
-        <div class="relative mx-auto max-w-4xl px-6 py-20 sm:py-28">
+        <div class="relative mx-auto max-w-4xl px-6 pb-20 pt-12 sm:pb-28 sm:pt-16">
           <p class="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium text-muted">
             <span class="inline-block h-2 w-2 rounded-full bg-success" /> {l.badge}
           </p>
@@ -51,6 +66,9 @@ export default function Landing() {
             {l.h1}
           </h1>
           <p class="mt-5 max-w-2xl text-lg text-muted sm:text-xl">{l.sub}</p>
+          <p class="mt-6 text-4xl font-bold tracking-tight text-highlight sm:text-5xl">
+            {fmt(l.toolsCount, { n: tools().length })}
+          </p>
           <div class="mt-8 flex flex-wrap items-center gap-3">
             <A
               href={tools()[0]!.href}
@@ -97,13 +115,36 @@ export default function Landing() {
           <h2 id="tools" class="text-2xl font-bold">{l.toolsHeading}</h2>
           {/* Counted from the catalogue, never written down: a hand-kept
               number goes stale the first time a tool ships. */}
+          {/* Counts what is listed, so it agrees with the grid under an active
+              filter. The hero keeps the catalogue total. */}
           <span class="rounded-full bg-surface px-2.5 py-0.5 text-xs font-medium text-muted">
-            {fmt(l.toolsCount, { n: tools().length })}
+            {fmt(l.toolsCount, { n: shown().length })}
           </span>
         </div>
         <p class="mt-1 text-muted">{l.toolsSub}</p>
+
+        {/* Filtering needs JavaScript, so the prerendered page lists every tool
+            and the pills start working once the page is live. A crawler and a
+            visitor without JS both still see all of them. */}
+        <div class="mt-5 flex flex-wrap gap-2" role="group" aria-label={l.filterLabel}>
+          <FilterPill
+            label={l.categoryAll}
+            active={filter() === 'all'}
+            onClick={() => setFilter('all')}
+          />
+          <For each={CATEGORIES}>
+            {(c) => (
+              <FilterPill
+                label={categoryLabel(c)}
+                active={filter() === c}
+                onClick={() => setFilter(c)}
+              />
+            )}
+          </For>
+        </div>
+
         <div class="mt-6 grid gap-4 sm:grid-cols-2">
-          <For each={tools()}>{(tool) => <ToolCard tool={tool} />}</For>
+          <For each={shown()}>{(tool) => <ToolCard tool={tool} />}</For>
         </div>
       </section>
 
@@ -165,6 +206,23 @@ export default function Landing() {
         </div>
       </section>
     </main>
+  );
+}
+
+function FilterPill(props: { label: string; active: boolean; onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      aria-pressed={props.active}
+      onClick={props.onClick}
+      class={`min-h-9 cursor-pointer rounded-full border px-3.5 py-1.5 text-sm font-medium transition ${
+        props.active
+          ? 'border-accent bg-accent text-accent-fg'
+          : 'border-border bg-surface text-muted hover:border-accent hover:text-accent'
+      }`}
+    >
+      {props.label}
+    </button>
   );
 }
 

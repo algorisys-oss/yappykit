@@ -71,6 +71,14 @@ const tr: Messages = {
     ],
     toolsHeading: 'Araçlar',
     toolsCount: '{n} araç',
+    filterLabel: 'Araçları türe göre süz',
+    categoryAll: 'Tümü',
+    categoryImage: 'Görseller',
+    categoryPdf: 'PDF',
+    categoryVideo: 'Video',
+    categoryData: 'Veri ve dosyalar',
+    categoryText: 'Metin ve yazı tipleri',
+    categoryDevice: 'Cihaz testleri',
     toolsSub:
       'Yeni araçlar sürekli ekleniyor. Hepsi tarayıcınızda çalışır. Hızlıca bulmak için yukarıdaki arama kutusunu kullanın.',
     comingSoon: 'Yakında',
@@ -174,6 +182,7 @@ const tr: Messages = {
     faqHeading: 'Sık sorulan sorular',
     relatedHeading: 'İlgili araçlar',
     pasteHint: 'Bir görseli Ctrl+V ile de yapıştırabilirsiniz, Mac’te ⌘V.',
+    pasteHintFile: 'Bir dosyayı Ctrl+V ile de yapıştırabilirsiniz, Mac’te ⌘V.',
     verifyNote:
       'Dosyalarınız cihazınızda işlenir ve yüklenmez, bunu tarayıcınızın geliştirici araçlarındaki Ağ sekmesinden doğrulayabilirsiniz.',
   },

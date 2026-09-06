@@ -23,6 +23,19 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '0.4.0',
+    date: '2026-09-06',
+    added: [
+      'The tool list filters by kind: images, PDF, video, data and files, text and fonts, device tests. Every tool is still listed on the page itself, so nothing is hidden from a search engine or from a visitor without JavaScript.',
+      'The PDF tools take a pasted file. A document copied in a file manager arrives on the clipboard the same way a screenshot does, so Ctrl+V works on the splitter, the merger and the compressor, and the file inspector accepts anything at all.',
+      'The home page states how many tools there are, counted from the catalogue so it cannot go stale.',
+    ],
+    fixed: [
+      'Borders were not drawing anywhere on the site. The utility classes only ever set a width, and a border with no style renders as nothing, so file inputs, result tables, tool cards and the footer rule were all flat. Every one of them has its outline back.',
+      'The top of the home page had two lots of spacing doing the same job, which pushed the first line of text further down than it needed to be.',
+    ],
+  },
+  {
     version: '0.3.0',
     date: '2026-09-06',
     added: [

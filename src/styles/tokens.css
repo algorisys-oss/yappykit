@@ -26,3 +26,24 @@ button {
   background-color: transparent;
 }
 
+
+/*
+ * The highlight used for the tool count on the landing page.
+ *
+ * One yellow cannot serve both themes. The bright amber sits at about 1.9:1
+ * against white, which cannot be read, so light mode uses the darker gold that
+ * zen already defines for text on a warning surface (5.9:1) and dark mode uses
+ * the bright one (11:1). Both are existing tokens, not new colours.
+ *
+ * Only the SEMANTIC warning tokens exist here. The numbered ramp
+ * (--zen-color-warning-700 and friends) is scoped to zen's own `zen-theme` and
+ * resolves to nothing on this site, which silently makes the declaration
+ * invalid and leaves the text inheriting plain foreground.
+ */
+:root {
+  --yk-highlight: var(--zen-color-warning-soft-fg);
+}
+
+:root[data-theme='dark'] {
+  --yk-highlight: var(--zen-color-warning);
+}

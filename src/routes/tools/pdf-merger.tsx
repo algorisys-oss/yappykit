@@ -5,6 +5,7 @@ import ToolContent from '../tool-content';
 import { PdfMergePreview } from '../tool-previews';
 import { useSeo } from '../../lib/seo';
 import { useI18n } from '../../i18n/runtime';
+import { usePasteFiles, isPdf } from '../../lib/paste';
 import { readPdf, mergePdfs, move, mergedName, PdfReadError, type PdfSource } from '@core/pdf/merge';
 
 /**
@@ -60,9 +61,15 @@ export default function PdfMerger() {
   const pagesLabel = (n: number) => (n === 1 ? u.pagesOne : fmt(u.pagesMany, { n }));
 
   async function onPick(e: Event & { currentTarget: HTMLInputElement }) {
-    const files = [...(e.currentTarget.files ?? [])];
+    const picked = [...(e.currentTarget.files ?? [])];
     // Clearing the input lets the same file be added again after it was removed.
     e.currentTarget.value = '';
+    await accept(picked);
+  }
+
+  usePasteFiles(isPdf, (files) => void accept(files));
+
+  async function accept(files: File[]) {
     if (files.length === 0) return;
 
     setBusy(true);
@@ -131,6 +138,7 @@ export default function PdfMerger() {
             class="block w-full cursor-pointer rounded border border-border bg-surface p-2 text-sm text-fg file:me-3 file:cursor-pointer file:rounded file:border-0 file:bg-accent file:px-3 file:py-1.5 file:text-accent-fg"
           />
           <p class="mt-2 text-xs text-muted">{u.pickHint}</p>
+          <p class="mt-2 text-xs text-muted">{m.content.pasteHintFile}</p>
         </div>
 
         <Show when={error()}>

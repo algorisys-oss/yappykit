@@ -71,6 +71,14 @@ const ja: Messages = {
     ],
     toolsHeading: 'ツール',
     toolsCount: '{n} 個のツール',
+    filterLabel: '種類でツールを絞り込む',
+    categoryAll: 'すべて',
+    categoryImage: '画像',
+    categoryPdf: 'PDF',
+    categoryVideo: '動画',
+    categoryData: 'データとファイル',
+    categoryText: 'テキストとフォント',
+    categoryDevice: '端末のテスト',
     toolsSub:
       'ツールは順次追加しています。どれもブラウザー内で動作します。上の検索ボックスからすばやく見つけられます。',
     comingSoon: '近日公開',
@@ -172,6 +180,7 @@ const ja: Messages = {
     faqHeading: 'よくある質問',
     relatedHeading: '関連ツール',
     pasteHint: '画像は Ctrl+V（Mac では ⌘V）で貼り付けることもできます。',
+    pasteHintFile: 'ファイルは Ctrl+V（Mac では ⌘V）で貼り付けることもできます。',
     verifyNote:
       'ファイルは端末上で処理され、アップロードされません。ブラウザーの開発者ツールの「ネットワーク」タブでご確認いただけます。',
   },

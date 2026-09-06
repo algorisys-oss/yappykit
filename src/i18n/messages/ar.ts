@@ -73,6 +73,14 @@ const ar: Messages = {
     ],
     toolsHeading: 'الأدوات',
     toolsCount: '{n} أداة',
+    filterLabel: 'تصفية الأدوات حسب النوع',
+    categoryAll: 'الكل',
+    categoryImage: 'الصور',
+    categoryPdf: 'PDF',
+    categoryVideo: 'الفيديو',
+    categoryData: 'البيانات والملفات',
+    categoryText: 'النص والخطوط',
+    categoryDevice: 'اختبارات الجهاز',
     toolsSub:
       'نضيف أدوات جديدة باستمرار. وكل أداة تعمل داخل متصفحك. استخدم مربع البحث بالأعلى للعثور على ما تريد بسرعة.',
     comingSoon: 'قريبًا',
@@ -175,6 +183,7 @@ const ar: Messages = {
     faqHeading: 'الأسئلة الشائعة',
     relatedHeading: 'أدوات ذات صلة',
     pasteHint: 'يمكنك أيضًا لصق صورة باستخدام Ctrl+V، أو ⌘V على أجهزة Mac.',
+    pasteHintFile: 'يمكنك أيضاً لصق ملف باستخدام Ctrl+V، أو ⌘V على أجهزة Mac.',
     verifyNote:
       'تُعالَج ملفاتك على جهازك ولا تُرفع، ويمكنك التحقق من ذلك في أدوات المطور بمتصفحك ضمن تبويب «الشبكة».',
   },
