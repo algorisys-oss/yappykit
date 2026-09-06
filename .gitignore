@@ -9,3 +9,4 @@ playwright-report/
 .prerender/
 .publish/
 .playwright-mcp/
+.visitors

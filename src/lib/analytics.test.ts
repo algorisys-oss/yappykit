@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import {
+  beaconFor,
   analyticsAllowed,
   countryFromTrace,
   CONSENT_REQUIRED,
@@ -78,5 +79,30 @@ describe('countryFromTrace', () => {
 describe('the measurement id', () => {
   it('is the property this site reports to', () => {
     expect(MEASUREMENT_ID).toBe('G-1FZ1NE7L5Y');
+  });
+});
+
+describe('beaconFor', () => {
+  it('is null when the build was given no site tag', () => {
+    // A fork, or a local build: no beacon, no request, no measurement.
+    expect(beaconFor('')).toBeNull();
+    expect(beaconFor('   ')).toBeNull();
+  });
+
+  it('points at Cloudflare and carries the tag it was given', () => {
+    const beacon = beaconFor('9f2c4d');
+    expect(beacon?.src).toBe('https://static.cloudflareinsights.com/beacon.min.js');
+    expect(beacon?.token).toBe('9f2c4d');
+  });
+
+  it('trims a tag pasted with whitespace, which is how it arrives from a dashboard', () => {
+    expect(beaconFor('  9f2c4d\n')?.token).toBe('9f2c4d');
+  });
+
+  it('carries a tag of the shape Cloudflare issues, a 32-character hex id', () => {
+    // Deliberately not our own tag: it is public, but it lives in the build
+    // environment so a fork cannot ship a beacon reporting into our account,
+    // and a test is no reason to put it back in the source.
+    expect(beaconFor('0123456789abcdef0123456789abcdef')?.token).toHaveLength(32);
   });
 });

@@ -71,6 +71,8 @@ const vi: Messages = {
     ],
     toolsHeading: 'Các công cụ',
     toolsCount: '{n} công cụ',
+    visitors:
+      'Hơn {n} người đã dùng các công cụ này trong 30 ngày qua.',
     filterLabel: 'Lọc công cụ theo loại',
     categoryAll: 'Tất cả',
     categoryImage: 'Hình ảnh',

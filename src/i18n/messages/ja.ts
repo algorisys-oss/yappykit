@@ -71,6 +71,8 @@ const ja: Messages = {
     ],
     toolsHeading: 'ツール',
     toolsCount: '{n} 個のツール',
+    visitors:
+      '過去 30 日間で {n} 人以上がこれらのツールを使いました。',
     filterLabel: '種類でツールを絞り込む',
     categoryAll: 'すべて',
     categoryImage: '画像',

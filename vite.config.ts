@@ -73,6 +73,23 @@ function externalizeUninstalledZenPeers(id: string, importer: string | undefined
   return !installed(id);
 }
 
+/**
+ * The visitor figure written by scripts/fetch-visitors.mjs, or 0.
+ *
+ * A file rather than an environment variable because the fetch happens in a
+ * separate build step, and 0 rather than a throw because a build with no
+ * analytics token is a perfectly good build: the page just says nothing about
+ * visitors. See src/lib/visitors.ts.
+ */
+function visitors(): number {
+  try {
+    const raw = Number(readFileSync('.visitors', 'utf8').trim());
+    return Number.isInteger(raw) && raw >= 0 ? raw : 0;
+  } catch {
+    return 0;
+  }
+}
+
 export default defineConfig({
   plugins: [
     unocss(),
@@ -180,6 +197,8 @@ export default defineConfig({
   define: {
     __APP_VERSION__: JSON.stringify(version),
     __APP_COMMIT__: JSON.stringify(commit()),
+    __VISITORS_30D__: JSON.stringify(visitors()),
+    __CF_SITE_TAG__: JSON.stringify(process.env.CF_SITE_TAG ?? ''),
   },
   build: {
     target: 'es2022',

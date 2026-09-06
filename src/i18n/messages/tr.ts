@@ -71,6 +71,8 @@ const tr: Messages = {
     ],
     toolsHeading: 'Araçlar',
     toolsCount: '{n} araç',
+    visitors:
+      'Son 30 günde {n} kişiden fazlası bu araçları kullandı.',
     filterLabel: 'Araçları türe göre süz',
     categoryAll: 'Tümü',
     categoryImage: 'Görseller',

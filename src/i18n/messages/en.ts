@@ -73,6 +73,8 @@ export const en = {
     ],
     toolsHeading: 'The tools',
     toolsCount: '{n} tools',
+    visitors:
+      'More than {n} people used these tools in the last 30 days.',
     filterLabel: 'Filter tools by kind',
     categoryAll: 'All',
     categoryImage: 'Images',

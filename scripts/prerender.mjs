@@ -33,7 +33,20 @@ async function stamps() {
   } catch {
     // A build without git still prerenders; it just cannot name the commit.
   }
-  return { __APP_VERSION__: JSON.stringify(version), __APP_COMMIT__: JSON.stringify(commit) };
+  let visitors = 0;
+  try {
+    const raw = Number((await readFile('.visitors', 'utf8')).trim());
+    if (Number.isInteger(raw) && raw >= 0) visitors = raw;
+  } catch {
+    // No figure fetched: the prerendered page states nothing about visitors,
+    // which must match what the client bundle does. See src/lib/visitors.ts.
+  }
+  return {
+    __APP_VERSION__: JSON.stringify(version),
+    __APP_COMMIT__: JSON.stringify(commit),
+    __VISITORS_30D__: JSON.stringify(visitors),
+    __CF_SITE_TAG__: JSON.stringify(process.env.CF_SITE_TAG ?? ''),
+  };
 }
 
 async function main() {

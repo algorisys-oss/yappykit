@@ -71,6 +71,8 @@ const ru: Messages = {
     ],
     toolsHeading: 'Инструменты',
     toolsCount: 'Инструментов: {n}',
+    visitors:
+      'За последние 30 дней этими инструментами воспользовались более {n} человек.',
     filterLabel: 'Фильтр инструментов по типу',
     categoryAll: 'Все',
     categoryImage: 'Изображения',

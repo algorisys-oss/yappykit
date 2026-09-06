@@ -71,6 +71,8 @@ const fr: Messages = {
     ],
     toolsHeading: 'Les outils',
     toolsCount: '{n} outils',
+    visitors:
+      'Plus de {n} personnes ont utilisé ces outils au cours des 30 derniers jours.',
     filterLabel: 'Filtrer les outils par type',
     categoryAll: 'Tout',
     categoryImage: 'Images',

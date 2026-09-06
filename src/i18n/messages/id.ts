@@ -71,6 +71,8 @@ const id: Messages = {
     ],
     toolsHeading: 'Alat-alatnya',
     toolsCount: '{n} alat',
+    visitors:
+      'Lebih dari {n} orang memakai alat-alat ini dalam 30 hari terakhir.',
     filterLabel: 'Saring alat menurut jenis',
     categoryAll: 'Semua',
     categoryImage: 'Gambar',

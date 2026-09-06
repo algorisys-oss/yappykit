@@ -32,6 +32,7 @@ import type { Messages } from '../i18n/messages/en';
 import { esc } from './head';
 import { VERSION } from '../version';
 import { contributeUrl } from '../lib/support';
+import { VISITORS_30D, roundDown, showsVisitors } from '../lib/visitors';
 
 const YAPPYDRAW = 'https://yappydraw.com';
 
@@ -185,6 +186,11 @@ function landing(locale: LocaleCode, m: Messages): string {
       <h1 class="mt-5 max-w-3xl text-4xl font-bold leading-[1.1] tracking-tight sm:text-6xl">${esc(l.h1)}</h1>
       <p class="mt-5 max-w-2xl text-lg text-muted sm:text-xl">${esc(l.sub)}</p>
     <p class="mt-6 text-4xl font-bold tracking-tight text-highlight sm:text-5xl">${tpl(l.toolsCount, { n: String(TOOL_KEYS.length) })}</p>
+    ${
+      showsVisitors()
+        ? `<p class="mt-2 text-sm text-muted">${tpl(l.visitors, { n: new Intl.NumberFormat(locale).format(roundDown(VISITORS_30D)) })}</p>`
+        : ''
+    }
       <div class="mt-8 flex flex-wrap items-center gap-3">
         <a href="${pathFor(TOOL_KEYS[0]!, locale)}" class="inline-flex items-center rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-accent-fg no-underline shadow-sm transition hover:opacity-90">${esc(l.ctaOpen)}</a>
         <a href="#how" class="inline-flex items-center rounded-lg border border-border px-5 py-2.5 text-sm font-semibold text-fg no-underline transition hover:border-accent">${esc(l.ctaHow)}</a>

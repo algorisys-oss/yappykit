@@ -4,6 +4,7 @@ import { TOOL_PREVIEWS } from './tool-previews';
 import { useSeo } from '../lib/seo';
 import { useI18n } from '../i18n/runtime';
 import { toolList, type Tool } from '../lib/tools';
+import { VISITORS_30D, roundDown, showsVisitors } from '../lib/visitors';
 import { CATEGORIES, TOOL_CATEGORY, type Category } from '../i18n/routes';
 
 /**
@@ -69,6 +70,12 @@ export default function Landing() {
           <p class="mt-6 text-4xl font-bold tracking-tight text-highlight sm:text-5xl">
             {fmt(l.toolsCount, { n: tools().length })}
           </p>
+          {/* Absent rather than zero when the build had no analytics token. */}
+          <Show when={showsVisitors()}>
+            <p class="mt-2 text-sm text-muted">
+              {fmt(l.visitors, { n: new Intl.NumberFormat(locale).format(roundDown(VISITORS_30D)) })}
+            </p>
+          </Show>
           <div class="mt-8 flex flex-wrap items-center gap-3">
             <A
               href={tools()[0]!.href}

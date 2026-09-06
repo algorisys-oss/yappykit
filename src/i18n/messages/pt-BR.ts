@@ -71,6 +71,8 @@ const ptBR: Messages = {
     ],
     toolsHeading: 'As ferramentas',
     toolsCount: '{n} ferramentas',
+    visitors:
+      'Mais de {n} pessoas usaram estas ferramentas nos últimos 30 dias.',
     filterLabel: 'Filtrar ferramentas por tipo',
     categoryAll: 'Tudo',
     categoryImage: 'Imagens',

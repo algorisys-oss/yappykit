@@ -73,6 +73,8 @@ const ar: Messages = {
     ],
     toolsHeading: 'الأدوات',
     toolsCount: '{n} أداة',
+    visitors:
+      'استخدم هذه الأدوات أكثر من {n} شخص خلال آخر 30 يوماً.',
     filterLabel: 'تصفية الأدوات حسب النوع',
     categoryAll: 'الكل',
     categoryImage: 'الصور',

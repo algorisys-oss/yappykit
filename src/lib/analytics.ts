@@ -19,6 +19,37 @@
 
 export const MEASUREMENT_ID = 'G-1FZ1NE7L5Y';
 
+/**
+ * Cloudflare Web Analytics, which supplies the visitor figure on the landing
+ * page (see lib/visitors.ts).
+ *
+ * Loaded by us rather than injected by Cloudflare. Automatic edge injection is
+ * built for a classic proxied origin and does not reliably reach HTML served by
+ * Pages, and a measurement that silently does not happen is worse than none.
+ *
+ * It is cookie-free, but it is still a third party receiving a request, so it
+ * rides exactly the same country gate as Google Analytics rather than a laxer
+ * one of its own.
+ *
+ * The tag comes from the build (CF_SITE_TAG). Unset means no beacon, which is
+ * what a fork and a local build both get.
+ */
+declare const __CF_SITE_TAG__: string;
+
+export const SITE_TAG: string = typeof __CF_SITE_TAG__ === 'string' ? __CF_SITE_TAG__ : '';
+
+export interface Beacon {
+  src: string;
+  token: string;
+}
+
+/** What to append for a given site tag, or null when there is nothing to load. */
+export function beaconFor(siteTag: string): Beacon | null {
+  const token = siteTag.trim();
+  if (!token) return null;
+  return { src: 'https://static.cloudflareinsights.com/beacon.min.js', token };
+}
+
 /** Only the live site measures anything; dev and the test suite never do. */
 export const ANALYTICS_HOST = 'yappykit.com';
 
@@ -72,6 +103,21 @@ function injectTag(): void {
   gtag('config', MEASUREMENT_ID);
 }
 
+function injectBeacon(): void {
+  const beacon = beaconFor(SITE_TAG);
+  if (!beacon) return;
+  const tag = document.createElement('script');
+  // type="module" rather than defer, matching Cloudflare's own snippet
+  // verbatim. They own this file and can ship module syntax whenever they
+  // like, and a classic <script> would then fail with a syntax error and
+  // measure nothing. Modules defer by default and are fetched with CORS, which
+  // the file allows (access-control-allow-origin: *).
+  tag.type = 'module';
+  tag.src = beacon.src;
+  tag.setAttribute('data-cf-beacon', JSON.stringify({ token: beacon.token }));
+  document.head.appendChild(tag);
+}
+
 /**
  * Decide, then load.
  *
@@ -84,7 +130,10 @@ export async function initAnalytics(): Promise<void> {
   try {
     const res = await fetch('/cdn-cgi/trace', { credentials: 'omit' });
     if (!res.ok) return;
-    if (analyticsAllowed(countryFromTrace(await res.text()))) injectTag();
+    if (analyticsAllowed(countryFromTrace(await res.text()))) {
+      injectTag();
+      injectBeacon();
+    }
   } catch {
     // Offline, blocked, or no Cloudflare in front of us. Measure nothing.
   }

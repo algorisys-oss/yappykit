@@ -23,6 +23,14 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '0.5.0',
+    date: '2026-09-06',
+    added: [
+      'The home page can say how many people used the tools in the last 30 days. The figure is counted when the site is built rather than by the page, so no visitor is measured to display it, and it is rounded down so it never overstates. It stays hidden until there is a number worth stating.',
+      'Cloudflare Web Analytics now runs alongside Google Analytics to produce that figure. It sets no cookies, and like Google Analytics it does not run at all for visitors in the EEA or the UK. Both are named in the Privacy Policy.',
+    ],
+  },
+  {
     version: '0.4.0',
     date: '2026-09-06',
     added: [

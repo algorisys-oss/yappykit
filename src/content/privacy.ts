@@ -140,7 +140,7 @@ export const PRIVACY_SECTIONS: PrivacySection[] = [
       },
       {
         label: 'Analytics',
-        text: '(Google Analytics): measures aggregate usage, such as which tools are opened and from which country, so we can improve them. It sets cookies and receives your IP address, and it never receives your files. It does not run at all for visitors in the EEA or the UK, see below.',
+        text: '(Google Analytics and Cloudflare Web Analytics): measure aggregate usage, such as which tools are opened and from which country, so we can improve them. Google Analytics sets cookies and receives your IP address; Cloudflare Web Analytics sets no cookies and is used for the visitor count shown on the home page. Neither ever receives your files, and neither runs at all for visitors in the EEA or the UK, see below.',
       },
       {
         label: 'Content delivery network (CDN)',
