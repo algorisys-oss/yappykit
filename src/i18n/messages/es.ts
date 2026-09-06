@@ -190,6 +190,86 @@ const es: Messages = {
   },
 
   tools: {
+    'sheet-convert': {
+      title: 'CSV a Excel, y al revés',
+      blurb: 'Convierte en ambos sentidos, sin que Excel se coma los ceros iniciales. No se sube nada.',
+      tags: ['csv a excel','excel a csv','xlsx a csv','convertir hoja de cálculo','csv utf-8 excel','el csv se abre mal en excel','desaparecen los ceros iniciales'],
+      seoTitle: 'Convertidor de CSV a Excel, gratis y sin subir archivos | YappyKit',
+      seoDescription:
+        'Convierte CSV a Excel o Excel a CSV en tu navegador. Conserva los ceros iniciales y los números largos, y escribe un CSV que se abre bien en Excel. No se sube nada.',
+      heroTitle: 'CSV a Excel, y al revés',
+      heroNote:
+        'Dale un CSV y obtén un .xlsx, o dale un libro y obtén CSV. Los ceros iniciales sobreviven, los acentos se abren bien en Excel y el archivo nunca sale de tu dispositivo.',
+      ui: {
+        pickLabel: 'Elige una hoja de cálculo',
+        pickHint: 'CSV, TSV, XLSX o XLS. Se lee aquí, no se sube.',
+        reading: 'Leyendo…',
+        readError: 'No se pudo leer ese archivo como hoja de cálculo.',
+        empty: 'Ese archivo parece estar vacío.',
+        needFile: 'Elige primero un archivo.',
+        willMakeCsv: '{name} tiene {rows} filas. Volverá como CSV.',
+        willMakeXlsx: '{name} tiene {rows} filas. Volverá como archivo .xlsx de Excel.',
+        sheetsHeading: 'Hojas',
+        sheetRows: '{n} filas',
+        sheetsNote:
+          'Cada hoja se convierte en su propio CSV y se entregan juntas en un ZIP. Un libro con una hoja por mes es lo normal, y quedarse solo con la primera perdería el resto sin avisar.',
+        delimiterLabel: 'Separar los valores con',
+        delimiterComma: 'Coma',
+        delimiterSemicolon: 'Punto y coma',
+        delimiterTab: 'Tabulador',
+        delimiterNote:
+          'Excel en muchas configuraciones europeas espera un punto y coma, porque allí la coma es el separador decimal.',
+        excelSafeLabel: 'Asegurar que se abra bien en Excel',
+        excelSafeNote:
+          'Añade la marca de orden de bytes que Excel necesita para leer UTF-8. Sin ella, café se abre como cafÃ© en Windows. Déjalo activado salvo que algo más adelante rechace esa marca.',
+        fragileOne:
+          'Excel habría cambiado 1 valor, como un cero inicial o un número largo. Se guardará como texto para que sobreviva.',
+        fragileMany:
+          'Excel habría cambiado {n} valores, como ceros iniciales o números largos. Se guardarán como texto para que sobrevivan.',
+        formulaOne:
+          '1 celda empieza por =, + o @, que Excel trata como fórmula y no como texto. Conviene revisarlo si el archivo viene de un sitio que no controlas.',
+        formulaMany:
+          '{n} celdas empiezan por =, + o @, que Excel trata como fórmulas y no como texto. Conviene revisarlo si el archivo viene de un sitio que no controlas.',
+        actionCsv: 'Convertir a CSV',
+        actionXlsx: 'Convertir a Excel',
+        working: 'Convirtiendo…',
+        doneOne: 'Listo: {size}.',
+        doneMany: 'Listo: {n} archivos, {size} en un ZIP.',
+        download: 'Descargar',
+        downloadAll: 'Descargar todo en un ZIP',
+        failed: 'No funcionó.',
+      },
+      content: {
+        howItWorks: [
+          'Convertir entre CSV y Excel es una línea de código, y por eso hay mil convertidores y por eso casi todos devuelven un archivo sutilmente equivocado. La conversión no es la parte difícil. Lo que importa son las pocas cosas que Excel hace por su cuenta, ninguna de las cuales se ve en la máquina que hizo la conversión.',
+          'La primera es la codificación. Un CSV en UTF-8 sin marca de orden de bytes se abre en Excel de Windows con la página de códigos ANSI, así que café se convierte en cafÃ© y todos los nombres con acento quedan rotos. Tres bytes al principio del archivo le dicen a Excel qué está leyendo. Es la queja más común sobre cualquier exportación de CSV jamás escrita, y aquí se arregla por defecto.',
+          'La segunda es que Excel reescribe lo que importa. Un código postal 01234 pierde el cero y se convierte en el número 1234. Un número de tarjeta o de pedido de dieciséis dígitos se convierte en 1,23457E+15, y los dígitos originales desaparecen en vez de quedar ocultos. Un código de producto SEPT1 pasa a ser el uno de septiembre. Por esto hubo que escribir un artículo sobre los nombres de los genes, y por esto convertir a un .xlsx de verdad es mejor que renombrar un CSV: en un .xlsx el tipo de cada celda está escrito, así que un valor guardado como texto sigue siendo texto. Los valores que Excel habría cambiado se detectan y se fijan antes de que pueda hacerlo, y se muestra cuántos son.',
+          'La tercera no va de corrección sino de seguridad. Una celda que empieza por =, +, - o @ es una fórmula para Excel, no texto, y una hoja construida con datos que ha suministrado otra persona es una forma de ejecutar su código en la máquina que la abre. Esas celdas se cuentan y se informan en vez de modificarlas en silencio, porque reescribir los datos de alguien sin preguntar es otra clase de error.',
+          'Las decisiones pequeñas siguen la misma regla. El delimitador se detecta por cuál divide todas las líneas en el mismo número de campos, no por cuál aparece más, ya que un archivo lleno de prosa tiene más comas que puntos y coma tiene un archivo separado por puntos y coma. Se convierten todas las hojas del libro y no solo la primera. Y nada de esto pasa por un servidor: el archivo se lee, se convierte y se devuelve dentro de la pestaña del navegador.',
+        ],
+        steps: [
+          'Elige un archivo CSV, TSV o de Excel. El sentido de la conversión lo decide lo que le des.',
+          'Revisa lo que ha encontrado: el delimitador, las hojas y los valores que Excel habría cambiado.',
+          'Deja activado "se abra bien en Excel" salvo que algo más adelante rechace la marca de orden de bytes.',
+          'Convierte y descarga.',
+        ],
+        tips: [
+          'El CSV se escribe con la marca de orden de bytes que Excel necesita, así que los acentos no se estropean.',
+          'Los ceros iniciales y los números largos se guardan como texto en el .xlsx, así que Excel no puede reescribirlos.',
+          'Cada hoja del libro se convierte en su propio CSV y se entregan juntas en un ZIP.',
+          'El delimitador se detecta por consistencia, no contando, así que un texto lleno de comas no lo engaña.',
+          'Las celdas que Excel ejecutaría como fórmulas se cuentan y se informan, no se cambian en silencio.',
+        ],
+        faqs: [
+          { q: '¿Por qué mi CSV se abre mal en Excel?', a: 'Casi siempre por la codificación. Excel en Windows lee un CSV con su página de códigos ANSI salvo que el archivo empiece con una marca UTF-8, así que los acentos salen como caracteres raros. La opción "se abra bien en Excel" añade esa marca: son tres bytes y lo soluciona.' },
+          { q: '¿Cómo evito que Excel quite los ceros iniciales?', a: 'Convierte a .xlsx en lugar de darle un CSV a Excel. En un CSV cada valor es solo texto y Excel adivina qué significa; en un .xlsx se registra el tipo de cada celda, así que un código postal escrito como texto sigue siendo 01234. Esta herramienta detecta esos valores y los fija como texto antes de que Excel tenga ocasión.' },
+          { q: '¿Puede convertir todas las hojas de un libro?', a: 'Sí, y lo hace por defecto. Cada hoja se convierte en su propio CSV y vuelven juntas en un ZIP. Convertir solo la primera tiraría el resto sin decírtelo.' },
+          { q: '¿Por qué ofrece puntos y coma?', a: 'Porque Excel en muchas configuraciones europeas los espera: donde la coma es el separador decimal, la coma no puede separar también los campos. Si quien recibe el archivo lo abre y ve todo en una columna, es por esto.' },
+          { q: '¿Qué es el aviso sobre celdas que empiezan por un igual?', a: 'Excel trata una celda que empieza por =, +, - o @ como una fórmula y no como texto, así que una hoja construida con datos que no escribiste tú puede ejecutar algo al abrirse. Las celdas se cuentan y se muestran para que decidas; no se modifican, porque cambiar tus datos sin preguntar sería peor.' },
+          { q: '¿Se sube mi hoja de cálculo?', a: 'No. Se lee, se convierte y se devuelve dentro de esta pestaña del navegador, en tu propio dispositivo. Puedes mirar la pestaña Red de tu navegador mientras trabaja: no sale nada que lleve el archivo.' },
+        ],
+      },
+    },
     'batch-rename': {
       title: 'Renombrar imágenes por lotes',
       blurb: 'Numéralas, ponles la fecha en que se tomaron o limpia el desorden. No se sube nada.',

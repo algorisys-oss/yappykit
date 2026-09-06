@@ -190,6 +190,86 @@ const ptBR: Messages = {
   },
 
   tools: {
+    'sheet-convert': {
+      title: 'CSV para Excel, e de volta',
+      blurb: 'Converte nos dois sentidos, sem o Excel comer os zeros à esquerda. Nada é enviado.',
+      tags: ['csv para excel','excel para csv','xlsx para csv','converter planilha','csv utf-8 excel','csv abre errado no excel','zeros à esquerda somem'],
+      seoTitle: 'Conversor de CSV para Excel, grátis e sem enviar arquivos | YappyKit',
+      seoDescription:
+        'Converta CSV para Excel ou Excel para CSV no navegador. Mantém zeros à esquerda e números longos, e grava um CSV que abre certo no Excel. Nada é enviado.',
+      heroTitle: 'CSV para Excel, e de volta',
+      heroNote:
+        'Dê um CSV e receba um .xlsx, ou dê uma pasta de trabalho e receba CSVs. Os zeros à esquerda sobrevivem, os acentos abrem certo no Excel e o arquivo nunca sai do seu aparelho.',
+      ui: {
+        pickLabel: 'Escolha uma planilha',
+        pickHint: 'CSV, TSV, XLSX ou XLS. É lido aqui, não enviado.',
+        reading: 'Lendo…',
+        readError: 'Não foi possível ler esse arquivo como planilha.',
+        empty: 'Esse arquivo parece estar vazio.',
+        needFile: 'Escolha um arquivo primeiro.',
+        willMakeCsv: '{name} tem {rows} linhas. Vai voltar como CSV.',
+        willMakeXlsx: '{name} tem {rows} linhas. Vai voltar como arquivo .xlsx do Excel.',
+        sheetsHeading: 'Planilhas',
+        sheetRows: '{n} linhas',
+        sheetsNote:
+          'Cada planilha vira seu próprio CSV, entregues juntas num ZIP. Uma pasta de trabalho com uma planilha por mês é o caso normal, e ficar só com a primeira perderia o resto sem avisar.',
+        delimiterLabel: 'Separar os valores com',
+        delimiterComma: 'Vírgula',
+        delimiterSemicolon: 'Ponto e vírgula',
+        delimiterTab: 'Tabulação',
+        delimiterNote:
+          'O Excel em muitas configurações europeias espera ponto e vírgula, porque lá a vírgula é o separador decimal.',
+        excelSafeLabel: 'Garantir que abra certo no Excel',
+        excelSafeNote:
+          'Adiciona a marca de ordem de bytes que o Excel precisa para ler UTF-8. Sem ela, café abre como cafÃ© no Windows. Deixe ligado, a não ser que algo adiante recuse a marca.',
+        fragileOne:
+          'O Excel teria mudado 1 valor, como um zero à esquerda ou um número longo. Ele será guardado como texto para sobreviver.',
+        fragileMany:
+          'O Excel teria mudado {n} valores, como zeros à esquerda ou números longos. Eles serão guardados como texto para sobreviver.',
+        formulaOne:
+          '1 célula começa com =, + ou @, que o Excel trata como fórmula e não como texto. Vale conferir se o arquivo veio de algum lugar que você não controla.',
+        formulaMany:
+          '{n} células começam com =, + ou @, que o Excel trata como fórmulas e não como texto. Vale conferir se o arquivo veio de algum lugar que você não controla.',
+        actionCsv: 'Converter para CSV',
+        actionXlsx: 'Converter para Excel',
+        working: 'Convertendo…',
+        doneOne: 'Pronto: {size}.',
+        doneMany: 'Pronto: {n} arquivos, {size} num ZIP.',
+        download: 'Baixar',
+        downloadAll: 'Baixar tudo num ZIP',
+        failed: 'Não funcionou.',
+      },
+      content: {
+        howItWorks: [
+          'Converter entre CSV e Excel é uma linha de código, e por isso existem mil conversores e por isso quase todos devolvem um arquivo sutilmente errado. A conversão não é a parte difícil. O que importa é o punhado de coisas que o Excel faz por conta própria, nenhuma delas visível na máquina que fez a conversão.',
+          'A primeira é a codificação. Um CSV em UTF-8 sem marca de ordem de bytes abre no Excel do Windows com a página de código ANSI, então café vira cafÃ© e todo nome com acento fica quebrado. Três bytes no começo do arquivo dizem ao Excel o que ele está lendo. Essa é a reclamação mais comum sobre qualquer exportação de CSV já escrita, e aqui ela é resolvida por padrão.',
+          'A segunda é que o Excel reescreve o que importa. Um CEP 01234 perde o zero e vira o número 1234. Um número de cartão ou de pedido com dezesseis dígitos vira 1,23457E+15, e os dígitos originais somem em vez de ficarem escondidos. Um código de produto SEPT1 vira primeiro de setembro. Foi por isso que precisaram escrever um artigo sobre nomes de genes, e é por isso que converter para um .xlsx de verdade é melhor que renomear um CSV: num .xlsx o tipo de cada célula está escrito, então um valor guardado como texto continua texto. Os valores que o Excel teria mudado são encontrados e fixados antes que ele possa, e a quantidade é mostrada.',
+          'A terceira não é sobre correção e sim sobre segurança. Uma célula que começa com =, +, - ou @ é uma fórmula para o Excel, não texto, e uma planilha montada com dados que outra pessoa forneceu é um jeito de rodar o código dela na máquina que a abre. Essas células são contadas e informadas em vez de alteradas em silêncio, porque reescrever os dados de alguém sem perguntar é um erro de outro tipo.',
+          'As decisões menores seguem a mesma regra. O delimitador é detectado por qual divide todas as linhas no mesmo número de campos, não por qual aparece mais, já que um arquivo cheio de texto corrido tem mais vírgulas do que um arquivo separado por ponto e vírgula tem pontos e vírgulas. Todas as planilhas da pasta de trabalho são convertidas, não só a primeira. E nada disso passa por um servidor: o arquivo é lido, convertido e devolvido dentro da aba do navegador.',
+        ],
+        steps: [
+          'Escolha um arquivo CSV, TSV ou do Excel. O sentido da conversão é decidido pelo que você deu.',
+          'Confira o que ele achou: o delimitador, as planilhas e os valores que o Excel teria mudado.',
+          'Deixe "abra certo no Excel" ligado, a não ser que algo adiante recuse a marca de ordem de bytes.',
+          'Converta e baixe.',
+        ],
+        tips: [
+          'O CSV é gravado com a marca de ordem de bytes que o Excel precisa, então os acentos não estragam.',
+          'Zeros à esquerda e números longos são guardados como texto no .xlsx, então o Excel não pode reescrevê-los.',
+          'Cada planilha da pasta de trabalho vira seu próprio CSV, entregues juntas num ZIP.',
+          'O delimitador é detectado por consistência, não por contagem, então um texto cheio de vírgulas não engana.',
+          'Células que o Excel rodaria como fórmulas são contadas e informadas, não mudadas em silêncio.',
+        ],
+        faqs: [
+          { q: 'Por que meu CSV abre errado no Excel?', a: 'Quase sempre é a codificação. O Excel no Windows lê um CSV com a página de código ANSI, a não ser que o arquivo comece com uma marca UTF-8, então os acentos saem embaralhados. A opção "abra certo no Excel" adiciona essa marca: são três bytes e resolve.' },
+          { q: 'Como evito que o Excel tire os zeros à esquerda?', a: 'Converta para .xlsx em vez de entregar um CSV ao Excel. Num CSV cada valor é só texto e o Excel adivinha o que significa; num .xlsx o tipo de cada célula é registrado, então um CEP escrito como texto continua 01234. Esta ferramenta acha esses valores e os fixa como texto antes de o Excel ter chance.' },
+          { q: 'Ele converte todas as planilhas de uma pasta de trabalho?', a: 'Sim, e por padrão. Cada planilha vira seu próprio CSV e elas voltam juntas num ZIP. Converter só a primeira jogaria o resto fora sem avisar.' },
+          { q: 'Por que ele oferece ponto e vírgula?', a: 'Porque o Excel em muitas configurações europeias espera isso: onde a vírgula é o separador decimal, ela não pode separar também os campos. Se quem recebe abre um arquivo com vírgulas e vê tudo numa coluna, é por isso.' },
+          { q: 'O que é o aviso sobre células que começam com sinal de igual?', a: 'O Excel trata uma célula que começa com =, +, - ou @ como fórmula e não como texto, então uma planilha montada com dados que você não escreveu pode rodar algo ao ser aberta. As células são contadas e mostradas para você decidir; elas não são alteradas, porque mudar seus dados sem perguntar seria pior.' },
+          { q: 'Minha planilha é enviada?', a: 'Não. Ela é lida, convertida e devolvida dentro desta aba do navegador, pelo seu próprio aparelho. Você pode olhar a aba Rede do navegador enquanto ele trabalha: nada que carregue o arquivo sai daqui.' },
+        ],
+      },
+    },
     'batch-rename': {
       title: 'Renomear imagens em lote',
       blurb: 'Numere, use a data em que foram tiradas ou limpe a bagunça. Nada é enviado.',

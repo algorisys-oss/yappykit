@@ -192,6 +192,86 @@ export const en = {
   },
 
   tools: {
+    'sheet-convert': {
+      title: 'CSV to Excel, and back',
+      blurb: 'Convert either way, without Excel eating your leading zeros. Nothing is uploaded.',
+      tags: ['csv to excel','excel to csv','xlsx to csv','csv converter','convert spreadsheet','csv utf-8 excel','csv opens wrong in excel','leading zeros disappear'],
+      seoTitle: 'CSV to Excel Converter, Free and Without Uploading | YappyKit',
+      seoDescription:
+        'Convert CSV to Excel or Excel to CSV in your browser. Keeps leading zeros and long numbers intact, and writes a CSV that opens correctly in Excel. Nothing is uploaded.',
+      heroTitle: 'CSV to Excel, and back',
+      heroNote:
+        'Give it a CSV and get an .xlsx, or give it a workbook and get CSVs. Leading zeros survive, accented characters open correctly in Excel, and the file never leaves your device.',
+      ui: {
+        pickLabel: 'Choose a spreadsheet',
+        pickHint: 'CSV, TSV, XLSX or XLS. It is read here, not uploaded.',
+        reading: 'Reading…',
+        readError: 'That file could not be read as a spreadsheet.',
+        empty: 'That file appears to be empty.',
+        needFile: 'Choose a file first.',
+        willMakeCsv: '{name} has {rows} rows. It will come back as CSV.',
+        willMakeXlsx: '{name} has {rows} rows. It will come back as an Excel .xlsx file.',
+        sheetsHeading: 'Sheets',
+        sheetRows: '{n} rows',
+        sheetsNote:
+          'Every sheet becomes its own CSV, delivered together as a ZIP. A workbook with a sheet per month is the normal case, and dropping all but the first would lose the rest without saying so.',
+        delimiterLabel: 'Separate values with',
+        delimiterComma: 'Comma',
+        delimiterSemicolon: 'Semicolon',
+        delimiterTab: 'Tab',
+        delimiterNote:
+          'Excel in many European locales expects a semicolon, because the comma is the decimal separator there.',
+        excelSafeLabel: 'Make sure it opens correctly in Excel',
+        excelSafeNote:
+          'Adds the byte order mark Excel needs to read UTF-8. Without it, café opens as cafÃ© on Windows. Leave it on unless something downstream refuses the mark.',
+        fragileOne:
+          '1 value would have been changed by Excel, such as a leading zero or a long number. It will be stored as text so it survives.',
+        fragileMany:
+          '{n} values would have been changed by Excel, such as leading zeros or long numbers. They will be stored as text so they survive.',
+        formulaOne:
+          '1 cell starts with =, + or @, which Excel treats as a formula rather than text. Worth checking if this file came from somewhere you do not control.',
+        formulaMany:
+          '{n} cells start with =, + or @, which Excel treats as formulas rather than text. Worth checking if this file came from somewhere you do not control.',
+        actionCsv: 'Convert to CSV',
+        actionXlsx: 'Convert to Excel',
+        working: 'Converting…',
+        doneOne: 'Done: {size}.',
+        doneMany: 'Done: {n} files, {size} as a ZIP.',
+        download: 'Download',
+        downloadAll: 'Download all as a ZIP',
+        failed: 'That did not work.',
+      },
+      content: {
+        howItWorks: [
+          'Converting between CSV and Excel is a line of code, which is why there are a thousand converters and why most of them hand back a file that is subtly wrong. The conversion is not the hard part. What matters is the handful of things Excel does on its own, none of which are visible on the machine that did the converting.',
+          'The first is the encoding. A UTF-8 CSV without a byte order mark opens in Excel on Windows as its ANSI code page, so café becomes cafÃ© and every name with an accent in it is broken. Three bytes at the front of the file tell Excel what it is reading. This is the single most common complaint about every CSV export ever written, and it is fixed here by default.',
+          'The second is that Excel rewrites what it imports. A postcode of 01234 loses its zero and becomes the number 1234. A sixteen-digit card or order number becomes 1.23457E+15, and the original digits are gone rather than hidden. A product code of SEPT1 becomes the first of September. This is the reason a paper had to be written about gene names, and it is why converting to a real .xlsx beats renaming a CSV: in an .xlsx the type of every cell is written down, so a value stored as text stays text. Values that Excel would have changed are found and pinned before they can be, and the count is shown.',
+          'The third is not about correctness but about safety. A cell beginning with =, +, - or @ is a formula to Excel, not text, and a spreadsheet built from data somebody else supplied is a way of running their code on the machine that opens it. Those cells are counted and reported rather than silently altered, because rewriting someone’s data without asking is its own kind of wrong.',
+          'The smaller decisions follow the same rule. The delimiter is detected by which one splits every line into the same number of fields rather than by which appears most, since a file full of prose has more commas than a semicolon-separated file does semicolons. Every sheet of a workbook is converted rather than only the first. And none of it involves a server: the file is read, converted and handed back inside the browser tab.',
+        ],
+        steps: [
+          'Choose a CSV, TSV or Excel file. Which way to convert is decided by what you gave it.',
+          'Check what it found: the delimiter, the sheets, and any values Excel would have changed.',
+          'Leave "opens correctly in Excel" on unless something downstream refuses the byte order mark.',
+          'Convert and download.',
+        ],
+        tips: [
+          'A CSV is written with the byte order mark Excel needs, so accented characters are not mangled.',
+          'Leading zeros and long numbers are stored as text in the .xlsx, so Excel cannot rewrite them.',
+          'Every sheet of a workbook becomes its own CSV, delivered together as a ZIP.',
+          'The delimiter is detected by consistency, not by counting, so prose full of commas does not fool it.',
+          'Cells Excel would run as formulas are counted and reported rather than quietly changed.',
+        ],
+        faqs: [
+          { q: 'Why does my CSV open wrong in Excel?', a: 'Almost always the encoding. Excel on Windows reads a CSV as its ANSI code page unless the file begins with a UTF-8 byte order mark, so accented characters come out as mojibake. The "opens correctly in Excel" option adds that mark, which is three bytes and fixes it.' },
+          { q: 'How do I stop Excel removing leading zeros?', a: 'Convert to .xlsx rather than handing Excel a CSV. In a CSV every value is just text and Excel guesses what it means; in an .xlsx the type of each cell is recorded, so a postcode written as text stays 01234. This tool finds those values and pins them as text before Excel gets a chance.' },
+          { q: 'Can it convert every sheet in a workbook?', a: 'Yes, and it does by default. Each sheet becomes its own CSV and they come back together as a ZIP. Converting only the first sheet would throw the rest away without telling you.' },
+          { q: 'Why does it offer semicolons?', a: 'Because Excel in many European locales expects them: where the comma is the decimal separator, a comma cannot also separate fields. If your recipient opens a comma file and sees everything in one column, this is why.' },
+          { q: 'What is the warning about cells starting with an equals sign?', a: 'Excel treats a cell beginning with =, +, - or @ as a formula rather than as text, so a spreadsheet built from data you did not write can run something when it is opened. The cells are counted and shown so you can decide; they are not altered, because changing your data without asking would be worse.' },
+          { q: 'Is my spreadsheet uploaded?', a: 'No. It is read, converted and handed back inside this browser tab by your own device. You can watch your browser’s Network tab while it works: nothing carrying the file goes out.' },
+        ],
+      },
+    },
     'batch-rename': {
       title: 'Rename images in bulk',
       blurb: 'Number them, name them by the date taken, or tidy the mess. Nothing is uploaded.',

@@ -354,6 +354,31 @@ export function BatchRenamePreview() {
   );
 }
 
+export function SheetConvertPreview() {
+  return (
+    <Frame>
+      {/* a comma-separated file on the left, a grid on the right */}
+      <rect x="20" y="20" width="62" height="66" rx="5" fill={C.paper} stroke={C.border} stroke-width="2" />
+      {[28, 40, 52, 64, 76].map((y) => (
+        <rect x="27" y={y} width={y === 76 ? 30 : 48} height="5" rx="2.5" fill={C.muted} opacity="0.5" />
+      ))}
+      <g stroke={C.muted} stroke-width="2.5" stroke-linecap="round">
+        <path d="M92 47 h14" />
+        <path d="M101 41 l8 6 l-8 6" fill="none" />
+        <path d="M108 61 h-14" />
+        <path d="M99 55 l-8 6 l8 6" fill="none" />
+      </g>
+      <rect x="122" y="20" width="58" height="66" rx="5" fill={C.paper} stroke={C.accent} stroke-width="2" />
+      {[0, 1, 2, 3].map((r) => (
+        <g>
+          <rect x="128" y={27 + r * 14} width="20" height="9" rx="2" fill={r === 0 ? C.accent : C.accentSoft} />
+          <rect x="152" y={27 + r * 14} width="22" height="9" rx="2" fill={r === 0 ? C.accent : C.accentSoft} />
+        </g>
+      ))}
+    </Frame>
+  );
+}
+
 export function SpreadsheetPreview() {
   const grid = (ox: number, marks: Record<number, string>) => (
     <g transform={`translate(${ox} 24)`}>
@@ -888,6 +913,7 @@ export const TOOL_PREVIEWS: Partial<Record<ToolKey, () => JSX.Element>> = {
   'screenshot-split': ScreenshotSplitPreview,
   'color-picker': ColorPickerPreview,
   'batch-rename': BatchRenamePreview,
+  'sheet-convert': SheetConvertPreview,
   'font-coverage': FontCoveragePreview,
   'font-style': FontStylePreview,
   'image-to-pdf': ImageToPdfPreview,

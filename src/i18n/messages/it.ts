@@ -190,6 +190,86 @@ const it: Messages = {
   },
 
   tools: {
+    'sheet-convert': {
+      title: 'Da CSV a Excel, e ritorno',
+      blurb: 'Converti nei due sensi, senza che Excel si mangi gli zeri iniziali. Non viene caricato nulla.',
+      tags: ['csv in excel','excel in csv','xlsx in csv','convertire foglio di calcolo','csv utf-8 excel','il csv si apre male in excel','spariscono gli zeri iniziali'],
+      seoTitle: 'Convertitore da CSV a Excel, gratis e senza caricare nulla | YappyKit',
+      seoDescription:
+        'Converti CSV in Excel o Excel in CSV nel browser. Mantiene gli zeri iniziali e i numeri lunghi, e scrive un CSV che si apre correttamente in Excel. Non viene caricato nulla.',
+      heroTitle: 'Da CSV a Excel, e ritorno',
+      heroNote:
+        'Dai un CSV e ottieni un .xlsx, oppure dai una cartella di lavoro e ottieni dei CSV. Gli zeri iniziali sopravvivono, le lettere accentate si aprono bene in Excel e il file non lascia mai il tuo dispositivo.',
+      ui: {
+        pickLabel: 'Scegli un foglio di calcolo',
+        pickHint: 'CSV, TSV, XLSX o XLS. Viene letto qui, non caricato.',
+        reading: 'Lettura…',
+        readError: 'Non è stato possibile leggere questo file come foglio di calcolo.',
+        empty: 'Questo file sembra vuoto.',
+        needFile: 'Scegli prima un file.',
+        willMakeCsv: '{name} ha {rows} righe. Tornerà come CSV.',
+        willMakeXlsx: '{name} ha {rows} righe. Tornerà come file Excel .xlsx.',
+        sheetsHeading: 'Fogli',
+        sheetRows: '{n} righe',
+        sheetsNote:
+          'Ogni foglio diventa un CSV a sé, consegnati insieme in uno ZIP. Una cartella con un foglio al mese è il caso normale, e tenere solo il primo perderebbe gli altri senza dirlo.',
+        delimiterLabel: 'Separare i valori con',
+        delimiterComma: 'Virgola',
+        delimiterSemicolon: 'Punto e virgola',
+        delimiterTab: 'Tabulazione',
+        delimiterNote:
+          'In molte impostazioni europee Excel si aspetta il punto e virgola, perché lì la virgola è il separatore decimale.',
+        excelSafeLabel: 'Assicurare che si apra bene in Excel',
+        excelSafeNote:
+          'Aggiunge il byte order mark che serve a Excel per leggere UTF-8. Senza, café si apre come cafÃ© su Windows. Lascialo attivo, a meno che qualcosa a valle rifiuti quel segno.',
+        fragileOne:
+          'Excel avrebbe cambiato 1 valore, come uno zero iniziale o un numero lungo. Verrà salvato come testo così sopravvive.',
+        fragileMany:
+          'Excel avrebbe cambiato {n} valori, come zeri iniziali o numeri lunghi. Verranno salvati come testo così sopravvivono.',
+        formulaOne:
+          '1 cella inizia con =, + o @, che Excel tratta come formula e non come testo. Vale la pena controllare se il file arriva da una fonte che non controlli.',
+        formulaMany:
+          '{n} celle iniziano con =, + o @, che Excel tratta come formule e non come testo. Vale la pena controllare se il file arriva da una fonte che non controlli.',
+        actionCsv: 'Converti in CSV',
+        actionXlsx: 'Converti in Excel',
+        working: 'Conversione…',
+        doneOne: 'Fatto: {size}.',
+        doneMany: 'Fatto: {n} file, {size} in uno ZIP.',
+        download: 'Scarica',
+        downloadAll: 'Scarica tutto in uno ZIP',
+        failed: 'Non ha funzionato.',
+      },
+      content: {
+        howItWorks: [
+          'Convertire tra CSV ed Excel è una riga di codice, ed è per questo che esistono mille convertitori ed è per questo che quasi tutti restituiscono un file sottilmente sbagliato. La conversione non è la parte difficile. Quello che conta sono le poche cose che Excel fa per conto suo, nessuna delle quali si vede sulla macchina che ha convertito.',
+          'La prima è la codifica. Un CSV in UTF-8 senza byte order mark si apre in Excel su Windows con la sua tabella codici ANSI, così café diventa cafÃ© e ogni nome accentato è rovinato. Tre byte all’inizio del file dicono a Excel che cosa sta leggendo. È il reclamo più comune su qualunque esportazione CSV mai scritta, e qui è risolto per impostazione predefinita.',
+          'La seconda è che Excel riscrive ciò che importa. Un CAP 01234 perde lo zero e diventa il numero 1234. Un numero di carta o d’ordine da sedici cifre diventa 1,23457E+15, e le cifre originali sono perse invece che nascoste. Un codice prodotto SEPT1 diventa il primo settembre. È per questo che è stato necessario scrivere un articolo sui nomi dei geni, ed è per questo che convertire in un vero .xlsx è meglio che rinominare un CSV: in un .xlsx il tipo di ogni cella è scritto, quindi un valore salvato come testo resta testo. I valori che Excel avrebbe cambiato vengono trovati e fissati prima che possa farlo, e il loro numero viene mostrato.',
+          'La terza non riguarda la correttezza ma la sicurezza. Una cella che inizia con =, +, - o @ per Excel è una formula, non testo, e un foglio costruito con dati forniti da qualcun altro è un modo di eseguire il suo codice sulla macchina che lo apre. Quelle celle vengono contate e segnalate invece che modificate in silenzio, perché riscrivere i dati di qualcuno senza chiedere è un errore di un altro tipo.',
+          'Le decisioni minori seguono la stessa regola. Il delimitatore si riconosce da quale divide ogni riga nello stesso numero di campi, non da quale compare di più, dato che un file pieno di prosa contiene più virgole di quanti punti e virgola contenga un file separato da punto e virgola. Vengono convertiti tutti i fogli della cartella, non solo il primo. E niente di tutto questo passa da un server: il file viene letto, convertito e restituito dentro la scheda del browser.',
+        ],
+        steps: [
+          'Scegli un file CSV, TSV o Excel. Il verso della conversione lo decide quello che gli dai.',
+          'Controlla che cosa ha trovato: il delimitatore, i fogli e i valori che Excel avrebbe cambiato.',
+          'Lascia attivo "si apra bene in Excel", a meno che qualcosa a valle rifiuti il byte order mark.',
+          'Converti e scarica.',
+        ],
+        tips: [
+          'Il CSV viene scritto con il byte order mark che serve a Excel, così le lettere accentate non si rovinano.',
+          'Gli zeri iniziali e i numeri lunghi restano testo nel .xlsx, quindi Excel non può riscriverli.',
+          'Ogni foglio della cartella diventa un CSV a sé, consegnati insieme in uno ZIP.',
+          'Il delimitatore si riconosce per coerenza e non per conteggio, quindi un testo pieno di virgole non lo inganna.',
+          'Le celle che Excel eseguirebbe come formule vengono contate e segnalate, non cambiate di nascosto.',
+        ],
+        faqs: [
+          { q: 'Perché il mio CSV si apre male in Excel?', a: 'Quasi sempre per la codifica. Excel su Windows legge un CSV con la sua tabella codici ANSI a meno che il file non inizi con un byte order mark UTF-8, quindi le lettere accentate escono illeggibili. L’opzione "si apra bene in Excel" aggiunge quel segno: sono tre byte e risolve.' },
+          { q: 'Come evito che Excel tolga gli zeri iniziali?', a: 'Converti in .xlsx invece di dare un CSV a Excel. In un CSV ogni valore è solo testo ed Excel indovina che cosa significhi; in un .xlsx il tipo di ogni cella è registrato, quindi un CAP scritto come testo resta 01234. Questo strumento trova quei valori e li fissa come testo prima che Excel ne abbia l’occasione.' },
+          { q: 'Può convertire tutti i fogli di una cartella di lavoro?', a: 'Sì, e lo fa per impostazione predefinita. Ogni foglio diventa un CSV a sé e tornano insieme in uno ZIP. Convertire solo il primo butterebbe via gli altri senza dirtelo.' },
+          { q: 'Perché propone il punto e virgola?', a: 'Perché in molte impostazioni europee Excel se lo aspetta: dove la virgola è il separatore decimale, non può separare anche i campi. Se chi riceve il file apre un CSV con virgole e vede tutto in una colonna, il motivo è questo.' },
+          { q: 'Che cos’è l’avviso sulle celle che iniziano con l’uguale?', a: 'Excel tratta una cella che inizia con =, +, - o @ come formula e non come testo, quindi un foglio costruito con dati che non hai scritto tu può eseguire qualcosa all’apertura. Le celle vengono contate e mostrate perché decida tu; non vengono modificate, perché cambiare i tuoi dati senza chiedere sarebbe peggio.' },
+          { q: 'Il mio foglio di calcolo viene caricato?', a: 'No. Viene letto, convertito e restituito dentro questa scheda del browser, dal tuo stesso dispositivo. Puoi tenere d’occhio la scheda Rete del browser mentre lavora: non esce nulla che contenga il file.' },
+        ],
+      },
+    },
     'batch-rename': {
       title: 'Rinominare immagini in blocco',
       blurb: 'Numerale, usa la data dello scatto oppure metti ordine nei nomi. Non viene caricato nulla.',

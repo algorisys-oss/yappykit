@@ -23,6 +23,13 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '0.10.0',
+    date: '2026-09-06',
+    added: [
+      "Convert CSV to Excel and back. The conversion itself is a library call; the tool exists for the three ways the result is wrong on somebody else's machine, none of which are visible on the machine that did the converting. A UTF-8 CSV without a byte order mark opens in Excel on Windows as the ANSI code page, so an accented name arrives mangled: three bytes fix that and they are on by default. Excel also rewrites what it imports, turning a postcode of 01234 into 1234 and a sixteen-digit order number into 1.23457E+15 with the digits gone rather than merely hidden, so in an .xlsx those values are pinned as text before Excel can guess. The rule is deliberately narrow, because marking every cell as text would stop real numbers being numbers and break every formula downstream. Cells beginning with =, + or @ are formulas to a spreadsheet, which is how a workbook built from someone else's data runs their code on the machine that opens it; those are counted and reported rather than quietly rewritten, since editing your data uninvited is its own mistake. The delimiter is detected by which candidate splits every line into the same number of fields rather than by which appears most often, because prose beats a semicolon on a raw count. Every sheet of a workbook is converted, not just the first.",
+    ],
+  },
+  {
     version: '0.9.0',
     date: '2026-09-06',
     added: [

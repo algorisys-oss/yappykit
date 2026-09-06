@@ -28,6 +28,7 @@ export const TOOL_CAPABILITIES: Record<ToolKey, CapabilitySpec> = {
   'screenshot-split': { required: [], preferred: ['createImageBitmap'] },
   'color-picker': { required: [], preferred: ['createImageBitmap'] },
   'batch-rename': { required: [], preferred: [] },
+  'sheet-convert': { required: [], preferred: [] },
   'image-watermark': { required: [], preferred: ['createImageBitmap'] },
   'image-to-pdf': { required: [], preferred: ['createImageBitmap'] },
   'screenshot-stitch': { required: [], preferred: ['createImageBitmap', 'offscreenCanvas'] },

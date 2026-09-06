@@ -29,6 +29,16 @@ export interface ToolArticle {
 }
 
 export const ARTICLES: Partial<Record<ToolKey, ToolArticle>> = {
+  'sheet-convert': {
+    heading: 'Three bytes, a leading zero, and the spreadsheet that runs code',
+    paragraphs: [
+      'Converting a CSV to a spreadsheet is one library call in any language you like. That is exactly why the internet has a thousand converters and why most of them are subtly wrong: the call is the easy part, and everything that decides whether the output is usable happens after it, on a machine the author never sees.',
+      'Start with the encoding, because it is the one everybody hits. Excel on Windows does not assume UTF-8. Handed a CSV with no byte order mark it falls back to the system ANSI code page, and every character above ASCII is reinterpreted: café becomes cafÃ©, Müller becomes MÃ¼ller, and a customer list arrives looking corrupted. The fix is three bytes, EF BB BF, at the front of the file. It has been the fix for twenty years. It is still missing from most exports, and it is why so many teams believe "Excel cannot handle UTF-8" when what Excel cannot handle is being left to guess.',
+      'The second problem is worse, because it destroys data rather than displaying it wrongly. CSV has no types: every value is text, and Excel decides on import what each one means. A postcode of 01234 is read as the number 1234 and the zero is gone. A sixteen-digit order number exceeds what a double can hold exactly, so it becomes 1.23457E+15 and the last digits are not hidden but lost. A product code of SEPT1 becomes a date. That last one was severe enough in genetics that human gene names were officially renamed in 2020 because researchers could not stop Excel corrupting them, which is a remarkable sentence to have to write about a spreadsheet.',
+      'This is the real argument for converting to a genuine .xlsx instead of renaming a CSV and hoping. An .xlsx records the type of every cell, so a value written as text stays text no matter what it looks like. The conversion has to be deliberate about it: mark too much as text and real numbers stop being numbers, breaking every formula downstream, so the rule has to be narrow. Leading zeros, integers too long for a double, and the short codes that look like dates. Everything else is left alone.',
+      'The third is not correctness but safety. A cell beginning with =, +, - or @ is a formula, and a spreadsheet assembled from data somebody else supplied is a way to run their code on the machine that opens it. The temptation is to sanitise silently by prefixing an apostrophe. The better answer is to count them and say so, because a tool that quietly edits the contents of your data has made a decision that was not its to make. Report, and let the person who understands the data choose.',
+    ],
+  },
   'batch-rename': {
     heading: 'The two rules a bulk renamer has to get right, and usually does not',
     paragraphs: [

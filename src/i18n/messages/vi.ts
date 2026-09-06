@@ -190,6 +190,86 @@ const vi: Messages = {
   },
 
   tools: {
+    'sheet-convert': {
+      title: 'CSV sang Excel, và ngược lại',
+      blurb: 'Chuyển cả hai chiều, không để Excel nuốt mất số 0 ở đầu. Không có gì được tải lên.',
+      tags: ['csv sang excel','excel sang csv','xlsx sang csv','chuyển bảng tính','csv utf-8 excel','csv mở bị lỗi font trong excel','mất số 0 ở đầu'],
+      seoTitle: 'Chuyển CSV sang Excel, miễn phí và không cần tải lên | YappyKit',
+      seoDescription:
+        'Chuyển CSV sang Excel hoặc Excel sang CSV ngay trong trình duyệt. Giữ nguyên số 0 ở đầu và các số dài, và tạo tệp CSV mở đúng trong Excel. Không có gì được tải lên.',
+      heroTitle: 'CSV sang Excel, và ngược lại',
+      heroNote:
+        'Đưa vào một tệp CSV để nhận .xlsx, hoặc đưa vào một workbook để nhận các tệp CSV. Số 0 ở đầu vẫn còn, chữ có dấu mở đúng trong Excel, và tệp không bao giờ rời khỏi thiết bị của bạn.',
+      ui: {
+        pickLabel: 'Chọn một bảng tính',
+        pickHint: 'CSV, TSV, XLSX hoặc XLS. Được đọc tại đây, không tải lên.',
+        reading: 'Đang đọc…',
+        readError: 'Không đọc được tệp này như một bảng tính.',
+        empty: 'Tệp này có vẻ rỗng.',
+        needFile: 'Hãy chọn một tệp trước.',
+        willMakeCsv: '{name} có {rows} hàng. Sẽ trả về dạng CSV.',
+        willMakeXlsx: '{name} có {rows} hàng. Sẽ trả về dạng tệp Excel .xlsx.',
+        sheetsHeading: 'Các sheet',
+        sheetRows: '{n} hàng',
+        sheetsNote:
+          'Mỗi sheet thành một tệp CSV riêng, gửi về cùng nhau trong một tệp ZIP. Một workbook có mỗi tháng một sheet là chuyện bình thường, và chỉ lấy sheet đầu sẽ làm mất phần còn lại mà không nói gì.',
+        delimiterLabel: 'Ngăn cách các giá trị bằng',
+        delimiterComma: 'Dấu phẩy',
+        delimiterSemicolon: 'Dấu chấm phẩy',
+        delimiterTab: 'Tab',
+        delimiterNote:
+          'Excel ở nhiều vùng châu Âu mong đợi dấu chấm phẩy, vì ở đó dấu phẩy là dấu thập phân.',
+        excelSafeLabel: 'Đảm bảo mở đúng trong Excel',
+        excelSafeNote:
+          'Thêm dấu thứ tự byte mà Excel cần để đọc UTF-8. Không có nó, café mở thành cafÃ© trên Windows. Cứ để bật, trừ khi có thứ gì phía sau không chấp nhận dấu này.',
+        fragileOne:
+          'Excel sẽ làm thay đổi 1 giá trị, chẳng hạn số 0 ở đầu hoặc một số dài. Nó sẽ được lưu dạng văn bản để giữ nguyên.',
+        fragileMany:
+          'Excel sẽ làm thay đổi {n} giá trị, chẳng hạn số 0 ở đầu hoặc các số dài. Chúng sẽ được lưu dạng văn bản để giữ nguyên.',
+        formulaOne:
+          '1 ô bắt đầu bằng =, + hoặc @, thứ mà Excel coi là công thức chứ không phải văn bản. Nên kiểm tra nếu tệp đến từ nơi bạn không kiểm soát.',
+        formulaMany:
+          '{n} ô bắt đầu bằng =, + hoặc @, thứ mà Excel coi là công thức chứ không phải văn bản. Nên kiểm tra nếu tệp đến từ nơi bạn không kiểm soát.',
+        actionCsv: 'Chuyển sang CSV',
+        actionXlsx: 'Chuyển sang Excel',
+        working: 'Đang chuyển…',
+        doneOne: 'Xong: {size}.',
+        doneMany: 'Xong: {n} tệp, {size} dạng ZIP.',
+        download: 'Tải xuống',
+        downloadAll: 'Tải tất cả dạng ZIP',
+        failed: 'Cách đó không được.',
+      },
+      content: {
+        howItWorks: [
+          'Chuyển đổi giữa CSV và Excel chỉ là một dòng mã, và đó chính là lý do có cả nghìn công cụ chuyển đổi, cũng là lý do phần lớn trong số đó trả về một tệp sai một cách kín đáo. Việc chuyển đổi không phải phần khó. Điều quan trọng là vài thứ Excel tự làm, mà không thứ nào hiện ra trên chính máy đã thực hiện việc chuyển đổi.',
+          'Thứ nhất là bảng mã. Một tệp CSV mã UTF-8 không có dấu thứ tự byte sẽ được Excel trên Windows mở theo bảng mã ANSI, nên café thành cafÃ© và mọi cái tên có dấu đều hỏng. Ba byte ở đầu tệp cho Excel biết nó đang đọc gì. Đây là lời than phiền phổ biến nhất về mọi bản xuất CSV từng được viết ra, và ở đây nó được xử lý sẵn.',
+          'Thứ hai là Excel viết lại thứ nó nhập vào. Mã bưu chính 01234 mất số 0 và thành số 1234. Một số thẻ hay số đơn hàng mười sáu chữ số thành 1,23457E+15, và các chữ số gốc bị mất chứ không phải bị ẩn. Mã sản phẩm SEPT1 thành ngày 1 tháng 9. Đó là lý do người ta đã phải viết hẳn một bài báo về tên gene, và là lý do chuyển sang một tệp .xlsx thật sự thì hơn hẳn việc đổi tên một tệp CSV: trong .xlsx kiểu của từng ô được ghi rõ, nên giá trị lưu dạng văn bản vẫn là văn bản. Những giá trị mà Excel sẽ làm thay đổi được tìm ra và ghim lại trước khi nó kịp, và số lượng được hiển thị.',
+          'Thứ ba không phải chuyện đúng sai mà là chuyện an toàn. Một ô bắt đầu bằng =, +, - hoặc @ với Excel là công thức chứ không phải văn bản, và một bảng tính dựng từ dữ liệu do người khác cung cấp là một cách chạy mã của họ trên máy mở nó. Những ô đó được đếm và báo lại chứ không bị sửa lặng lẽ, bởi viết lại dữ liệu của ai đó mà không hỏi là một cái sai thuộc loại khác.',
+          'Các quyết định nhỏ hơn cũng theo quy tắc ấy. Dấu ngăn cách được nhận biết bằng cái nào chia mọi dòng thành cùng một số trường, chứ không phải cái nào xuất hiện nhiều nhất, vì một tệp đầy văn xuôi có nhiều dấu phẩy hơn số dấu chấm phẩy trong một tệp ngăn bằng chấm phẩy. Mọi sheet của workbook đều được chuyển, không chỉ sheet đầu. Và không thứ gì trong đó đi qua máy chủ: tệp được đọc, chuyển đổi và trả về ngay trong tab trình duyệt.',
+        ],
+        steps: [
+          'Chọn một tệp CSV, TSV hoặc Excel. Chiều chuyển đổi do thứ bạn đưa vào quyết định.',
+          'Xem lại những gì nó tìm thấy: dấu ngăn cách, các sheet, và những giá trị Excel sẽ làm thay đổi.',
+          'Cứ để bật "mở đúng trong Excel", trừ khi có thứ gì phía sau không nhận dấu thứ tự byte.',
+          'Chuyển đổi rồi tải về.',
+        ],
+        tips: [
+          'Tệp CSV được ghi kèm dấu thứ tự byte mà Excel cần, nên chữ có dấu không bị hỏng.',
+          'Số 0 ở đầu và các số dài được lưu dạng văn bản trong .xlsx, nên Excel không thể viết lại chúng.',
+          'Mỗi sheet trong workbook thành một tệp CSV riêng, gửi về cùng nhau trong một tệp ZIP.',
+          'Dấu ngăn cách được nhận biết bằng tính nhất quán chứ không phải đếm, nên văn bản đầy dấu phẩy không đánh lừa được.',
+          'Những ô Excel sẽ chạy như công thức được đếm và báo lại, không bị sửa lặng lẽ.',
+        ],
+        faqs: [
+          { q: 'Vì sao tệp CSV của tôi mở bị lỗi trong Excel?', a: 'Gần như luôn là do bảng mã. Excel trên Windows đọc CSV theo bảng mã ANSI trừ khi tệp bắt đầu bằng dấu UTF-8, nên chữ có dấu hiện ra lộn xộn. Tùy chọn "mở đúng trong Excel" thêm dấu đó vào: ba byte và xong.' },
+          { q: 'Làm sao ngăn Excel xóa số 0 ở đầu?', a: 'Hãy chuyển sang .xlsx thay vì đưa cho Excel một tệp CSV. Trong CSV mọi giá trị chỉ là văn bản và Excel đoán nghĩa của nó; trong .xlsx kiểu của từng ô được ghi lại, nên mã bưu chính viết dạng văn bản vẫn là 01234. Công cụ này tìm những giá trị đó và ghim chúng thành văn bản trước khi Excel kịp ra tay.' },
+          { q: 'Nó chuyển được mọi sheet trong workbook không?', a: 'Được, và mặc định là như vậy. Mỗi sheet thành một tệp CSV riêng và tất cả về cùng nhau trong một tệp ZIP. Chỉ chuyển sheet đầu là vứt bỏ phần còn lại mà không nói gì với bạn.' },
+          { q: 'Sao lại có lựa chọn dấu chấm phẩy?', a: 'Vì Excel ở nhiều vùng châu Âu mong đợi như vậy: nơi dấu phẩy là dấu thập phân thì nó không thể đồng thời ngăn cách các trường. Nếu người nhận mở tệp dùng dấu phẩy mà thấy tất cả dồn vào một cột, lý do là đây.' },
+          { q: 'Cảnh báo về các ô bắt đầu bằng dấu bằng nghĩa là gì?', a: 'Excel coi ô bắt đầu bằng =, +, - hoặc @ là công thức chứ không phải văn bản, nên một bảng tính dựng từ dữ liệu bạn không viết có thể chạy thứ gì đó khi mở. Các ô được đếm và hiển thị để bạn quyết định; chúng không bị sửa, vì thay đổi dữ liệu của bạn mà không hỏi thì còn tệ hơn.' },
+          { q: 'Bảng tính của tôi có bị tải lên không?', a: 'Không. Nó được đọc, chuyển đổi và trả về ngay trong tab trình duyệt này bằng chính thiết bị của bạn. Bạn có thể theo dõi tab Network của trình duyệt trong lúc làm: không có gì mang theo tệp đi ra ngoài.' },
+        ],
+      },
+    },
     'batch-rename': {
       title: 'Đổi tên ảnh hàng loạt',
       blurb: 'Đánh số, đặt theo ngày chụp, hoặc dọn cho gọn. Không có gì được tải lên.',

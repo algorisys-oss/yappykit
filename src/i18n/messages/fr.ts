@@ -190,6 +190,86 @@ const fr: Messages = {
   },
 
   tools: {
+    'sheet-convert': {
+      title: 'CSV vers Excel, et retour',
+      blurb: 'Convertissez dans les deux sens, sans qu’Excel avale vos zéros de tête. Rien n’est envoyé.',
+      tags: ['csv vers excel','excel vers csv','xlsx vers csv','convertir un tableur','csv utf-8 excel','csv mal ouvert dans excel','zéros de tête disparus'],
+      seoTitle: 'Convertisseur CSV vers Excel, gratuit et sans envoi | YappyKit',
+      seoDescription:
+        'Convertissez un CSV en Excel ou un Excel en CSV dans votre navigateur. Les zéros de tête et les longs nombres sont préservés, et le CSV s’ouvre correctement dans Excel. Rien n’est envoyé.',
+      heroTitle: 'CSV vers Excel, et retour',
+      heroNote:
+        'Donnez un CSV et recevez un .xlsx, ou donnez un classeur et recevez des CSV. Les zéros de tête survivent, les accents s’ouvrent correctement dans Excel, et le fichier ne quitte jamais votre appareil.',
+      ui: {
+        pickLabel: 'Choisir un tableur',
+        pickHint: 'CSV, TSV, XLSX ou XLS. Lu ici, pas envoyé.',
+        reading: 'Lecture…',
+        readError: 'Ce fichier n’a pas pu être lu comme un tableur.',
+        empty: 'Ce fichier semble vide.',
+        needFile: 'Choisissez d’abord un fichier.',
+        willMakeCsv: '{name} contient {rows} lignes. Il reviendra en CSV.',
+        willMakeXlsx: '{name} contient {rows} lignes. Il reviendra en fichier Excel .xlsx.',
+        sheetsHeading: 'Feuilles',
+        sheetRows: '{n} lignes',
+        sheetsNote:
+          'Chaque feuille devient son propre CSV, livrées ensemble dans un ZIP. Un classeur avec une feuille par mois est le cas normal, et n’en garder qu’une perdrait le reste sans le dire.',
+        delimiterLabel: 'Séparer les valeurs par',
+        delimiterComma: 'Virgule',
+        delimiterSemicolon: 'Point-virgule',
+        delimiterTab: 'Tabulation',
+        delimiterNote:
+          'Excel dans de nombreuses configurations européennes attend un point-virgule, car la virgule y est le séparateur décimal.',
+        excelSafeLabel: 'Garantir une ouverture correcte dans Excel',
+        excelSafeNote:
+          'Ajoute la marque d’ordre des octets dont Excel a besoin pour lire l’UTF-8. Sans elle, café s’ouvre en cafÃ© sous Windows. Laissez activé sauf si quelque chose en aval refuse cette marque.',
+        fragileOne:
+          'Excel aurait modifié 1 valeur, comme un zéro de tête ou un long nombre. Elle sera stockée en texte pour survivre.',
+        fragileMany:
+          'Excel aurait modifié {n} valeurs, comme des zéros de tête ou de longs nombres. Elles seront stockées en texte pour survivre.',
+        formulaOne:
+          '1 cellule commence par =, + ou @, ce qu’Excel traite comme une formule et non comme du texte. À vérifier si le fichier vient d’une source que vous ne maîtrisez pas.',
+        formulaMany:
+          '{n} cellules commencent par =, + ou @, ce qu’Excel traite comme des formules et non comme du texte. À vérifier si le fichier vient d’une source que vous ne maîtrisez pas.',
+        actionCsv: 'Convertir en CSV',
+        actionXlsx: 'Convertir en Excel',
+        working: 'Conversion…',
+        doneOne: 'Terminé : {size}.',
+        doneMany: 'Terminé : {n} fichiers, {size} en ZIP.',
+        download: 'Télécharger',
+        downloadAll: 'Tout télécharger en ZIP',
+        failed: 'Cela n’a pas fonctionné.',
+      },
+      content: {
+        howItWorks: [
+          'Convertir entre CSV et Excel tient en une ligne de code, ce qui explique qu’il existe mille convertisseurs et que la plupart rendent un fichier subtilement faux. La conversion n’est pas la partie difficile. Ce qui compte, ce sont les quelques choses qu’Excel fait de lui-même, dont aucune n’est visible sur la machine qui a converti.',
+          'D’abord l’encodage. Un CSV en UTF-8 sans marque d’ordre des octets s’ouvre dans Excel sous Windows avec la page de codes ANSI : café devient cafÃ© et tout nom accentué est cassé. Trois octets en tête du fichier disent à Excel ce qu’il lit. C’est la plainte la plus courante à propos de tout export CSV jamais écrit, et elle est réglée ici par défaut.',
+          'Ensuite, Excel réécrit ce qu’il importe. Un code postal 01234 perd son zéro et devient le nombre 1234. Un numéro de carte ou de commande à seize chiffres devient 1,23457E+15, et les chiffres d’origine sont perdus plutôt que masqués. Un code produit SEPT1 devient le premier septembre. C’est pour cela qu’un article a dû être écrit sur les noms de gènes, et pour cela que convertir en véritable .xlsx vaut mieux que renommer un CSV : dans un .xlsx le type de chaque cellule est écrit, donc une valeur stockée en texte reste du texte. Les valeurs qu’Excel aurait modifiées sont repérées et figées avant qu’il ne le puisse, et leur nombre est affiché.',
+          'La troisième n’est pas une question d’exactitude mais de sécurité. Une cellule commençant par =, +, - ou @ est une formule pour Excel, pas du texte, et un tableur construit à partir de données fournies par quelqu’un d’autre est un moyen d’exécuter son code sur la machine qui l’ouvre. Ces cellules sont comptées et signalées plutôt que modifiées en silence, car réécrire les données de quelqu’un sans demander est une faute d’un autre genre.',
+          'Les petites décisions suivent la même règle. Le délimiteur est détecté par celui qui découpe chaque ligne en un même nombre de champs, et non par le plus fréquent, car un fichier plein de prose contient plus de virgules qu’un fichier à points-virgules n’en contient. Toutes les feuilles du classeur sont converties, pas seulement la première. Et rien de tout cela ne passe par un serveur : le fichier est lu, converti et rendu dans l’onglet du navigateur.',
+        ],
+        steps: [
+          'Choisissez un fichier CSV, TSV ou Excel. Le sens de la conversion est décidé par ce que vous donnez.',
+          'Vérifiez ce qui a été trouvé : le délimiteur, les feuilles, et les valeurs qu’Excel aurait modifiées.',
+          'Laissez « ouverture correcte dans Excel » activé, sauf si quelque chose en aval refuse la marque.',
+          'Convertissez et téléchargez.',
+        ],
+        tips: [
+          'Le CSV est écrit avec la marque d’ordre des octets dont Excel a besoin : les accents ne sont pas abîmés.',
+          'Les zéros de tête et les longs nombres sont stockés en texte dans le .xlsx, Excel ne peut donc pas les réécrire.',
+          'Chaque feuille du classeur devient son propre CSV, livrées ensemble dans un ZIP.',
+          'Le délimiteur est détecté par cohérence et non par comptage : un texte plein de virgules ne le trompe pas.',
+          'Les cellules qu’Excel exécuterait comme des formules sont comptées et signalées, pas modifiées en douce.',
+        ],
+        faqs: [
+          { q: 'Pourquoi mon CSV s’ouvre-t-il mal dans Excel ?', a: 'Presque toujours à cause de l’encodage. Excel sous Windows lit un CSV avec sa page de codes ANSI sauf si le fichier commence par une marque UTF-8, et les accents ressortent en charabia. L’option « ouverture correcte dans Excel » ajoute cette marque : trois octets, et c’est réglé.' },
+          { q: 'Comment empêcher Excel de supprimer les zéros de tête ?', a: 'Convertissez en .xlsx plutôt que de donner un CSV à Excel. Dans un CSV chaque valeur n’est que du texte et Excel devine ce qu’elle signifie ; dans un .xlsx le type de chaque cellule est enregistré, donc un code postal écrit en texte reste 01234. Cet outil repère ces valeurs et les fige en texte avant qu’Excel n’ait l’occasion d’agir.' },
+          { q: 'Peut-il convertir toutes les feuilles d’un classeur ?', a: 'Oui, et il le fait par défaut. Chaque feuille devient son propre CSV et elles reviennent ensemble dans un ZIP. Ne convertir que la première jetterait le reste sans vous le dire.' },
+          { q: 'Pourquoi propose-t-il des points-virgules ?', a: 'Parce qu’Excel les attend dans de nombreuses configurations européennes : là où la virgule est le séparateur décimal, elle ne peut pas aussi séparer les champs. Si votre destinataire ouvre un fichier à virgules et voit tout dans une seule colonne, c’est pour cette raison.' },
+          { q: 'Que signifie l’avertissement sur les cellules commençant par un signe égal ?', a: 'Excel traite une cellule commençant par =, +, - ou @ comme une formule et non comme du texte : un tableur construit à partir de données que vous n’avez pas écrites peut donc exécuter quelque chose à l’ouverture. Les cellules sont comptées et affichées pour que vous décidiez ; elles ne sont pas modifiées, car changer vos données sans demander serait pire.' },
+          { q: 'Mon tableur est-il envoyé quelque part ?', a: 'Non. Il est lu, converti et rendu dans cet onglet, par votre propre appareil. Vous pouvez surveiller l’onglet Réseau de votre navigateur pendant le travail : rien qui contienne le fichier n’en sort.' },
+        ],
+      },
+    },
     'batch-rename': {
       title: 'Renommer des images en lot',
       blurb: 'Numérotez-les, nommez-les par date de prise de vue, ou nettoyez le désordre. Rien n’est envoyé.',

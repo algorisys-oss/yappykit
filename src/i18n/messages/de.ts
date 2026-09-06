@@ -190,6 +190,86 @@ const de: Messages = {
   },
 
   tools: {
+    'sheet-convert': {
+      title: 'CSV zu Excel und zurück',
+      blurb: 'In beide Richtungen umwandeln, ohne dass Excel führende Nullen frisst. Nichts wird hochgeladen.',
+      tags: ['csv in excel','excel in csv','xlsx in csv','tabelle umwandeln','csv utf-8 excel','csv öffnet falsch in excel','führende nullen verschwinden'],
+      seoTitle: 'CSV in Excel umwandeln, kostenlos und ohne Hochladen | YappyKit',
+      seoDescription:
+        'Wandeln Sie CSV in Excel oder Excel in CSV um, im Browser. Führende Nullen und lange Zahlen bleiben erhalten, und die CSV öffnet korrekt in Excel. Nichts wird hochgeladen.',
+      heroTitle: 'CSV zu Excel und zurück',
+      heroNote:
+        'Geben Sie eine CSV und bekommen Sie ein .xlsx, oder geben Sie eine Arbeitsmappe und bekommen Sie CSVs. Führende Nullen überleben, Umlaute öffnen korrekt in Excel, und die Datei verlässt Ihr Gerät nie.',
+      ui: {
+        pickLabel: 'Tabelle auswählen',
+        pickHint: 'CSV, TSV, XLSX oder XLS. Wird hier gelesen, nicht hochgeladen.',
+        reading: 'Wird gelesen…',
+        readError: 'Diese Datei ließ sich nicht als Tabelle lesen.',
+        empty: 'Diese Datei scheint leer zu sein.',
+        needFile: 'Wählen Sie zuerst eine Datei aus.',
+        willMakeCsv: '{name} hat {rows} Zeilen. Es kommt als CSV zurück.',
+        willMakeXlsx: '{name} hat {rows} Zeilen. Es kommt als Excel-Datei .xlsx zurück.',
+        sheetsHeading: 'Blätter',
+        sheetRows: '{n} Zeilen',
+        sheetsNote:
+          'Jedes Blatt wird zu einer eigenen CSV, gemeinsam als ZIP geliefert. Eine Arbeitsmappe mit einem Blatt pro Monat ist der Normalfall, und nur das erste zu nehmen würde den Rest verlieren, ohne es zu sagen.',
+        delimiterLabel: 'Werte trennen mit',
+        delimiterComma: 'Komma',
+        delimiterSemicolon: 'Semikolon',
+        delimiterTab: 'Tabulator',
+        delimiterNote:
+          'Excel erwartet in vielen europäischen Einstellungen ein Semikolon, weil dort das Komma das Dezimaltrennzeichen ist.',
+        excelSafeLabel: 'Sicherstellen, dass es in Excel richtig öffnet',
+        excelSafeNote:
+          'Fügt das Byte Order Mark hinzu, das Excel zum Lesen von UTF-8 braucht. Ohne es öffnet café als cafÃ© unter Windows. Eingeschaltet lassen, außer etwas weiter hinten lehnt die Marke ab.',
+        fragileOne:
+          'Excel hätte 1 Wert verändert, etwa eine führende Null oder eine lange Zahl. Er wird als Text gespeichert und überlebt damit.',
+        fragileMany:
+          'Excel hätte {n} Werte verändert, etwa führende Nullen oder lange Zahlen. Sie werden als Text gespeichert und überleben damit.',
+        formulaOne:
+          '1 Zelle beginnt mit =, + oder @, was Excel als Formel und nicht als Text behandelt. Prüfenswert, wenn die Datei aus einer Quelle stammt, die Sie nicht kontrollieren.',
+        formulaMany:
+          '{n} Zellen beginnen mit =, + oder @, was Excel als Formeln und nicht als Text behandelt. Prüfenswert, wenn die Datei aus einer Quelle stammt, die Sie nicht kontrollieren.',
+        actionCsv: 'In CSV umwandeln',
+        actionXlsx: 'In Excel umwandeln',
+        working: 'Wird umgewandelt…',
+        doneOne: 'Fertig: {size}.',
+        doneMany: 'Fertig: {n} Dateien, {size} als ZIP.',
+        download: 'Herunterladen',
+        downloadAll: 'Alle als ZIP herunterladen',
+        failed: 'Das hat nicht geklappt.',
+      },
+      content: {
+        howItWorks: [
+          'CSV in Excel umzuwandeln ist eine Zeile Code, weshalb es tausend Konverter gibt und die meisten eine Datei zurückgeben, die auf subtile Weise falsch ist. Die Umwandlung ist nicht der schwierige Teil. Worauf es ankommt, sind die wenigen Dinge, die Excel von sich aus tut, und keines davon ist auf der Maschine sichtbar, die umgewandelt hat.',
+          'Zuerst die Kodierung. Eine UTF-8-CSV ohne Byte Order Mark öffnet Excel unter Windows in seiner ANSI-Codepage, also wird aus café ein cafÃ© und jeder Name mit Akzent ist kaputt. Drei Bytes am Anfang der Datei sagen Excel, was es liest. Das ist die häufigste Beschwerde über jeden CSV-Export, der je geschrieben wurde, und sie ist hier standardmäßig behoben.',
+          'Zweitens schreibt Excel um, was es importiert. Eine Postleitzahl 01234 verliert ihre Null und wird zur Zahl 1234. Eine sechzehnstellige Karten- oder Bestellnummer wird zu 1,23457E+15, und die ursprünglichen Ziffern sind weg statt verborgen. Ein Produktcode SEPT1 wird zum ersten September. Deshalb musste ein Aufsatz über Gennamen geschrieben werden, und deshalb ist die Umwandlung in ein echtes .xlsx besser als eine umbenannte CSV: in einem .xlsx steht der Typ jeder Zelle geschrieben, ein als Text gespeicherter Wert bleibt also Text. Werte, die Excel geändert hätte, werden gefunden und festgehalten, bevor es dazu kommt, und ihre Anzahl wird angezeigt.',
+          'Das Dritte ist keine Frage der Richtigkeit, sondern der Sicherheit. Eine Zelle, die mit =, +, - oder @ beginnt, ist für Excel eine Formel und kein Text, und eine aus fremden Daten gebaute Tabelle ist ein Weg, deren Code auf dem Rechner auszuführen, der sie öffnet. Diese Zellen werden gezählt und gemeldet statt still verändert, denn fremde Daten ungefragt umzuschreiben ist ein Fehler eigener Art.',
+          'Die kleineren Entscheidungen folgen derselben Regel. Das Trennzeichen wird danach erkannt, welches jede Zeile in gleich viele Felder teilt, nicht danach, welches am häufigsten vorkommt: eine Datei voller Fließtext enthält mehr Kommas als eine semikolongetrennte Datei Semikolons. Alle Blätter einer Arbeitsmappe werden umgewandelt, nicht nur das erste. Und nichts davon läuft über einen Server: die Datei wird im Browser-Tab gelesen, umgewandelt und zurückgegeben.',
+        ],
+        steps: [
+          'Wählen Sie eine CSV-, TSV- oder Excel-Datei. Die Richtung ergibt sich aus dem, was Sie geben.',
+          'Prüfen Sie das Gefundene: das Trennzeichen, die Blätter und die Werte, die Excel geändert hätte.',
+          'Lassen Sie "richtig in Excel öffnen" an, außer etwas weiter hinten lehnt das Byte Order Mark ab.',
+          'Umwandeln und herunterladen.',
+        ],
+        tips: [
+          'Die CSV wird mit dem Byte Order Mark geschrieben, das Excel braucht, Umlaute werden also nicht verstümmelt.',
+          'Führende Nullen und lange Zahlen stehen im .xlsx als Text, Excel kann sie also nicht umschreiben.',
+          'Jedes Blatt der Arbeitsmappe wird zu einer eigenen CSV, gemeinsam als ZIP geliefert.',
+          'Das Trennzeichen wird über Konsistenz erkannt, nicht über Häufigkeit, ein kommareicher Text täuscht es also nicht.',
+          'Zellen, die Excel als Formeln ausführen würde, werden gezählt und gemeldet, nicht heimlich geändert.',
+        ],
+        faqs: [
+          { q: 'Warum öffnet meine CSV in Excel falsch?', a: 'Fast immer die Kodierung. Excel unter Windows liest eine CSV in seiner ANSI-Codepage, sofern die Datei nicht mit einem UTF-8-Byte-Order-Mark beginnt, also kommen Umlaute als Zeichensalat heraus. Die Option "richtig in Excel öffnen" fügt diese Marke hinzu: drei Bytes, und es ist behoben.' },
+          { q: 'Wie verhindere ich, dass Excel führende Nullen entfernt?', a: 'Wandeln Sie in .xlsx um, statt Excel eine CSV zu geben. In einer CSV ist jeder Wert nur Text und Excel rät, was er bedeutet; in einem .xlsx ist der Typ jeder Zelle festgehalten, eine als Text geschriebene Postleitzahl bleibt also 01234. Dieses Werkzeug findet solche Werte und hält sie als Text fest, bevor Excel die Gelegenheit bekommt.' },
+          { q: 'Kann es alle Blätter einer Arbeitsmappe umwandeln?', a: 'Ja, und standardmäßig tut es das. Jedes Blatt wird zu einer eigenen CSV, und sie kommen gemeinsam als ZIP zurück. Nur das erste umzuwandeln würde den Rest wegwerfen, ohne es zu sagen.' },
+          { q: 'Warum bietet es Semikolons an?', a: 'Weil Excel sie in vielen europäischen Einstellungen erwartet: wo das Komma das Dezimaltrennzeichen ist, kann es nicht auch die Felder trennen. Wenn Ihr Empfänger eine Komma-Datei öffnet und alles in einer Spalte sieht, ist das der Grund.' },
+          { q: 'Was bedeutet die Warnung zu Zellen, die mit einem Gleichheitszeichen beginnen?', a: 'Excel behandelt eine Zelle, die mit =, +, - oder @ beginnt, als Formel und nicht als Text, eine aus fremden Daten gebaute Tabelle kann also beim Öffnen etwas ausführen. Die Zellen werden gezählt und angezeigt, damit Sie entscheiden; sie werden nicht verändert, denn Ihre Daten ungefragt zu ändern wäre schlimmer.' },
+          { q: 'Wird meine Tabelle hochgeladen?', a: 'Nein. Sie wird in diesem Browser-Tab von Ihrem eigenen Gerät gelesen, umgewandelt und zurückgegeben. Sie können dabei den Netzwerk-Tab Ihres Browsers beobachten: Es geht nichts hinaus, was die Datei enthält.' },
+        ],
+      },
+    },
     'batch-rename': {
       title: 'Bilder stapelweise umbenennen',
       blurb: 'Durchnummerieren, nach Aufnahmedatum benennen oder das Durcheinander aufräumen. Nichts wird hochgeladen.',

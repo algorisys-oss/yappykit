@@ -190,6 +190,86 @@ const tr: Messages = {
   },
 
   tools: {
+    'sheet-convert': {
+      title: 'CSV’den Excel’e ve geri',
+      blurb: 'İki yönde de dönüştürün, Excel baştaki sıfırları yemeden. Hiçbir şey yüklenmez.',
+      tags: ['csv excel dönüştürme','excel csv','xlsx csv','tablo dönüştürme','csv utf-8 excel','csv excel’de bozuk açılıyor','baştaki sıfırlar kayboluyor'],
+      seoTitle: 'CSV’den Excel’e dönüştürücü, ücretsiz ve yüklemeden | YappyKit',
+      seoDescription:
+        'CSV’yi Excel’e ya da Excel’i CSV’ye tarayıcınızda dönüştürün. Baştaki sıfırlar ve uzun sayılar korunur, CSV Excel’de düzgün açılır. Hiçbir şey yüklenmez.',
+      heroTitle: 'CSV’den Excel’e ve geri',
+      heroNote:
+        'Bir CSV verin, .xlsx alın; ya da bir çalışma kitabı verin, CSV’ler alın. Baştaki sıfırlar hayatta kalır, Türkçe karakterler Excel’de düzgün açılır ve dosya cihazınızdan hiç çıkmaz.',
+      ui: {
+        pickLabel: 'Bir tablo seçin',
+        pickHint: 'CSV, TSV, XLSX ya da XLS. Burada okunur, yüklenmez.',
+        reading: 'Okunuyor…',
+        readError: 'Bu dosya tablo olarak okunamadı.',
+        empty: 'Bu dosya boş görünüyor.',
+        needFile: 'Önce bir dosya seçin.',
+        willMakeCsv: '{name} içinde {rows} satır var. CSV olarak dönecek.',
+        willMakeXlsx: '{name} içinde {rows} satır var. Excel .xlsx dosyası olarak dönecek.',
+        sheetsHeading: 'Sayfalar',
+        sheetRows: '{n} satır',
+        sheetsNote:
+          'Her sayfa kendi CSV’si olur ve hepsi birlikte ZIP olarak gelir. Ayda bir sayfası olan bir çalışma kitabı olağan durumdur; yalnızca ilkini almak geri kalanını hiçbir şey demeden kaybettirir.',
+        delimiterLabel: 'Değerleri ayır',
+        delimiterComma: 'Virgül',
+        delimiterSemicolon: 'Noktalı virgül',
+        delimiterTab: 'Sekme',
+        delimiterNote:
+          'Excel birçok Avrupa yerel ayarında noktalı virgül bekler, çünkü orada ondalık ayırıcı virgüldür.',
+        excelSafeLabel: 'Excel’de düzgün açılmasını garanti et',
+        excelSafeNote:
+          'Excel’in UTF-8 okuyabilmesi için gereken bayt sırası işaretini ekler. Onsuz Windows’ta café, cafÃ© olarak açılır. Sonraki bir sistem bu işareti reddetmiyorsa açık bırakın.',
+        fragileOne:
+          'Excel 1 değeri değiştirecekti; baştaki bir sıfır ya da uzun bir sayı gibi. Metin olarak saklanacak, böylece korunur.',
+        fragileMany:
+          'Excel {n} değeri değiştirecekti; baştaki sıfırlar ya da uzun sayılar gibi. Metin olarak saklanacaklar, böylece korunurlar.',
+        formulaOne:
+          '1 hücre =, + ya da @ ile başlıyor; Excel bunu metin değil formül sayar. Dosya denetiminizde olmayan bir yerden geldiyse bakmaya değer.',
+        formulaMany:
+          '{n} hücre =, + ya da @ ile başlıyor; Excel bunları metin değil formül sayar. Dosya denetiminizde olmayan bir yerden geldiyse bakmaya değer.',
+        actionCsv: 'CSV’ye dönüştür',
+        actionXlsx: 'Excel’e dönüştür',
+        working: 'Dönüştürülüyor…',
+        doneOne: 'Tamam: {size}.',
+        doneMany: 'Tamam: {n} dosya, ZIP olarak {size}.',
+        download: 'İndir',
+        downloadAll: 'Hepsini ZIP olarak indir',
+        failed: 'Bu işe yaramadı.',
+      },
+      content: {
+        howItWorks: [
+          'CSV ile Excel arasında dönüştürmek tek satır koddur; bin tane dönüştürücü olmasının ve çoğunun ince biçimde yanlış bir dosya vermesinin sebebi de budur. Zor kısım dönüştürme değil. Önemli olan, Excel’in kendi başına yaptığı birkaç şeydir ve hiçbiri dönüştürmeyi yapan makinede görünmez.',
+          'İlki kodlamadır. Bayt sırası işareti olmayan UTF-8 bir CSV’yi Windows’taki Excel kendi ANSI kod sayfasıyla açar; café, cafÃ© olur ve aksanlı her isim bozulur. Dosyanın başındaki üç bayt Excel’e ne okuduğunu söyler. Bu, yazılmış her CSV dışa aktarımı hakkındaki en yaygın şikâyettir ve burada varsayılan olarak çözülmüştür.',
+          'İkincisi, Excel içe aktardığını yeniden yazar. 01234 posta kodu sıfırını kaybeder ve 1234 sayısı olur. On altı haneli bir kart ya da sipariş numarası 1,23457E+15 olur ve özgün haneler gizlenmez, kaybolur. SEPT1 ürün kodu 1 Eylül olur. Gen adları üzerine bir makale yazılmak zorunda kalınmasının sebebi budur ve gerçek bir .xlsx’e dönüştürmenin bir CSV’yi yeniden adlandırmaktan iyi olmasının sebebi de budur: .xlsx’te her hücrenin türü yazılıdır, dolayısıyla metin olarak saklanan bir değer metin kalır. Excel’in değiştireceği değerler, o fırsatı bulamadan bulunur ve sabitlenir; sayıları da gösterilir.',
+          'Üçüncüsü doğrulukla değil güvenlikle ilgilidir. =, +, - ya da @ ile başlayan bir hücre Excel için metin değil formüldür ve başkasının verdiği veriden kurulmuş bir tablo, onun kodunu açan makinede çalıştırmanın bir yoludur. Bu hücreler sessizce değiştirilmek yerine sayılır ve bildirilir, çünkü birinin verisini sormadan yeniden yazmak başka türden bir hatadır.',
+          'Küçük kararlar da aynı kuralı izler. Ayırıcı, her satırı aynı sayıda alana bölen hangisiyse ona göre belirlenir; en çok görünene göre değil, çünkü düz yazı dolu bir dosyada, noktalı virgülle ayrılmış bir dosyadaki noktalı virgülden çok virgül vardır. Çalışma kitabının yalnızca ilk sayfası değil hepsi dönüştürülür. Ve bunların hiçbiri bir sunucudan geçmez: dosya tarayıcı sekmesinin içinde okunur, dönüştürülür ve geri verilir.',
+        ],
+        steps: [
+          'Bir CSV, TSV ya da Excel dosyası seçin. Dönüştürmenin yönünü verdiğiniz şey belirler.',
+          'Bulduklarını gözden geçirin: ayırıcı, sayfalar ve Excel’in değiştireceği değerler.',
+          'Sonraki bir sistem bayt sırası işaretini reddetmiyorsa "Excel’de düzgün açılsın" açık kalsın.',
+          'Dönüştürün ve indirin.',
+        ],
+        tips: [
+          'CSV, Excel’in ihtiyaç duyduğu bayt sırası işaretiyle yazılır, böylece aksanlı harfler bozulmaz.',
+          'Baştaki sıfırlar ve uzun sayılar .xlsx içinde metin olarak saklanır, böylece Excel onları yeniden yazamaz.',
+          'Çalışma kitabındaki her sayfa kendi CSV’si olur ve hepsi birlikte ZIP olarak gelir.',
+          'Ayırıcı sayarak değil tutarlılıkla belirlenir, dolayısıyla virgül dolu bir metin onu yanıltmaz.',
+          'Excel’in formül olarak çalıştıracağı hücreler sayılır ve bildirilir, sessizce değiştirilmez.',
+        ],
+        faqs: [
+          { q: 'CSV dosyam Excel’de neden bozuk açılıyor?', a: 'Neredeyse her zaman kodlama yüzünden. Windows’taki Excel, dosya UTF-8 bayt sırası işaretiyle başlamıyorsa CSV’yi ANSI kod sayfasıyla okur ve aksanlı harfler karışık çıkar. "Excel’de düzgün açılsın" seçeneği o işareti ekler: üç bayt ve sorun biter.' },
+          { q: 'Excel’in baştaki sıfırları silmesini nasıl engellerim?', a: 'Excel’e CSV vermek yerine .xlsx’e dönüştürün. CSV’de her değer yalnızca metindir ve anlamını Excel tahmin eder; .xlsx’te her hücrenin türü kayıtlıdır, dolayısıyla metin olarak yazılan posta kodu 01234 kalır. Bu araç o değerleri bulur ve Excel fırsat bulamadan metin olarak sabitler.' },
+          { q: 'Bir çalışma kitabının tüm sayfalarını dönüştürebilir mi?', a: 'Evet, hem de varsayılan olarak. Her sayfa kendi CSV’si olur ve hepsi birlikte ZIP olarak döner. Yalnızca ilkini dönüştürmek geri kalanını size söylemeden atmak olurdu.' },
+          { q: 'Neden noktalı virgül sunuyor?', a: 'Çünkü Excel birçok Avrupa yerel ayarında onu bekler: ondalık ayırıcının virgül olduğu yerde virgül aynı zamanda alanları ayıramaz. Karşı taraf virgüllü bir dosyayı açıp her şeyi tek sütunda görüyorsa sebebi budur.' },
+          { q: 'Eşittir işaretiyle başlayan hücrelerle ilgili uyarı nedir?', a: 'Excel =, +, - ya da @ ile başlayan bir hücreyi metin değil formül sayar; dolayısıyla sizin yazmadığınız veriden kurulmuş bir tablo açıldığında bir şey çalıştırabilir. Karar sizin olsun diye hücreler sayılıp gösterilir; değiştirilmezler, çünkü verinizi sormadan değiştirmek daha kötü olurdu.' },
+          { q: 'Tablom yükleniyor mu?', a: 'Hayır. Bu tarayıcı sekmesinin içinde, kendi cihazınız tarafından okunur, dönüştürülür ve geri verilir. Çalışırken tarayıcınızın Ağ sekmesini izleyebilirsiniz: dosyayı taşıyan hiçbir şey dışarı çıkmaz.' },
+        ],
+      },
+    },
     'batch-rename': {
       title: 'Resimleri toplu yeniden adlandırma',
       blurb: 'Numaralayın, çekim tarihine göre adlandırın ya da dağınıklığı toplayın. Hiçbir şey yüklenmez.',

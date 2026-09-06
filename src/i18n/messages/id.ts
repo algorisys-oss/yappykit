@@ -190,6 +190,86 @@ const id: Messages = {
   },
 
   tools: {
+    'sheet-convert': {
+      title: 'CSV ke Excel, dan sebaliknya',
+      blurb: 'Konversi dua arah, tanpa Excel memakan nol di depan. Tidak ada yang diunggah.',
+      tags: ['csv ke excel','excel ke csv','xlsx ke csv','konversi spreadsheet','csv utf-8 excel','csv terbuka kacau di excel','nol di depan hilang'],
+      seoTitle: 'Konverter CSV ke Excel, gratis dan tanpa mengunggah | YappyKit',
+      seoDescription:
+        'Konversi CSV ke Excel atau Excel ke CSV di browser Anda. Nol di depan dan angka panjang tetap utuh, dan CSV-nya terbuka dengan benar di Excel. Tidak ada yang diunggah.',
+      heroTitle: 'CSV ke Excel, dan sebaliknya',
+      heroNote:
+        'Berikan CSV dan dapatkan .xlsx, atau berikan buku kerja dan dapatkan CSV. Nol di depan selamat, huruf beraksen terbuka benar di Excel, dan berkasnya tidak pernah meninggalkan perangkat Anda.',
+      ui: {
+        pickLabel: 'Pilih sebuah spreadsheet',
+        pickHint: 'CSV, TSV, XLSX, atau XLS. Dibaca di sini, bukan diunggah.',
+        reading: 'Membaca…',
+        readError: 'Berkas itu tidak bisa dibaca sebagai spreadsheet.',
+        empty: 'Berkas itu tampaknya kosong.',
+        needFile: 'Pilih berkas dulu.',
+        willMakeCsv: '{name} punya {rows} baris. Akan kembali sebagai CSV.',
+        willMakeXlsx: '{name} punya {rows} baris. Akan kembali sebagai berkas Excel .xlsx.',
+        sheetsHeading: 'Lembar',
+        sheetRows: '{n} baris',
+        sheetsNote:
+          'Tiap lembar menjadi CSV-nya sendiri, dikirim bersama dalam satu ZIP. Buku kerja dengan satu lembar per bulan itu hal biasa, dan mengambil yang pertama saja akan menghilangkan sisanya tanpa memberi tahu.',
+        delimiterLabel: 'Pisahkan nilai dengan',
+        delimiterComma: 'Koma',
+        delimiterSemicolon: 'Titik koma',
+        delimiterTab: 'Tab',
+        delimiterNote:
+          'Excel di banyak setelan Eropa mengharapkan titik koma, karena di sana koma adalah pemisah desimal.',
+        excelSafeLabel: 'Pastikan terbuka dengan benar di Excel',
+        excelSafeNote:
+          'Menambahkan tanda urutan byte yang Excel butuhkan untuk membaca UTF-8. Tanpa itu, café terbuka sebagai cafÃ© di Windows. Biarkan menyala kecuali ada sesuatu di hilir yang menolak tanda tersebut.',
+        fragileOne:
+          'Excel akan mengubah 1 nilai, misalnya nol di depan atau angka panjang. Nilai itu akan disimpan sebagai teks supaya selamat.',
+        fragileMany:
+          'Excel akan mengubah {n} nilai, misalnya nol di depan atau angka panjang. Nilai-nilai itu akan disimpan sebagai teks supaya selamat.',
+        formulaOne:
+          '1 sel diawali =, + atau @, yang diperlakukan Excel sebagai rumus, bukan teks. Layak diperiksa kalau berkasnya datang dari tempat yang tidak Anda kendalikan.',
+        formulaMany:
+          '{n} sel diawali =, + atau @, yang diperlakukan Excel sebagai rumus, bukan teks. Layak diperiksa kalau berkasnya datang dari tempat yang tidak Anda kendalikan.',
+        actionCsv: 'Konversi ke CSV',
+        actionXlsx: 'Konversi ke Excel',
+        working: 'Mengonversi…',
+        doneOne: 'Selesai: {size}.',
+        doneMany: 'Selesai: {n} berkas, {size} sebagai ZIP.',
+        download: 'Unduh',
+        downloadAll: 'Unduh semua sebagai ZIP',
+        failed: 'Cara itu tidak berhasil.',
+      },
+      content: {
+        howItWorks: [
+          'Mengonversi antara CSV dan Excel itu satu baris kode, dan itulah sebabnya ada seribu konverter dan sebabnya sebagian besar mengembalikan berkas yang salah secara halus. Konversinya bukan bagian yang sulit. Yang penting adalah segelintir hal yang Excel lakukan sendiri, dan tak satu pun terlihat di mesin yang melakukan konversi.',
+          'Yang pertama adalah pengodean. Berkas CSV berformat UTF-8 tanpa tanda urutan byte akan dibuka Excel di Windows dengan halaman kode ANSI-nya, jadi café menjadi cafÃ© dan setiap nama beraksen jadi rusak. Tiga byte di awal berkas memberi tahu Excel apa yang sedang dibacanya. Ini keluhan paling umum tentang setiap ekspor CSV yang pernah ditulis, dan di sini sudah beres secara bawaan.',
+          'Yang kedua, Excel menulis ulang apa yang diimpornya. Kode pos 01234 kehilangan nolnya dan menjadi angka 1234. Nomor kartu atau pesanan enam belas digit menjadi 1,23457E+15, dan digit aslinya hilang, bukan tersembunyi. Kode produk SEPT1 menjadi 1 September. Itulah sebabnya sebuah makalah harus ditulis soal nama gen, dan itu pula sebabnya mengonversi ke .xlsx sungguhan lebih baik daripada mengganti nama sebuah CSV: di .xlsx tipe tiap sel tertulis, jadi nilai yang disimpan sebagai teks tetap teks. Nilai yang akan diubah Excel ditemukan dan dikunci sebelum Excel sempat, dan jumlahnya ditampilkan.',
+          'Yang ketiga bukan soal ketepatan melainkan keamanan. Sel yang diawali =, +, - atau @ bagi Excel adalah rumus, bukan teks, dan spreadsheet yang disusun dari data yang diberikan orang lain adalah cara menjalankan kode mereka di mesin yang membukanya. Sel-sel itu dihitung dan dilaporkan alih-alih diubah diam-diam, karena menulis ulang data seseorang tanpa bertanya adalah kesalahan jenis lain.',
+          'Keputusan yang lebih kecil mengikuti aturan yang sama. Pemisah dikenali dari mana yang membelah setiap baris menjadi jumlah kolom yang sama, bukan dari mana yang paling sering muncul, sebab berkas yang penuh prosa memuat lebih banyak koma daripada titik koma dalam berkas berpemisah titik koma. Semua lembar buku kerja dikonversi, bukan yang pertama saja. Dan tidak satu pun dari ini melewati server: berkasnya dibaca, dikonversi, dan dikembalikan di dalam tab browser.',
+        ],
+        steps: [
+          'Pilih berkas CSV, TSV, atau Excel. Arah konversinya ditentukan oleh apa yang Anda berikan.',
+          'Periksa yang ditemukannya: pemisah, lembar-lembarnya, dan nilai yang akan diubah Excel.',
+          'Biarkan "terbuka dengan benar di Excel" menyala kecuali ada sesuatu di hilir yang menolak tanda urutan byte.',
+          'Konversi lalu unduh.',
+        ],
+        tips: [
+          'CSV ditulis dengan tanda urutan byte yang Excel butuhkan, jadi huruf beraksen tidak rusak.',
+          'Nol di depan dan angka panjang disimpan sebagai teks di .xlsx, jadi Excel tidak bisa menulis ulangnya.',
+          'Tiap lembar buku kerja menjadi CSV-nya sendiri, dikirim bersama dalam satu ZIP.',
+          'Pemisah dikenali lewat konsistensi, bukan hitungan, jadi teks penuh koma tidak mengecohnya.',
+          'Sel yang akan dijalankan Excel sebagai rumus dihitung dan dilaporkan, bukan diubah diam-diam.',
+        ],
+        faqs: [
+          { q: 'Kenapa CSV saya terbuka kacau di Excel?', a: 'Hampir selalu soal pengodean. Excel di Windows membaca CSV dengan halaman kode ANSI kecuali berkasnya diawali tanda UTF-8, jadi huruf beraksen keluar berantakan. Opsi "terbuka dengan benar di Excel" menambahkan tanda itu: tiga byte dan beres.' },
+          { q: 'Bagaimana mencegah Excel menghapus nol di depan?', a: 'Konversikan ke .xlsx alih-alih menyerahkan CSV ke Excel. Di CSV setiap nilai hanyalah teks dan Excel menebak artinya; di .xlsx tipe tiap sel dicatat, jadi kode pos yang ditulis sebagai teks tetap 01234. Alat ini menemukan nilai seperti itu dan menguncinya sebagai teks sebelum Excel sempat.' },
+          { q: 'Bisakah mengonversi semua lembar dalam buku kerja?', a: 'Bisa, dan itu bawaannya. Tiap lembar menjadi CSV-nya sendiri dan semuanya kembali bersama dalam satu ZIP. Mengonversi lembar pertama saja berarti membuang sisanya tanpa memberi tahu Anda.' },
+          { q: 'Kenapa ada pilihan titik koma?', a: 'Karena Excel di banyak setelan Eropa mengharapkannya: di tempat koma menjadi pemisah desimal, koma tidak bisa sekaligus memisahkan kolom. Kalau penerima membuka berkas berkoma dan melihat semuanya dalam satu kolom, inilah sebabnya.' },
+          { q: 'Apa maksud peringatan tentang sel yang diawali tanda sama dengan?', a: 'Excel memperlakukan sel yang diawali =, +, - atau @ sebagai rumus, bukan teks, jadi spreadsheet yang disusun dari data yang bukan Anda tulis bisa menjalankan sesuatu saat dibuka. Sel-selnya dihitung dan ditampilkan supaya Anda yang memutuskan; sel itu tidak diubah, karena mengubah data Anda tanpa bertanya justru lebih buruk.' },
+          { q: 'Apakah spreadsheet saya diunggah?', a: 'Tidak. Berkas itu dibaca, dikonversi, dan dikembalikan di dalam tab browser ini oleh perangkat Anda sendiri. Anda bisa mengawasi tab Network di browser sambil ia bekerja: tidak ada yang membawa berkas itu keluar.' },
+        ],
+      },
+    },
     'batch-rename': {
       title: 'Ganti nama gambar massal',
       blurb: 'Beri nomor, pakai tanggal pengambilan, atau rapikan yang berantakan. Tidak ada yang diunggah.',

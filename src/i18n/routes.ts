@@ -32,6 +32,7 @@ export const TOOL_KEYS = [
   'screenshot-split',
   'color-picker',
   'batch-rename',
+  'sheet-convert',
   'font-coverage',
   'font-style',
   'image-to-pdf',
@@ -322,6 +323,21 @@ export const ROUTES: Record<RouteKey, RouteDef> = {
       tr: 'toplu-resim-yeniden-adlandirma',
       vi: 'doi-ten-hang-loat-anh',
       it: 'rinominare-immagini-in-blocco',
+    },
+  },
+  'sheet-convert': {
+    localized: true,
+    slugs: {
+      en: 'csv-to-excel-converter',
+      es: 'convertir-csv-a-excel',
+      'pt-BR': 'converter-csv-para-excel',
+      id: 'konversi-csv-ke-excel',
+      fr: 'convertir-csv-en-excel',
+      de: 'csv-in-excel-umwandeln',
+      ru: 'konvertirovat-csv-v-excel',
+      tr: 'csv-excel-donusturucu',
+      vi: 'chuyen-csv-sang-excel',
+      it: 'convertire-csv-in-excel',
     },
   },
   'font-coverage': {
@@ -714,6 +730,7 @@ const RELATED: Record<ToolKey, readonly ToolKey[]> = {
   'screenshot-split': ['screenshot-stitch', 'image-crop', 'image-compress'],
   'color-picker': ['image-convert', 'font-style', 'image-crop'],
   'batch-rename': ['metadata-remove', 'image-compress', 'image-convert'],
+  'sheet-convert': ['sheet-clean', 'spreadsheet-compare', 'file-inspect'],
   'font-coverage': ['font-style', 'random-word', 'keyboard-test'],
   'font-style': ['color-picker', 'font-coverage', 'random-word'],
   'image-to-pdf': ['pdf-to-images', 'screenshot-stitch', 'pdf-merge'],
@@ -725,7 +742,7 @@ const RELATED: Record<ToolKey, readonly ToolKey[]> = {
   'pdf-split': ['pdf-to-images', 'pdf-merge', 'pdf-compress'],
   'pdf-to-images': ['image-to-pdf', 'pdf-split', 'image-convert'],
   redact: ['metadata-remove', 'sheet-clean', 'file-inspect'],
-  'sheet-clean': ['spreadsheet-compare', 'redact', 'file-inspect'],
+  'sheet-clean': ['sheet-convert', 'spreadsheet-compare', 'redact'],
 };
 
 /**
@@ -752,6 +769,7 @@ export const TOOL_CATEGORY: Record<ToolKey, Category> = {
   'screenshot-split': 'image',
   'color-picker': 'image',
   'batch-rename': 'image',
+  'sheet-convert': 'data',
   'image-to-pdf': 'pdf',
   'pdf-compress': 'pdf',
   'pdf-merge': 'pdf',
