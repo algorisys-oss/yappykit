@@ -16,7 +16,22 @@
  * entry in uno.config.ts.
  */
 import { getLocale, type Locale, type LocaleCode } from '../i18n/locales';
-import { TOOL_KEYS, pathFor, relatedTools, CATEGORIES, type Category, type RouteKey, type ToolKey } from '../i18n/routes';
+import {
+  BUILD_GUIDE_TOOLS,
+  TOOL_KEYS,
+  pathFor,
+  relatedTools,
+  slugFor,
+  CATEGORIES,
+  type BuildGuideTool,
+  type Category,
+  type RouteKey,
+  type ToolKey,
+} from '../i18n/routes';
+import { SUPPORT_EMAIL } from '../content/contact';
+import { EXPLAINER_INTRO, EXPLAINER_SECTIONS, EXPLAINER_UPDATED } from '../content/how-it-works';
+import { BUILD_GUIDES } from '../content/build-guides';
+import { BUILD_GUIDE_META } from '../content/build-guide-meta';
 import { parts } from '../i18n/format';
 import { TERMS_INTRO, TERMS_SECTIONS, TERMS_UPDATED } from '../content/terms';
 import { ARTICLES } from '../content/articles';
@@ -102,6 +117,9 @@ function footer(key: RouteKey, locale: LocaleCode, m: Messages, locales: readonl
       <a href="${pathFor('about', locale)}" class="text-muted no-underline hover:text-accent">${esc(m.common.footerAbout)}</a>
       <a href="/privacy" class="text-muted no-underline hover:text-accent">${esc(m.common.footerPrivacy)}</a>
       <a href="/terms" class="text-muted no-underline hover:text-accent">${esc(m.common.footerTerms)}</a>
+      <a href="${pathFor('contact', locale)}" class="text-muted no-underline hover:text-accent">${esc(m.common.footerContact)}</a>
+      <a href="/how-it-works" class="text-muted no-underline hover:text-accent">${esc(m.common.footerHowItWorks)}</a>
+      ${locale === 'en' ? `<a href="/build" class="text-muted no-underline hover:text-accent">Build guides</a>` : ''}
     </nav>
     <nav aria-label="${esc(m.common.languageLabel)}" class="mb-4">
       <ul class="flex list-none flex-wrap gap-x-4 gap-y-1 p-0 text-xs">${langs}</ul>
@@ -366,6 +384,14 @@ function toolPage(key: ToolKey, locale: LocaleCode, m: Messages): string {
       </div>
     </div>
 
+    ${
+      locale === 'en' && (BUILD_GUIDE_TOOLS as readonly ToolKey[]).includes(key)
+        ? `<p class="rounded border border-border bg-surface p-4 text-sm text-fg">
+             <a href="/build/${esc(slugFor(key, 'en'))}" class="text-accent underline">How this tool was built</a>
+             &mdash; a step-by-step account of the engine, the code and what went wrong.
+           </p>`
+        : ''
+    }
     <p class="text-xs text-muted">${esc(m.content.verifyNote)}</p>
   </section>
 </main>`;
@@ -420,6 +446,168 @@ function about(locale: LocaleCode, m: Messages): string {
  * a disclaimer, and it must be readable by a crawler, an AdSense reviewer and a
  * visitor with scripts blocked alike.
  */
+function contact(locale: LocaleCode, m: Messages): string {
+  const c = m.contact;
+  const list = (items: readonly string[]) =>
+    `<ul class="mt-3 max-w-prose list-disc space-y-1 ps-5">${items
+      .map((i) => `<li>${esc(i)}</li>`)
+      .join('')}</ul>`;
+
+  return `<main class="mx-auto max-w-2xl px-6 py-12">
+  <h1 class="text-3xl font-bold">${esc(c.h1)}</h1>
+  <p class="mt-4 max-w-prose text-lg text-muted">${esc(c.intro)}</p>
+  <div class="mt-10 space-y-10 text-sm leading-relaxed text-fg">
+    <section>
+      <h2 class="text-xl font-bold">${esc(c.emailHeading)}</h2>
+      <p class="mt-3 max-w-prose"><a href="mailto:${esc(SUPPORT_EMAIL)}" class="text-accent underline">${esc(SUPPORT_EMAIL)}</a></p>
+      <p class="mt-3 max-w-prose">${esc(c.emailBody)}</p>
+    </section>
+    <section>
+      <h2 class="text-xl font-bold">${esc(c.goodHeading)}</h2>
+      ${list(c.goodPoints)}
+    </section>
+    <section>
+      <h2 class="text-xl font-bold">${esc(c.expectHeading)}</h2>
+      <p class="mt-3 max-w-prose">${esc(c.expectBody)}</p>
+    </section>
+    <section>
+      <h2 class="text-xl font-bold">${esc(c.cannotHeading)}</h2>
+      <p class="mt-3 max-w-prose">${esc(c.cannotBody)}</p>
+      ${list(c.cannotPoints)}
+    </section>
+    <section>
+      <h2 class="text-xl font-bold">${esc(c.operatorHeading)}</h2>
+      <p class="mt-3 max-w-prose">${esc(c.operatorBody)}</p>
+    </section>
+    <p class="border-t border-border pt-6 text-muted">
+      <a href="/privacy" class="text-accent underline">Privacy Policy</a>
+      &middot;
+      <a href="/terms" class="text-accent underline">Terms of Use</a>
+      &middot;
+      <a href="${pathFor('home', locale)}" class="text-accent underline">${esc(m.common.footerHome)}</a>
+    </p>
+  </div>
+</main>`;
+}
+
+function howItWorks(locale: LocaleCode): string {
+  const toc = EXPLAINER_SECTIONS.map(
+    (sec) => `<li><a href="#${esc(sec.id)}" class="text-accent underline">${esc(sec.heading)}</a></li>`,
+  ).join('');
+
+  const sections = EXPLAINER_SECTIONS.map((sec) => {
+    const paras = sec.paragraphs.map((x) => `<p class="mt-3 max-w-prose">${esc(x)}</p>`).join('');
+    const bullets = sec.bullets
+      ? `<ul class="mt-3 max-w-prose list-disc space-y-1 ps-5">${sec.bullets
+          .map((b) => `<li>${esc(b)}</li>`)
+          .join('')}</ul>`
+      : '';
+    return `<section id="${esc(sec.id)}">
+      <h2 class="text-xl font-bold">${esc(sec.heading)}</h2>
+      ${paras}${bullets}
+    </section>`;
+  }).join('');
+
+  return `<main class="mx-auto max-w-2xl px-6 py-12">
+  <h1 class="text-3xl font-bold">How YappyKit works</h1>
+  <p class="mt-4 max-w-prose text-lg text-muted">${esc(EXPLAINER_INTRO)}</p>
+  <p class="mt-4 text-sm text-muted">Last updated: ${esc(EXPLAINER_UPDATED)}</p>
+  <nav class="mt-8 rounded border border-border bg-surface p-4" aria-label="On this page">
+    <h2 class="text-sm font-semibold">On this page</h2>
+    <ul class="mt-2 space-y-1 text-sm">${toc}</ul>
+  </nav>
+  <div class="mt-10 space-y-10 text-sm leading-relaxed text-fg">
+    ${sections}
+    <p class="border-t border-border pt-6 text-muted">
+      See our <a href="/privacy" class="text-accent underline">Privacy Policy</a> for what the
+      page itself does, or
+      <a href="${pathFor('home', locale)}" class="text-accent underline">browse the tools</a>.
+    </p>
+  </div>
+</main>`;
+}
+
+function buildIndex(locale: LocaleCode, m: Messages): string {
+  const items = BUILD_GUIDE_TOOLS.map((tool) => {
+    const g = BUILD_GUIDES[tool];
+    return `<li class="border-b border-border pb-8 last:border-b-0">
+      <h2 class="text-xl font-bold">
+        <a href="${pathFor(`build/${tool}`, 'en')}" class="text-accent no-underline hover:underline">${esc(BUILD_GUIDE_META[tool].title)}</a>
+      </h2>
+      <p class="mt-2 max-w-prose text-sm leading-relaxed text-fg">${esc(g.intro)}</p>
+      <p class="mt-3 text-sm text-muted">Uses the tool:
+        <a href="${pathFor(tool, locale)}" class="text-accent underline">${esc(m.tools[tool].title)}</a>
+      </p>
+    </li>`;
+  }).join('');
+
+  return `<main class="mx-auto max-w-2xl px-6 py-12">
+  <h1 class="text-3xl font-bold">Build guides</h1>
+  <p class="mt-4 max-w-prose text-lg text-muted">How the tools on this site were actually made: the engine choices, the code, and the mistakes. Written for people who want to build something similar, or who want to check that the privacy claims hold up before trusting them.</p>
+  <p class="mt-4 max-w-prose text-sm text-muted">These are English only. They are long technical writing whose value is precision, and a machine-translated approximation of a precise claim is just a wrong claim.</p>
+  <ul class="mt-10 space-y-8">${items}</ul>
+  <p class="mt-10 border-t border-border pt-6 text-sm text-muted">
+    For the shorter version that covers the whole site rather than one tool, see
+    <a href="/how-it-works" class="text-accent underline">how YappyKit works</a>.
+  </p>
+</main>`;
+}
+
+function buildGuide(tool: BuildGuideTool, locale: LocaleCode, m: Messages): string {
+  const g = BUILD_GUIDES[tool];
+  const stack = g.stack.map((x) => `<li>${esc(x)}</li>`).join('');
+  const toc = g.sections
+    .map((sec) => `<li><a href="#${esc(sec.id)}" class="text-accent underline">${esc(sec.heading)}</a></li>`)
+    .join('');
+
+  const sections = g.sections.map((sec) => {
+    const paras = sec.paragraphs.map((x) => `<p class="mt-3 max-w-prose">${esc(x)}</p>`).join('');
+    const bullets = sec.bullets
+      ? `<ul class="mt-3 max-w-prose list-disc space-y-1 ps-5">${sec.bullets.map((b) => `<li>${esc(b)}</li>`).join('')}</ul>`
+      : '';
+    // Wide code scrolls inside its own box; the page itself must never scroll sideways.
+    const code = sec.code
+      ? `<figure class="mt-4">
+          <figcaption class="text-xs text-muted">${esc(sec.code.caption)}</figcaption>
+          <pre class="mt-1 overflow-x-auto rounded border border-border bg-surface p-3 text-xs leading-relaxed"><code>${esc(sec.code.source)}</code></pre>
+        </figure>`
+      : '';
+    return `<section id="${esc(sec.id)}">
+      <h2 class="text-xl font-bold">${esc(sec.heading)}</h2>
+      ${paras}${bullets}${code}
+    </section>`;
+  }).join('');
+
+  const pitfalls = g.pitfalls.map((x) => `<li>${esc(x)}</li>`).join('');
+
+  return `<main class="mx-auto max-w-2xl px-6 py-12">
+  <p class="text-sm text-muted"><a href="/build" class="text-accent underline">Build guides</a></p>
+  <h1 class="mt-2 text-3xl font-bold">${esc(BUILD_GUIDE_META[tool].title)}</h1>
+  <p class="mt-4 max-w-prose text-lg text-muted">${esc(g.intro)}</p>
+  <div class="mt-8 rounded border border-border bg-surface p-4">
+    <h2 class="text-sm font-semibold">What it is built with</h2>
+    <ul class="mt-2 list-disc space-y-1 ps-5 text-sm text-fg">${stack}</ul>
+  </div>
+  <nav class="mt-6 rounded border border-border bg-surface p-4" aria-label="On this page">
+    <h2 class="text-sm font-semibold">On this page</h2>
+    <ul class="mt-2 space-y-1 text-sm">${toc}</ul>
+  </nav>
+  <div class="mt-10 space-y-10 text-sm leading-relaxed text-fg">
+    ${sections}
+    <section id="pitfalls">
+      <h2 class="text-xl font-bold">What went wrong</h2>
+      <p class="mt-3 max-w-prose">The most useful part of any build write-up, and the part usually left out.</p>
+      <ul class="mt-3 max-w-prose list-disc space-y-2 ps-5">${pitfalls}</ul>
+    </section>
+    <p class="border-t border-border pt-6 text-muted">
+      Use the tool: <a href="${pathFor(tool, locale)}" class="text-accent underline">${esc(m.tools[tool].title)}</a>
+      &middot;
+      <a href="/how-it-works" class="text-accent underline">How YappyKit works</a>
+    </p>
+  </div>
+</main>`;
+}
+
 function terms(locale: LocaleCode): string {
   const sections = TERMS_SECTIONS.map((sec) => {
     const paras = sec.paragraphs.map((p) => `<p class="mt-2">${esc(p)}</p>`).join('');
@@ -552,10 +740,22 @@ export function buildBody({ key, locale, messages, locales }: BodyOptions): stri
   else if (key === 'not-found') main = notFound(locale, messages);
   else if (key === 'terms') main = terms(locale);
   else if (key === 'privacy') main = privacy(locale);
+  else if (key === 'contact') main = contact(locale, messages);
+  else if (key === 'how-it-works') main = howItWorks(locale);
+  else if (key === 'build') main = buildIndex(locale, messages);
+  else if (key.startsWith('build/'))
+    main = buildGuide(key.slice('build/'.length) as BuildGuideTool, locale, messages);
   else main = toolPage(key as ToolKey, locale, messages);
 
   const footerKey: RouteKey =
-    key === 'not-found' || key === 'privacy' || key === 'terms' ? 'home' : key;
+    key === 'not-found' ||
+    key === 'privacy' ||
+    key === 'terms' ||
+    key === 'how-it-works' ||
+    key === 'build' ||
+    key.startsWith('build/')
+      ? 'home'
+      : key;
   return [header(locale, messages), main, footer(footerKey, locale, messages, locales)]
     .filter(Boolean)
     .join('\n');

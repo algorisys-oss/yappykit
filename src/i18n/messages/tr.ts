@@ -33,6 +33,8 @@ const tr: Messages = {
     footerAbout: 'Hakkında',
     footerPrivacy: 'Gizlilik Politikası',
     footerTerms: 'Kullanım Şartları',
+    footerContact: "İletişim",
+    footerHowItWorks: "Nasıl çalışır",
     footerHome: 'Tüm araçlar',
     footerNote:
       'Dosyalar tarayıcınızda yerel olarak işlenir. Reklam ve analiz betikleri yine de olağan ağ isteklerinde bulunur: {privacy} sayfamıza bakın. YappyKit dosyalarınızı yüklemez.',
@@ -119,6 +121,33 @@ const tr: Messages = {
     sisterNewWindow: '(yeni sekmede açılır)',
   },
 
+  contact: {
+    seoTitle: "YappyKit ile iletişim",
+    seoDescription: "YappyKit hakkında Algorisys Technologies’e nasıl ulaşılır: hata bildirimleri, araç önerileri, gizlilik soruları ve basın. E-postayla yanıtlıyoruz.",
+    h1: "Bize ulaşın",
+    intro: "Destek formu yok, talep numarası yok. E-posta, araçlar üzerinde çalışan bir insana ulaşır.",
+    emailHeading: "E-posta",
+    emailBody: "Bize ulaşmanın en hızlı yolu ve takip ettiğimiz tek kanal. Hangi aracı ve hangi tarayıcıyı kullandığınızı yazın; düzeltmeye değer hataların neredeyse tamamı bu ikisine bağlı.",
+    operatorHeading: "Kime yazıyorsunuz",
+    operatorBody: "YappyKit, Mumbai, Maharashtra, Hindistan merkezli bir yazılım şirketi olan Algorisys Technologies tarafından yapılıyor ve yürütülüyor. Aynı şirket Kullanım Koşulları’nda ve Gizlilik Politikası’nda da yazılı.",
+    expectHeading: "Ne bekleyebilirsiniz",
+    expectBody: "Hepsini okuyoruz ve genellikle birkaç iş günü içinde yanıtlıyoruz. Tarayıcıyı, aracı ve dosyanın nasıl bir dosya olduğunu içeren açık bir hata bildirimi gönderebileceğiniz en yararlı şeydir ve çoğu zaman karşılıklı yazışmaya gerek kalmadan sorunu çözmeye yeter.",
+    goodHeading: "Özellikle yazmaya değenler",
+    goodPoints: [
+      "Yanlış ya da bozuk dosya üreten bir araç; kullandığınız tarayıcıyla birlikte.",
+      "Kabul etmesi gereken bir dosyayı reddeden bir araç.",
+      "İfadenin kulağa tuhaf geldiği ya da açıkça yanlış olduğu bir dil. Arayüz on iki dile çevrildi ve hepsini konuşmuyoruz.",
+      "Keşke olsa dediğiniz bir araç. Buradakilerin birkaçı birinin e-postasıyla başladı.",
+      "Gizlilik, veri koruma ya da Koşullar’la ilgili her şey.",
+    ],
+    cannotHeading: "Yapamayacaklarımız",
+    cannotBody: "Bazı istekler politika gereği değil, tasarım gereği imkânsız; bunu tek tek yanıtlamaktansa burada söylemek daha dürüst.",
+    cannotPoints: [
+      "Kaybolmuş bir parolayı kurtaramayız, kendinizi dışarıda bıraktığınız bir dosyayı açamayız. Parola tarayıcınızdan hiç çıkmaz ve hiçbir yerde saklanmaz; aracın amacı da budur, sınırı da.",
+      "Burada işlediğiniz bir dosyayı geri getiremeyiz. Hiçbir şey yüklenmediği için sunucularımızda geri gönderebileceğimiz bir kopya yok.",
+      "Sitede ne yaptığınızı göremeyiz. Hesap da yok, dosya bazlı kayıt da; yazdığınızda bakabileceğimiz bir şey bulunmuyor.",
+    ],
+  },
   about: {
     seoTitle: 'YappyKit hakkında, tarayıcıda çalışan gizliliğe saygılı dosya araçları',
     seoDescription:
@@ -128,7 +157,7 @@ const tr: Messages = {
       'YappyKit, büyümekte olan bir günlük dosya araçları topluluğudur: bir görseli sıkıştırmak, bir fotoğrafın üst verisini silmek, elektronik tabloları karşılaştırmak, bir videoyu boyut sınırının altına indirmek, vesikalık fotoğraf hazırlamak, belge taramak, hepsi tamamen tarayıcınızda çalışır.',
     whoHeading: 'Siteyi kim yürütüyor',
     whoBody:
-      'YappyKit kişisel bir proje; Mumbai, Maharashtra, Hindistan’dan Rajesh Pillai tarafından yapıldı ve yürütülüyor. Aynı isim Kullanım Koşulları’nda ve Gizlilik Politikası’nda da yazılı ve oradaki iletişim adresinden yanıt veriyor.',
+      'YappyKit, Mumbai, Maharashtra, Hindistan merkezli bir yazılım şirketi olan Algorisys Technologies tarafından yapılıyor ve yürütülüyor. Aynı şirket Kullanım Koşulları’nda ve Gizlilik Politikası’nda da yazılı; İletişim sayfasındaki adresten yanıt veriyor.',
     whyHeading: 'Neden yaptık',
     whyBody1:
       'Alışılmış “ücretsiz çevrimiçi araçlar” dosyanızı bir sunucuya yüklemenizi ister, sonucu ağır reklamlarla sarar ve önünüze kafa karıştırıcı teknik ayarlar koyar (kalite kaydırıcıları, bit hızı alanları, DPI değerleri) oysa tek istediğiniz 100 KB’ın altında bir fotoğraf ya da e-postaya sığan bir videoydu. Bir pasaport taramasını, banka ekstresini ya da özel bir fotoğrafı yalnızca boyutunu değiştirmek için tanımadığınız birinin sunucusuna göndermek hiçbir zaman doğru gelmedi.',

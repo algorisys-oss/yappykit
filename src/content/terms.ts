@@ -11,11 +11,12 @@
  * identical words. A legal page in particular must be readable without
  * JavaScript, so it is prerendered in full.
  *
- * NOT LEGAL ADVICE. This is a standard-form disclaimer. The operator is named
- * as an individual, deliberately: this is a personal project for now, and
- * attributing it to a company that is not in fact the operator would point the
- * disclaimer at the wrong party. Revisit `who-we-are` and `governing-law`
- * together if it ever moves under a company.
+ * NOT LEGAL ADVICE. This is a standard-form disclaimer. The operator named in
+ * `who-we-are` is Algorisys Technologies, and it must stay the same party named
+ * in ./privacy, in the footer and on the About page: a disclaimer pointing at a
+ * different party than the rest of the site is worse than a plain one.
+ * `governing-law` names the place rather than the party, so it holds either
+ * way, but check both together if the operator ever changes again.
  */
 
 export interface TermsSection {
@@ -36,7 +37,7 @@ export const TERMS_SECTIONS: TermsSection[] = [
     id: 'who-we-are',
     heading: 'Who "we" means',
     paragraphs: [
-      'YappyKit is a personal project operated by Rajesh Pillai, an individual based in Mumbai, Maharashtra, India. In these Terms, "we", "us" and "our" refer to that person, and "you" refers to the person using the site.',
+      'YappyKit is operated by Algorisys Technologies, a company based in Mumbai, Maharashtra, India. In these Terms, "we", "us" and "our" refer to that company, and "you" refers to the person using the site.',
     ],
   },
   {

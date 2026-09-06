@@ -33,6 +33,8 @@ const id: Messages = {
     footerAbout: 'Tentang',
     footerPrivacy: 'Kebijakan Privasi',
     footerTerms: 'Ketentuan Penggunaan',
+    footerContact: "Kontak",
+    footerHowItWorks: "Cara kerjanya",
     footerHome: 'Semua alat',
     footerNote:
       'File diproses secara lokal di browser Anda. Skrip iklan dan analitik tetap melakukan permintaan jaringan biasa: lihat {privacy} kami. YappyKit tidak mengunggah file Anda.',
@@ -119,6 +121,33 @@ const id: Messages = {
     sisterNewWindow: '(terbuka di tab baru)',
   },
 
+  contact: {
+    seoTitle: "Kontak YappyKit",
+    seoDescription: "Cara menghubungi Algorisys Technologies soal YappyKit: laporan bug, usulan alat, pertanyaan privasi, dan media. Kami membalas lewat surel.",
+    h1: "Hubungi kami",
+    intro: "Tidak ada formulir dukungan dan tidak ada nomor tiket. Surel sampai ke orang yang mengerjakan alat-alat ini.",
+    emailHeading: "Surel",
+    emailBody: "Cara tercepat menghubungi kami, dan satu-satunya kanal yang kami pantau. Sebutkan alat apa yang Anda pakai dan peramban apa, karena hampir setiap bug yang layak diperbaiki bergantung pada keduanya.",
+    operatorHeading: "Kepada siapa Anda menulis",
+    operatorBody: "YappyKit dibuat dan dijalankan oleh Algorisys Technologies, perusahaan perangkat lunak yang berbasis di Mumbai, Maharashtra, India. Perusahaan yang sama tercantum dalam Ketentuan Penggunaan dan Kebijakan Privasi.",
+    expectHeading: "Apa yang bisa diharapkan",
+    expectBody: "Kami membaca semuanya dan biasanya membalas dalam beberapa hari kerja. Laporan bug yang jelas, lengkap dengan peramban, alat, dan seperti apa berkasnya, adalah hal paling berguna yang bisa Anda kirim, dan sering kali cukup untuk memperbaikinya tanpa tanya jawab lagi.",
+    goodHeading: "Yang terutama layak ditulis",
+    goodPoints: [
+      "Alat yang menghasilkan berkas salah atau rusak, sebutkan peramban yang Anda pakai.",
+      "Alat yang menolak berkas yang seharusnya diterima.",
+      "Bahasa yang kalimatnya janggal atau jelas keliru. Antarmuka diterjemahkan ke dua belas bahasa dan kami tidak menguasai semuanya.",
+      "Alat yang Anda harap ada. Beberapa yang ada di sini berawal dari surel seseorang.",
+      "Apa pun tentang privasi, pelindungan data, atau Ketentuan.",
+    ],
+    cannotHeading: "Yang tidak bisa kami lakukan",
+    cannotBody: "Sebagian permintaan mustahil karena rancangannya, bukan karena kebijakan, dan lebih adil menyampaikannya di sini daripada menjawabnya satu per satu.",
+    cannotPoints: [
+      "Kami tidak bisa memulihkan kata sandi yang hilang, atau membuka berkas yang menguncinya dari Anda sendiri. Kata sandi tidak pernah meninggalkan peramban Anda dan tidak disimpan di mana pun; itulah inti alat ini sekaligus batasnya.",
+      "Kami tidak bisa mengambil kembali berkas yang Anda proses di sini. Tidak ada yang diunggah, jadi tidak ada salinan di server kami untuk dikirim balik.",
+      "Kami tidak bisa melihat apa yang Anda lakukan di situs ini. Tidak ada akun dan tidak ada catatan per berkas, jadi tidak ada yang bisa kami periksa saat Anda menulis.",
+    ],
+  },
   about: {
     seoTitle: 'Tentang YappyKit, alat file privat yang berjalan di browser',
     seoDescription:
@@ -128,7 +157,7 @@ const id: Messages = {
       'YappyKit adalah kumpulan alat file sehari-hari yang terus bertambah (mengompres gambar, menghapus metadata foto, membandingkan spreadsheet, menyesuaikan video agar muat di batas ukuran, membuat pas foto, memindai dokumen) yang berjalan sepenuhnya di browser Anda.',
     whoHeading: 'Siapa yang menjalankannya',
     whoBody:
-      'YappyKit adalah proyek pribadi, dibuat dan dijalankan oleh Rajesh Pillai di Mumbai, Maharashtra, India. Nama yang sama tercantum dalam Ketentuan Penggunaan dan Kebijakan Privasi, dan menjawab di alamat kontak pada halaman tersebut.',
+      'YappyKit dibuat dan dijalankan oleh Algorisys Technologies, perusahaan perangkat lunak yang berbasis di Mumbai, Maharashtra, India. Perusahaan yang sama tercantum dalam Ketentuan Penggunaan dan Kebijakan Privasi, dan menjawab di alamat pada halaman Kontak.',
     whyHeading: 'Mengapa kami membuatnya',
     whyBody1:
       '“Alat online gratis” yang biasa mengharuskan Anda mengunggah file ke server, membungkus hasilnya dengan iklan yang berat, dan menyodorkan tombol teknis yang membingungkan (penggeser kualitas, kolom bitrate, nilai DPI) padahal yang Anda inginkan hanyalah foto di bawah 100 KB atau video yang muat di email. Mengunggah pindaian paspor, rekening koran, atau foto pribadi ke server orang asing hanya untuk mengubah ukurannya tidak pernah terasa benar.',

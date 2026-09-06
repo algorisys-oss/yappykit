@@ -33,6 +33,8 @@ const fr: Messages = {
     footerAbout: 'À propos',
     footerPrivacy: 'Politique de confidentialité',
     footerTerms: 'Conditions d’utilisation',
+    footerContact: "Contact",
+    footerHowItWorks: "Comment ça marche",
     footerHome: 'Tous les outils',
     footerNote:
       'Les fichiers sont traités localement dans votre navigateur. Les scripts publicitaires et de mesure d’audience effectuent tout de même des requêtes réseau ordinaires: voir notre {privacy}. YappyKit n’envoie pas vos fichiers.',
@@ -119,6 +121,33 @@ const fr: Messages = {
     sisterNewWindow: '(s’ouvre dans un nouvel onglet)',
   },
 
+  contact: {
+    seoTitle: "Contacter YappyKit",
+    seoDescription: "Comment joindre Algorisys Technologies au sujet de YappyKit : bugs, idées d’outils, questions de confidentialité et presse. Nous répondons par e-mail.",
+    h1: "Nous contacter",
+    intro: "Pas de formulaire d’assistance ni de numéro de ticket. Un e-mail arrive chez quelqu’un qui travaille sur les outils.",
+    emailHeading: "E-mail",
+    emailBody: "Le moyen le plus rapide de nous joindre, et le seul canal que nous surveillons. Précisez l’outil utilisé et le navigateur : presque tous les bugs qui méritent d’être corrigés dépendent des deux.",
+    operatorHeading: "À qui vous écrivez",
+    operatorBody: "YappyKit est conçu et maintenu par Algorisys Technologies, une entreprise de logiciels basée à Bombay, Maharashtra, Inde. La même entreprise est nommée dans les Conditions d’utilisation et la Politique de confidentialité.",
+    expectHeading: "À quoi vous attendre",
+    expectBody: "Nous lisons tout et répondons généralement sous quelques jours ouvrés. Un rapport de bug clair, avec le navigateur, l’outil et la nature du fichier, est la chose la plus utile à envoyer, et suffit souvent à corriger le problème sans échanges supplémentaires.",
+    goodHeading: "Ce qui vaut particulièrement la peine d’être signalé",
+    goodPoints: [
+      "Un outil qui a produit un fichier faux ou cassé, avec le navigateur utilisé.",
+      "Un outil qui a refusé un fichier qu’il aurait dû accepter.",
+      "Une langue dont la formulation est maladroite ou franchement fausse. L’interface est traduite en douze langues et nous ne les parlons pas toutes.",
+      "Un outil que vous aimeriez voir exister. Plusieurs de ceux qui sont ici ont commencé par l’e-mail de quelqu’un.",
+      "Tout ce qui touche à la confidentialité, à la protection des données ou aux Conditions.",
+    ],
+    cannotHeading: "Ce que nous ne pouvons pas faire",
+    cannotBody: "Certaines demandes sont impossibles par conception et non par politique, et il est plus honnête de le dire ici que d’y répondre un e-mail à la fois.",
+    cannotPoints: [
+      "Nous ne pouvons pas récupérer un mot de passe perdu, ni ouvrir un fichier dont vous vous êtes exclu. Le mot de passe ne quitte jamais votre navigateur et n’est stocké nulle part : c’est tout l’intérêt de l’outil, et aussi sa limite.",
+      "Nous ne pouvons pas récupérer un fichier traité ici. Rien n’est téléversé, donc il n’existe aucune copie sur nos serveurs à vous renvoyer.",
+      "Nous ne pouvons pas voir ce que vous avez fait sur le site. Il n’y a ni comptes ni journaux par fichier, donc nous n’avons rien à consulter quand vous nous écrivez.",
+    ],
+  },
   about: {
     seoTitle: 'À propos de YappyKit, des outils confidentiels dans le navigateur',
     seoDescription:
@@ -128,7 +157,7 @@ const fr: Messages = {
       'YappyKit est un ensemble grandissant d’outils du quotidien pour vos fichiers (compresser une image, supprimer les métadonnées d’une photo, comparer des feuilles de calcul, faire tenir une vidéo sous une limite, réaliser une photo d’identité, numériser un document) qui fonctionnent entièrement dans votre navigateur.',
     whoHeading: 'Qui s’en occupe',
     whoBody:
-      'YappyKit est un projet personnel, conçu et maintenu par Rajesh Pillai à Bombay, Maharashtra, Inde. Le même nom figure dans les Conditions d’utilisation et la Politique de confidentialité, et répond à l’adresse de contact indiquée sur ces pages.',
+      'YappyKit est conçu et maintenu par Algorisys Technologies, une entreprise de logiciels basée à Bombay, Maharashtra, Inde. La même entreprise est nommée dans les Conditions d’utilisation et la Politique de confidentialité, et répond à l’adresse indiquée sur la page Contact.',
     whyHeading: 'Pourquoi nous l’avons créé',
     whyBody1:
       'Les habituels « outils en ligne gratuits » vous obligent à envoyer votre fichier sur un serveur, enveloppent le résultat dans une publicité envahissante et vous imposent des réglages techniques déroutants (curseurs de qualité, champs de débit, valeurs de PPP) alors que vous vouliez simplement une photo sous les 100 Ko ou une vidéo qui tienne dans un e-mail. Envoyer le scan d’un passeport, un relevé bancaire ou une photo privée sur le serveur d’un inconnu juste pour la redimensionner ne nous a jamais paru normal.',

@@ -49,7 +49,42 @@ export const TOOL_KEYS = [
 ] as const;
 
 export type ToolKey = (typeof TOOL_KEYS)[number];
-export type RouteKey = ToolKey | 'home' | 'about' | 'privacy' | 'terms';
+
+/**
+ * Tools that have a build guide written: a step-by-step account of how the tool
+ * was actually made, for the technical reader. English only, and deliberately a
+ * separate page rather than more text on the tool itself, so that someone who
+ * just wants to drop a file in is not scrolled past a tutorial to reach it.
+ *
+ * This list, not the content module, is the source of truth for which pages
+ * exist. `BUILD_GUIDES` in ../content/build-guides is typed against it, so a
+ * name here with no guide written fails the typecheck rather than publishing an
+ * empty page, and a guide written for a tool not listed here is unreachable and
+ * equally caught. Add a tool to both, in the same commit.
+ */
+export const BUILD_GUIDE_TOOLS = [
+  'pdf-password',
+  'image-compress',
+  'metadata-remove',
+  'sheet-convert',
+  'video-compress',
+  'redact',
+] as const satisfies readonly ToolKey[];
+
+export type BuildGuideTool = (typeof BUILD_GUIDE_TOOLS)[number];
+
+/** The route key for a tool's build guide, e.g. `build/pdf-password`. */
+export type BuildKey = `build/${BuildGuideTool}`;
+export type RouteKey =
+  | ToolKey
+  | BuildKey
+  | 'home'
+  | 'about'
+  | 'privacy'
+  | 'terms'
+  | 'contact'
+  | 'how-it-works'
+  | 'build';
 
 export interface RouteDef {
   /**
@@ -66,7 +101,7 @@ export interface RouteDef {
   localized: boolean;
 }
 
-export const ROUTES: Record<RouteKey, RouteDef> = {
+const STATIC_ROUTES: Record<Exclude<RouteKey, BuildKey>, RouteDef> = {
   home: {
     localized: true,
     slugs: { en: '' },
@@ -551,6 +586,36 @@ export const ROUTES: Record<RouteKey, RouteDef> = {
       it: 'chi-siamo',
     },
   },
+  contact: {
+    // Localized, unlike the policy pages: this is short, safely translatable
+    // copy, and someone who lands on a German page and wants to reach us should
+    // not be handed an English page to do it.
+    localized: true,
+    slugs: {
+      en: 'contact',
+      es: 'contacto',
+      'pt-BR': 'contato',
+      id: 'kontak',
+      fr: 'contact',
+      de: 'kontakt',
+      ru: 'kontakty',
+      tr: 'iletisim',
+      vi: 'lien-he',
+      it: 'contatti',
+    },
+  },
+  build: {
+    // The hub. English-only for the same reason as the guides themselves.
+    localized: false,
+    slugs: { en: 'build' },
+  },
+  'how-it-works': {
+    // Single-locale for the same reason as ../content/articles: this is long
+    // technical writing whose whole value is precision, and a machine-translated
+    // approximation of a precise claim is just a wrong claim.
+    localized: false,
+    slugs: { en: 'how-it-works' },
+  },
   privacy: {
     localized: false,
     slugs: { en: 'privacy' },
@@ -562,6 +627,22 @@ export const ROUTES: Record<RouteKey, RouteDef> = {
     slugs: { en: 'terms' },
   },
 };
+
+/**
+ * One page per build guide, at `/build/<the tool's English slug>`.
+ *
+ * Generated rather than written out so the URL of a guide can never drift from
+ * the URL of the tool it is about. Multi-segment slugs work because
+ * `resolveRoute` matches the whole remainder of the path, not one segment.
+ */
+const BUILD_ROUTES = Object.fromEntries(
+  BUILD_GUIDE_TOOLS.map((tool) => [
+    `build/${tool}`,
+    { localized: false, slugs: { en: `build/${STATIC_ROUTES[tool].slugs.en}` } } satisfies RouteDef,
+  ]),
+) as Record<BuildKey, RouteDef>;
+
+export const ROUTES: Record<RouteKey, RouteDef> = { ...STATIC_ROUTES, ...BUILD_ROUTES };
 
 export const ROUTE_KEYS = Object.keys(ROUTES) as RouteKey[];
 

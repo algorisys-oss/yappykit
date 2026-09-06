@@ -17,7 +17,7 @@ import { contributeUrl } from '../lib/support';
  * how it reaches them in the first place.
  */
 export default function Footer() {
-  const { m, parts, path } = useI18n();
+  const { m, parts, path, locale } = useI18n();
   const location = useLocation();
 
   // Switch language without leaving the page: resolve the current URL back to a
@@ -41,6 +41,18 @@ export default function Footer() {
           <A href="/terms" class="text-muted no-underline hover:text-accent">
             {m.common.footerTerms}
           </A>
+          <A href={path('contact')} class="text-muted no-underline hover:text-accent">
+            {m.common.footerContact}
+          </A>
+          <A href="/how-it-works" class="text-muted no-underline hover:text-accent">
+            {m.common.footerHowItWorks}
+          </A>
+          {/* English-only, like the guides it lists. */}
+          <Show when={locale === 'en'}>
+            <A href="/build" class="text-muted no-underline hover:text-accent">
+              Build guides
+            </A>
+          </Show>
         </nav>
 
         <Show when={SHIPPED.length > 1}>

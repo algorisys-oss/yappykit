@@ -2,8 +2,17 @@ import { For, Show } from 'solid-js';
 import { A } from '@solidjs/router';
 import { useI18n } from '../i18n/runtime';
 import { ARTICLES } from '../content/articles';
-import { relatedTools, type ToolKey } from '../i18n/routes';
+import {
+  BUILD_GUIDE_TOOLS,
+  relatedTools,
+  slugFor,
+  type BuildGuideTool,
+  type ToolKey,
+} from '../i18n/routes';
 import BrowserSupport from '../components/BrowserSupport';
+
+const hasBuildGuide = (k: ToolKey): k is BuildGuideTool =>
+  (BUILD_GUIDE_TOOLS as readonly ToolKey[]).includes(k);
 
 /**
  * Per-tool content: How it works, a step-by-step, "Good to know", an FAQ and
@@ -102,6 +111,17 @@ export default function ToolContent(props: { route: ToolKey }) {
           </For>
         </div>
       </div>
+
+      {/* English only, because the guides are. Linking a translated page to an
+          English article would send a reader somewhere they cannot read. */}
+      <Show when={locale === 'en' && hasBuildGuide(props.route)}>
+        <p class="rounded border border-border bg-surface p-4 text-sm text-fg">
+          <A href={`/build/${slugFor(props.route, 'en')}`} class="text-accent underline">
+            How this tool was built
+          </A>{' '}
+          — a step-by-step account of the engine, the code and what went wrong.
+        </p>
+      </Show>
 
       <p class="text-xs text-muted">{m.content.verifyNote}</p>
     </section>

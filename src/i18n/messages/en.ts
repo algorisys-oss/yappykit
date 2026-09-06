@@ -35,6 +35,8 @@ export const en = {
     footerAbout: 'About',
     footerPrivacy: 'Privacy Policy',
     footerTerms: 'Terms of Use',
+    footerContact: "Contact",
+    footerHowItWorks: "How it works",
     footerHome: 'All tools',
     footerNote:
       'Files are processed locally in your browser. Advertising and analytics scripts still make ordinary network requests: see our {privacy}. YappyKit does not upload your files.',
@@ -121,6 +123,33 @@ export const en = {
     sisterNewWindow: '(opens in a new tab)',
   },
 
+  contact: {
+    seoTitle: "Contact YappyKit",
+    seoDescription: "How to reach Algorisys Technologies about YappyKit: bug reports, tool requests, privacy questions and press. We reply by email.",
+    h1: "Contact us",
+    intro: "There is no support form and no ticket number. Email reaches a person who works on the tools.",
+    emailHeading: "Email",
+    emailBody: "The fastest way to reach us, and the only channel we monitor. Please say which tool you were using and which browser, because almost every bug worth fixing depends on both.",
+    operatorHeading: "Who you are writing to",
+    operatorBody: "YappyKit is built and run by Algorisys Technologies, a software company based in Mumbai, Maharashtra, India. The same company is named in the Terms of Use and the Privacy Policy.",
+    expectHeading: "What to expect",
+    expectBody: "We read everything and usually reply within a few working days. A clear bug report with the browser, the tool and what the file was like is the single most useful thing you can send, and it is often enough to fix the problem without any back and forth.",
+    goodHeading: "Especially worth writing about",
+    goodPoints: [
+      "A tool that produced a wrong or broken file, with the browser you used.",
+      "A tool that refused a file it should have accepted.",
+      "A language where the wording is awkward or plainly wrong. The interface is translated into twelve languages and we do not speak all of them.",
+      "A tool you wish existed. Several of the ones here started as somebody's email.",
+      "Anything about privacy, data protection or the Terms.",
+    ],
+    cannotHeading: "What we cannot do",
+    cannotBody: "Some requests are impossible by design rather than by policy, and it is fairer to say so here than to answer it one email at a time.",
+    cannotPoints: [
+      "We cannot recover a lost password, or open a file you have locked yourself out of. The password never leaves your browser and is never stored anywhere, which is the point of the tool and also its limit.",
+      "We cannot retrieve a file you processed here. Nothing is uploaded, so there is no copy on any server of ours to send back.",
+      "We cannot see what you did on the site. There are no accounts and no per-file records, so we have nothing to look up when you write in.",
+    ],
+  },
   about: {
     seoTitle: 'About YappyKit, private, in-browser file tools',
     seoDescription:
@@ -130,7 +159,7 @@ export const en = {
       'YappyKit is a growing set of everyday file tools (compress an image, remove a photo’s metadata, compare spreadsheets, fit a video under a limit, make a passport photo, scan a document) that run entirely in your browser.',
     whoHeading: 'Who runs it',
     whoBody:
-      'YappyKit is a personal project, built and run by Rajesh Pillai in Mumbai, Maharashtra, India. The same name appears in the Terms of Use and the Privacy Policy, and answers the contact address on those pages.',
+      'YappyKit is built and run by Algorisys Technologies, a software company based in Mumbai, Maharashtra, India. The same company is named in the Terms of Use and the Privacy Policy, and answers the contact address on the Contact page.',
     whyHeading: 'Why we built it',
     whyBody1:
       'The usual “free online tools” make you upload your file to a server, wrap the result in heavy advertising, and hand you confusing technical knobs (quality sliders, bitrate fields, DPI values) when all you wanted was a photo under 100 KB or a video that fits in an email. Uploading a passport scan, a bank statement or a private photo to a stranger’s server just to resize it never sat right.',

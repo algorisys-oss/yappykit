@@ -12,7 +12,15 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import { I18nProvider, SHIPPED, loadMessages, localeFromPath } from './i18n/runtime';
 import { getLocale } from './i18n/locales';
-import { ROUTE_KEYS, ROUTES, pathFor, resolveRoute, type RouteKey } from './i18n/routes';
+import {
+  BUILD_GUIDE_TOOLS,
+  ROUTE_KEYS,
+  ROUTES,
+  pathFor,
+  resolveRoute,
+  type BuildKey,
+  type RouteKey,
+} from './i18n/routes';
 
 // Register the service worker so the tools keep working offline once cached.
 // The updater is kept so the footer can offer "refresh" and actually activate a
@@ -22,8 +30,12 @@ rememberUpdater(registerSW({ immediate: true }));
 // Tool routes are lazy so their (eventually heavy) code and WASM never land in
 // the landing-page bundle. The landing route is imported eagerly because it is
 // the SEO asset and must paint immediately.
+const BuildGuidePage = lazy(() => import('./routes/build-guide'));
+
 const COMPONENTS: Record<RouteKey, Component> = {
   home: Landing,
+  contact: lazy(() => import('./routes/contact')),
+  'how-it-works': lazy(() => import('./routes/how-it-works')),
   'image-compress': lazy(() => import('./routes/tools/image-compressor')),
   'spreadsheet-compare': lazy(() => import('./routes/tools/spreadsheet-compare')),
   'metadata-remove': lazy(() => import('./routes/tools/metadata-cleaner')),
@@ -58,6 +70,12 @@ const COMPONENTS: Record<RouteKey, Component> = {
   about: lazy(() => import('./routes/about')),
   privacy: lazy(() => import('./routes/privacy')),
   terms: lazy(() => import('./routes/terms')),
+  build: lazy(() => import('./routes/build')),
+  // Every `build/<tool>` route shares one component, which resolves the tool
+  // from the path. Spread last so the generated keys cannot be shadowed.
+  ...(Object.fromEntries(
+    BUILD_GUIDE_TOOLS.map((tool) => [`build/${tool}`, BuildGuidePage]),
+  ) as unknown as Record<BuildKey, Component>),
 };
 
 const NotFound = lazy(() => import('./routes/not-found'));

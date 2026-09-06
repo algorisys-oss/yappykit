@@ -33,6 +33,8 @@ const es: Messages = {
     footerAbout: 'Acerca de',
     footerPrivacy: 'Política de privacidad',
     footerTerms: 'Términos de uso',
+    footerContact: "Contacto",
+    footerHowItWorks: "Cómo funciona",
     footerHome: 'Todas las herramientas',
     footerNote:
       'Los archivos se procesan localmente en tu navegador. Los scripts de publicidad y analítica sí realizan peticiones de red normales: consulta nuestra {privacy}. YappyKit no sube tus archivos.',
@@ -119,6 +121,33 @@ const es: Messages = {
     sisterNewWindow: '(se abre en una pestaña nueva)',
   },
 
+  contact: {
+    seoTitle: "Contacto de YappyKit",
+    seoDescription: "Cómo contactar con Algorisys Technologies sobre YappyKit: fallos, sugerencias de herramientas, dudas de privacidad y prensa. Respondemos por correo.",
+    h1: "Contacto",
+    intro: "No hay formulario de soporte ni número de ticket. El correo llega a una persona que trabaja en las herramientas.",
+    emailHeading: "Correo electrónico",
+    emailBody: "La forma más rápida de contactarnos y el único canal que vigilamos. Indica qué herramienta usabas y con qué navegador: casi todos los fallos que merece la pena arreglar dependen de ambas cosas.",
+    operatorHeading: "A quién escribes",
+    operatorBody: "YappyKit está creado y gestionado por Algorisys Technologies, una empresa de software con sede en Bombay, Maharashtra, India. La misma empresa figura en las Condiciones de uso y en la Política de privacidad.",
+    expectHeading: "Qué puedes esperar",
+    expectBody: "Leemos todo y solemos responder en unos días laborables. Un informe de fallo claro, con el navegador, la herramienta y cómo era el archivo, es lo más útil que puedes enviarnos, y a menudo basta para arreglarlo sin más intercambios.",
+    goodHeading: "Sobre lo que vale especialmente la pena escribir",
+    goodPoints: [
+      "Una herramienta que generó un archivo incorrecto o dañado, indicando el navegador.",
+      "Una herramienta que rechazó un archivo que debería haber aceptado.",
+      "Un idioma en el que la redacción suene rara o esté mal. La interfaz está traducida a doce idiomas y no los hablamos todos.",
+      "Una herramienta que te gustaría que existiera. Varias de las que hay empezaron siendo el correo de alguien.",
+      "Cualquier cosa sobre privacidad, protección de datos o las Condiciones.",
+    ],
+    cannotHeading: "Lo que no podemos hacer",
+    cannotBody: "Algunas peticiones son imposibles por diseño, no por política, y es más honesto decirlo aquí que responderlo correo a correo.",
+    cannotPoints: [
+      "No podemos recuperar una contraseña perdida ni abrir un archivo del que te hayas dejado fuera. La contraseña nunca sale de tu navegador y no se guarda en ningún sitio: ese es el sentido de la herramienta y también su límite.",
+      "No podemos recuperar un archivo que hayas procesado aquí. No se sube nada, así que no hay ninguna copia en ningún servidor nuestro que devolverte.",
+      "No podemos ver lo que hiciste en el sitio. No hay cuentas ni registros por archivo, así que no tenemos nada que consultar cuando nos escribes.",
+    ],
+  },
   about: {
     seoTitle: 'Acerca de YappyKit, herramientas privadas que funcionan en el navegador',
     seoDescription:
@@ -128,7 +157,7 @@ const es: Messages = {
       'YappyKit es un conjunto creciente de herramientas cotidianas para archivos (comprimir una imagen, eliminar los metadatos de una foto, comparar hojas de cálculo, ajustar un vídeo a un límite, hacer una foto de pasaporte, escanear un documento) que funcionan por completo en tu navegador.',
     whoHeading: 'Quién está detrás',
     whoBody:
-      'YappyKit es un proyecto personal, creado y gestionado por Rajesh Pillai en Bombay, Maharashtra, India. El mismo nombre figura en las Condiciones de uso y en la Política de privacidad, y responde en la dirección de contacto de esas páginas.',
+      'YappyKit está creado y gestionado por Algorisys Technologies, una empresa de software con sede en Bombay, Maharashtra, India. La misma empresa figura en las Condiciones de uso y en la Política de privacidad, y responde en la dirección de la página de Contacto.',
     whyHeading: 'Por qué lo creamos',
     whyBody1:
       'Las típicas «herramientas online gratuitas» te obligan a subir tu archivo a un servidor, envuelven el resultado en publicidad pesada y te presentan controles técnicos confusos (deslizadores de calidad, campos de bitrate, valores de PPP) cuando lo único que querías era una foto de menos de 100 KB o un vídeo que quepa en un correo. Subir el escaneo de un pasaporte, un extracto bancario o una foto privada al servidor de un desconocido solo para cambiarle el tamaño nunca nos pareció bien.',

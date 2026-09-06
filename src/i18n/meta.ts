@@ -8,6 +8,8 @@
  */
 import type { RouteKey, ToolKey } from './routes';
 import type { Messages } from './messages/en';
+import { BUILD_GUIDE_META } from '../content/build-guide-meta';
+import type { BuildGuideTool } from './routes';
 
 export interface PageMeta {
   title: string;
@@ -33,6 +35,29 @@ export function metaFor(key: RouteKey, m: Messages): PageMeta {
       description:
         'The terms that govern your use of YappyKit, including what the tools do and do not guarantee, your responsibility to review any output before relying on it, and the limits of our liability.',
     };
+  }
+  if (key === 'contact') {
+    return { title: m.contact.seoTitle, description: m.contact.seoDescription };
+  }
+  if (key === 'how-it-works') {
+    // English-only, like the policy pages: this is long technical writing whose
+    // value is its precision (see ROUTES['how-it-works']).
+    return {
+      title: 'How YappyKit Works: In-Browser File Tools, Explained | YappyKit',
+      description:
+        'How YappyKit processes files in your browser with WebAssembly instead of uploading them, how to verify that claim yourself in your own developer tools, and the honest limits of doing it locally.',
+    };
+  }
+  if (key === 'build') {
+    return {
+      title: 'Build Guides: How These Browser Tools Were Made | YappyKit',
+      description:
+        'Step-by-step accounts of how the tools on this site were built: the engines, the browser APIs, the code, and the mistakes that shaped each one.',
+    };
+  }
+  if (key.startsWith('build/')) {
+    const guide = BUILD_GUIDE_META[key.slice('build/'.length) as BuildGuideTool];
+    return { title: guide.seoTitle, description: guide.seoDescription };
   }
   const t = m.tools[key as ToolKey];
   return { title: t.seoTitle, description: t.seoDescription };

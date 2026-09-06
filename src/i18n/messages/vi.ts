@@ -33,6 +33,8 @@ const vi: Messages = {
     footerAbout: 'Giới thiệu',
     footerPrivacy: 'Chính sách quyền riêng tư',
     footerTerms: 'Điều khoản sử dụng',
+    footerContact: "Liên hệ",
+    footerHowItWorks: "Cách hoạt động",
     footerHome: 'Tất cả công cụ',
     footerNote:
       'Tệp được xử lý cục bộ ngay trong trình duyệt của bạn. Các tập lệnh quảng cáo và phân tích vẫn thực hiện những yêu cầu mạng thông thường: xem {privacy} của chúng tôi. YappyKit không tải tệp của bạn lên.',
@@ -119,6 +121,33 @@ const vi: Messages = {
     sisterNewWindow: '(mở trong thẻ mới)',
   },
 
+  contact: {
+    seoTitle: "Liên hệ YappyKit",
+    seoDescription: "Cách liên hệ Algorisys Technologies về YappyKit: báo lỗi, đề xuất công cụ, câu hỏi về quyền riêng tư và báo chí. Chúng tôi trả lời qua email.",
+    h1: "Liên hệ với chúng tôi",
+    intro: "Không có biểu mẫu hỗ trợ và không có số phiếu. Email đến thẳng người đang làm ra các công cụ này.",
+    emailHeading: "Email",
+    emailBody: "Cách nhanh nhất để liên hệ, và là kênh duy nhất chúng tôi theo dõi. Hãy cho biết bạn dùng công cụ nào và trình duyệt nào, vì gần như mọi lỗi đáng sửa đều phụ thuộc vào cả hai.",
+    operatorHeading: "Bạn đang viết cho ai",
+    operatorBody: "YappyKit do Algorisys Technologies, một công ty phần mềm đặt tại Mumbai, Maharashtra, Ấn Độ, xây dựng và vận hành. Cùng công ty đó được nêu trong Điều khoản sử dụng và Chính sách quyền riêng tư.",
+    expectHeading: "Bạn có thể mong đợi gì",
+    expectBody: "Chúng tôi đọc hết và thường trả lời trong vài ngày làm việc. Một báo lỗi rõ ràng, kèm trình duyệt, công cụ và tệp đó ra sao, là thứ hữu ích nhất bạn có thể gửi, và thường đủ để sửa mà không cần trao đổi thêm.",
+    goodHeading: "Đặc biệt đáng viết về",
+    goodPoints: [
+      "Một công cụ tạo ra tệp sai hoặc hỏng, kèm trình duyệt bạn đã dùng.",
+      "Một công cụ từ chối tệp lẽ ra phải nhận.",
+      "Một ngôn ngữ có câu chữ đọc gượng hoặc sai rõ ràng. Giao diện được dịch sang mười hai thứ tiếng và chúng tôi không nói được hết.",
+      "Một công cụ bạn ước có. Vài công cụ ở đây khởi đầu từ email của một người dùng.",
+      "Bất cứ điều gì về quyền riêng tư, bảo vệ dữ liệu hoặc Điều khoản.",
+    ],
+    cannotHeading: "Điều chúng tôi không thể làm",
+    cannotBody: "Một số yêu cầu là bất khả thi do cách thiết kế chứ không phải do chính sách, và nói ra ở đây thì công bằng hơn là trả lời từng email một.",
+    cannotPoints: [
+      "Chúng tôi không thể khôi phục mật khẩu đã mất, hay mở tệp mà chính bạn đã tự khoá mình ra ngoài. Mật khẩu không bao giờ rời khỏi trình duyệt của bạn và không được lưu ở đâu cả: đó là ý nghĩa của công cụ, và cũng là giới hạn của nó.",
+      "Chúng tôi không thể lấy lại tệp bạn đã xử lý ở đây. Không có gì được tải lên, nên không có bản sao nào trên máy chủ của chúng tôi để gửi lại.",
+      "Chúng tôi không thể thấy bạn đã làm gì trên trang. Không có tài khoản và không có nhật ký theo từng tệp, nên chẳng có gì để tra khi bạn viết thư.",
+    ],
+  },
   about: {
     seoTitle: 'Giới thiệu YappyKit, công cụ tệp riêng tư chạy trong trình duyệt',
     seoDescription:
@@ -128,7 +157,7 @@ const vi: Messages = {
       'YappyKit là bộ công cụ tệp hằng ngày ngày một mở rộng (nén ảnh, xóa metadata của ảnh, so sánh bảng tính, thu video cho vừa một giới hạn dung lượng, làm ảnh thẻ, quét tài liệu) và tất cả đều chạy trọn vẹn trong trình duyệt của bạn.',
     whoHeading: 'Ai vận hành',
     whoBody:
-      'YappyKit là một dự án cá nhân, do Rajesh Pillai ở Mumbai, Maharashtra, Ấn Độ xây dựng và vận hành. Cùng tên đó có trong Điều khoản sử dụng và Chính sách quyền riêng tư, và trả lời tại địa chỉ liên hệ ghi ở những trang ấy.',
+      'YappyKit do Algorisys Technologies, một công ty phần mềm đặt tại Mumbai, Maharashtra, Ấn Độ, xây dựng và vận hành. Cùng công ty đó được nêu trong Điều khoản sử dụng và Chính sách quyền riêng tư, và trả lời tại địa chỉ trên trang Liên hệ.',
     whyHeading: 'Vì sao chúng tôi làm điều này',
     whyBody1:
       'Những “công cụ trực tuyến miễn phí” quen thuộc bắt bạn tải tệp lên máy chủ, bọc kết quả trong lớp quảng cáo nặng nề và đưa ra những núm điều chỉnh kỹ thuật khó hiểu (thanh trượt chất lượng, ô bitrate, giá trị DPI) trong khi tất cả những gì bạn cần chỉ là một tấm ảnh dưới 100 KB hay một video vừa đủ gửi qua email. Việc gửi bản quét hộ chiếu, sao kê ngân hàng hay một tấm ảnh riêng tư lên máy chủ của người lạ chỉ để đổi kích thước chưa bao giờ là điều đúng đắn.',

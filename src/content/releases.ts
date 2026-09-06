@@ -23,6 +23,18 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '0.12.0',
+    date: '2026-09-07',
+    added: [
+      'Build guides, at /build: step-by-step accounts of how six of the tools here were actually made, including the engine choices, the real code and the mistakes. They are separate pages rather than more text on the tools, so anyone who just wants to drop a file in is not scrolled past a tutorial to reach it. English only, because they are long technical writing whose value is precision and a machine-translated approximation of a precise claim is just a wrong one.',
+      'A page explaining how the whole site works, at /how-it-works. What actually runs where, why the engines are compiled rather than reimplemented, where a file lives while a tool runs, what does still touch the network, and the honest limits of doing this locally. It opens by telling you how to disprove the entire claim in your own browser, because every tool site that does upload your files also promises they are safe.',
+      'A contact page, in all twelve languages, with a section on what we genuinely cannot do: we cannot recover a password you have lost or return a file you processed here, because we never had either. Those are consequences of how the site is built rather than policies, and saying so once is fairer than answering it one email at a time.',
+    ],
+    fixed: [
+      'The site named two different operators. The footer said Algorisys Technologies while the About page, the Terms and the Privacy Policy described a personal project run by an individual. Algorisys Technologies is the operator, and is now named consistently everywhere, with the contact address held in one place so the four pages cannot drift apart again.',
+    ],
+  },
+  {
     version: '0.11.0',
     date: '2026-09-06',
     added: [

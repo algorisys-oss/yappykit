@@ -19,6 +19,8 @@
  */
 
 /** A cell in the "your files vs the page" table. */
+import { SUPPORT_EMAIL } from './contact';
+
 export interface PrivacyCell {
   text: string;
   /** `good` marks the reassuring answer; `muted` the honest, less exciting one. */
@@ -83,7 +85,7 @@ export const PRIVACY_SECTIONS: PrivacySection[] = [
     id: 'who-we-are',
     heading: 'Who "we" means',
     paragraphs: [
-      'YappyKit is a personal project operated by Rajesh Pillai, an individual based in Mumbai, Maharashtra, India. Under India\'s Digital Personal Data Protection Act, 2023 that person is the Data Fiduciary for any personal data this site is responsible for, and can be reached at the address at the end of this policy.',
+      'YappyKit is operated by Algorisys Technologies, a company based in Mumbai, Maharashtra, India. Under India\'s Digital Personal Data Protection Act, 2023 that company is the Data Fiduciary for any personal data this site is responsible for, and can be reached at the address at the end of this policy.',
     ],
   },
   {
@@ -176,6 +178,6 @@ export const PRIVACY_SECTIONS: PrivacySection[] = [
     id: 'contact',
     heading: 'Contact',
     paragraphs: ['Questions about this policy or your privacy? Contact us at'],
-    email: 'osappsupport@gmail.com',
+    email: SUPPORT_EMAIL,
   },
 ];
