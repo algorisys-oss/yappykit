@@ -23,6 +23,10 @@ export const TOOL_CAPABILITIES: Record<ToolKey, CapabilitySpec> = {
   'image-convert': { required: [], preferred: ['createImageBitmap', 'wasm'] },
   // Decodes, redraws at the requested size and re-encodes, all on a canvas.
   'image-resize': { required: [], preferred: ['createImageBitmap', 'wasm'] },
+  // Decodes, draws the chosen region and re-encodes, all on a canvas.
+  'image-crop': { required: [], preferred: ['createImageBitmap', 'wasm'] },
+  'screenshot-split': { required: [], preferred: ['createImageBitmap'] },
+  'color-picker': { required: [], preferred: ['createImageBitmap'] },
   'image-watermark': { required: [], preferred: ['createImageBitmap'] },
   'image-to-pdf': { required: [], preferred: ['createImageBitmap'] },
   'screenshot-stitch': { required: [], preferred: ['createImageBitmap', 'offscreenCanvas'] },

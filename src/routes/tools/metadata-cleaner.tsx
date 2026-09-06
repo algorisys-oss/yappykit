@@ -5,9 +5,11 @@ import { MetadataPreview } from '../tool-previews';
 import ToolContent from '../tool-content';
 import { useSeo } from '../../lib/seo';
 import { useI18n } from '../../i18n/runtime';
-import { usePasteImages } from '../../lib/paste';
+import { usePasteFiles, anyFile } from '../../lib/paste';
 import { readMetadata, type MetadataSummary } from '@core/metadata/read';
 import { stripMetadata } from '@core/metadata/strip';
+import { stripPdfMetadata } from '@core/metadata/strip-pdf';
+import { inspectPdf } from '@core/inspect/pdf';
 
 /**
  * Universal Metadata Cleaner.
@@ -26,6 +28,7 @@ export default function MetadataCleaner() {
   const u = tt.ui;
   useSeo('metadata-remove');
   const [fileName, setFileName] = createSignal('');
+  const [isPdf, setIsPdf] = createSignal(false);
   const [meta, setMeta] = createSignal<MetadataSummary | null>(null);
   const [cleaned, setCleaned] = createSignal<{ url: string; removed: number; supported: boolean } | null>(null);
   const [error, setError] = createSignal('');
@@ -44,7 +47,7 @@ export default function MetadataCleaner() {
     if (file) await accept(file);
   }
 
-  usePasteImages((files) => void accept(files[0]!));
+  usePasteFiles(anyFile, (files) => void accept(files[0]!));
 
   async function accept(file: File) {
     cleanup();
@@ -52,10 +55,19 @@ export default function MetadataCleaner() {
     setError('');
     setMeta(null);
     setFileName(file.name);
+    const pdf = file.type === 'application/pdf' || /\.pdf$/i.test(file.name);
+    setIsPdf(pdf);
     setBusy(true);
     try {
       sourceBytes = new Uint8Array(await file.arrayBuffer());
-      setMeta(await readMetadata(file));
+      if (pdf) {
+        // A PDF carries its author in an information dictionary rather than in
+        // EXIF, so it is read by the PDF reader and shown in the same table.
+        const info = await inspectPdf(sourceBytes);
+        setMeta({ fields: info.fields, hasGps: false, empty: info.fields.length === 0 });
+      } else {
+        setMeta(await readMetadata(file));
+      }
     } catch {
       setError(u.readError);
     } finally {
@@ -63,8 +75,27 @@ export default function MetadataCleaner() {
     }
   }
 
-  function strip() {
+  async function strip() {
     if (!sourceBytes) return;
+    if (isPdf()) {
+      setBusy(true);
+      try {
+        const { output, removed } = await stripPdfMetadata(sourceBytes);
+        cleanup();
+        setCleaned({
+          url: URL.createObjectURL(new Blob([output as BlobPart], { type: 'application/pdf' })),
+          // Bytes removed is meaningless for a PDF, which is rewritten rather
+          // than trimmed; the count of cleared fields is what to report.
+          removed: removed.length,
+          supported: true,
+        });
+      } catch {
+        setError(u.readError);
+      } finally {
+        setBusy(false);
+      }
+      return;
+    }
     const r = stripMetadata(sourceBytes);
     cleanup();
     const url = URL.createObjectURL(new Blob([r.output as BlobPart]));
@@ -82,11 +113,11 @@ export default function MetadataCleaner() {
           <label class="mb-2 block text-sm font-medium">{u.pickLabel}</label>
           <input
             type="file"
-            accept="image/jpeg,image/png"
+            accept="image/jpeg,image/png,application/pdf,.pdf"
             onChange={onPick}
             class="block w-full cursor-pointer rounded border border-border bg-surface p-2 text-sm text-fg file:me-3 file:cursor-pointer file:rounded file:border-0 file:bg-accent file:px-3 file:py-1.5 file:text-accent-fg"
           />
-          <p class="mt-2 text-xs text-muted">{msg.content.pasteHint}</p>
+          <p class="mt-2 text-xs text-muted">{msg.content.pasteHintFile}</p>
           <Show when={fileName()}>
             <p class="mt-2 text-xs text-muted">{fileName()}</p>
           </Show>
@@ -134,7 +165,7 @@ export default function MetadataCleaner() {
                     </tbody>
                   </table>
                 </div>
-                <Button onClick={strip}>{u.action}</Button>
+                <Button onClick={() => void strip()} disabled={busy()}>{u.action}</Button>
               </Show>
             </div>
           )}
@@ -152,9 +183,11 @@ export default function MetadataCleaner() {
                 }
               >
                 <p class="rounded border border-success bg-success-soft p-3 text-sm text-fg" role="status">
-                  {fmt(u.removed, {
-                    extra: c().removed > 0 ? fmt(u.removedExtra, { size: kb(c().removed) }) : '',
-                  })}
+                  {isPdf()
+                    ? u.removedPdf
+                    : fmt(u.removed, {
+                        extra: c().removed > 0 ? fmt(u.removedExtra, { size: kb(c().removed) }) : '',
+                      })}
                 </p>
                 <a
                   href={c().url}

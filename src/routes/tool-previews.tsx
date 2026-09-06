@@ -256,6 +256,79 @@ export function ImageResizePreview() {
   );
 }
 
+export function ImageCropPreview() {
+  return (
+    <Frame>
+      {/* the photo, dimmed outside the selection */}
+      <rect x="24" y="18" width="152" height="68" rx="6" fill={C.accentSoft} stroke={C.border} stroke-width="2" />
+      <circle cx="58" cy="42" r="9" fill={C.accent} opacity="0.5" />
+      <path d="M30 80 L66 44 L86 62 L110 38 L170 80 Z" fill={C.accent} opacity="0.25" />
+      <rect x="64" y="28" width="76" height="48" fill="none" stroke={C.accent} stroke-width="2.5" />
+      {/* the handles */}
+      {([
+        [64, 28],
+        [140, 28],
+        [64, 76],
+        [140, 76],
+      ] as const).map(([x, y]) => (
+        <rect x={x - 4} y={y - 4} width="8" height="8" rx="1.5" fill={C.accent} />
+      ))}
+    </Frame>
+  );
+}
+
+export function ScreenshotSplitPreview() {
+  return (
+    <Frame>
+      {/* one tall capture on the left, its pieces on the right */}
+      <rect x="26" y="14" width="46" height="76" rx="5" fill={C.paper} stroke={C.border} stroke-width="2" />
+      {[20, 30, 40, 50, 60, 70, 80].map((y) => (
+        <rect x="32" y={y} width={y % 20 === 0 ? 28 : 34} height="4" rx="2" fill={C.accentSoft} />
+      ))}
+      {/* the cuts, sitting in the gaps between the lines rather than on them */}
+      {[45, 75].map((y) => (
+        <path d={`M22 ${y} h54`} stroke={C.accent} stroke-width="2" stroke-dasharray="4 3" />
+      ))}
+      <g stroke={C.muted} stroke-width="2.5" stroke-linecap="round">
+        <path d="M84 52 h16" />
+        <path d="M94 46 l8 6 l-8 6" fill="none" />
+      </g>
+      {[14, 42, 70].map((y) => (
+        <rect x="112" y={y} width="46" height="22" rx="4" fill={C.paper} stroke={C.accent} stroke-width="2" />
+      ))}
+    </Frame>
+  );
+}
+
+export function ColorPickerPreview() {
+  return (
+    <Frame>
+      {/* the picture, with a dropper over it */}
+      <rect x="24" y="16" width="92" height="60" rx="6" fill={C.accentSoft} stroke={C.border} stroke-width="2" />
+      <path d="M28 70 L58 40 L76 58 L94 42 L112 70 Z" fill={C.accent} opacity="0.3" />
+      <circle cx="52" cy="34" r="7" fill={C.accent} opacity="0.55" />
+      <g stroke={C.fg} stroke-width="2.5" stroke-linecap="round">
+        <path d="M84 34 l12 12" />
+        <path d="M96 46 l-8 8 a4 4 0 0 1 -6 -6 l8 -8" fill="none" />
+      </g>
+      <circle cx="84" cy="34" r="3.5" fill={C.accent} stroke={C.paper} stroke-width="1.5" />
+      {/* the palette it found, widest share first */}
+      {([
+        [C.accent, 26, 0],
+        [C.ok, 18, 30],
+        [C.muted, 12, 52],
+        [C.bad, 8, 68],
+      ] as const).map(([fill, w, dx]) => (
+        <rect x={24 + dx} y="84" width={w} height="10" rx="3" fill={fill} />
+      ))}
+      <rect x="128" y="16" width="48" height="78" rx="6" fill={C.paper} stroke={C.border} stroke-width="2" />
+      {[24, 40, 56, 72].map((y) => (
+        <rect x="136" y={y} width="32" height="8" rx="2" fill={C.accentSoft} />
+      ))}
+    </Frame>
+  );
+}
+
 export function SpreadsheetPreview() {
   const grid = (ox: number, marks: Record<number, string>) => (
     <g transform={`translate(${ox} 24)`}>
@@ -787,6 +860,8 @@ export const TOOL_PREVIEWS: Partial<Record<ToolKey, () => JSX.Element>> = {
   'random-word': RandomWordPreview,
   'pdf-merge': PdfMergePreview,
   'screenshot-stitch': ScreenshotStitchPreview,
+  'screenshot-split': ScreenshotSplitPreview,
+  'color-picker': ColorPickerPreview,
   'font-coverage': FontCoveragePreview,
   'font-style': FontStylePreview,
   'image-to-pdf': ImageToPdfPreview,
@@ -798,4 +873,5 @@ export const TOOL_PREVIEWS: Partial<Record<ToolKey, () => JSX.Element>> = {
   redact: RedactPreview,
   'sheet-clean': SheetCleanPreview,
   'image-resize': ImageResizePreview,
+  'image-crop': ImageCropPreview,
 };

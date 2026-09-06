@@ -23,6 +23,17 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '0.8.0',
+    date: '2026-09-06',
+    added: [
+      'Crop an image by dragging the part you want. The resizer centre-crops, which is the only defensible default when a tool cannot know what the subject is; this is the answer for when the subject is off to one side. Ratios are worked out in pixels rather than in the fractions a selection is stored as, because a fraction is not a shape: half the width and half the height of a 2000 by 1000 photo is 2:1, not square, and that is the difference between a square crop and a nearly square one a platform rejects.',
+      'Split a long screenshot into pieces that miss the text. An even division puts each cut wherever the arithmetic lands, which is as likely to be halfway down a line of characters as anywhere else. Each cut is allowed to move about a line and a half to the quietest row nearby, so it falls in the gap between paragraphs instead of through a word. Only the rows a cut could reach are read: scoring a whole 1,000 by 20,000 capture would mean 80 MB of pixels, and all but a few hundred of those rows were never candidates.',
+      'A colour picker and palette extractor. Every swatch is a real pixel from the image rather than the average of a group, because the average of a red flower and a green leaf is a mud brown that appears nowhere in the picture. The shares are measured by assigning each pixel to its nearest swatch, since median cut gives its boxes equal populations by construction and reporting those would call a photo that is mostly sky evenly balanced. Each colour reports its WCAG contrast on white and on black, which is what decides whether text will read on it.',
+      'The metadata cleaner now takes PDFs as well as photos, stripping the title, author, subject, keywords, creator, producer and both timestamps while copying the pages through untouched.',
+      'The image compressor now takes several photos at once, returning a ZIP. Each image is decoded, searched and released one at a time, so a batch of large photos does not need all of them in memory together.',
+    ],
+  },
+  {
     version: '0.7.0',
     date: '2026-09-06',
     added: [
