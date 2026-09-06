@@ -70,6 +70,7 @@ const de: Messages = {
       },
     ],
     toolsHeading: 'Die Werkzeuge',
+    toolsCount: '{n} Werkzeuge',
     toolsSub:
       'Es kommen laufend neue Werkzeuge dazu. Jedes läuft in Ihrem Browser. Nutzen Sie die Suche oben, um schnell eines zu finden.',
     comingSoon: 'Demnächst',

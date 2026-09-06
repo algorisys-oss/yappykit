@@ -70,6 +70,7 @@ const id: Messages = {
       },
     ],
     toolsHeading: 'Alat-alatnya',
+    toolsCount: '{n} alat',
     toolsSub:
       'Alat baru terus ditambahkan. Semuanya berjalan di browser Anda. Gunakan kotak pencarian di atas untuk menemukannya dengan cepat.',
     comingSoon: 'Segera hadir',

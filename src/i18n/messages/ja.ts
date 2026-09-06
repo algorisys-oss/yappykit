@@ -70,6 +70,7 @@ const ja: Messages = {
       },
     ],
     toolsHeading: 'ツール',
+    toolsCount: '{n} 個のツール',
     toolsSub:
       'ツールは順次追加しています。どれもブラウザー内で動作します。上の検索ボックスからすばやく見つけられます。',
     comingSoon: '近日公開',

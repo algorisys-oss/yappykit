@@ -26,7 +26,7 @@ const YAPPYDRAW_URL = 'https://yappydraw.com';
 const ICONS: JSX.Element[] = [<ShieldIcon />, <BoltIcon />, <PlugIcon />];
 
 export default function Landing() {
-  const { m, locale, parts } = useI18n();
+  const { m, fmt, locale, parts } = useI18n();
   const l = m.landing;
   useSeo('home');
   const tools = createMemo(() => toolList(m, locale));
@@ -93,7 +93,14 @@ export default function Landing() {
 
       {/* Tools */}
       <section aria-labelledby="tools" class="mx-auto max-w-4xl px-6 pb-16">
-        <h2 id="tools" class="text-2xl font-bold">{l.toolsHeading}</h2>
+        <div class="flex flex-wrap items-baseline gap-3">
+          <h2 id="tools" class="text-2xl font-bold">{l.toolsHeading}</h2>
+          {/* Counted from the catalogue, never written down: a hand-kept
+              number goes stale the first time a tool ships. */}
+          <span class="rounded-full bg-surface px-2.5 py-0.5 text-xs font-medium text-muted">
+            {fmt(l.toolsCount, { n: tools().length })}
+          </span>
+        </div>
         <p class="mt-1 text-muted">{l.toolsSub}</p>
         <div class="mt-6 grid gap-4 sm:grid-cols-2">
           <For each={tools()}>{(tool) => <ToolCard tool={tool} />}</For>

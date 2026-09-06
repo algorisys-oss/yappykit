@@ -70,6 +70,7 @@ const fr: Messages = {
       },
     ],
     toolsHeading: 'Les outils',
+    toolsCount: '{n} outils',
     toolsSub:
       'De nouveaux outils arrivent régulièrement. Chacun fonctionne dans votre navigateur. Utilisez la recherche ci-dessus pour en trouver un rapidement.',
     comingSoon: 'Bientôt disponible',

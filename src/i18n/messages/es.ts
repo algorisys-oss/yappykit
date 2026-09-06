@@ -70,6 +70,7 @@ const es: Messages = {
       },
     ],
     toolsHeading: 'Las herramientas',
+    toolsCount: '{n} herramientas',
     toolsSub:
       'Seguimos añadiendo herramientas. Todas funcionan en tu navegador. Usa el buscador de arriba para encontrar una rápidamente.',
     comingSoon: 'Próximamente',

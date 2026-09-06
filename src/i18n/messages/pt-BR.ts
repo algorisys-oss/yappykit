@@ -70,6 +70,7 @@ const ptBR: Messages = {
       },
     ],
     toolsHeading: 'As ferramentas',
+    toolsCount: '{n} ferramentas',
     toolsSub:
       'Novas ferramentas estão sendo adicionadas. Todas funcionam no seu navegador. Use a busca acima para encontrar uma rapidamente.',
     comingSoon: 'Em breve',

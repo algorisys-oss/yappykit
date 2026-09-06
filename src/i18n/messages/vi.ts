@@ -70,6 +70,7 @@ const vi: Messages = {
       },
     ],
     toolsHeading: 'Các công cụ',
+    toolsCount: '{n} công cụ',
     toolsSub:
       'Chúng tôi liên tục bổ sung công cụ mới. Tất cả đều chạy trong trình duyệt của bạn. Dùng ô tìm kiếm phía trên để tìm nhanh.',
     comingSoon: 'Sắp có',

@@ -70,6 +70,7 @@ const tr: Messages = {
       },
     ],
     toolsHeading: 'Araçlar',
+    toolsCount: '{n} araç',
     toolsSub:
       'Yeni araçlar sürekli ekleniyor. Hepsi tarayıcınızda çalışır. Hızlıca bulmak için yukarıdaki arama kutusunu kullanın.',
     comingSoon: 'Yakında',

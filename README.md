@@ -21,11 +21,13 @@ any other site. No request carries your file. Open DevTools → Network and watc
 
 ## What's in it
 
-Twelve tools, each stating its job as the result you already want rather than the
+Twenty tools, each stating its job as the result you already want rather than the
 parameters that produce it. Compress an image to *under 100 KB*, not to *quality 0.72*.
 
-Image and PDF size compression, video compression to a WhatsApp or email limit, passport
-and visa photos, document scan cleanup, spreadsheet compare, metadata removal, an online
+Image, PDF and video compression to a real size limit, passport and visa photos, document
+scan cleanup with OCR, PDF merge, images to PDF, screenshot stitching, watermarking,
+spreadsheet compare, metadata removal, a file inspector that reads what a file really is
+from its bytes, an image format converter including iPhone HEIC, two font tools, an online
 ruler, mouse and keyboard testers, a webcam and microphone test, and a random word
 generator. Twelve locales, each with translated URLs and prerendered content.
 
@@ -92,6 +94,11 @@ cross-origin isolation to the video route only, so that multithreaded ffmpeg.was
 ```bash
 npm run zen:build && npm run build
 ```
+
+One optional build variable, `VITE_SUPPORT_RAZORPAY_URL`, adds a Contribute link to the
+footer. It must be an `https://` URL on a Razorpay host; anything else is rejected and no
+link is drawn. It is intentionally absent from this repository, so a build of this source
+ships no donation link pointing at anyone in particular. See `src/lib/support.ts`.
 
 ## Licence
 

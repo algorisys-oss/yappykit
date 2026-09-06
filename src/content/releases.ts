@@ -23,6 +23,13 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '0.2.1',
+    date: '2026-09-06',
+    added: [
+      'The tools section on the home page says how many tools there are. The number is counted from the catalogue, so it cannot go stale the next time one ships.',
+    ],
+  },
+  {
     version: '0.2.0',
     date: '2026-09-06',
     added: [

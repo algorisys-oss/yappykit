@@ -175,7 +175,10 @@ function landing(locale: LocaleCode, m: Messages): string {
   </section>
 
   <section aria-labelledby="tools" class="mx-auto max-w-4xl px-6 pb-16">
-    <h2 id="tools" class="text-2xl font-bold">${esc(l.toolsHeading)}</h2>
+    <div class="flex flex-wrap items-baseline gap-3">
+      <h2 id="tools" class="text-2xl font-bold">${esc(l.toolsHeading)}</h2>
+      <span class="rounded-full bg-surface px-2.5 py-0.5 text-xs font-medium text-muted">${tpl(l.toolsCount, { n: String(TOOL_KEYS.length) })}</span>
+    </div>
     <p class="mt-1 text-muted">${esc(l.toolsSub)}</p>
     <div class="mt-6 grid gap-4 sm:grid-cols-2">${TOOL_KEYS.map((k) => toolCard(k, locale, m)).join('')}</div>
   </section>

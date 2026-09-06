@@ -72,6 +72,7 @@ export const en = {
       },
     ],
     toolsHeading: 'The tools',
+    toolsCount: '{n} tools',
     toolsSub:
       'More tools are being added. Each one runs in your browser. Use the search box above to find one fast.',
     comingSoon: 'Coming soon',
