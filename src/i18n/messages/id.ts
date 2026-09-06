@@ -190,6 +190,81 @@ const id: Messages = {
   },
 
   tools: {
+    'batch-rename': {
+      title: 'Ganti nama gambar massal',
+      blurb: 'Beri nomor, pakai tanggal pengambilan, atau rapikan yang berantakan. Tidak ada yang diunggah.',
+      tags: ['ganti nama massal','ganti nama banyak berkas','ganti nama foto berdasarkan tanggal','nama berurutan','rapikan nama berkas','IMG_1234'],
+      seoTitle: 'Ganti nama gambar massal online, gratis dan tanpa mengunggah | YappyKit',
+      seoDescription:
+        'Ganti nama banyak foto sekaligus: bernomor urut, berdasarkan tanggal tiap foto diambil, atau dengan merapikan nama yang sudah ada. Berjalan di browser dan foto tidak pernah diunggah.',
+      heroTitle: 'Ganti nama gambar massal',
+      heroNote:
+        'Beri nomor urut, pakai tanggal tiap foto diambil, atau rapikan nama yang sudah ada. Foto tidak pernah diunggah dan tidak ada yang disandikan ulang: hanya namanya yang berubah.',
+      ui: {
+        pickLabel: 'Pilih gambar Anda',
+        pickHint: 'Pilih beberapa sekaligus. Termasuk foto HEIC dari iPhone.',
+        reading: 'Membaca foto…',
+        needImages: 'Pilih beberapa gambar dulu.',
+        schemeLabel: 'Namanya mau seperti apa',
+        schemeSequence: 'Bernomor urut',
+        schemeDate: 'Tanggal tiap foto',
+        schemeTidy: 'Rapikan yang ada',
+        prefixLabel: 'Nama',
+        prefixPlaceholder: 'Liburan',
+        startLabel: 'Mulai dari',
+        sequenceNote:
+          'Nomor diberi nol sesuai besarnya kumpulan, jadi sepuluh berkas berjalan dari 01 sampai 10 dan pengelola berkas mengurutkannya dengan benar.',
+        dateNote:
+          'Dibaca dari tiap foto dan diurutkan dari yang terlama. Foto dari dua kamera berbeda akan berselang-seling sesuai urutan pengambilannya yang sebenarnya.',
+        tidyNote:
+          'Awalan kamera dibuang, spasi jadi tanda hubung, dan semua yang ditolak Windows dihilangkan.',
+        previewHeading: 'Yang akan Anda dapat',
+        noteNoDate: 'tanpa tanggal',
+        noteCollision: 'diganti nama agar tidak bentrok',
+        noteUnchanged: 'tidak berubah',
+        noDateOne: '1 foto tidak membawa tanggal, jadi tetap memakai namanya sendiri.',
+        noDateMany: '{n} foto tidak membawa tanggal, jadi tetap memakai namanya sendiri.',
+        collisionOne: '1 nama tadinya akan bentrok dan diberi nomor.',
+        collisionMany: '{n} nama tadinya akan bentrok dan diberi nomor.',
+        zipNote:
+          'Halaman web tidak bisa mengganti nama berkas di cakram Anda, jadi salinan yang sudah diganti nama kembali sebagai ZIP. Bytenya disalin, bukan disandikan ulang, jadi tidak ada kualitas yang hilang.',
+        action: 'Ganti nama {n} dan unduh',
+        working: 'Sedang bekerja…',
+        doneStatus: 'Selesai: {n} diganti nama, {size}.',
+        download: 'Unduh ZIP',
+        failed: 'Cara itu tidak berhasil.',
+      },
+      content: {
+        howItWorks: [
+          'Mengganti nama satu berkas itu sepele, mengganti nama dua ratus berkas itu pekerjaan. Foto keluar dari kamera sebagai DSC_0491, dari ponsel sebagai IMG_4821, dan dari aplikasi pesan sebagai sesuatu yang berisi spasi dan tanggal, dan sekarang semuanya ada dalam satu folder dengan urutan yang tidak berarti apa-apa. Yang diinginkan biasanya salah satu dari tiga hal: satu set bernomor, satu set bernama menurut kapan tiap foto diambil, atau nama yang sama tanpa kekacauannya.',
+          'Penomoran punya satu detail yang menentukan berhasil atau tidaknya. Pengelola berkas mengurutkan nama sebagai teks, jadi foto-10 datang sebelum foto-2 dan urutan yang baru saja Anda buat jadi kacau. Karena itu nomor diberi nol sesuai besarnya kumpulan: sepuluh berkas mendapat 01 sampai 10, seratus berkas mendapat 001 sampai 100. Itulah seluruh alasan memakai alat alih-alih mengganti nama satu per satu, dan itu pula yang salah pada kebanyakan skrip buatan cepat.',
+          'Menamai berdasarkan tanggal pengambilan menyelesaikan masalah yang lain. Foto satu sore yang diambil dengan tiga ponsel berbeda tidak akan pernah berselang-seling dengan benar berdasarkan nama berkas, karena tiap perangkat menomori dengan caranya sendiri. Waktu pengambilan dibaca dari tiap foto dan dipakai sebagai nama, dari yang terlama, dan folder itu jadi urut sesuai jalannya hari itu. Foto tanpa tanggal tetap memakai namanya sendiri alih-alih diberi tanggal yang salah, dan alat ini menyebutkan foto mana saja itu.',
+          'Di bawah ketiga cara itu berlaku dua aturan. Dua berkas tidak boleh berakhir dengan nama yang sama, sebab sebuah ZIP dengan senang hati memuat dua entri bernama liburan-01.jpg, dan ketika dibuka setidaknya satu foto sudah hilang; bentrokan diberi nomor dan dilaporkan. Dan setiap nama harus selamat saat disalin ke Windows, yang melarang sembilan karakter, memotong nama yang berakhir dengan titik, dan sampai 2026 masih menolak menulis berkas bernama CON. Alat yang mengabaikan itu menghasilkan berkas yang gagal belakangan, di komputer orang lain.',
+          'Di sini tidak ada yang disandikan ulang. Byte tiap foto disalin ke dalam arsip tanpa disentuh, yang menjadikannya satu-satunya alat gambar di situs ini yang tidak mungkin mengorbankan kualitas sedikit pun.',
+        ],
+        steps: [
+          'Pilih foto Anda, atau tempel langsung dari papan klip.',
+          'Sebutkan namanya mau seperti apa: bernomor, menurut tanggal pengambilan, atau dirapikan.',
+          'Periksa pratinjaunya, yang menampilkan tiap nama lama di sebelah nama barunya.',
+          'Unduh ZIP-nya lalu buka di tempat Anda menginginkan salinan yang sudah diganti nama.',
+        ],
+        tips: [
+          'Nomor diberi nol sesuai besarnya kumpulan, jadi berkasnya terurut dengan benar.',
+          'Tanggal dibaca dari tiap foto dan diurutkan dari yang terlama, jadi beberapa kamera berselang-seling dengan benar.',
+          'Nama dibuat aman untuk Windows, macOS, dan Linux, termasuk nama khusus yang masih ditolak Windows.',
+          'Dua berkas tidak bisa keluar dengan nama yang sama; bentrokan diberi nomor dan dilaporkan.',
+          'Tidak ada yang disandikan ulang, jadi mengganti nama tidak mungkin mengorbankan kualitas.',
+        ],
+        faqs: [
+          { q: 'Bagaimana mengganti nama banyak foto sekaligus?', a: 'Pilih semuanya, sebutkan namanya mau seperti apa, lalu unduh ZIP-nya. Pratinjau menampilkan tiap nama lama di sebelah nama barunya sebelum Anda memutuskan apa pun.' },
+          { q: 'Bisakah saya mengganti nama foto berdasarkan tanggal pengambilannya?', a: 'Bisa. Waktu pengambilan dibaca dari tiap foto dan dipakai sebagai nama, dari yang terlama, dan itulah cara membuat foto dari beberapa ponsel urut sesuai jalannya hari itu. Foto tanpa tanggal tetap memakai namanya dan didaftar terpisah.' },
+          { q: 'Kenapa nomornya diberi nol di depan?', a: 'Karena pengelola berkas mengurutkan nama sebagai teks, jadi foto-10 datang sebelum foto-2. Memberi nol sesuai besarnya kumpulan membuat sepuluh berkas berjalan dari 01 sampai 10, dan urutan yang Anda minta jadi urutan yang Anda lihat.' },
+          { q: 'Kenapa saya menerima ZIP, bukan berkas yang sudah diganti nama?', a: 'Halaman web tidak punya cara mengganti nama berkas di cakram Anda, dan memberinya kuasa itu bukan ide bagus. Yang bisa dilakukannya adalah mengembalikan salinan yang membawa nama baru, dan ZIP adalah satu-satunya cara browser menyerahkan banyak berkas sekaligus.' },
+          { q: 'Apakah mengganti nama menurunkan kualitas?', a: 'Tidak, dan memang tidak mungkin. Byte tiap foto disalin ke dalam arsip persis apa adanya, tanpa diurai atau disandikan ulang di tahap mana pun. Yang berubah hanya nama yang menempel padanya.' },
+          { q: 'Apakah foto saya diunggah?', a: 'Tidak. Foto dibaca di dalam tab browser ini oleh perangkat Anda sendiri, dan ZIP-nya juga dibuat di situ. Anda bisa mengawasi tab Network di browser sambil ia bekerja: tidak ada yang membawa foto keluar.' },
+        ],
+      },
+    },
     'color-picker': {
       title: 'Pemilih warna dari gambar',
       blurb: 'Tunjuk sebuah warna untuk dapat kode hex-nya, dan lihat palet penyusun gambar.',

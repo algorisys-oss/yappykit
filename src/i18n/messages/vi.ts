@@ -190,6 +190,81 @@ const vi: Messages = {
   },
 
   tools: {
+    'batch-rename': {
+      title: 'Đổi tên ảnh hàng loạt',
+      blurb: 'Đánh số, đặt theo ngày chụp, hoặc dọn cho gọn. Không có gì được tải lên.',
+      tags: ['đổi tên hàng loạt','đổi tên nhiều tệp','đổi tên ảnh theo ngày','tên tệp đánh số','sắp xếp tên tệp','IMG_1234'],
+      seoTitle: 'Đổi tên ảnh hàng loạt trực tuyến, miễn phí và không cần tải lên | YappyKit',
+      seoDescription:
+        'Đổi tên nhiều ảnh cùng lúc: đánh số theo thứ tự, theo ngày chụp từng tấm, hoặc dọn lại những cái tên sẵn có. Chạy trong trình duyệt và ảnh không bao giờ được tải lên.',
+      heroTitle: 'Đổi tên ảnh hàng loạt',
+      heroNote:
+        'Đánh số theo thứ tự, đặt tên theo ngày chụp từng tấm, hoặc dọn lại những cái tên sẵn có. Ảnh không bao giờ được tải lên và không có gì bị mã hóa lại: chỉ tên là thay đổi.',
+      ui: {
+        pickLabel: 'Chọn ảnh của bạn',
+        pickHint: 'Chọn nhiều tấm cùng lúc. Có cả ảnh HEIC từ iPhone.',
+        reading: 'Đang đọc ảnh…',
+        needImages: 'Hãy chọn vài ảnh trước.',
+        schemeLabel: 'Tên nên như thế nào',
+        schemeSequence: 'Đánh số theo thứ tự',
+        schemeDate: 'Ngày chụp từng tấm',
+        schemeTidy: 'Dọn lại cái đang có',
+        prefixLabel: 'Tên',
+        prefixPlaceholder: 'Du lịch',
+        startLabel: 'Bắt đầu từ',
+        sequenceNote:
+          'Số được thêm số 0 theo độ lớn của lô, nên mười tệp chạy từ 01 đến 10 và trình quản lý tệp sắp đúng thứ tự.',
+        dateNote:
+          'Đọc từ từng ảnh và sắp từ cũ nhất. Ảnh của hai máy khác nhau sẽ xen kẽ đúng theo thứ tự thực sự đã chụp.',
+        tidyNote:
+          'Bỏ tiền tố của máy ảnh, khoảng trắng thành dấu gạch nối, và loại bỏ mọi thứ Windows không chấp nhận.',
+        previewHeading: 'Bạn sẽ nhận được',
+        noteNoDate: 'không có ngày',
+        noteCollision: 'đổi tên để tránh trùng',
+        noteUnchanged: 'không đổi',
+        noDateOne: '1 ảnh không có ngày nên giữ nguyên tên của nó.',
+        noDateMany: '{n} ảnh không có ngày nên giữ nguyên tên của chúng.',
+        collisionOne: '1 tên sẽ bị trùng nên đã được thêm số.',
+        collisionMany: '{n} tên sẽ bị trùng nên đã được thêm số.',
+        zipNote:
+          'Một trang web không thể đổi tên tệp trên ổ đĩa của bạn, nên các bản sao đã đổi tên trở về dưới dạng ZIP. Các byte được chép nguyên, không mã hóa lại, nên không mất chút chất lượng nào.',
+        action: 'Đổi tên {n} và tải về',
+        working: 'Đang xử lý…',
+        doneStatus: 'Xong: đã đổi tên {n}, {size}.',
+        download: 'Tải tệp ZIP',
+        failed: 'Cách đó không được.',
+      },
+      content: {
+        howItWorks: [
+          'Đổi tên một tệp thì đơn giản, đổi tên hai trăm tệp lại là cả một việc. Ảnh ra khỏi máy ảnh với tên DSC_0491, ra khỏi điện thoại với tên IMG_4821, và ra khỏi ứng dụng nhắn tin với một cái tên có khoảng trắng và ngày tháng bên trong; giờ tất cả nằm chung một thư mục theo một thứ tự chẳng có nghĩa gì. Thứ người ta muốn thường là một trong ba: một bộ đánh số, một bộ đặt tên theo lúc chụp, hoặc chính những cái tên đó nhưng bỏ đi phần lộn xộn.',
+          'Việc đánh số có một chi tiết quyết định nó có dùng được hay không. Trình quản lý tệp sắp tên như văn bản, nên anh-10 đứng trước anh-2 và cái dãy bạn vừa tạo ra lại lộn xộn. Vì thế số được thêm 0 theo độ lớn của lô: mười tệp chạy từ 01 đến 10, một trăm tệp chạy từ 001 đến 100. Đó là toàn bộ lý do dùng công cụ thay vì đổi tên bằng tay, và cũng là chỗ mà hầu hết các đoạn mã viết vội làm sai.',
+          'Đặt tên theo ngày chụp giải quyết một vấn đề khác. Ảnh của cùng một buổi chiều chụp bằng ba điện thoại khác nhau sẽ không bao giờ xen kẽ đúng theo tên tệp, vì mỗi máy đánh số theo cách riêng. Thời điểm chụp được đọc từ từng ảnh và dùng làm tên, cũ nhất trước, và thư mục nằm đúng theo thứ tự mà ngày hôm đó thực sự diễn ra. Ảnh không có ngày thì giữ tên của chính nó thay vì bị gán một ngày sai, và công cụ cho biết đó là những tấm nào.',
+          'Bên dưới cả ba cách là hai quy tắc. Hai tệp không bao giờ được mang cùng một tên, bởi một tệp ZIP sẽ vui vẻ chứa hai mục cùng tên dulich-01.jpg, và khi giải nén thì ít nhất một tấm ảnh đã biến mất; trùng tên sẽ được thêm số và được báo lại. Và mọi cái tên đều phải sống sót khi chép sang Windows, nơi cấm chín ký tự, cắt cụt cái tên kết thúc bằng dấu chấm, và đến năm 2026 vẫn từ chối ghi một tệp tên CON. Công cụ nào bỏ qua điều đó sẽ tạo ra những tệp hỏng việc về sau, trên máy của người khác.',
+          'Ở đây không có gì bị mã hóa lại. Các byte của từng ảnh được chép nguyên vào tệp nén, khiến đây là công cụ ảnh duy nhất trên trang này không thể làm mất chút chất lượng nào.',
+        ],
+        steps: [
+          'Chọn ảnh của bạn, hoặc dán thẳng từ clipboard.',
+          'Cho biết tên nên như thế nào: đánh số, theo ngày chụp, hay dọn lại.',
+          'Xem phần xem trước, nó hiện từng tên cũ bên cạnh tên mới.',
+          'Tải tệp ZIP về rồi giải nén ở nơi bạn muốn đặt các bản sao đã đổi tên.',
+        ],
+        tips: [
+          'Số được thêm 0 theo độ lớn của lô, nên các tệp sắp đúng thứ tự.',
+          'Ngày được đọc từ từng ảnh và sắp từ cũ nhất, nên nhiều máy ảnh xen kẽ đúng.',
+          'Tên được làm an toàn cho Windows, macOS và Linux, gồm cả những tên dành riêng mà Windows vẫn từ chối.',
+          'Hai tệp không thể ra cùng một tên; trùng tên sẽ được thêm số và được báo lại.',
+          'Không có gì bị mã hóa lại, nên đổi tên không thể làm mất chất lượng.',
+        ],
+        faqs: [
+          { q: 'Làm sao đổi tên nhiều ảnh cùng lúc?', a: 'Chọn tất cả, cho biết tên nên như thế nào, rồi tải tệp ZIP về. Phần xem trước hiện từng tên cũ bên cạnh tên mới trước khi bạn quyết định bất cứ điều gì.' },
+          { q: 'Tôi đổi tên ảnh theo ngày chụp được không?', a: 'Được. Thời điểm chụp được đọc từ từng ảnh và dùng làm tên, cũ nhất trước, đó là cách để ảnh từ nhiều điện thoại nằm đúng theo thứ tự ngày hôm đó thực sự diễn ra. Ảnh không có ngày giữ nguyên tên và được liệt kê riêng.' },
+          { q: 'Sao các số lại có số 0 ở đầu?', a: 'Vì trình quản lý tệp sắp tên như văn bản, nên anh-10 đứng trước anh-2. Thêm 0 theo độ lớn của lô khiến mười tệp chạy từ 01 đến 10, và thứ tự bạn yêu cầu chính là thứ tự bạn thấy.' },
+          { q: 'Sao tôi nhận tệp ZIP thay vì các tệp đã đổi tên?', a: 'Một trang web không có cách nào đổi tên tệp trên ổ đĩa của bạn, và trao cho nó quyền đó là ý tưởng tệ. Việc nó làm được là trả lại các bản sao mang tên mới, và ZIP là cách duy nhất để trình duyệt giao nhiều tệp cùng lúc.' },
+          { q: 'Đổi tên có làm giảm chất lượng không?', a: 'Không, và cũng không thể. Các byte của từng ảnh được chép vào tệp nén đúng như hiện trạng, không giải mã hay mã hóa lại ở bất kỳ khâu nào. Chỉ cái tên gắn với chúng là thay đổi.' },
+          { q: 'Ảnh của tôi có bị tải lên không?', a: 'Không. Chúng được đọc ngay trong tab trình duyệt này bằng chính thiết bị của bạn, và tệp ZIP cũng được tạo ở đó. Bạn có thể theo dõi tab Network của trình duyệt trong lúc nó làm: không có gì mang theo ảnh đi ra ngoài.' },
+        ],
+      },
+    },
     'color-picker': {
       title: 'Chọn màu từ ảnh',
       blurb: 'Trỏ vào một màu để lấy mã hex, và xem bảng màu tạo nên bức ảnh.',

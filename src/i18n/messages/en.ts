@@ -192,6 +192,81 @@ export const en = {
   },
 
   tools: {
+    'batch-rename': {
+      title: 'Rename images in bulk',
+      blurb: 'Number them, name them by the date taken, or tidy the mess. Nothing is uploaded.',
+      tags: ['batch rename','rename multiple files','bulk rename images','rename photos by date','sequential file names','rename files in order','IMG_1234'],
+      seoTitle: 'Batch Rename Images Online, Free and Without Uploading | YappyKit',
+      seoDescription:
+        'Rename many photos at once: numbered in order, by the date each was taken, or by tidying the names they already have. Runs in your browser and the photos are never uploaded.',
+      heroTitle: 'Rename images in bulk',
+      heroNote:
+        'Number them in order, name them by the date each was taken, or tidy up the names they already have. The photos are never uploaded, and nothing is re-encoded: only the names change.',
+      ui: {
+        pickLabel: 'Choose your images',
+        pickHint: 'Pick several at once. iPhone HEIC photos are included.',
+        reading: 'Reading the photos…',
+        needImages: 'Choose some images first.',
+        schemeLabel: 'What the names should be',
+        schemeSequence: 'Numbered in order',
+        schemeDate: 'The date each was taken',
+        schemeTidy: 'Tidy what is there',
+        prefixLabel: 'Name',
+        prefixPlaceholder: 'Holiday',
+        startLabel: 'Start at',
+        sequenceNote:
+          'Numbers are padded to the width of the batch, so ten files are 01 to 10 and a file manager sorts them correctly.',
+        dateNote:
+          'Read from each photo, and sorted oldest first. Photos from two different cameras end up interleaved in the order they were actually taken.',
+        tidyNote:
+          'Camera prefixes go, spaces become hyphens, and anything Windows refuses is removed.',
+        previewHeading: 'What you will get',
+        noteNoDate: 'no date',
+        noteCollision: 'renamed to avoid a clash',
+        noteUnchanged: 'unchanged',
+        noDateOne: '1 photo carries no date, so it keeps its own name.',
+        noDateMany: '{n} photos carry no date, so they keep their own names.',
+        collisionOne: '1 name would have clashed and was given a number.',
+        collisionMany: '{n} names would have clashed and were given numbers.',
+        zipNote:
+          'A web page cannot rename files on your disk, so the renamed copies come back as a ZIP. The bytes are copied, not re-encoded, so nothing loses any quality.',
+        action: 'Rename {n} and download',
+        working: 'Working…',
+        doneStatus: 'Done: {n} renamed, {size}.',
+        download: 'Download the ZIP',
+        failed: 'That did not work.',
+      },
+      content: {
+        howItWorks: [
+          'Renaming one file is trivial and renaming two hundred is a job. The photos came off a camera as DSC_0491, off a phone as IMG_4821, and out of a chat app as something with spaces and a date in it, and now they are in one folder in an order that means nothing. What is wanted is usually one of three things: a numbered set, a set named by when each was taken, or the same names with the mess taken out.',
+          'The numbering has one detail that decides whether it works. A file manager sorts names as text, so photo-10 comes before photo-2 and the sequence you just created is out of order. Numbers are therefore padded to the width of the batch: ten files get 01 to 10, a hundred get 001 to 100. It is the whole reason to reach for a tool instead of renaming by hand, and it is what most quick scripts get wrong.',
+          'Naming by the date taken solves a different problem. Photos of one afternoon from three different phones will never interleave correctly by file name, because each device numbers its own way. The capture time is read out of each photo and used as the name, oldest first, and the folder is in the order the day actually happened. A photo with no date keeps its own name rather than being given a wrong one, and the tool says which ones those were.',
+          'Two rules run underneath all three schemes. No two files may end up with the same name, because a ZIP will hold two entries called holiday-01.jpg quite happily and at least one of the photos is gone when it is unpacked; a clash gets a number and is reported. And every name has to survive being copied to Windows, which forbids nine characters outright, truncates a name ending in a dot, and still refuses to write a file called CON in 2026. A renamer that ignores that produces files which fail later, on somebody else’s machine.',
+          'Nothing here re-encodes anything. The bytes of each photo are copied into the archive untouched, which makes this the one image tool on the site that cannot cost any quality at all.',
+        ],
+        steps: [
+          'Choose your photos, or paste them straight from your clipboard.',
+          'Say what the names should be: numbered, by date taken, or tidied.',
+          'Check the preview, which shows every old name beside its new one.',
+          'Download the ZIP and unpack it wherever you want the renamed copies.',
+        ],
+        tips: [
+          'Numbers are padded to the width of the batch, so the files sort correctly.',
+          'Dates are read from each photo and sorted oldest first, so several cameras interleave properly.',
+          'Names are made safe for Windows, macOS and Linux, including the reserved names Windows still refuses.',
+          'No two files can come out with the same name; a clash is numbered and reported.',
+          'Nothing is re-encoded, so renaming cannot cost any quality.',
+        ],
+        faqs: [
+          { q: 'How do I rename multiple photos at once?', a: 'Choose them all, pick how the names should look, and download the ZIP. The preview shows every old name next to its new one before you commit to anything.' },
+          { q: 'Can I rename photos by the date they were taken?', a: 'Yes. The capture time is read out of each photo and used as the name, oldest first, which is the way to make photos from several phones sit in the order the day actually happened. Photos with no date keep their own names and are listed separately.' },
+          { q: 'Why are the numbers padded with zeros?', a: 'Because a file manager sorts names as text, so photo-10 sorts before photo-2. Padding to the width of the batch means ten files get 01 to 10 and the order you asked for is the order you see.' },
+          { q: 'Why do I get a ZIP instead of renamed files?', a: 'A web page has no way to rename files on your disk, and giving it that power would be a bad idea. What it can do is hand back copies carrying the new names, and a ZIP is the only way a browser can deliver many files at once.' },
+          { q: 'Does renaming reduce the quality?', a: 'No, and it cannot. The bytes of each photo are copied into the archive exactly as they are, with no decoding or re-encoding at any point. Only the name attached to them changes.' },
+          { q: 'Are my photos uploaded?', a: 'No. They are read inside this browser tab by your own device, and the ZIP is built there too. You can watch your browser’s Network tab while it works: nothing carrying a photo goes out.' },
+        ],
+      },
+    },
     'color-picker': {
       title: 'Colour picker from an image',
       blurb: 'Point at a colour for its hex, and see the palette the image is made of.',

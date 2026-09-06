@@ -60,3 +60,23 @@ function formatDate(d: unknown): string | undefined {
   if (d instanceof Date && !isNaN(d.getTime())) return d.toISOString().slice(0, 19).replace('T', ' ');
   return typeof d === 'string' ? d : undefined;
 }
+
+/**
+ * Just the moment the shutter fired, as a Date.
+ *
+ * Separate from readMetadata because that one formats everything for display,
+ * and a renamer needs the value rather than a rendering of it. Only the two
+ * capture fields are asked for, so exifr can skip the rest of the file.
+ *
+ * Returns null rather than throwing: a photo with no EXIF is ordinary, not an
+ * error, and the caller has something sensible to do about it.
+ */
+export async function readTakenDate(file: Blob): Promise<Date | null> {
+  const exifr = await import('exifr');
+  const data: Record<string, unknown> | undefined = await exifr
+    .parse(file, { pick: ['DateTimeOriginal', 'CreateDate'] })
+    .catch(() => undefined);
+  const value = data?.DateTimeOriginal ?? data?.CreateDate;
+  if (!(value instanceof Date)) return null;
+  return Number.isNaN(value.getTime()) ? null : value;
+}

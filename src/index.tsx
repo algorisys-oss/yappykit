@@ -52,6 +52,7 @@ const COMPONENTS: Record<RouteKey, Component> = {
   'image-crop': lazy(() => import('./routes/tools/image-crop')),
   'screenshot-split': lazy(() => import('./routes/tools/screenshot-split')),
   'color-picker': lazy(() => import('./routes/tools/color-picker')),
+  'batch-rename': lazy(() => import('./routes/tools/batch-rename')),
   about: lazy(() => import('./routes/about')),
   privacy: lazy(() => import('./routes/privacy')),
   terms: lazy(() => import('./routes/terms')),

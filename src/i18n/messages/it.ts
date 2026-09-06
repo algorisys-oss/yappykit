@@ -190,6 +190,81 @@ const it: Messages = {
   },
 
   tools: {
+    'batch-rename': {
+      title: 'Rinominare immagini in blocco',
+      blurb: 'Numerale, usa la data dello scatto oppure metti ordine nei nomi. Non viene caricato nulla.',
+      tags: ['rinominare in blocco','rinominare più file','rinominare foto per data','nomi sequenziali','rinominare in ordine','IMG_1234'],
+      seoTitle: 'Rinominare immagini in blocco online, gratis e senza caricarle | YappyKit',
+      seoDescription:
+        'Rinomina tante foto in una volta: numerate in ordine, con la data in cui ognuna è stata scattata, o mettendo ordine nei nomi che hanno già. Funziona nel browser e le foto non vengono mai caricate.',
+      heroTitle: 'Rinominare immagini in blocco',
+      heroNote:
+        'Numerale in ordine, usa la data in cui ognuna è stata scattata, oppure metti ordine nei nomi che hanno già. Le foto non vengono mai caricate e niente viene ricodificato: cambiano solo i nomi.',
+      ui: {
+        pickLabel: 'Scegli le tue immagini',
+        pickHint: 'Scegline diverse insieme. Comprese le foto HEIC di iPhone.',
+        reading: 'Lettura delle foto…',
+        needImages: 'Scegli prima qualche immagine.',
+        schemeLabel: 'Come devono essere i nomi',
+        schemeSequence: 'Numerate in ordine',
+        schemeDate: 'La data di ciascuna',
+        schemeTidy: 'Sistemare quelli che ci sono',
+        prefixLabel: 'Nome',
+        prefixPlaceholder: 'Vacanze',
+        startLabel: 'Inizia da',
+        sequenceNote:
+          'I numeri vengono riempiti di zeri in base alla dimensione del gruppo, così dieci file vanno da 01 a 10 e il gestore file li ordina correttamente.',
+        dateNote:
+          'Letta da ogni foto e ordinata dalla più vecchia. Le foto di due fotocamere diverse finiscono alternate nell’ordine in cui sono state davvero scattate.',
+        tidyNote:
+          'I prefissi della fotocamera spariscono, gli spazi diventano trattini e tutto ciò che Windows rifiuta viene tolto.',
+        previewHeading: 'Che cosa otterrai',
+        noteNoDate: 'senza data',
+        noteCollision: 'rinominata per evitare un doppione',
+        noteUnchanged: 'invariata',
+        noDateOne: '1 foto non porta la data, quindi tiene il suo nome.',
+        noDateMany: '{n} foto non portano la data, quindi tengono i loro nomi.',
+        collisionOne: '1 nome sarebbe stato doppio e ha ricevuto un numero.',
+        collisionMany: '{n} nomi sarebbero stati doppi e hanno ricevuto numeri.',
+        zipNote:
+          'Una pagina web non può rinominare i file sul tuo disco, quindi le copie rinominate tornano in uno ZIP. I byte vengono copiati, non ricodificati, quindi non si perde qualità.',
+        action: 'Rinomina {n} e scarica',
+        working: 'In corso…',
+        doneStatus: 'Fatto: {n} rinominate, {size}.',
+        download: 'Scarica lo ZIP',
+        failed: 'Non ha funzionato.',
+      },
+      content: {
+        howItWorks: [
+          'Rinominare un file è banale, rinominarne duecento è un lavoro. Le foto sono uscite da una fotocamera come DSC_0491, da un telefono come IMG_4821 e da un’app di messaggi come qualcosa con spazi e una data dentro, e adesso stanno in una cartella in un ordine che non vuol dire niente. Quello che si vuole di solito è una di tre cose: un insieme numerato, un insieme che dice quando ogni foto è stata scattata, oppure gli stessi nomi senza il disordine.',
+          'La numerazione ha un dettaglio che decide se funziona. Il gestore file ordina i nomi come testo, quindi foto-10 viene prima di foto-2 e la sequenza appena creata è fuori ordine. Per questo i numeri vengono riempiti in base alla dimensione del gruppo: dieci file vanno da 01 a 10, cento vanno da 001 a 100. È l’intera ragione per usare uno strumento invece di rinominare a mano, ed è ciò che quasi tutti gli script veloci sbagliano.',
+          'Usare la data dello scatto risolve un problema diverso. Le foto di un pomeriggio fatte con tre telefoni diversi non si alterneranno mai bene per nome di file, perché ogni apparecchio numera a modo suo. L’ora dello scatto viene letta da ogni foto e usata come nome, dalla più vecchia alla più recente, e la cartella resta nell’ordine in cui la giornata è andata davvero. Una foto senza data tiene il proprio nome invece di riceverne uno sbagliato, e lo strumento dice quali sono state.',
+          'Sotto tutti e tre i modi corrono due regole. Due file non possono finire con lo stesso nome, perché uno ZIP terrà tranquillamente due voci chiamate vacanze-01.jpg e, una volta aperto, almeno una delle foto è sparita; un doppione riceve un numero e viene segnalato. E ogni nome deve sopravvivere alla copia su Windows, che vieta nove caratteri, taglia un nome che finisce con un punto e ancora nel 2026 si rifiuta di scrivere un file chiamato CON. Uno strumento che lo ignora produce file che falliscono più tardi, sulla macchina di qualcun altro.',
+          'Qui non si ricodifica niente. I byte di ogni foto vengono copiati nell’archivio senza essere toccati, e questo rende questo strumento l’unico strumento per immagini del sito che non può costare alcuna qualità.',
+        ],
+        steps: [
+          'Scegli le tue foto, oppure incollale direttamente dagli appunti.',
+          'Di’ come devono essere i nomi: numerati, per data dello scatto, o sistemati.',
+          'Controlla l’anteprima, che mostra ogni vecchio nome accanto a quello nuovo.',
+          'Scarica lo ZIP e aprilo dove vuoi le copie rinominate.',
+        ],
+        tips: [
+          'I numeri vengono riempiti in base alla dimensione del gruppo, così i file si ordinano bene.',
+          'Le date vengono lette da ogni foto e ordinate dalla più vecchia, così più fotocamere si alternano correttamente.',
+          'I nomi sono resi sicuri per Windows, macOS e Linux, compresi i nomi riservati che Windows continua a rifiutare.',
+          'Due file non possono uscire con lo stesso nome; un doppione riceve un numero e viene segnalato.',
+          'Niente viene ricodificato, quindi rinominare non può costare qualità.',
+        ],
+        faqs: [
+          { q: 'Come rinomino più foto insieme?', a: 'Scegli tutte le foto, di’ come devono essere i nomi e scarica lo ZIP. L’anteprima mostra ogni vecchio nome accanto a quello nuovo prima che tu decida qualsiasi cosa.' },
+          { q: 'Posso rinominare le foto in base alla data dello scatto?', a: 'Sì. L’ora dello scatto viene letta da ogni foto e usata come nome, dalla più vecchia alla più recente, ed è il modo per far stare foto di più telefoni nell’ordine in cui la giornata è andata davvero. Le foto senza data tengono il proprio nome e sono elencate a parte.' },
+          { q: 'Perché i numeri hanno gli zeri davanti?', a: 'Perché il gestore file ordina i nomi come testo, quindi foto-10 viene prima di foto-2. Riempirli in base alla dimensione del gruppo fa sì che dieci file vadano da 01 a 10 e che l’ordine chiesto sia quello che vedi.' },
+          { q: 'Perché ricevo uno ZIP invece dei file rinominati?', a: 'Una pagina web non ha modo di rinominare i file sul tuo disco, e darle quel potere sarebbe una pessima idea. Quello che può fare è restituirti copie con i nomi nuovi, e uno ZIP è l’unico modo in cui un browser consegna molti file insieme.' },
+          { q: 'Rinominare riduce la qualità?', a: 'No, e non può. I byte di ogni foto vengono copiati nell’archivio esattamente come sono, senza decodifica né ricodifica in nessun momento. Cambia solo il nome attaccato a essi.' },
+          { q: 'Le mie foto vengono caricate?', a: 'No. Vengono lette dentro questa scheda del browser, dal tuo stesso dispositivo, e lo ZIP viene costruito lì. Puoi tenere d’occhio la scheda Rete del browser mentre lavora: non esce nulla che contenga una foto.' },
+        ],
+      },
+    },
     'color-picker': {
       title: 'Selettore di colori da un’immagine',
       blurb: 'Punta un colore per avere il suo hex, e vedi la tavolozza di cui l’immagine è fatta.',

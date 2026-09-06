@@ -329,6 +329,31 @@ export function ColorPickerPreview() {
   );
 }
 
+export function BatchRenamePreview() {
+  return (
+    <Frame>
+      {/* messy names on the left, ordered ones on the right */}
+      {[18, 40, 62].map((y, i) => (
+        <g>
+          <rect x="20" y={y} width="60" height="16" rx="4" fill={C.paper} stroke={C.border} stroke-width="2" />
+          <rect x="26" y={y + 5} width={[44, 34, 40][i]} height="6" rx="3" fill={C.muted} opacity="0.55" />
+        </g>
+      ))}
+      <g stroke={C.muted} stroke-width="2.5" stroke-linecap="round">
+        <path d="M90 48 h16" />
+        <path d="M100 42 l8 6 l-8 6" fill="none" />
+      </g>
+      {[18, 40, 62].map((y) => (
+        <g>
+          <rect x="120" y={y} width="60" height="16" rx="4" fill={C.paper} stroke={C.accent} stroke-width="2" />
+          <rect x="126" y={y + 5} width="34" height="6" rx="3" fill={C.accent} opacity="0.7" />
+          <rect x="164" y={y + 5} width="10" height="6" rx="3" fill={C.ok} />
+        </g>
+      ))}
+    </Frame>
+  );
+}
+
 export function SpreadsheetPreview() {
   const grid = (ox: number, marks: Record<number, string>) => (
     <g transform={`translate(${ox} 24)`}>
@@ -862,6 +887,7 @@ export const TOOL_PREVIEWS: Partial<Record<ToolKey, () => JSX.Element>> = {
   'screenshot-stitch': ScreenshotStitchPreview,
   'screenshot-split': ScreenshotSplitPreview,
   'color-picker': ColorPickerPreview,
+  'batch-rename': BatchRenamePreview,
   'font-coverage': FontCoveragePreview,
   'font-style': FontStylePreview,
   'image-to-pdf': ImageToPdfPreview,

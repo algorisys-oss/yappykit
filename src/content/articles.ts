@@ -29,6 +29,16 @@ export interface ToolArticle {
 }
 
 export const ARTICLES: Partial<Record<ToolKey, ToolArticle>> = {
+  'batch-rename': {
+    heading: 'The two rules a bulk renamer has to get right, and usually does not',
+    paragraphs: [
+      'Bulk renaming looks like string formatting. Take a prefix, take a counter, join them, done. The trouble is that a file name is not a string: it is a string that has to survive three operating systems, a ZIP archive and a file manager that sorts it, and each of those has an opinion. Two of those opinions are where almost every quick renaming script fails.',
+      'The first is sorting. File managers sort names as text, and as text, "photo-10" comes before "photo-2", because the character 1 sorts before 2 and the comparison stops there. A person renaming a hundred holiday photos in sequence discovers this at photo-10 and finds their carefully ordered set jumbled. The fix is to pad every number to the width of the largest, so ten files are 01 to 10 and a hundred are 001 to 100. It is one line, it must be derived from the size of the batch rather than fixed at two digits, and it is the single most common reason people give up on a renaming script and do it by hand.',
+      'The second is what a name is allowed to contain. Unix will accept almost anything except a slash and a null byte, which makes it a poor teacher: a name that works perfectly on the machine that made it can be impossible to write on Windows. Windows forbids nine characters outright, silently truncates a name that ends in a dot or a space, and still, in 2026, refuses to create a file called CON, PRN, AUX, NUL, COM1 or LPT1, with or without an extension, because those were device names in DOS and the compatibility was never broken. A renamer that does not know this produces an archive that unpacks fine for its author and fails for the person they send it to.',
+      'Then there is the case nobody plans for: two files that want the same name. It happens more often than it sounds. A burst of photos shares a capture second, so naming by timestamp collides. Two names that differed only in punctuation tidy down to the same thing. And the failure is quiet in the worst way, because a ZIP is perfectly happy to contain two entries with identical names; what happens on extraction is up to the unpacker, and the usual answer is that one photo silently overwrites the other. The only safe design is to track every name already issued and number the duplicates, comparing case-insensitively because Windows and macOS both consider A.jpg and a.jpg the same file.',
+      'None of this is difficult. All of it is invisible when it is right, and all of it produces a bug report weeks later when it is wrong, from someone who cannot open the files you sent them.',
+    ],
+  },
   'color-picker': {
     heading: 'Why palette extractors return colours that are not in the picture',
     paragraphs: [

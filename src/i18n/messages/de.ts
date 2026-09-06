@@ -190,6 +190,81 @@ const de: Messages = {
   },
 
   tools: {
+    'batch-rename': {
+      title: 'Bilder stapelweise umbenennen',
+      blurb: 'Durchnummerieren, nach Aufnahmedatum benennen oder das Durcheinander aufräumen. Nichts wird hochgeladen.',
+      tags: ['stapelweise umbenennen','mehrere dateien umbenennen','fotos nach datum umbenennen','fortlaufende namen','dateien umbenennen','IMG_1234'],
+      seoTitle: 'Bilder stapelweise umbenennen, kostenlos und ohne Hochladen | YappyKit',
+      seoDescription:
+        'Benennen Sie viele Fotos auf einmal um: durchnummeriert, nach dem Aufnahmedatum jedes einzelnen, oder indem die vorhandenen Namen aufgeräumt werden. Läuft im Browser, die Fotos werden nie hochgeladen.',
+      heroTitle: 'Bilder stapelweise umbenennen',
+      heroNote:
+        'Durchnummerieren, nach dem Aufnahmedatum jedes Fotos benennen, oder die vorhandenen Namen aufräumen. Die Fotos werden nie hochgeladen und nichts wird neu kodiert: es ändern sich nur die Namen.',
+      ui: {
+        pickLabel: 'Bilder auswählen',
+        pickHint: 'Mehrere auf einmal. HEIC-Fotos vom iPhone eingeschlossen.',
+        reading: 'Fotos werden gelesen…',
+        needImages: 'Wählen Sie zuerst ein paar Bilder aus.',
+        schemeLabel: 'Wie die Namen aussehen sollen',
+        schemeSequence: 'Durchnummeriert',
+        schemeDate: 'Das Aufnahmedatum',
+        schemeTidy: 'Vorhandene aufräumen',
+        prefixLabel: 'Name',
+        prefixPlaceholder: 'Urlaub',
+        startLabel: 'Beginnen bei',
+        sequenceNote:
+          'Die Zahlen werden auf die Breite des Stapels aufgefüllt, zehn Dateien laufen also von 01 bis 10 und der Dateimanager sortiert sie richtig.',
+        dateNote:
+          'Aus jedem Foto gelesen und nach Alter sortiert. Fotos von zwei verschiedenen Kameras stehen am Ende in der Reihenfolge, in der sie wirklich aufgenommen wurden.',
+        tidyNote:
+          'Kamerapräfixe fallen weg, Leerzeichen werden zu Bindestrichen, und alles, was Windows ablehnt, wird entfernt.',
+        previewHeading: 'Was Sie bekommen',
+        noteNoDate: 'kein Datum',
+        noteCollision: 'umbenannt, um eine Dopplung zu vermeiden',
+        noteUnchanged: 'unverändert',
+        noDateOne: '1 Foto trägt kein Datum und behält daher seinen Namen.',
+        noDateMany: '{n} Fotos tragen kein Datum und behalten daher ihre Namen.',
+        collisionOne: '1 Name wäre doppelt gewesen und hat eine Nummer bekommen.',
+        collisionMany: '{n} Namen wären doppelt gewesen und haben Nummern bekommen.',
+        zipNote:
+          'Eine Webseite kann keine Dateien auf Ihrer Festplatte umbenennen, deshalb kommen die umbenannten Kopien als ZIP zurück. Die Bytes werden kopiert, nicht neu kodiert, es geht also keine Qualität verloren.',
+        action: '{n} umbenennen und herunterladen',
+        working: 'Wird bearbeitet…',
+        doneStatus: 'Fertig: {n} umbenannt, {size}.',
+        download: 'ZIP herunterladen',
+        failed: 'Das hat nicht geklappt.',
+      },
+      content: {
+        howItWorks: [
+          'Eine Datei umzubenennen ist trivial, zweihundert umzubenennen ist Arbeit. Die Fotos kamen aus einer Kamera als DSC_0491, aus einem Telefon als IMG_4821 und aus einer Messenger-App als irgendetwas mit Leerzeichen und einem Datum darin, und nun liegen sie in einem Ordner in einer Reihenfolge, die nichts bedeutet. Gewollt ist meist eines von drei Dingen: ein durchnummerierter Satz, ein Satz benannt nach dem Zeitpunkt der Aufnahme, oder dieselben Namen ohne das Durcheinander.',
+          'An der Nummerierung hängt ein Detail, das über den Erfolg entscheidet. Ein Dateimanager sortiert Namen als Text, also steht foto-10 vor foto-2 und die gerade erzeugte Reihenfolge ist keine. Die Zahlen werden deshalb auf die Breite des Stapels aufgefüllt: zehn Dateien bekommen 01 bis 10, hundert bekommen 001 bis 100. Das ist der ganze Grund, ein Werkzeug zu nehmen statt von Hand umzubenennen, und genau das machen die meisten schnell geschriebenen Skripte falsch.',
+          'Die Benennung nach Aufnahmedatum löst ein anderes Problem. Fotos eines Nachmittags von drei verschiedenen Telefonen werden sich nach Dateinamen nie richtig verschränken, weil jedes Gerät auf eigene Weise nummeriert. Die Aufnahmezeit wird aus jedem Foto gelesen und als Name verwendet, das älteste zuerst, und der Ordner steht in der Reihenfolge, in der der Tag tatsächlich stattfand. Ein Foto ohne Datum behält seinen eigenen Namen, statt einen falschen zu bekommen, und das Werkzeug sagt, welche das waren.',
+          'Unter allen drei Verfahren laufen zwei Regeln. Zwei Dateien dürfen nie denselben Namen bekommen, denn ein ZIP hält bereitwillig zwei Einträge namens urlaub-01.jpg, und beim Entpacken ist mindestens eines der Fotos weg; eine Dopplung bekommt eine Nummer und wird gemeldet. Und jeder Name muss das Kopieren nach Windows überstehen, das neun Zeichen verbietet, einen auf einen Punkt endenden Namen abschneidet und sich 2026 immer noch weigert, eine Datei namens CON zu schreiben. Wer das ignoriert, erzeugt Dateien, die später scheitern, auf dem Rechner von jemand anderem.',
+          'Hier wird nichts neu kodiert. Die Bytes jedes Fotos werden unangetastet in das Archiv kopiert, was dies zum einzigen Bildwerkzeug der Seite macht, das überhaupt keine Qualität kosten kann.',
+        ],
+        steps: [
+          'Wählen Sie Ihre Fotos aus oder fügen Sie sie direkt aus der Zwischenablage ein.',
+          'Sagen Sie, wie die Namen aussehen sollen: nummeriert, nach Aufnahmedatum, oder aufgeräumt.',
+          'Prüfen Sie die Vorschau, die jeden alten Namen neben seinem neuen zeigt.',
+          'Laden Sie das ZIP herunter und entpacken Sie es dort, wo die umbenannten Kopien hin sollen.',
+        ],
+        tips: [
+          'Die Zahlen werden auf die Breite des Stapels aufgefüllt, damit die Dateien richtig sortieren.',
+          'Die Daten werden aus jedem Foto gelesen und nach Alter sortiert, damit mehrere Kameras sich richtig verschränken.',
+          'Die Namen werden für Windows, macOS und Linux sicher gemacht, samt der reservierten Namen, die Windows weiterhin ablehnt.',
+          'Zwei Dateien können nicht mit demselben Namen herauskommen; eine Dopplung bekommt eine Nummer und wird gemeldet.',
+          'Nichts wird neu kodiert, Umbenennen kann also keine Qualität kosten.',
+        ],
+        faqs: [
+          { q: 'Wie benenne ich mehrere Fotos auf einmal um?', a: 'Alle auswählen, sagen wie die Namen aussehen sollen, ZIP herunterladen. Die Vorschau zeigt jeden alten Namen neben dem neuen, bevor Sie sich auf irgendetwas festlegen.' },
+          { q: 'Kann ich Fotos nach dem Aufnahmedatum umbenennen?', a: 'Ja. Die Aufnahmezeit wird aus jedem Foto gelesen und als Name verwendet, das älteste zuerst. So stehen Fotos von mehreren Telefonen in der Reihenfolge, in der der Tag tatsächlich stattfand. Fotos ohne Datum behalten ihre Namen und werden getrennt aufgeführt.' },
+          { q: 'Warum haben die Zahlen führende Nullen?', a: 'Weil ein Dateimanager Namen als Text sortiert, also steht foto-10 vor foto-2. Das Auffüllen auf die Breite des Stapels bedeutet, dass zehn Dateien 01 bis 10 bekommen und die gewünschte Reihenfolge auch die sichtbare ist.' },
+          { q: 'Warum bekomme ich ein ZIP statt umbenannter Dateien?', a: 'Eine Webseite hat keine Möglichkeit, Dateien auf Ihrer Festplatte umzubenennen, und ihr diese Macht zu geben wäre keine gute Idee. Was sie kann, ist Kopien mit den neuen Namen zurückzugeben, und ein ZIP ist der einzige Weg, auf dem ein Browser viele Dateien auf einmal liefert.' },
+          { q: 'Verliert das Umbenennen an Qualität?', a: 'Nein, und es kann gar nicht. Die Bytes jedes Fotos werden genau so in das Archiv kopiert, wie sie sind, ohne Dekodieren oder Neukodieren an irgendeiner Stelle. Es ändert sich nur der Name, der daran hängt.' },
+          { q: 'Werden meine Fotos hochgeladen?', a: 'Nein. Sie werden in diesem Browser-Tab von Ihrem eigenen Gerät gelesen, und das ZIP entsteht ebenfalls dort. Sie können dabei den Netzwerk-Tab Ihres Browsers beobachten: Es geht nichts hinaus, was ein Foto enthält.' },
+        ],
+      },
+    },
     'color-picker': {
       title: 'Farbwähler aus einem Bild',
       blurb: 'Auf eine Farbe zeigen für ihren Hex-Wert, und die Palette des Bildes sehen.',

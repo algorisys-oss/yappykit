@@ -190,6 +190,81 @@ const fr: Messages = {
   },
 
   tools: {
+    'batch-rename': {
+      title: 'Renommer des images en lot',
+      blurb: 'Numérotez-les, nommez-les par date de prise de vue, ou nettoyez le désordre. Rien n’est envoyé.',
+      tags: ['renommer en lot','renommer plusieurs fichiers','renommer des photos par date','noms séquentiels','renommer dans l’ordre','IMG_1234'],
+      seoTitle: 'Renommer des images en lot en ligne, gratuitement et sans envoi | YappyKit',
+      seoDescription:
+        'Renommez de nombreuses photos d’un coup : numérotées dans l’ordre, par la date de prise de vue, ou en nettoyant les noms existants. Tout se passe dans votre navigateur et les photos ne sont jamais envoyées.',
+      heroTitle: 'Renommer des images en lot',
+      heroNote:
+        'Numérotez-les dans l’ordre, nommez-les par la date de prise de vue, ou nettoyez les noms existants. Les photos ne sont jamais envoyées et rien n’est réencodé : seuls les noms changent.',
+      ui: {
+        pickLabel: 'Choisir vos images',
+        pickHint: 'Plusieurs à la fois. Les photos HEIC d’iPhone sont acceptées.',
+        reading: 'Lecture des photos…',
+        needImages: 'Choisissez d’abord des images.',
+        schemeLabel: 'À quoi doivent ressembler les noms',
+        schemeSequence: 'Numérotées dans l’ordre',
+        schemeDate: 'La date de chaque photo',
+        schemeTidy: 'Nettoyer l’existant',
+        prefixLabel: 'Nom',
+        prefixPlaceholder: 'Vacances',
+        startLabel: 'Commencer à',
+        sequenceNote:
+          'Les numéros sont complétés par des zéros selon la taille du lot : dix fichiers vont de 01 à 10 et le gestionnaire de fichiers les trie correctement.',
+        dateNote:
+          'Lue dans chaque photo et triée de la plus ancienne à la plus récente. Les photos de deux appareils différents s’intercalent dans l’ordre où elles ont réellement été prises.',
+        tidyNote:
+          'Les préfixes d’appareil disparaissent, les espaces deviennent des tirets, et tout ce que Windows refuse est retiré.',
+        previewHeading: 'Ce que vous allez obtenir',
+        noteNoDate: 'sans date',
+        noteCollision: 'renommée pour éviter un doublon',
+        noteUnchanged: 'inchangée',
+        noDateOne: '1 photo ne porte pas de date et garde donc son nom.',
+        noDateMany: '{n} photos ne portent pas de date et gardent donc leurs noms.',
+        collisionOne: '1 nom aurait fait doublon et a reçu un numéro.',
+        collisionMany: '{n} noms auraient fait doublon et ont reçu des numéros.',
+        zipNote:
+          'Une page web ne peut pas renommer des fichiers sur votre disque : les copies renommées reviennent donc dans un ZIP. Les octets sont copiés, pas réencodés, donc rien ne perd en qualité.',
+        action: 'Renommer {n} et télécharger',
+        working: 'Traitement…',
+        doneStatus: 'Terminé : {n} renommées, {size}.',
+        download: 'Télécharger le ZIP',
+        failed: 'Cela n’a pas fonctionné.',
+      },
+      content: {
+        howItWorks: [
+          'Renommer un fichier est trivial ; en renommer deux cents est un travail. Les photos sont sorties d’un appareil sous le nom DSC_0491, d’un téléphone sous IMG_4821, et d’une messagerie sous quelque chose avec des espaces et une date dedans, et les voilà dans un dossier, dans un ordre qui ne veut rien dire. Ce que l’on veut est presque toujours l’une de trois choses : un ensemble numéroté, un ensemble nommé selon la date de prise de vue, ou les mêmes noms débarrassés du désordre.',
+          'La numérotation tient à un détail qui décide de tout. Un gestionnaire de fichiers trie les noms comme du texte, donc photo-10 passe avant photo-2 et la séquence que vous venez de créer est dans le désordre. Les numéros sont donc complétés selon la taille du lot : dix fichiers vont de 01 à 10, cent vont de 001 à 100. C’est toute la raison d’utiliser un outil plutôt que de renommer à la main, et c’est ce que ratent la plupart des scripts vite écrits.',
+          'Nommer par date de prise de vue règle un autre problème. Les photos d’un même après-midi prises avec trois téléphones ne s’intercaleront jamais correctement par nom de fichier, car chaque appareil numérote à sa façon. L’heure de capture est lue dans chaque photo et sert de nom, de la plus ancienne à la plus récente, et le dossier suit l’ordre réel de la journée. Une photo sans date garde son propre nom plutôt que d’en recevoir un faux, et l’outil dit lesquelles.',
+          'Deux règles valent pour les trois modes. Deux fichiers ne doivent jamais finir avec le même nom, car un ZIP acceptera sans broncher deux entrées nommées vacances-01.jpg et, à l’extraction, au moins une des photos a disparu ; un doublon reçoit un numéro et est signalé. Et chaque nom doit survivre à une copie vers Windows, qui interdit neuf caractères, tronque un nom finissant par un point, et refuse toujours d’écrire un fichier nommé CON en 2026. Un renommeur qui l’ignore produit des fichiers qui échouent plus tard, sur la machine de quelqu’un d’autre.',
+          'Rien n’est réencodé ici. Les octets de chaque photo sont copiés tels quels dans l’archive, ce qui fait de cet outil le seul outil d’image du site qui ne peut coûter aucune qualité.',
+        ],
+        steps: [
+          'Choisissez vos photos, ou collez-les directement depuis le presse-papiers.',
+          'Dites à quoi doivent ressembler les noms : numérotés, par date, ou nettoyés.',
+          'Vérifiez l’aperçu, qui montre chaque ancien nom à côté du nouveau.',
+          'Téléchargez le ZIP et décompressez-le là où vous voulez les copies renommées.',
+        ],
+        tips: [
+          'Les numéros sont complétés selon la taille du lot, donc les fichiers se trient correctement.',
+          'Les dates sont lues dans chaque photo et triées de la plus ancienne, donc plusieurs appareils s’intercalent bien.',
+          'Les noms sont rendus sûrs pour Windows, macOS et Linux, y compris les noms réservés que Windows refuse encore.',
+          'Deux fichiers ne peuvent pas sortir avec le même nom ; un doublon reçoit un numéro et est signalé.',
+          'Rien n’est réencodé : renommer ne peut coûter aucune qualité.',
+        ],
+        faqs: [
+          { q: 'Comment renommer plusieurs photos d’un coup ?', a: 'Choisissez-les toutes, dites à quoi doivent ressembler les noms, et téléchargez le ZIP. L’aperçu montre chaque ancien nom à côté du nouveau avant que vous ne validiez quoi que ce soit.' },
+          { q: 'Puis-je renommer des photos par date de prise de vue ?', a: 'Oui. L’heure de capture est lue dans chaque photo et sert de nom, de la plus ancienne à la plus récente, ce qui permet à des photos venant de plusieurs téléphones de suivre l’ordre réel de la journée. Les photos sans date gardent leur nom et sont listées à part.' },
+          { q: 'Pourquoi les numéros ont-ils des zéros devant ?', a: 'Parce qu’un gestionnaire de fichiers trie les noms comme du texte : photo-10 passe donc avant photo-2. Compléter selon la taille du lot fait que dix fichiers vont de 01 à 10 et que l’ordre demandé est celui que vous voyez.' },
+          { q: 'Pourquoi un ZIP plutôt que des fichiers renommés ?', a: 'Une page web n’a aucun moyen de renommer des fichiers sur votre disque, et lui donner ce pouvoir serait une mauvaise idée. Ce qu’elle peut faire, c’est vous rendre des copies portant les nouveaux noms, et un ZIP est la seule façon pour un navigateur de livrer plusieurs fichiers d’un coup.' },
+          { q: 'Renommer dégrade-t-il la qualité ?', a: 'Non, et c’est impossible. Les octets de chaque photo sont copiés tels quels dans l’archive, sans décodage ni réencodage à aucun moment. Seul le nom qui leur est attaché change.' },
+          { q: 'Mes photos sont-elles envoyées quelque part ?', a: 'Non. Elles sont lues dans cet onglet par votre propre appareil, et le ZIP y est construit aussi. Vous pouvez surveiller l’onglet Réseau de votre navigateur pendant le travail : rien qui contienne une photo n’en sort.' },
+        ],
+      },
+    },
     'color-picker': {
       title: 'Pipette à couleurs d’une image',
       blurb: 'Pointez une couleur pour son hex, et voyez la palette dont l’image est faite.',

@@ -27,6 +27,7 @@ export const TOOL_CAPABILITIES: Record<ToolKey, CapabilitySpec> = {
   'image-crop': { required: [], preferred: ['createImageBitmap', 'wasm'] },
   'screenshot-split': { required: [], preferred: ['createImageBitmap'] },
   'color-picker': { required: [], preferred: ['createImageBitmap'] },
+  'batch-rename': { required: [], preferred: [] },
   'image-watermark': { required: [], preferred: ['createImageBitmap'] },
   'image-to-pdf': { required: [], preferred: ['createImageBitmap'] },
   'screenshot-stitch': { required: [], preferred: ['createImageBitmap', 'offscreenCanvas'] },

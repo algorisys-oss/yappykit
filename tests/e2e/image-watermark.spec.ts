@@ -162,7 +162,10 @@ test('a batch comes back as a ZIP as well as separate files', async ({ page }) =
   await page.setInputFiles('#watermark-files', [file('a.png'), file('b.png')]);
   await page.getByLabel('Watermark text').fill('MINE');
   await page.getByRole('button', { name: /^add the watermark$/i }).click();
-  await expect(page.getByRole('status')).toContainText('Done: 2 marked');
+  // Marking a batch is real work, and the default 5s expect timeout is a
+  // statement about how fast the machine is rather than about the tool. This
+  // failed on a loaded CI runner with the status still reading "picture 0 of 2".
+  await expect(page.getByRole('status')).toContainText('Done: 2 marked', { timeout: 30_000 });
 
   const [download] = await Promise.all([
     page.waitForEvent('download'),

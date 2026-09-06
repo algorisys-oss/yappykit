@@ -26,6 +26,9 @@ export default defineConfig({
     command: 'npm run build && npm run serve',
     url: 'http://localhost:4173',
     reuseExistingServer: !process.env.CI,
-    timeout: 120_000,
+    // The command is a full build, which is 16s here and several times that on
+    // a shared CI runner. The timeout is a ceiling, not a wait, so a generous
+    // one costs nothing locally and avoids a flake that says nothing useful.
+    timeout: 300_000,
   },
 });

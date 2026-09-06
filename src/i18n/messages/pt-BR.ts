@@ -190,6 +190,81 @@ const ptBR: Messages = {
   },
 
   tools: {
+    'batch-rename': {
+      title: 'Renomear imagens em lote',
+      blurb: 'Numere, use a data em que foram tiradas ou limpe a bagunça. Nada é enviado.',
+      tags: ['renomear em lote','renomear vários arquivos','renomear fotos por data','nomes sequenciais','renomear em ordem','IMG_1234'],
+      seoTitle: 'Renomear imagens em lote online, grátis e sem enviar | YappyKit',
+      seoDescription:
+        'Renomeie muitas fotos de uma vez: numeradas em ordem, pela data em que cada uma foi tirada, ou limpando os nomes que já têm. Roda no navegador e as fotos nunca são enviadas.',
+      heroTitle: 'Renomear imagens em lote',
+      heroNote:
+        'Numere em ordem, use a data em que cada uma foi tirada, ou limpe os nomes que já têm. As fotos nunca são enviadas e nada é recodificado: só os nomes mudam.',
+      ui: {
+        pickLabel: 'Escolha suas imagens',
+        pickHint: 'Escolha várias de uma vez. Fotos HEIC de iPhone incluídas.',
+        reading: 'Lendo as fotos…',
+        needImages: 'Escolha algumas imagens primeiro.',
+        schemeLabel: 'Como os nomes devem ficar',
+        schemeSequence: 'Numeradas em ordem',
+        schemeDate: 'A data de cada uma',
+        schemeTidy: 'Limpar o que já existe',
+        prefixLabel: 'Nome',
+        prefixPlaceholder: 'Férias',
+        startLabel: 'Começar em',
+        sequenceNote:
+          'Os números recebem zeros conforme o tamanho do lote, então dez arquivos vão de 01 a 10 e o gerenciador de arquivos ordena certo.',
+        dateNote:
+          'Lida de cada foto e ordenada da mais antiga para a mais nova. Fotos de duas câmeras diferentes ficam intercaladas na ordem em que foram realmente tiradas.',
+        tidyNote:
+          'Prefixos de câmera saem, espaços viram hifens e tudo que o Windows recusa é removido.',
+        previewHeading: 'O que você vai receber',
+        noteNoDate: 'sem data',
+        noteCollision: 'renomeada para evitar conflito',
+        noteUnchanged: 'sem mudança',
+        noDateOne: '1 foto não tem data, então mantém o próprio nome.',
+        noDateMany: '{n} fotos não têm data, então mantêm os próprios nomes.',
+        collisionOne: '1 nome teria conflitado e recebeu um número.',
+        collisionMany: '{n} nomes teriam conflitado e receberam números.',
+        zipNote:
+          'Uma página web não pode renomear arquivos no seu disco, então as cópias renomeadas voltam em um ZIP. Os bytes são copiados, não recodificados, então nada perde qualidade.',
+        action: 'Renomear {n} e baixar',
+        working: 'Trabalhando…',
+        doneStatus: 'Pronto: {n} renomeadas, {size}.',
+        download: 'Baixar o ZIP',
+        failed: 'Não funcionou.',
+      },
+      content: {
+        howItWorks: [
+          'Renomear um arquivo é trivial e renomear duzentos é trabalho. As fotos saíram de uma câmera como DSC_0491, de um celular como IMG_4821 e de um aplicativo de mensagem como algo com espaços e uma data no meio, e agora estão numa pasta numa ordem que não significa nada. O que se quer costuma ser uma de três coisas: um conjunto numerado, um conjunto nomeado por quando cada foto foi tirada, ou os mesmos nomes sem a bagunça.',
+          'A numeração tem um detalhe que decide se funciona. O gerenciador de arquivos ordena nomes como texto, então foto-10 vem antes de foto-2 e a sequência que você acabou de criar está fora de ordem. Por isso os números recebem zeros conforme o tamanho do lote: dez arquivos vão de 01 a 10, cem vão de 001 a 100. É a razão inteira de usar uma ferramenta em vez de renomear na mão, e é o que quase todo script rápido erra.',
+          'Nomear pela data da foto resolve outro problema. As fotos de uma tarde feitas com três celulares diferentes nunca vão se intercalar direito por nome de arquivo, porque cada aparelho numera do seu jeito. A hora da captura é lida de cada foto e usada como nome, da mais antiga para a mais nova, e a pasta fica na ordem em que o dia realmente aconteceu. Uma foto sem data mantém o próprio nome em vez de receber um errado, e a ferramenta diz quais foram.',
+          'Duas regras valem para os três modos. Dois arquivos não podem terminar com o mesmo nome, porque um ZIP guarda numa boa duas entradas chamadas ferias-01.jpg e, ao descompactar, pelo menos uma das fotos sumiu; um conflito ganha um número e é informado. E todo nome precisa sobreviver a ser copiado para o Windows, que proíbe nove caracteres, corta um nome terminado em ponto e ainda se recusa a escrever um arquivo chamado CON em 2026. Um renomeador que ignora isso produz arquivos que falham depois, na máquina de outra pessoa.',
+          'Aqui nada é recodificado. Os bytes de cada foto são copiados para o arquivo sem serem tocados, o que faz desta a única ferramenta de imagem do site que não pode custar nenhuma qualidade.',
+        ],
+        steps: [
+          'Escolha suas fotos, ou cole direto da área de transferência.',
+          'Diga como os nomes devem ficar: numerados, por data da foto, ou limpos.',
+          'Confira a prévia, que mostra cada nome antigo ao lado do novo.',
+          'Baixe o ZIP e descompacte onde quiser as cópias renomeadas.',
+        ],
+        tips: [
+          'Os números recebem zeros conforme o tamanho do lote, então os arquivos ordenam certo.',
+          'As datas são lidas de cada foto e ordenadas da mais antiga, então várias câmeras se intercalam direito.',
+          'Os nomes ficam seguros para Windows, macOS e Linux, incluindo os nomes reservados que o Windows ainda recusa.',
+          'Dois arquivos não podem sair com o mesmo nome; um conflito ganha um número e é informado.',
+          'Nada é recodificado, então renomear não pode custar qualidade.',
+        ],
+        faqs: [
+          { q: 'Como renomeio várias fotos de uma vez?', a: 'Escolha todas, diga como os nomes devem ficar e baixe o ZIP. A prévia mostra cada nome antigo ao lado do novo antes de você se comprometer com qualquer coisa.' },
+          { q: 'Posso renomear fotos pela data em que foram tiradas?', a: 'Pode. A hora da captura é lida de cada foto e usada como nome, da mais antiga para a mais nova, que é o jeito de deixar fotos de vários celulares na ordem em que o dia realmente aconteceu. Fotos sem data mantêm os próprios nomes e são listadas à parte.' },
+          { q: 'Por que os números têm zeros na frente?', a: 'Porque o gerenciador de arquivos ordena nomes como texto, então foto-10 vem antes de foto-2. Completar com zeros conforme o tamanho do lote faz dez arquivos irem de 01 a 10 e a ordem que você pediu ser a que você vê.' },
+          { q: 'Por que recebo um ZIP em vez de arquivos renomeados?', a: 'Uma página web não tem como renomear arquivos no seu disco, e dar esse poder a ela seria má ideia. O que ela pode fazer é devolver cópias com os nomes novos, e um ZIP é o único jeito de um navegador entregar vários arquivos de uma vez.' },
+          { q: 'Renomear reduz a qualidade?', a: 'Não, e não tem como. Os bytes de cada foto são copiados para o arquivo exatamente como estão, sem decodificar nem recodificar em momento algum. Só muda o nome preso a eles.' },
+          { q: 'Minhas fotos são enviadas?', a: 'Não. Elas são lidas dentro desta aba do navegador, pelo seu próprio aparelho, e o ZIP é montado ali também. Você pode olhar a aba Rede do navegador enquanto ele trabalha: nada que carregue uma foto sai daqui.' },
+        ],
+      },
+    },
     'color-picker': {
       title: 'Seletor de cor de uma imagem',
       blurb: 'Aponte para uma cor e veja o hex, além da paleta de que a imagem é feita.',

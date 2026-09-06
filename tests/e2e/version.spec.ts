@@ -1,4 +1,7 @@
 import { expect, test } from '@playwright/test';
+import { createRequire } from 'node:module';
+
+const VERSION: string = createRequire(import.meta.url)('../../package.json').version;
 
 /**
  * The version in the footer, and what is behind it.
@@ -27,9 +30,16 @@ test('clicking it shows what changed, and closes again', async ({ page }) => {
   await expect(badge).toHaveAttribute('aria-expanded', 'true');
   const panel = page.locator('#version-notes');
   await expect(panel).toBeVisible();
-  await expect(panel.getByText('Added', { exact: true })).toBeVisible();
-  await expect(panel.getByText('Fixed', { exact: true })).toBeVisible();
+  // One section per release, so these headings repeat. Asserting a bare
+  // `getByText` was right when there was a single release and has been a strict
+  // mode violation since the second one shipped.
+  await expect(panel.getByText('Added', { exact: true }).first()).toBeVisible();
+  await expect(panel.getByText('Fixed', { exact: true }).first()).toBeVisible();
   await expect(panel).toContainText('Watermark tool');
+
+  // The newest release is the one at the top, which is the whole point of the
+  // panel: it answers "what is in the build I am looking at".
+  await expect(panel.locator('h3').first()).toHaveText(new RegExp(`^${VERSION}\\b`));
 
   await badge.click();
   await expect(panel).toBeHidden();

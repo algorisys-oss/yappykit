@@ -30,6 +30,9 @@ import {
   redirects,
   ROUTES,
   SITE,
+  TOOL_KEYS,
+  TOOL_CATEGORY,
+  CATEGORIES,
   type RouteKey,
 } from '../i18n/routes';
 import { MESSAGES, SHIPPED_LOCALES, messagesFor } from '../i18n/all-messages';
@@ -205,6 +208,71 @@ Sitemap: ${SITE}/sitemap.xml
 `;
 }
 
+/**
+ * /llms.txt, in the format proposed at llmstxt.org.
+ *
+ * Generated from the same catalogue as the sitemap, so it cannot list a tool
+ * that does not exist or miss one that does. That is the only reason it is
+ * worth having as a file rather than as a hand-written page: a stale map of the
+ * site is worse than none.
+ *
+ * English only, like the articles and the release notes. These are precise
+ * statements about what each tool does, and a machine-translated approximation
+ * of a precise statement is a wrong statement.
+ *
+ * Worth being honest in the code about what this is: no major crawler has
+ * confirmed it reads llms.txt, and Google has said publicly that it does not.
+ * It costs almost nothing and may help; it is not a substitute for the JSON-LD
+ * on every tool page, which answer engines demonstrably do consume.
+ */
+export function buildLlms(): string {
+  const m = MESSAGES[DEFAULT_LOCALE]!;
+  const heading: Record<string, string> = {
+    image: 'Images and photos',
+    pdf: 'PDFs',
+    video: 'Video and audio',
+    data: 'Spreadsheets and data',
+    text: 'Text and fonts',
+    device: 'Device checks',
+  };
+
+  const sections = CATEGORIES.map((category) => {
+    const keys = TOOL_KEYS.filter((k) => TOOL_CATEGORY[k] === category);
+    if (!keys.length) return '';
+    const rows = keys
+      .map((k) => `- [${m.tools[k].title}](${SITE}${pathFor(k, DEFAULT_LOCALE)}): ${m.tools[k].blurb}`)
+      .join('\n');
+    return `## ${heading[category] ?? category}\n\n${rows}\n`;
+  })
+    .filter(Boolean)
+    .join('\n');
+
+  return `# YappyKit
+
+> Free, private tools for files and data. Every tool runs entirely inside the
+> browser: nothing is uploaded, there is no account, and no server ever sees the
+> file. ${TOOL_KEYS.length} tools, in 12 languages.
+
+How it works, because it is the only thing that distinguishes this site: the
+work is done by the visitor's own device, using WebAssembly and web workers.
+A file chosen here is read by the page and never sent anywhere, which can be
+checked by watching the browser's network tab while a tool runs. That is also
+the limit of the design, and it is stated on each tool rather than hidden: what
+a phone cannot do, the page says it cannot do.
+
+Tools ask for the result wanted rather than the settings to reach it. "Under
+100 KB" is the control; quality percentages are not.
+
+${sections}
+## About
+
+- [About](${SITE}${pathFor('about', DEFAULT_LOCALE)}): who makes this and why it has no accounts.
+- [Privacy Policy](${SITE}${pathFor('privacy', DEFAULT_LOCALE)}): what is not collected.
+- [Terms of Use](${SITE}${pathFor('terms', DEFAULT_LOCALE)}): the terms.
+- [Source code](https://github.com/algorisys-oss/yappykit): the whole site, open source.
+`;
+}
+
 export interface RenderReport {
   pages: number;
   locales: LocaleCode[];
@@ -234,6 +302,7 @@ export async function renderAll(dist: string, lastmod: string): Promise<RenderRe
 
   await writeFile(path.join(dist, 'sitemap.xml'), buildSitemap(lastmod), 'utf8');
   await writeFile(path.join(dist, 'robots.txt'), buildRobots(), 'utf8');
+  await writeFile(path.join(dist, 'llms.txt'), buildLlms(), 'utf8');
   await writeFile(path.join(dist, '_headers'), buildHeaders(), 'utf8');
   await writeFile(path.join(dist, '_redirects'), buildRedirects(), 'utf8');
 

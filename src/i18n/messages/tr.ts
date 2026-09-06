@@ -190,6 +190,81 @@ const tr: Messages = {
   },
 
   tools: {
+    'batch-rename': {
+      title: 'Resimleri toplu yeniden adlandırma',
+      blurb: 'Numaralayın, çekim tarihine göre adlandırın ya da dağınıklığı toplayın. Hiçbir şey yüklenmez.',
+      tags: ['toplu yeniden adlandırma','birden fazla dosyayı yeniden adlandırma','fotoğrafları tarihe göre adlandırma','sıralı dosya adları','IMG_1234'],
+      seoTitle: 'Resimleri toplu yeniden adlandırın, ücretsiz ve yüklemeden | YappyKit',
+      seoDescription:
+        'Birçok fotoğrafı bir kerede yeniden adlandırın: sırayla numaralı, her birinin çekildiği tarihe göre ya da var olan adları düzelterek. Tarayıcıda çalışır, fotoğraflar hiçbir zaman yüklenmez.',
+      heroTitle: 'Resimleri toplu yeniden adlandırma',
+      heroNote:
+        'Sırayla numaralayın, her birinin çekildiği tarihe göre adlandırın ya da var olan adları düzeltin. Fotoğraflar hiçbir zaman yüklenmez ve hiçbir şey yeniden kodlanmaz: yalnızca adlar değişir.',
+      ui: {
+        pickLabel: 'Resimlerinizi seçin',
+        pickHint: 'Birden fazlasını birlikte seçin. iPhone HEIC fotoğrafları dahil.',
+        reading: 'Fotoğraflar okunuyor…',
+        needImages: 'Önce birkaç resim seçin.',
+        schemeLabel: 'Adlar nasıl olsun',
+        schemeSequence: 'Sırayla numaralı',
+        schemeDate: 'Her birinin çekim tarihi',
+        schemeTidy: 'Var olanı düzelt',
+        prefixLabel: 'Ad',
+        prefixPlaceholder: 'Tatil',
+        startLabel: 'Şuradan başla',
+        sequenceNote:
+          'Numaralar yığının genişliğine göre sıfırla doldurulur, böylece on dosya 01’den 10’a gider ve dosya yöneticisi doğru sıralar.',
+        dateNote:
+          'Her fotoğraftan okunur ve en eskiden başlanarak sıralanır. İki ayrı kameranın fotoğrafları gerçekten çekildikleri sırayla iç içe geçer.',
+        tidyNote:
+          'Kamera önekleri gider, boşluklar tireye döner ve Windows’un kabul etmediği her şey silinir.',
+        previewHeading: 'Ne elde edeceksiniz',
+        noteNoDate: 'tarihsiz',
+        noteCollision: 'çakışmayı önlemek için yeniden adlandırıldı',
+        noteUnchanged: 'değişmedi',
+        noDateOne: '1 fotoğrafta tarih yok, bu yüzden kendi adını koruyor.',
+        noDateMany: '{n} fotoğrafta tarih yok, bu yüzden kendi adlarını koruyorlar.',
+        collisionOne: '1 ad çakışacaktı, numara verildi.',
+        collisionMany: '{n} ad çakışacaktı, numara verildi.',
+        zipNote:
+          'Bir web sayfası diskinizdeki dosyaları yeniden adlandıramaz, bu yüzden yeniden adlandırılmış kopyalar ZIP olarak döner. Baytlar kopyalanır, yeniden kodlanmaz, dolayısıyla hiç kalite kaybı olmaz.',
+        action: '{n} tanesini yeniden adlandır ve indir',
+        working: 'Çalışıyor…',
+        doneStatus: 'Tamam: {n} yeniden adlandırıldı, {size}.',
+        download: 'ZIP’i indir',
+        failed: 'Bu işe yaramadı.',
+      },
+      content: {
+        howItWorks: [
+          'Bir dosyayı yeniden adlandırmak önemsizdir, iki yüz dosyayı yeniden adlandırmak ise iştir. Fotoğraflar kameradan DSC_0491, telefondan IMG_4821, mesajlaşma uygulamasından ise içinde boşluklar ve bir tarih olan bir şey olarak çıktı; şimdi hepsi tek bir klasörde, hiçbir anlamı olmayan bir sırada duruyor. İstenen genellikle üç şeyden biridir: numaralı bir küme, her birinin ne zaman çekildiğine göre adlandırılmış bir küme, ya da aynı adların dağınıklıktan arındırılmış hâli.',
+          'Numaralandırmanın işe yarayıp yaramayacağını belirleyen tek bir ayrıntı var. Dosya yöneticisi adları metin olarak sıralar, dolayısıyla foto-10, foto-2’den önce gelir ve az önce oluşturduğunuz sıra bozulur. Bu yüzden numaralar yığının genişliğine göre doldurulur: on dosya 01’den 10’a, yüz dosya 001’den 100’e gider. Elle yeniden adlandırmak yerine bir araca uzanmanın tüm sebebi budur ve aceleyle yazılmış betiklerin çoğunun yanlış yaptığı şey de budur.',
+          'Çekim tarihine göre adlandırmak başka bir sorunu çözer. Bir öğleden sonranın üç ayrı telefonla çekilmiş fotoğrafları dosya adına göre asla doğru iç içe geçmez, çünkü her cihaz kendi yöntemiyle numaralandırır. Çekim zamanı her fotoğraftan okunur ve ad olarak kullanılır, en eskiden başlanarak; böylece klasör, günün gerçekten aktığı sıraya girer. Tarihi olmayan bir fotoğraf yanlış bir tarih almaktansa kendi adını korur ve araç bunların hangileri olduğunu söyler.',
+          'Üç yöntemin de altında iki kural işler. İki dosya asla aynı adla bitmemelidir, çünkü bir ZIP tatil-01.jpg adlı iki girdiyi gayet rahat taşır ve açıldığında fotoğraflardan en az biri yok olmuştur; çakışma bir numara alır ve bildirilir. Ve her adın Windows’a kopyalanmaya dayanması gerekir: Windows dokuz karakteri yasaklar, noktayla biten bir adı kırpar ve 2026’da hâlâ CON adlı bir dosyayı yazmayı reddeder. Bunu göz ardı eden bir araç, sonradan başka birinin makinesinde başarısız olan dosyalar üretir.',
+          'Burada hiçbir şey yeniden kodlanmaz. Her fotoğrafın baytları arşive dokunulmadan kopyalanır; bu da onu sitedeki, hiç kalite kaybettiremeyecek tek görsel aracı yapar.',
+        ],
+        steps: [
+          'Fotoğraflarınızı seçin ya da doğrudan panodan yapıştırın.',
+          'Adların nasıl olacağını söyleyin: numaralı, çekim tarihine göre ya da düzeltilmiş.',
+          'Her eski adı yenisinin yanında gösteren önizlemeyi kontrol edin.',
+          'ZIP’i indirin ve yeniden adlandırılmış kopyaları istediğiniz yere açın.',
+        ],
+        tips: [
+          'Numaralar yığının genişliğine göre doldurulur, böylece dosyalar doğru sıralanır.',
+          'Tarihler her fotoğraftan okunur ve en eskiden başlanarak sıralanır, böylece birden çok kamera doğru iç içe geçer.',
+          'Adlar Windows, macOS ve Linux için güvenli hâle getirilir; Windows’un hâlâ reddettiği ayrılmış adlar dahil.',
+          'İki dosya aynı adla çıkamaz; çakışma numara alır ve bildirilir.',
+          'Hiçbir şey yeniden kodlanmaz, dolayısıyla yeniden adlandırmak kaliteye mal olamaz.',
+        ],
+        faqs: [
+          { q: 'Birden fazla fotoğrafı bir kerede nasıl yeniden adlandırırım?', a: 'Hepsini seçin, adların nasıl olacağını söyleyin ve ZIP’i indirin. Önizleme, siz herhangi bir şeye bağlanmadan önce her eski adı yenisinin yanında gösterir.' },
+          { q: 'Fotoğrafları çekildikleri tarihe göre adlandırabilir miyim?', a: 'Evet. Çekim zamanı her fotoğraftan okunur ve ad olarak kullanılır, en eskiden başlanarak. Birkaç telefondan gelen fotoğrafları günün gerçekten aktığı sıraya sokmanın yolu budur. Tarihi olmayan fotoğraflar kendi adlarını korur ve ayrıca listelenir.' },
+          { q: 'Numaraların başındaki sıfırlar neden var?', a: 'Çünkü dosya yöneticisi adları metin olarak sıralar, bu yüzden foto-10, foto-2’den önce gelir. Yığının genişliğine göre doldurmak, on dosyanın 01’den 10’a gitmesini ve istediğiniz sıranın gördüğünüz sıra olmasını sağlar.' },
+          { q: 'Neden yeniden adlandırılmış dosyalar yerine ZIP alıyorum?', a: 'Bir web sayfasının diskinizdeki dosyaları yeniden adlandırma yolu yoktur ve ona bu gücü vermek kötü bir fikir olurdu. Yapabileceği şey yeni adları taşıyan kopyaları geri vermektir ve bir tarayıcının çok sayıda dosyayı bir kerede teslim etmesinin tek yolu ZIP’tir.' },
+          { q: 'Yeniden adlandırmak kaliteyi düşürür mü?', a: 'Hayır, düşüremez de. Her fotoğrafın baytları arşive tam olduğu gibi kopyalanır; hiçbir aşamada çözme ya da yeniden kodlama yoktur. Yalnızca onlara iliştirilmiş ad değişir.' },
+          { q: 'Fotoğraflarım yükleniyor mu?', a: 'Hayır. Bu tarayıcı sekmesinin içinde, kendi cihazınız tarafından okunur ve ZIP de orada oluşturulur. Çalışırken tarayıcınızın Ağ sekmesini izleyebilirsiniz: bir fotoğraf taşıyan hiçbir şey dışarı çıkmaz.' },
+        ],
+      },
+    },
     'color-picker': {
       title: 'Görselden renk seçici',
       blurb: 'Bir renge dokunun, hex kodunu alın ve görselin hangi renklerden oluştuğunu görün.',

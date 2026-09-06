@@ -32,3 +32,24 @@ test('the trailing-slash form is not a second live copy of the page', async ({ r
   const res = await request.get('/random-word-generator/', { maxRedirects: 0 });
   expect([301, 308, 404]).toContain(res.status());
 });
+
+/**
+ * The machine-readable files are only useful if the host actually serves them.
+ * A file written into dist/ that Pages does not serve is invisible, and nothing
+ * else in the suite would notice.
+ */
+test('robots.txt, the sitemap and llms.txt are served', async ({ request }) => {
+  for (const file of ['/robots.txt', '/sitemap.xml', '/llms.txt']) {
+    const res = await request.get(file, { maxRedirects: 0 });
+    expect(res.status(), `${file} should serve directly`).toBe(200);
+    expect((await res.text()).length, `${file} should not be empty`).toBeGreaterThan(100);
+  }
+});
+
+test('llms.txt describes the site rather than listing slugs', async ({ request }) => {
+  const text = await (await request.get('/llms.txt')).text();
+  expect(text.split('\n')[0]).toBe('# YappyKit');
+  // Every tool the sitemap knows about, linked with an absolute URL.
+  const linked = [...text.matchAll(/\]\((https:\/\/yappykit\.com[^)]*)\)/g)].length;
+  expect(linked).toBeGreaterThan(25);
+});

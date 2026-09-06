@@ -23,6 +23,17 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '0.9.0',
+    date: '2026-09-06',
+    added: [
+      'Rename images in bulk. Number them in order, name them by the date each photo was taken, or tidy up the names they already have. Numbers are padded to the width of the batch, because a file manager sorts names as text and photo-10 otherwise comes before photo-2, which is the exact problem the tool exists to fix. Names are made safe for Windows, including the reserved device names it still refuses, and no two files can come out with the same name. Nothing is re-encoded: the bytes go into the archive untouched, which makes it the one image tool here that cannot cost any quality.',
+      'An llms.txt at the root of the site, in the format proposed at llmstxt.org, generated from the same catalogue as the sitemap so it cannot list a tool that does not exist or miss one that does.',
+    ],
+    fixed: [
+      'Every tool now has an automated browser test, and the checks run on every push. The browser suite had covered only the older tools, and one of its own tests had been failing unnoticed since 0.2.0 because nothing ran it.',
+    ],
+  },
+  {
     version: '0.8.0',
     date: '2026-09-06',
     added: [

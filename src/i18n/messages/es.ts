@@ -190,6 +190,81 @@ const es: Messages = {
   },
 
   tools: {
+    'batch-rename': {
+      title: 'Renombrar imágenes por lotes',
+      blurb: 'Numéralas, ponles la fecha en que se tomaron o limpia el desorden. No se sube nada.',
+      tags: ['renombrar por lotes','renombrar varios archivos','renombrar fotos por fecha','nombres secuenciales','renombrar en orden','IMG_1234'],
+      seoTitle: 'Renombrar imágenes por lotes en línea, gratis y sin subirlas | YappyKit',
+      seoDescription:
+        'Renombra muchas fotos a la vez: numeradas en orden, por la fecha en que se tomó cada una, o limpiando los nombres que ya tienen. Funciona en tu navegador y las fotos nunca se suben.',
+      heroTitle: 'Renombrar imágenes por lotes',
+      heroNote:
+        'Numéralas en orden, ponles la fecha en que se tomó cada una, o limpia los nombres que ya tienen. Las fotos nunca se suben y nada se recodifica: solo cambian los nombres.',
+      ui: {
+        pickLabel: 'Elige tus imágenes',
+        pickHint: 'Elige varias a la vez. Se incluyen las fotos HEIC de iPhone.',
+        reading: 'Leyendo las fotos…',
+        needImages: 'Elige primero algunas imágenes.',
+        schemeLabel: 'Cómo deben ser los nombres',
+        schemeSequence: 'Numeradas en orden',
+        schemeDate: 'La fecha de cada una',
+        schemeTidy: 'Limpiar lo que hay',
+        prefixLabel: 'Nombre',
+        prefixPlaceholder: 'Vacaciones',
+        startLabel: 'Empezar en',
+        sequenceNote:
+          'Los números se rellenan con ceros según el tamaño del lote, así diez archivos van del 01 al 10 y el explorador los ordena bien.',
+        dateNote:
+          'Se lee de cada foto y se ordena de la más antigua a la más nueva. Las fotos de dos cámaras distintas quedan intercaladas en el orden en que se tomaron de verdad.',
+        tidyNote:
+          'Se quitan los prefijos de cámara, los espacios pasan a guiones y se elimina todo lo que Windows rechaza.',
+        previewHeading: 'Lo que vas a obtener',
+        noteNoDate: 'sin fecha',
+        noteCollision: 'renombrada para evitar un choque',
+        noteUnchanged: 'sin cambios',
+        noDateOne: '1 foto no lleva fecha, así que conserva su nombre.',
+        noDateMany: '{n} fotos no llevan fecha, así que conservan sus nombres.',
+        collisionOne: '1 nombre habría chocado y se le puso un número.',
+        collisionMany: '{n} nombres habrían chocado y se les pusieron números.',
+        zipNote:
+          'Una página web no puede renombrar archivos en tu disco, así que las copias renombradas vuelven en un ZIP. Los bytes se copian, no se recodifican, así que no se pierde calidad.',
+        action: 'Renombrar {n} y descargar',
+        working: 'Trabajando…',
+        doneStatus: 'Listo: {n} renombradas, {size}.',
+        download: 'Descargar el ZIP',
+        failed: 'No funcionó.',
+      },
+      content: {
+        howItWorks: [
+          'Renombrar un archivo es trivial y renombrar doscientos es un trabajo. Las fotos salieron de una cámara como DSC_0491, de un móvil como IMG_4821 y de una app de mensajería como algo con espacios y una fecha dentro, y ahora están en una carpeta en un orden que no significa nada. Lo que se quiere suele ser una de tres cosas: un conjunto numerado, un conjunto con el nombre de cuándo se tomó cada foto, o los mismos nombres sin el desorden.',
+          'La numeración tiene un detalle que decide si funciona. El explorador ordena los nombres como texto, así que foto-10 va antes que foto-2 y la secuencia que acabas de crear está desordenada. Por eso los números se rellenan según el tamaño del lote: diez archivos van del 01 al 10, cien van del 001 al 100. Es la razón entera para usar una herramienta en vez de renombrar a mano, y es lo que casi todos los scripts rápidos hacen mal.',
+          'Poner la fecha de la toma resuelve otro problema. Las fotos de una tarde hechas con tres móviles distintos nunca se intercalarán bien por nombre de archivo, porque cada aparato numera a su manera. Se lee la hora de captura de cada foto y se usa como nombre, de la más antigua a la más nueva, y la carpeta queda en el orden en que ocurrió el día. Una foto sin fecha conserva su propio nombre en vez de recibir uno equivocado, y la herramienta dice cuáles fueron.',
+          'Bajo los tres modos corren dos reglas. Dos archivos no pueden acabar con el mismo nombre, porque un ZIP guardará tan tranquilo dos entradas llamadas vacaciones-01.jpg y al descomprimirlo al menos una de las fotos ha desaparecido; un choque recibe un número y se informa. Y todo nombre tiene que sobrevivir a copiarse a Windows, que prohíbe nueve caracteres, corta un nombre acabado en punto y sigue negándose a escribir un archivo llamado CON en 2026. Un renombrador que ignora eso produce archivos que fallan más tarde, en la máquina de otra persona.',
+          'Aquí no se recodifica nada. Los bytes de cada foto se copian al archivo sin tocarlos, lo que convierte a esta en la única herramienta de imagen del sitio que no puede costar nada de calidad.',
+        ],
+        steps: [
+          'Elige tus fotos, o pégalas directamente desde el portapapeles.',
+          'Di cómo deben ser los nombres: numerados, por fecha de toma o limpiados.',
+          'Revisa la vista previa, que muestra cada nombre antiguo junto al nuevo.',
+          'Descarga el ZIP y descomprímelo donde quieras las copias renombradas.',
+        ],
+        tips: [
+          'Los números se rellenan según el tamaño del lote, así que los archivos se ordenan bien.',
+          'Las fechas se leen de cada foto y se ordenan de más antigua a más nueva, así varias cámaras se intercalan bien.',
+          'Los nombres se hacen seguros para Windows, macOS y Linux, incluidos los nombres reservados que Windows sigue rechazando.',
+          'Dos archivos no pueden salir con el mismo nombre; un choque recibe un número y se informa.',
+          'No se recodifica nada, así que renombrar no puede costar calidad.',
+        ],
+        faqs: [
+          { q: '¿Cómo renombro varias fotos a la vez?', a: 'Elígelas todas, indica cómo deben ser los nombres y descarga el ZIP. La vista previa muestra cada nombre antiguo junto al nuevo antes de que te comprometas a nada.' },
+          { q: '¿Puedo renombrar fotos por la fecha en que se tomaron?', a: 'Sí. Se lee la hora de captura de cada foto y se usa como nombre, de la más antigua a la más nueva, que es la forma de que fotos de varios móviles queden en el orden en que ocurrió el día. Las fotos sin fecha conservan su nombre y se listan aparte.' },
+          { q: '¿Por qué los números llevan ceros delante?', a: 'Porque el explorador ordena los nombres como texto, así que foto-10 va antes que foto-2. Rellenar según el tamaño del lote hace que diez archivos vayan del 01 al 10 y que el orden que pediste sea el que ves.' },
+          { q: '¿Por qué recibo un ZIP en vez de archivos renombrados?', a: 'Una página web no tiene forma de renombrar archivos en tu disco, y darle ese poder sería mala idea. Lo que sí puede hacer es devolver copias con los nombres nuevos, y un ZIP es la única manera en que un navegador entrega muchos archivos a la vez.' },
+          { q: '¿Renombrar reduce la calidad?', a: 'No, y no puede. Los bytes de cada foto se copian al archivo tal cual, sin decodificar ni recodificar en ningún momento. Solo cambia el nombre que llevan pegado.' },
+          { q: '¿Se suben mis fotos?', a: 'No. Se leen dentro de esta pestaña del navegador, en tu propio dispositivo, y el ZIP se construye ahí también. Puedes mirar la pestaña Red de tu navegador mientras trabaja: no sale nada que lleve una foto.' },
+        ],
+      },
+    },
     'color-picker': {
       title: 'Selector de color de una imagen',
       blurb: 'Señala un color para ver su hex, y la paleta de la que está hecha la imagen.',
