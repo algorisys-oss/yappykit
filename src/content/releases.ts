@@ -23,6 +23,14 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '0.3.0',
+    date: '2026-09-06',
+    added: [
+      'PDF splitter: keep the pages you need, put them in the order you want, or split a document into one file per page. Pages are copied rather than re-rendered, so text stays selectable and each page keeps its own size.',
+      'The page list is written the way a print dialog writes it, like 1-3, 7. Leaving the end open with 8- takes everything from page eight, and writing a span backwards, like 10-1, reverses the document.',
+    ],
+  },
+  {
     version: '0.2.1',
     date: '2026-09-06',
     added: [

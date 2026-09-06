@@ -179,6 +179,81 @@ const id: Messages = {
   },
 
   tools: {
+    'pdf-split': {
+      title: 'Pisahkan PDF, atau ambil hanya halaman yang Anda butuhkan',
+      blurb: 'Ambil, urutkan ulang, atau pecah jadi satu berkas per halaman. Tidak ada yang diunggah.',
+      tags: ['pdf','pisah pdf','ekstrak halaman','hapus halaman','urutkan pdf','pecah pdf','rentang halaman','satu halaman','potong pdf','balik pdf','halaman pdf'],
+      seoTitle: 'Memisahkan PDF atau mengambil halaman, gratis dan tanpa unggah | YappyKit',
+      seoDescription:
+        'Ambil halaman yang Anda butuhkan, susun sesuai urutan yang diinginkan, atau pecah PDF menjadi satu berkas per halaman. Berjalan di peramban: dokumen tidak pernah diunggah dan teksnya tetap bisa diseleksi.',
+      heroTitle: 'Pisahkan PDF, atau ambil hanya halaman yang Anda butuhkan',
+      heroNote:
+        'Tulis halaman yang Anda mau seperti di kotak cetak. Ambil sebagai satu dokumen, atau pecah jadi satu berkas per halaman. PDF diproses di tab ini dan tidak pernah diunggah.',
+      ui: {
+        pickLabel: 'Pilih PDF Anda',
+        pickHint: 'Satu berkas. Dibaca di sini, bukan diunggah.',
+        reading: 'Membaca berkas…',
+        pagesOne: '1 halaman',
+        pagesMany: '{n} halaman',
+        sourceMeta: '{name}, {pages}, {size}',
+        rangeLabel: 'Halaman yang disimpan',
+        rangePlaceholder: 'mis. 1-3, 7',
+        rangeHint:
+          'Daftar seperti 1-3, 7. Biarkan ujungnya terbuka dengan 8- untuk semua mulai halaman 8, dan tulis rentang terbalik, seperti {last}-1, untuk membalik dokumen.',
+        rangeAll: 'Semua halaman',
+        errorEmpty: 'Tulis halaman mana yang disimpan, misalnya 1-3, 7.',
+        errorSyntax: 'Itu bukan daftar halaman. Pakai angka dan rentang, seperti 1-3, 7.',
+        errorRange: 'PDF ini punya {pages}, jadi daftar itu meminta halaman yang tidak ada.',
+        resultHeading: 'Hasilnya',
+        resultSummary: '{pages}, dengan urutan ini:',
+        moveUp: 'Pindahkan halaman {n} ke depan',
+        moveDown: 'Pindahkan halaman {n} ke belakang',
+        remove: 'Hapus halaman {n}',
+        pageChip: 'h{n}',
+        losslessNote:
+          'Halaman disalin persis seperti aslinya. Teks tetap bisa diseleksi, tautan tetap berfungsi, dan tiap halaman mempertahankan ukurannya sendiri.',
+        actionExtract: 'Unduh sebagai satu PDF',
+        actionSplit: 'Unduh satu berkas per halaman',
+        working: 'Sedang bekerja…',
+        doneOne: 'Selesai: satu PDF berisi {pages}, {size}.',
+        doneMany: 'Selesai: {n} berkas, total {size}.',
+        download: 'Unduh {size}',
+        downloadAll: 'Unduh semua sebagai ZIP',
+        failed: 'Tidak berhasil.',
+        encrypted: 'PDF ini dilindungi kata sandi. Hapus kata sandinya di pembaca PDF Anda, lalu pilih berkasnya lagi.',
+        unreadable: 'Berkas itu tidak dapat dibaca sebagai PDF.',
+        formWarning:
+          'PDF ini punya isian formulir. Isian itu milik dokumen, bukan halaman, jadi halaman yang Anda ambil masih menampilkan apa yang diketik tetapi tidak bisa diisi lagi.',
+      },
+      content: {
+        howItWorks: [
+          'Memisahkan PDF hampir selalu jadi langkah terakhir sebelum mengirim sesuatu. Satu halaman dari rekening koran dua belas halaman. Dua lembar kontrak yang benar-benar ditandatangani. Hasil pindai yang halaman tiganya terbalik dan harus dibuang. Buku kecil yang perlu jadi satu berkas per bab. Dalam semua kasus itu halamannya baik-baik saja, dan yang salah hanyalah halaman mana yang ada di dalam berkas.',
+          'Alat ini menyalin halaman yang Anda sebut ke dokumen baru, objek demi objek, dalam urutan yang Anda sebutkan. Tidak ada yang digambar ulang atau dikompres ulang, jadi teks tetap teks, tautan tetap bekerja, dan dokumen campuran A4 dan Letter mempertahankan kedua ukurannya. Itulah bedanya memisahkan dan mengompres: mengompres sampai batas keras pada akhirnya harus mengubah halaman jadi gambar, dan ini tidak pernah melakukannya.',
+          'Daftar halaman memakai notasi yang sama dengan kotak cetak, karena itulah yang sudah dikenal semua orang. Dua hal yang biasanya tidak dilakukan kotak cetak: membiarkan ujungnya terbuka, sehingga 8- berarti dari halaman delapan sampai halaman terakhir, dan menjalankan rentang secara mundur, sehingga 10-1 mengembalikan dokumen dalam urutan terbalik. Urutan yang Anda tulis adalah urutan yang Anda dapat, dan halaman yang ditulis dua kali akan disalin dua kali.',
+        ],
+        steps: [
+          'Pilih PDF Anda.',
+          'Tulis halaman yang Anda mau, seperti 1-3, 7. Hasilnya muncul di bawah sambil Anda mengetik.',
+          'Urutkan ulang atau buang halaman di sana, atau sunting daftarnya langsung.',
+          'Ambil pilihan itu sebagai satu PDF, atau satu berkas per halaman dalam ZIP.',
+        ],
+        tips: [
+          'Untuk menghapus halaman, sebutkan yang Anda simpan. 1-4, 6- menyimpan semuanya kecuali halaman lima.',
+          'Urutan milik Anda: 3,1,2 benar-benar menaruh halaman tiga di depan, dan 1,1 menyalin satu halaman dua kali.',
+          'Tidak ada yang dikodekan ulang, jadi halaman yang diambil beratnya sama seperti sebelumnya. Kompres setelahnya kalau ada batas ukuran.',
+          'Markah dan isian formulir milik dokumen, bukan halaman, jadi keduanya tidak ikut. Yang tercetak di halaman tidak berubah.',
+          'PDF berkata sandi tidak bisa dibaca. Hapus dulu kata sandinya di pembaca PDF Anda, lalu pakai salinannya.',
+        ],
+        faqs: [
+          { q: 'Bagaimana memisahkan PDF tanpa mengunggahnya?', a: 'Pilih berkasnya di sini. Berkas diurai di dalam tab ini oleh perangkat Anda sendiri, dan halaman yang Anda minta langsung dikembalikan sebagai unduhan. Anda bisa memastikannya di alat pengembang peramban, pada tab Jaringan: tidak ada permintaan yang membawa dokumen itu.' },
+          { q: 'Bagaimana menghapus halaman dari PDF?', a: 'Sebutkan halaman yang ingin Anda simpan, bukan yang ingin dibuang. Untuk berkas sepuluh halaman tanpa halaman lima, itu 1-4, 6-. Hasilnya dokumen baru yang hanya berisi yang Anda sebutkan.' },
+          { q: 'Bisakah saya mengubah urutan halaman?', a: 'Bisa. Urutan yang Anda tulis adalah yang Anda dapat, jadi 3,1,2 menaruh halaman tiga lebih dulu. Panah di samping hasil melakukan hal yang sama dengan menulis ulang daftarnya untuk Anda, dan rentang terbalik seperti 10-1 membalik seluruh dokumen sekaligus.' },
+          { q: 'Apakah teksnya tetap bisa diseleksi?', a: 'Ya. Halaman disalin, bukan digambar ulang, jadi teks tetap teks dan masih bisa dicari, diseleksi, serta dibacakan pembaca layar. Gambar juga mempertahankan resolusi aslinya.' },
+          { q: 'Bisakah saya mendapat satu berkas per halaman?', a: 'Bisa. Tombol kedua menulis PDF satu halaman untuk setiap halaman pilihan Anda dan menyerahkannya sebagai satu ZIP, dinamai mengikuti berkas asli dengan nomor halaman di belakangnya.' },
+          { q: 'Bisakah memisahkan PDF berkata sandi?', a: 'Tidak. PDF terenkripsi tidak bisa dibaca tanpa kata sandinya. Buka di pembaca PDF Anda, simpan salinan tanpa kata sandi, lalu pakai salinan itu di sini.' },
+        ],
+      },
+    },
     'image-convert': {
       title: 'Konversi gambar ke JPEG, PNG, WebP atau AVIF',
       blurb: 'Termasuk HEIC dari iPhone. Tidak ada yang diunggah.',

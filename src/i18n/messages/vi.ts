@@ -179,6 +179,81 @@ const vi: Messages = {
   },
 
   tools: {
+    'pdf-split': {
+      title: 'Tách một tệp PDF, hoặc chỉ giữ những trang bạn cần',
+      blurb: 'Trích xuất, sắp xếp lại hoặc tách thành mỗi trang một tệp. Không tải gì lên.',
+      tags: ['pdf','tách pdf','trích trang','xóa trang','sắp xếp pdf','cắt pdf','khoảng trang','một trang','đảo ngược pdf','trang pdf'],
+      seoTitle: 'Tách PDF hoặc trích xuất trang, miễn phí và không tải lên | YappyKit',
+      seoDescription:
+        'Giữ những trang bạn cần, xếp theo thứ tự bạn muốn, hoặc tách một tệp PDF thành mỗi trang một tệp. Chạy trong trình duyệt: tài liệu không bao giờ được tải lên và phần chữ vẫn bôi đen được.',
+      heroTitle: 'Tách một tệp PDF, hoặc chỉ giữ những trang bạn cần',
+      heroNote:
+        'Gõ những trang bạn muốn đúng như trong hộp thoại in. Lấy về thành một tài liệu, hoặc tách ra mỗi trang một tệp. Tệp PDF được xử lý ngay trong thẻ này và không bao giờ được tải lên.',
+      ui: {
+        pickLabel: 'Chọn tệp PDF của bạn',
+        pickHint: 'Một tệp. Nó được đọc ở đây chứ không được tải lên.',
+        reading: 'Đang đọc tệp…',
+        pagesOne: '1 trang',
+        pagesMany: '{n} trang',
+        sourceMeta: '{name}, {pages}, {size}',
+        rangeLabel: 'Những trang cần giữ',
+        rangePlaceholder: 'ví dụ 1-3, 7',
+        rangeHint:
+          'Một danh sách kiểu 1-3, 7. Bỏ ngỏ phần cuối bằng 8- để lấy tất cả từ trang 8, và viết khoảng ngược lại, như {last}-1, để đảo ngược tài liệu.',
+        rangeAll: 'Tất cả các trang',
+        errorEmpty: 'Hãy gõ những trang cần giữ, ví dụ 1-3, 7.',
+        errorSyntax: 'Đó không phải một danh sách trang. Hãy dùng số và khoảng, như 1-3, 7.',
+        errorRange: 'Tệp PDF này có {pages}, nên danh sách đó đòi một trang không tồn tại.',
+        resultHeading: 'Kết quả',
+        resultSummary: '{pages}, theo thứ tự này:',
+        moveUp: 'Chuyển trang {n} lên trước',
+        moveDown: 'Chuyển trang {n} xuống sau',
+        remove: 'Bỏ trang {n}',
+        pageChip: 't{n}',
+        losslessNote:
+          'Các trang được sao chép y nguyên. Phần chữ vẫn bôi đen được, các liên kết vẫn hoạt động, và mỗi trang giữ đúng khổ của nó.',
+        actionExtract: 'Tải về thành một tệp PDF',
+        actionSplit: 'Tải về mỗi trang một tệp',
+        working: 'Đang xử lý…',
+        doneOne: 'Xong: một tệp PDF gồm {pages}, {size}.',
+        doneMany: 'Xong: {n} tệp, tổng cộng {size}.',
+        download: 'Tải về {size}',
+        downloadAll: 'Tải tất cả trong một tệp ZIP',
+        failed: 'Không thành công.',
+        encrypted: 'Tệp PDF này được bảo vệ bằng mật khẩu. Hãy gỡ mật khẩu trong trình đọc PDF của bạn rồi chọn lại tệp.',
+        unreadable: 'Không đọc được tệp đó như một tệp PDF.',
+        formWarning:
+          'Tệp PDF này có các ô biểu mẫu. Chúng thuộc về tài liệu chứ không thuộc về từng trang, nên các trang bạn lấy ra vẫn hiển thị nội dung đã nhập nhưng không còn điền được nữa.',
+      },
+      content: {
+        howItWorks: [
+          'Tách một tệp PDF gần như luôn là bước cuối trước khi gửi đi. Một trang trong bản sao kê mười hai trang. Hai tờ hợp đồng thực sự có chữ ký. Bản quét mà trang ba bị ngược và phải bỏ đi. Một cuốn tài liệu cần thành mỗi chương một tệp. Trong mọi trường hợp, bản thân các trang đều ổn, chỉ có chuyện những trang nào nằm trong tệp là sai.',
+          'Công cụ này chép những trang bạn nêu sang một tài liệu mới, từng đối tượng một, theo đúng thứ tự bạn nêu. Không có gì bị vẽ lại hay nén lại, nên chữ vẫn là chữ, liên kết vẫn chạy, và một tài liệu lẫn khổ A4 với Letter vẫn giữ cả hai khổ. Đó là khác biệt giữa tách và nén: nén xuống một giới hạn cứng thì sớm muộn phải biến trang thành ảnh, còn việc này thì không bao giờ.',
+          'Danh sách trang dùng đúng cách viết của hộp thoại in, vì đó là cách ai cũng đã biết. Hai điều mà hộp thoại in thường không làm: bỏ ngỏ phần cuối, nên 8- nghĩa là từ trang tám đến trang cuối, và chạy một khoảng theo chiều ngược, nên 10-1 trả về tài liệu đảo ngược. Thứ tự bạn gõ là thứ tự bạn nhận, và một trang được ghi hai lần sẽ được chép hai lần.',
+        ],
+        steps: [
+          'Chọn tệp PDF của bạn.',
+          'Gõ những trang bạn muốn, kiểu 1-3, 7. Kết quả hiện ngay bên dưới trong lúc bạn gõ.',
+          'Sắp xếp lại hoặc bỏ bớt trang ở đó, hoặc sửa thẳng danh sách.',
+          'Lấy phần đã chọn thành một tệp PDF, hoặc mỗi trang một tệp trong một tệp ZIP.',
+        ],
+        tips: [
+          'Muốn xóa trang thì hãy nêu những trang bạn giữ. 1-4, 6- giữ mọi thứ trừ trang năm.',
+          'Thứ tự là của bạn: 3,1,2 thật sự đưa trang ba lên đầu, còn 1,1 chép một trang hai lần.',
+          'Không có gì bị mã hóa lại, nên các trang lấy ra nặng đúng như trước. Nếu có giới hạn dung lượng thì nén sau.',
+          'Dấu trang và ô biểu mẫu thuộc về tài liệu chứ không thuộc về từng trang, nên chúng không đi theo. Phần in trên trang thì không đổi.',
+          'Tệp PDF có mật khẩu thì không đọc được. Hãy gỡ mật khẩu trong trình đọc PDF trước, rồi dùng bản sao đó.',
+        ],
+        faqs: [
+          { q: 'Làm sao tách một tệp PDF mà không tải nó lên?', a: 'Hãy chọn tệp ở đây. Nó được phân tích ngay trong thẻ này bằng chính thiết bị của bạn, và những trang bạn yêu cầu được trả lại thẳng dưới dạng tải về. Bạn có thể kiểm tra trong thẻ Network của công cụ dành cho nhà phát triển: không có yêu cầu nào mang theo tài liệu.' },
+          { q: 'Làm sao xóa trang khỏi một tệp PDF?', a: 'Hãy nêu những trang bạn muốn giữ, không phải những trang muốn bỏ. Với tệp mười trang mà bỏ trang năm thì viết 1-4, 6-. Kết quả là một tài liệu mới chỉ chứa những gì bạn đã nêu.' },
+          { q: 'Tôi có đổi được thứ tự các trang không?', a: 'Được. Thứ tự bạn gõ là thứ tự bạn nhận, nên 3,1,2 đưa trang ba lên đầu. Các mũi tên cạnh kết quả làm đúng việc đó bằng cách viết lại danh sách giúp bạn, và một khoảng ngược như 10-1 lật cả tài liệu chỉ trong một lần.' },
+          { q: 'Phần chữ có còn bôi đen được không?', a: 'Có. Các trang được chép chứ không vẽ lại, nên chữ vẫn là chữ và vẫn tìm kiếm, bôi đen, đọc bằng trình đọc màn hình được. Ảnh cũng giữ nguyên độ phân giải gốc.' },
+          { q: 'Tôi có thể lấy mỗi trang một tệp không?', a: 'Có. Nút thứ hai tạo một tệp PDF một trang cho từng trang trong phần bạn chọn rồi giao tất cả trong một tệp ZIP, đặt tên theo tệp gốc kèm số trang.' },
+          { q: 'Có tách được tệp PDF đặt mật khẩu không?', a: 'Không. Tệp PDF đã mã hóa thì không đọc được nếu thiếu mật khẩu. Hãy mở trong trình đọc PDF, lưu một bản sao không mật khẩu, rồi dùng bản đó ở đây.' },
+        ],
+      },
+    },
     'image-convert': {
       title: 'Chuyển ảnh sang JPEG, PNG, WebP hoặc AVIF',
       blurb: 'Có cả HEIC của iPhone. Không tải gì lên.',

@@ -35,6 +35,7 @@ export const TOOL_KEYS = [
   'image-watermark',
   'file-inspect',
   'image-convert',
+  'pdf-split',
 ] as const;
 
 export type ToolKey = (typeof TOOL_KEYS)[number];
@@ -360,6 +361,21 @@ export const ROUTES: Record<RouteKey, RouteDef> = {
       it: 'convertire-formato-immagine',
     },
   },
+  'pdf-split': {
+    localized: true,
+    slugs: {
+      en: 'split-a-pdf',
+      es: 'dividir-un-pdf',
+      'pt-BR': 'dividir-um-pdf',
+      id: 'pisah-halaman-pdf',
+      fr: 'diviser-un-pdf',
+      de: 'pdf-teilen',
+      ru: 'razdelit-pdf',
+      tr: 'pdf-bol',
+      vi: 'tach-file-pdf',
+      it: 'dividere-un-pdf',
+    },
+  },
   about: {
     localized: true,
     slugs: {
@@ -562,17 +578,18 @@ const RELATED: Record<ToolKey, readonly ToolKey[]> = {
   'mouse-test': ['keyboard-test', 'camera-mic-test', 'ruler'],
   'keyboard-test': ['mouse-test', 'font-coverage', 'random-word'],
   ruler: ['mouse-test', 'keyboard-test', 'camera-mic-test'],
-  'pdf-compress': ['pdf-merge', 'image-to-pdf', 'document-scan'],
+  'pdf-compress': ['pdf-split', 'pdf-merge', 'image-to-pdf'],
   'camera-mic-test': ['mouse-test', 'keyboard-test', 'video-compress'],
   'random-word': ['font-coverage', 'keyboard-test', 'mouse-test'],
-  'pdf-merge': ['pdf-compress', 'document-scan', 'screenshot-stitch'],
+  'pdf-merge': ['pdf-split', 'pdf-compress', 'document-scan'],
   'screenshot-stitch': ['image-compress', 'pdf-merge', 'metadata-remove'],
   'font-coverage': ['font-style', 'random-word', 'keyboard-test'],
   'font-style': ['font-coverage', 'random-word', 'ruler'],
-  'image-to-pdf': ['pdf-merge', 'pdf-compress', 'document-scan'],
+  'image-to-pdf': ['screenshot-stitch', 'pdf-merge', 'pdf-split'],
   'image-watermark': ['metadata-remove', 'image-compress', 'passport-photo'],
   'file-inspect': ['image-convert', 'metadata-remove', 'image-compress'],
   'image-convert': ['image-compress', 'metadata-remove', 'file-inspect'],
+  'pdf-split': ['pdf-merge', 'pdf-compress', 'document-scan'],
 };
 
 export function relatedTools(key: ToolKey, count = 3): ToolKey[] {

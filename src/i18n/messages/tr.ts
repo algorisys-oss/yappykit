@@ -179,6 +179,81 @@ const tr: Messages = {
   },
 
   tools: {
+    'pdf-split': {
+      title: 'Bir PDF’i bölün, ya da yalnızca gereken sayfaları alın',
+      blurb: 'Sayfa çıkarın, sırasını değiştirin veya sayfa başına bir dosya yapın. Hiçbir şey yüklenmez.',
+      tags: ['pdf','pdf böl','sayfa çıkar','sayfa sil','sayfa kaldır','pdf sırala','pdf ayır','sayfa aralığı','tek sayfa','pdf kes','pdf ters çevir','pdf sayfaları'],
+      seoTitle: 'PDF bölme ve sayfa çıkarma, ücretsiz ve yüklemesiz | YappyKit',
+      seoDescription:
+        'İhtiyacınız olan sayfaları tutun, istediğiniz sıraya dizin ya da bir PDF’i sayfa başına bir dosyaya bölün. Tarayıcınızda çalışır: belge asla yüklenmez ve metin seçilebilir kalır.',
+      heroTitle: 'Bir PDF’i bölün, ya da yalnızca gereken sayfaları alın',
+      heroNote:
+        'İstediğiniz sayfaları bir yazdırma penceresinde yazar gibi yazın. Tek belge olarak alın ya da her sayfayı ayrı dosyaya bölün. PDF bu sekmede işlenir ve asla yüklenmez.',
+      ui: {
+        pickLabel: 'PDF’inizi seçin',
+        pickHint: 'Tek dosya. Burada okunur, yüklenmez.',
+        reading: 'Dosya okunuyor…',
+        pagesOne: '1 sayfa',
+        pagesMany: '{n} sayfa',
+        sourceMeta: '{name}, {pages}, {size}',
+        rangeLabel: 'Tutulacak sayfalar',
+        rangePlaceholder: 'örn. 1-3, 7',
+        rangeHint:
+          '1-3, 7 gibi bir liste. Sonu açık bırakın: 8- sekizinci sayfadan sonrasının tamamı demektir. Aralığı ters yazmak, örneğin {last}-1, belgeyi ters çevirir.',
+        rangeAll: 'Tüm sayfalar',
+        errorEmpty: 'Hangi sayfaların kalacağını yazın, örneğin 1-3, 7.',
+        errorSyntax: 'Bu bir sayfa listesi değil. Sayı ve aralık kullanın, örneğin 1-3, 7.',
+        errorRange: 'Bu PDF {pages}, dolayısıyla bu liste var olmayan bir sayfayı istiyor.',
+        resultHeading: 'Sonuç',
+        resultSummary: '{pages}, şu sırayla:',
+        moveUp: '{n}. sayfayı öne al',
+        moveDown: '{n}. sayfayı geri al',
+        remove: '{n}. sayfayı çıkar',
+        pageChip: 's{n}',
+        losslessNote:
+          'Sayfalar olduğu gibi kopyalanır. Metin seçilebilir kalır, bağlantılar çalışmayı sürdürür ve her sayfa kendi boyutunu korur.',
+        actionExtract: 'Tek PDF olarak indir',
+        actionSplit: 'Sayfa başına bir dosya indir',
+        working: 'Çalışıyor…',
+        doneOne: 'Bitti: {pages} içeren tek bir PDF, {size}.',
+        doneMany: 'Bitti: {n} dosya, toplam {size}.',
+        download: '{size} indir',
+        downloadAll: 'Tümünü ZIP olarak indir',
+        failed: 'Bu işe yaramadı.',
+        encrypted: 'Bu PDF parola korumalı. Parolayı PDF okuyucunuzda kaldırın, sonra dosyayı yeniden seçin.',
+        unreadable: 'Bu dosya PDF olarak okunamadı.',
+        formWarning:
+          'Bu PDF’te doldurulabilir form alanları var. Bunlar sayfalara değil belgeye aittir, bu yüzden çıkardığınız sayfalar yazılanları göstermeye devam eder ama artık doldurulamaz.',
+      },
+      content: {
+        howItWorks: [
+          'Bir PDF’i bölmek neredeyse her zaman bir şey göndermeden önceki son adımdır. On iki sayfalık ekstrenin tek sayfası. Bir sözleşmenin gerçekten imzalanmış iki yaprağı. Üçüncü sayfası ters çıkmış ve atılması gereken bir tarama. Bölüm başına bir dosyaya dönüşmesi gereken bir kitapçık. Hepsinde sayfaların kendisi gayet iyidir, yanlış olan tek şey dosyada hangilerinin bulunduğudur.',
+          'Bu araç adını verdiğiniz sayfaları yeni bir belgeye, nesne nesne ve verdiğiniz sırayla kopyalar. Hiçbir şey yeniden çizilmez ve yeniden sıkıştırılmaz, dolayısıyla metin metin kalır, bağlantılar çalışır ve A4 ile Letter karışık bir belge iki boyutu da korur. Bölmekle sıkıştırmak arasındaki fark budur: sert bir sınıra kadar sıkıştırmak eninde sonunda sayfaları resme çevirmek zorunda kalır, bu ise bunu asla yapmaz.',
+          'Sayfa listesi yazdırma penceresindeki gösterimin aynısını kullanır, çünkü herkesin zaten bildiği gösterim odur. Yazdırma penceresinin genellikle yapmadığı iki şeyi yapar: sonu açık bırakmak, yani 8- sekizinci sayfadan sonuncuya kadar demektir, ve bir aralığı geriye doğru yürütmek, yani 10-1 belgeyi ters çevrilmiş olarak verir. Yazdığınız sıra aldığınız sıradır ve iki kez yazılan bir sayfa iki kez kopyalanır.',
+        ],
+        steps: [
+          'PDF’inizi seçin.',
+          'İstediğiniz sayfaları yazın, örneğin 1-3, 7. Siz yazdıkça sonuç aşağıda belirir.',
+          'Orada sırayı değiştirin ya da sayfa atın, veya listeyi doğrudan düzenleyin.',
+          'Seçimi tek PDF olarak ya da ZIP içinde sayfa başına bir dosya olarak alın.',
+        ],
+        tips: [
+          'Sayfa silmek için kalacak olanları yazın. 1-4, 6- beşinci sayfa dışında her şeyi tutar.',
+          'Sıra sizindir: 3,1,2 gerçekten üçüncü sayfayı başa alır, 1,1 ise bir sayfayı iki kez kopyalar.',
+          'Hiçbir şey yeniden kodlanmaz, çıkardığınız sayfalar eskisi kadar yer kaplar. Boyut sınırı varsa sonrasında sıkıştırın.',
+          'Yer imleri ve form alanları sayfalara değil belgeye aittir, bu yüzden korunmazlar. Sayfada basılı olan değişmez.',
+          'Parola korumalı bir PDF okunamaz. Önce PDF okuyucunuzda parolayı kaldırın ve o kopyayı kullanın.',
+        ],
+        faqs: [
+          { q: 'Bir PDF’i yüklemeden nasıl bölerim?', a: 'Dosyayı burada seçin. Kendi cihazınız tarafından bu sekmenin içinde ayrıştırılır ve istediğiniz sayfalar doğrudan indirme olarak geri verilir. Tarayıcınızın geliştirici araçlarındaki Ağ sekmesinden doğrulayabilirsiniz: hiçbir istek belgeyi taşımaz.' },
+          { q: 'Bir PDF’ten sayfa nasıl silerim?', a: 'Silmek istediklerinizi değil, tutmak istediklerinizi yazın. Beşinci sayfası olmayan on sayfalık bir dosya için bu 1-4, 6- olur. Sonuç, yalnızca adını verdiğiniz sayfaları içeren yeni bir belgedir.' },
+          { q: 'Sayfaların sırasını değiştirebilir miyim?', a: 'Evet. Yazdığınız sıra aldığınız sıradır, yani 3,1,2 üçüncü sayfayı başa alır. Sonucun yanındaki oklar listeyi sizin yerinize yeniden yazarak aynı şeyi yapar ve 10-1 gibi ters bir aralık tüm belgeyi bir kerede çevirir.' },
+          { q: 'Metin seçilebilir kalacak mı?', a: 'Evet. Sayfalar yeniden çizilmek yerine kopyalanır, bu yüzden metin metin kalır ve aranabilir, seçilebilir, ekran okuyucuyla okunabilir. Görseller de özgün çözünürlüğünü korur.' },
+          { q: 'Sayfa başına bir dosya alabilir miyim?', a: 'Evet. İkinci düğme seçiminizdeki her sayfa için tek sayfalık bir PDF yazar ve hepsini tek bir ZIP içinde verir, özgün adın sonuna sayfa numarası eklenerek.' },
+          { q: 'Parola korumalı bir PDF’i bölebilir miyim?', a: 'Hayır. Şifreli bir PDF parolası olmadan okunamaz. PDF okuyucunuzda açın, parolasız bir kopya kaydedin ve burada o kopyayı kullanın.' },
+        ],
+      },
+    },
     'image-convert': {
       title: 'Bir görseli JPEG, PNG, WebP veya AVIF biçimine dönüştürün',
       blurb: 'iPhone’un HEIC’i dahil. Hiçbir şey yüklenmez.',

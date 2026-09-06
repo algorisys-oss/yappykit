@@ -179,6 +179,81 @@ const fr: Messages = {
   },
 
   tools: {
+    'pdf-split': {
+      title: 'Divisez un PDF, ou ne gardez que les pages utiles',
+      blurb: 'Extraire, réordonner ou couper en un fichier par page. Rien n’est envoyé.',
+      tags: ['pdf','diviser pdf','extraire des pages','supprimer des pages','réordonner pdf','séparer pdf','plage de pages','une page','couper pdf','inverser pdf','pages pdf'],
+      seoTitle: 'Diviser un PDF ou en extraire des pages, sans envoi | YappyKit',
+      seoDescription:
+        'Gardez les pages dont vous avez besoin, mettez-les dans l’ordre voulu, ou coupez un PDF en un fichier par page. Tout se passe dans votre navigateur : le document n’est jamais envoyé et le texte reste sélectionnable.',
+      heroTitle: 'Divisez un PDF, ou ne gardez que les pages utiles',
+      heroNote:
+        'Écrivez les pages voulues comme dans une fenêtre d’impression. Récupérez-les en un seul document, ou en un fichier chacune. Le PDF est traité dans cet onglet et n’est jamais envoyé.',
+      ui: {
+        pickLabel: 'Choisissez votre PDF',
+        pickHint: 'Un fichier. Il est lu ici, pas envoyé.',
+        reading: 'Lecture du fichier…',
+        pagesOne: '1 page',
+        pagesMany: '{n} pages',
+        sourceMeta: '{name}, {pages}, {size}',
+        rangeLabel: 'Pages à garder',
+        rangePlaceholder: 'p. ex. 1-3, 7',
+        rangeHint:
+          'Une liste comme 1-3, 7. Laissez la fin ouverte avec 8- pour tout à partir de la page 8, et écrivez une plage à l’envers, comme {last}-1, pour inverser le document.',
+        rangeAll: 'Toutes les pages',
+        errorEmpty: 'Indiquez les pages à garder, par exemple 1-3, 7.',
+        errorSyntax: 'Ce n’est pas une liste de pages. Utilisez des nombres et des plages, comme 1-3, 7.',
+        errorRange: 'Ce PDF fait {pages}, donc cette liste demande une page qui n’existe pas.',
+        resultHeading: 'Le résultat',
+        resultSummary: '{pages}, dans cet ordre :',
+        moveUp: 'Déplacer la page {n} avant',
+        moveDown: 'Déplacer la page {n} après',
+        remove: 'Retirer la page {n}',
+        pageChip: 'p{n}',
+        losslessNote:
+          'Les pages sont copiées telles quelles. Le texte reste sélectionnable, les liens continuent de fonctionner et chaque page garde sa taille.',
+        actionExtract: 'Télécharger en un seul PDF',
+        actionSplit: 'Télécharger un fichier par page',
+        working: 'Traitement…',
+        doneOne: 'Terminé : un PDF de {pages}, {size}.',
+        doneMany: 'Terminé : {n} fichiers, {size} au total.',
+        download: 'Télécharger {size}',
+        downloadAll: 'Tout télécharger dans un ZIP',
+        failed: 'Cela n’a pas fonctionné.',
+        encrypted: 'Ce PDF est protégé par mot de passe. Retirez-le dans votre lecteur PDF, puis choisissez de nouveau le fichier.',
+        unreadable: 'Ce fichier n’a pas pu être lu comme un PDF.',
+        formWarning:
+          'Ce PDF comporte des champs de formulaire. Ils appartiennent au document et non à ses pages : les pages extraites afficheront encore ce qui a été saisi, mais ne seront plus remplissables.',
+      },
+      content: {
+        howItWorks: [
+          'Diviser un PDF est presque toujours la dernière étape avant d’envoyer quelque chose. Une page d’un relevé qui en compte douze. Les deux feuillets d’un contrat réellement signés. Un scan dont la page trois est à l’envers et doit disparaître. Un livret qui doit devenir un fichier par chapitre. À chaque fois les pages vont très bien, et la seule chose qui cloche est lesquelles se trouvent dans le fichier.',
+          'Cet outil copie les pages que vous nommez dans un nouveau document, objet par objet, dans l’ordre où vous les avez nommées. Rien n’est réaffiché ni recompressé : le texte reste du texte, les liens marchent encore, et un document mêlant A4 et Letter conserve les deux formats. C’est la différence entre diviser et compresser : compresser jusqu’à une limite stricte finit par transformer les pages en images, et ceci ne le fait jamais.',
+          'La liste de pages utilise la notation d’une fenêtre d’impression, parce que c’est celle que tout le monde connaît déjà. Deux choses qu’elle fait et qu’une fenêtre d’impression ne fait généralement pas : laisser la fin ouverte, donc 8- signifie de la page huit jusqu’à la dernière, et parcourir une plage à l’envers, donc 10-1 renvoie le document inversé. L’ordre que vous écrivez est celui que vous obtenez, et une page écrite deux fois est copiée deux fois.',
+        ],
+        steps: [
+          'Choisissez votre PDF.',
+          'Écrivez les pages voulues, comme 1-3, 7. Le résultat apparaît dessous à mesure que vous tapez.',
+          'Réordonnez ou retirez des pages là, ou modifiez la liste directement.',
+          'Récupérez la sélection en un seul PDF, ou en un fichier par page dans un ZIP.',
+        ],
+        tips: [
+          'Pour supprimer des pages, nommez celles que vous gardez. 1-4, 6- garde tout sauf la page cinq.',
+          'L’ordre vous appartient : 3,1,2 met bien la page trois en premier, et 1,1 copie une page deux fois.',
+          'Rien n’est réencodé, donc les pages extraites pèsent ce qu’elles pesaient. Compressez ensuite s’il y a une limite de taille.',
+          'Les signets et les champs de formulaire appartiennent au document plutôt qu’à ses pages : ils ne survivent pas. Ce qui est imprimé sur la page ne change pas.',
+          'Un PDF protégé par mot de passe ne peut pas être lu. Retirez le mot de passe dans votre lecteur PDF, puis utilisez cette copie.',
+        ],
+        faqs: [
+          { q: 'Comment diviser un PDF sans l’envoyer ?', a: 'Choisissez le fichier ici. Il est analysé dans cet onglet par votre propre appareil, et les pages demandées vous reviennent directement en téléchargement. Vous pouvez le vérifier dans l’onglet Réseau des outils de développement : aucune requête ne transporte le document.' },
+          { q: 'Comment supprimer des pages d’un PDF ?', a: 'Nommez les pages que vous gardez, pas celles à retirer. Pour un fichier de dix pages sans la cinquième, cela s’écrit 1-4, 6-. Le résultat est un nouveau document qui ne contient que ce que vous avez nommé.' },
+          { q: 'Puis-je changer l’ordre des pages ?', a: 'Oui. L’ordre que vous écrivez est celui que vous obtenez : 3,1,2 place la page trois en premier. Les flèches à côté du résultat font la même chose en réécrivant la liste pour vous, et une plage inversée comme 10-1 retourne le document entier d’un coup.' },
+          { q: 'Le texte restera-t-il sélectionnable ?', a: 'Oui. Les pages sont copiées et non réaffichées : le texte reste du texte, cherchable, sélectionnable et lisible par un lecteur d’écran. Les images gardent aussi leur résolution d’origine.' },
+          { q: 'Puis-je obtenir un fichier par page ?', a: 'Oui. Le second bouton écrit un PDF d’une page pour chaque page de votre sélection et vous les remet dans un seul ZIP, nommés d’après l’original avec le numéro de page ajouté.' },
+          { q: 'Puis-je diviser un PDF protégé par mot de passe ?', a: 'Non. Un PDF chiffré ne peut pas être lu sans son mot de passe. Ouvrez-le dans votre lecteur PDF, enregistrez une copie sans mot de passe, et utilisez cette copie ici.' },
+        ],
+      },
+    },
     'image-convert': {
       title: 'Convertissez une image en JPEG, PNG, WebP ou AVIF',
       blurb: 'Le HEIC de l’iPhone compris. Rien n’est envoyé.',

@@ -126,6 +126,36 @@ export function ImageConvertPreview() {
   );
 }
 
+export function PdfSplitPreview() {
+  const sheet = (x: number, y: number, label: string) => (
+    <g transform={`translate(${x} ${y})`}>
+      <rect x="0" y="0" width="40" height="52" rx="5" fill={C.paper} stroke={C.border} stroke-width="2" />
+      <g fill={C.accentSoft}>
+        <rect x="7" y="10" width="26" height="5" rx="2.5" />
+        <rect x="7" y="20" width="18" height="5" rx="2.5" />
+      </g>
+      <text x="20" y="44" fill={C.muted} font-size="11" font-weight="700" text-anchor="middle">
+        {label}
+      </text>
+    </g>
+  );
+  return (
+    <Frame>
+      {/* the source, and the cut through it */}
+      {sheet(20, 26, '1-9')}
+      <path
+        d="M74 18 v68"
+        stroke={C.bad}
+        stroke-width="2.5"
+        stroke-dasharray="5 5"
+        stroke-linecap="round"
+      />
+      {sheet(92, 12, 'p2')}
+      {sheet(140, 40, 'p7')}
+    </Frame>
+  );
+}
+
 export function SpreadsheetPreview() {
   const grid = (ox: number, marks: Record<number, string>) => (
     <g transform={`translate(${ox} 24)`}>
@@ -663,4 +693,5 @@ export const TOOL_PREVIEWS: Partial<Record<ToolKey, () => JSX.Element>> = {
   'image-watermark': WatermarkPreview,
   'file-inspect': FileInspectPreview,
   'image-convert': ImageConvertPreview,
+  'pdf-split': PdfSplitPreview,
 };

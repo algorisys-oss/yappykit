@@ -181,6 +181,81 @@ export const en = {
   },
 
   tools: {
+    'pdf-split': {
+      title: 'Split a PDF, or keep just the pages you need',
+      blurb: 'Extract, reorder or split into one file per page. Nothing is uploaded.',
+      tags: ['pdf','split pdf','extract pages','delete pages','remove pages','reorder pdf','rearrange pages','separate pdf','split pdf pages','page range','one page','cut pdf','reverse pdf','pdf pages'],
+      seoTitle: 'Split a PDF or Extract Pages Free, No Upload | YappyKit',
+      seoDescription:
+        'Keep the pages you need, put them in the order you want, or split a PDF into one file per page. It runs in your browser: the document is never uploaded and the text stays selectable.',
+      heroTitle: 'Split a PDF, or keep just the pages you need',
+      heroNote:
+        'Type the pages you want the way you would in a print dialog. Take them out as one document, or split them into a file each. The PDF is handled in this browser tab and is never uploaded.',
+      ui: {
+        pickLabel: 'Choose your PDF',
+        pickHint: 'One file. It is read here, not uploaded.',
+        reading: 'Reading the file…',
+        pagesOne: '1 page',
+        pagesMany: '{n} pages',
+        sourceMeta: '{name}, {pages}, {size}',
+        rangeLabel: 'Pages to keep',
+        rangePlaceholder: 'e.g. 1-3, 7',
+        rangeHint:
+          'A list like 1-3, 7. Leave the end open with 8- for everything from page 8, and write a span backwards, like {last}-1, to reverse the document.',
+        rangeAll: 'All pages',
+        errorEmpty: 'Type which pages to keep, for example 1-3, 7.',
+        errorSyntax: 'That is not a page list. Use numbers and spans, like 1-3, 7.',
+        errorRange: 'This PDF has {pages}, so that list asks for a page it does not have.',
+        resultHeading: 'The result',
+        resultSummary: '{pages}, in this order:',
+        moveUp: 'Move page {n} earlier',
+        moveDown: 'Move page {n} later',
+        remove: 'Remove page {n}',
+        pageChip: 'p{n}',
+        losslessNote:
+          'Pages are copied exactly as they are. Text stays selectable, links keep working, and every page keeps its own size.',
+        actionExtract: 'Download as one PDF',
+        actionSplit: 'Download one file per page',
+        working: 'Working…',
+        doneOne: 'Done: one PDF of {pages}, {size}.',
+        doneMany: 'Done: {n} files, {size} in total.',
+        download: 'Download {size}',
+        downloadAll: 'Download all as a ZIP',
+        failed: 'That did not work.',
+        encrypted: 'This PDF is password-protected. Remove the password in your PDF reader, then choose the file again.',
+        unreadable: 'That file could not be read as a PDF.',
+        formWarning:
+          'This PDF has fill-in form fields. They belong to the document rather than to its pages, so the pages you take out will still show what was typed in, but will no longer be fillable.',
+      },
+      content: {
+        howItWorks: [
+          'Splitting a PDF is nearly always the last step before sending something. One page of a twelve page statement. The two pages of a contract that were actually signed. A scan where page three came out upside down and has to go. A booklet that needs to become one file per chapter. In every case the pages themselves are fine, and the only thing wrong is which of them are in the file.',
+          'This copies the pages you name into a new document, object for object, in the order you named them. Nothing is re-rendered and nothing is re-compressed, so the text is still text, the links still work, and a mixed A4 and Letter document keeps both sizes. That is the difference between splitting and compressing: compressing to a hard size limit eventually has to turn pages into pictures, and this never does.',
+          'The page list is the same notation a print dialog uses, because it is the one everybody already knows. Two things it does that a print dialog usually will not: leave the end open, so 8- means page eight to whatever the last page is, and run a span backwards, so 10-1 hands back the document reversed. The order you type is the order you get, and a page written twice is copied twice.',
+        ],
+        steps: [
+          'Choose your PDF.',
+          'Type the pages you want, like 1-3, 7. The result appears below as you type.',
+          'Reorder or drop pages there if you want to, or edit the list directly.',
+          'Take the selection as one PDF, or as one file per page in a ZIP.',
+        ],
+        tips: [
+          'To delete pages, name the ones you are keeping. 1-4, 6- keeps everything except page five.',
+          'The order is yours: 3,1,2 really does put page three first, and 1,1 copies a page twice.',
+          'Nothing is re-encoded, so the pages you take out weigh what they weighed. Compress afterwards if there is a size limit.',
+          'Bookmarks and fill-in form fields belong to a document rather than to its pages, so they do not survive. What is printed on the page is unchanged.',
+          'A password-protected PDF cannot be read. Remove the password in your PDF reader first, then use the copy.',
+        ],
+        faqs: [
+          { q: 'How do I split a PDF without uploading it?', a: 'Choose the file here. It is parsed inside your browser tab by your own device, and the pages you asked for are handed straight back as a download. You can confirm it in your browser’s developer tools, on the Network tab: no request carries the document.' },
+          { q: 'How do I delete pages from a PDF?', a: 'Name the pages you want to keep rather than the ones you want gone. For a ten page file without page five, that is 1-4, 6-. The result is a new document containing only what you named.' },
+          { q: 'Can I change the order of the pages?', a: 'Yes. The order you type is the order you get, so 3,1,2 puts page three first. The arrows next to the result do the same thing by rewriting the list for you, and a backwards span like 10-1 reverses the whole document at once.' },
+          { q: 'Will the text still be selectable?', a: 'Yes. Pages are copied rather than re-rendered, so text stays text and can still be searched, selected and read aloud by a screen reader. Images keep their original resolution too.' },
+          { q: 'Can I get one file per page?', a: 'Yes. The second button writes a single-page PDF for every page in your selection and hands them over as one ZIP, named after the original with the page number appended.' },
+          { q: 'Can I split a password-protected PDF?', a: 'No. An encrypted PDF cannot be read without its password. Open it in your PDF reader, save a copy without the password, and use that copy here.' },
+        ],
+      },
+    },
     'image-convert': {
       title: 'Convert an image to JPEG, PNG, WebP or AVIF',
       blurb: 'HEIC from an iPhone included. Nothing is uploaded.',

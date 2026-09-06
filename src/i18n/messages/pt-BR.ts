@@ -179,6 +179,81 @@ const ptBR: Messages = {
   },
 
   tools: {
+    'pdf-split': {
+      title: 'Divida um PDF, ou fique só com as páginas que precisa',
+      blurb: 'Extraia, reordene ou divida em um arquivo por página. Nada é enviado.',
+      tags: ['pdf','dividir pdf','extrair páginas','excluir páginas','remover páginas','reordenar pdf','separar pdf','intervalo de páginas','uma página','cortar pdf','inverter pdf','páginas pdf'],
+      seoTitle: 'Dividir um PDF ou extrair páginas grátis, sem enviar | YappyKit',
+      seoDescription:
+        'Fique com as páginas que precisa, coloque na ordem que quiser ou divida um PDF em um arquivo por página. Funciona no seu navegador: o documento nunca é enviado e o texto continua selecionável.',
+      heroTitle: 'Divida um PDF, ou fique só com as páginas que precisa',
+      heroNote:
+        'Escreva as páginas que você quer do mesmo jeito que faria numa caixa de impressão. Leve como um documento só, ou divida em um arquivo cada. O PDF é tratado nesta aba e nunca é enviado.',
+      ui: {
+        pickLabel: 'Escolha seu PDF',
+        pickHint: 'Um arquivo. Ele é lido aqui, não enviado.',
+        reading: 'Lendo o arquivo…',
+        pagesOne: '1 página',
+        pagesMany: '{n} páginas',
+        sourceMeta: '{name}, {pages}, {size}',
+        rangeLabel: 'Páginas a manter',
+        rangePlaceholder: 'ex.: 1-3, 7',
+        rangeHint:
+          'Uma lista como 1-3, 7. Deixe o fim aberto com 8- para tudo a partir da página 8, e escreva um trecho de trás para frente, como {last}-1, para inverter o documento.',
+        rangeAll: 'Todas as páginas',
+        errorEmpty: 'Escreva quais páginas manter, por exemplo 1-3, 7.',
+        errorSyntax: 'Isso não é uma lista de páginas. Use números e trechos, como 1-3, 7.',
+        errorRange: 'Este PDF tem {pages}, então essa lista pede uma página que não existe.',
+        resultHeading: 'O resultado',
+        resultSummary: '{pages}, nesta ordem:',
+        moveUp: 'Mover a página {n} para antes',
+        moveDown: 'Mover a página {n} para depois',
+        remove: 'Remover a página {n}',
+        pageChip: 'p{n}',
+        losslessNote:
+          'As páginas são copiadas exatamente como estão. O texto continua selecionável, os links continuam funcionando e cada página mantém o próprio tamanho.',
+        actionExtract: 'Baixar como um PDF só',
+        actionSplit: 'Baixar um arquivo por página',
+        working: 'Trabalhando…',
+        doneOne: 'Pronto: um PDF de {pages}, {size}.',
+        doneMany: 'Pronto: {n} arquivos, {size} no total.',
+        download: 'Baixar {size}',
+        downloadAll: 'Baixar tudo em um ZIP',
+        failed: 'Não deu certo.',
+        encrypted: 'Este PDF está protegido por senha. Remova a senha no seu leitor de PDF e escolha o arquivo de novo.',
+        unreadable: 'Não foi possível ler esse arquivo como PDF.',
+        formWarning:
+          'Este PDF tem campos de formulário. Eles pertencem ao documento e não às páginas, então as páginas que você tirar ainda mostrarão o que foi digitado, mas não serão mais preenchíveis.',
+      },
+      content: {
+        howItWorks: [
+          'Dividir um PDF quase sempre é o último passo antes de enviar alguma coisa. Uma página de um extrato de doze. As duas folhas de um contrato que foram realmente assinadas. Uma digitalização em que a página três saiu de cabeça para baixo e precisa sair. Uma apostila que precisa virar um arquivo por capítulo. Em todos os casos as páginas estão boas, e a única coisa errada é quais delas estão no arquivo.',
+          'Esta ferramenta copia as páginas que você nomear para um documento novo, objeto por objeto, na ordem em que você as nomeou. Nada é renderizado de novo nem recomprimido, então o texto continua texto, os links continuam funcionando e um documento com A4 e Carta mantém os dois tamanhos. Essa é a diferença entre dividir e comprimir: comprimir até um limite rígido uma hora precisa transformar páginas em imagens, e isto nunca faz isso.',
+          'A lista de páginas usa a mesma notação da caixa de impressão, porque é a que todo mundo já conhece. Duas coisas que ela faz e que a caixa de impressão geralmente não faz: deixar o fim aberto, então 8- significa da página oito até a última, e percorrer um trecho de trás para frente, então 10-1 devolve o documento invertido. A ordem que você escreve é a que você recebe, e uma página escrita duas vezes é copiada duas vezes.',
+        ],
+        steps: [
+          'Escolha seu PDF.',
+          'Escreva as páginas que quer, como 1-3, 7. O resultado aparece abaixo enquanto você digita.',
+          'Reordene ou descarte páginas ali, ou edite a lista direto.',
+          'Leve a seleção como um PDF só, ou como um arquivo por página em um ZIP.',
+        ],
+        tips: [
+          'Para apagar páginas, nomeie as que você mantém. 1-4, 6- fica com tudo menos a página cinco.',
+          'A ordem é sua: 3,1,2 realmente coloca a página três primeiro, e 1,1 copia uma página duas vezes.',
+          'Nada é recodificado, então as páginas retiradas pesam o que pesavam. Comprima depois se houver limite de tamanho.',
+          'Marcadores e campos de formulário pertencem ao documento e não às páginas, então não sobrevivem. O que está impresso na página não muda.',
+          'Um PDF protegido por senha não pode ser lido. Remova a senha no seu leitor de PDF e use essa cópia.',
+        ],
+        faqs: [
+          { q: 'Como divido um PDF sem enviá-lo?', a: 'Escolha o arquivo aqui. Ele é lido dentro da sua aba, pelo seu próprio aparelho, e as páginas que você pediu voltam direto como download. Você pode conferir nas ferramentas de desenvolvedor do navegador, na aba Rede: nenhuma requisição carrega o documento.' },
+          { q: 'Como apago páginas de um PDF?', a: 'Nomeie as páginas que quer manter, não as que quer tirar. Para um arquivo de dez páginas sem a cinco, isso é 1-4, 6-. O resultado é um documento novo com apenas o que você nomeou.' },
+          { q: 'Posso mudar a ordem das páginas?', a: 'Pode. A ordem que você escreve é a que recebe, então 3,1,2 coloca a página três primeiro. As setas ao lado do resultado fazem o mesmo reescrevendo a lista para você, e um trecho invertido como 10-1 vira o documento inteiro de uma vez.' },
+          { q: 'O texto continuará selecionável?', a: 'Sim. As páginas são copiadas em vez de renderizadas de novo, então o texto continua texto e pode ser pesquisado, selecionado e lido por um leitor de tela. As imagens também mantêm a resolução original.' },
+          { q: 'Dá para ter um arquivo por página?', a: 'Dá. O segundo botão escreve um PDF de uma página para cada página da sua seleção e entrega tudo em um ZIP só, com o nome do original e o número da página no fim.' },
+          { q: 'Posso dividir um PDF protegido por senha?', a: 'Não. Um PDF criptografado não pode ser lido sem a senha. Abra no seu leitor de PDF, salve uma cópia sem senha e use essa cópia aqui.' },
+        ],
+      },
+    },
     'image-convert': {
       title: 'Converta uma imagem para JPEG, PNG, WebP ou AVIF',
       blurb: 'Inclui o HEIC do iPhone. Nada é enviado.',

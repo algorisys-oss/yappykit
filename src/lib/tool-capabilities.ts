@@ -42,6 +42,8 @@ export const TOOL_CAPABILITIES: Record<ToolKey, CapabilitySpec> = {
   // Reads headers and metadata; a bitmap decode is only for an image's size.
   'file-inspect': { required: [], preferred: ['createImageBitmap'] },
   'pdf-merge': { required: [], preferred: [] },
+  // Copying pages is plain JavaScript through pdf-lib; nothing is rasterised.
+  'pdf-split': { required: [], preferred: [] },
   'random-word': { required: [], preferred: [] },
   // Input and display tests: no file ever enters them.
   'mouse-test': { required: [], preferred: [] },

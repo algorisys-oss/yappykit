@@ -44,6 +44,7 @@ const COMPONENTS: Record<RouteKey, Component> = {
   'image-watermark': lazy(() => import('./routes/tools/image-watermark')),
   'file-inspect': lazy(() => import('./routes/tools/file-inspector')),
   'image-convert': lazy(() => import('./routes/tools/image-converter')),
+  'pdf-split': lazy(() => import('./routes/tools/pdf-splitter')),
   about: lazy(() => import('./routes/about')),
   privacy: lazy(() => import('./routes/privacy')),
   terms: lazy(() => import('./routes/terms')),

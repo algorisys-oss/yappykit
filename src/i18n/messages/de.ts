@@ -179,6 +179,81 @@ const de: Messages = {
   },
 
   tools: {
+    'pdf-split': {
+      title: 'Ein PDF teilen, oder nur die Seiten behalten, die Sie brauchen',
+      blurb: 'Seiten herausnehmen, umsortieren oder je Seite eine Datei. Kein Upload.',
+      tags: ['pdf','pdf teilen','seiten extrahieren','seiten löschen','seiten entfernen','pdf sortieren','pdf trennen','seitenbereich','eine seite','pdf schneiden','pdf umkehren','pdf seiten'],
+      seoTitle: 'PDF teilen oder Seiten extrahieren, kostenlos und ohne Upload | YappyKit',
+      seoDescription:
+        'Behalten Sie die Seiten, die Sie brauchen, bringen Sie sie in die gewünschte Reihenfolge, oder teilen Sie ein PDF in eine Datei je Seite. Läuft im Browser: das Dokument wird nie hochgeladen und der Text bleibt markierbar.',
+      heroTitle: 'Ein PDF teilen, oder nur die Seiten behalten, die Sie brauchen',
+      heroNote:
+        'Schreiben Sie die gewünschten Seiten so auf wie in einem Druckdialog. Nehmen Sie sie als ein Dokument mit, oder als je eine Datei. Das PDF wird in diesem Browser-Tab verarbeitet und nie hochgeladen.',
+      ui: {
+        pickLabel: 'PDF auswählen',
+        pickHint: 'Eine Datei. Sie wird hier gelesen, nicht hochgeladen.',
+        reading: 'Datei wird gelesen…',
+        pagesOne: '1 Seite',
+        pagesMany: '{n} Seiten',
+        sourceMeta: '{name}, {pages}, {size}',
+        rangeLabel: 'Zu behaltende Seiten',
+        rangePlaceholder: 'z. B. 1-3, 7',
+        rangeHint:
+          'Eine Liste wie 1-3, 7. Lassen Sie das Ende mit 8- offen für alles ab Seite 8, und schreiben Sie einen Bereich rückwärts, etwa {last}-1, um das Dokument umzukehren.',
+        rangeAll: 'Alle Seiten',
+        errorEmpty: 'Schreiben Sie, welche Seiten bleiben sollen, zum Beispiel 1-3, 7.',
+        errorSyntax: 'Das ist keine Seitenliste. Verwenden Sie Zahlen und Bereiche, etwa 1-3, 7.',
+        errorRange: 'Dieses PDF hat {pages}, diese Liste verlangt also eine Seite, die es nicht gibt.',
+        resultHeading: 'Das Ergebnis',
+        resultSummary: '{pages}, in dieser Reihenfolge:',
+        moveUp: 'Seite {n} nach vorn',
+        moveDown: 'Seite {n} nach hinten',
+        remove: 'Seite {n} entfernen',
+        pageChip: 'S{n}',
+        losslessNote:
+          'Die Seiten werden genau so kopiert, wie sie sind. Der Text bleibt markierbar, Links funktionieren weiter, und jede Seite behält ihr eigenes Format.',
+        actionExtract: 'Als ein PDF herunterladen',
+        actionSplit: 'Je Seite eine Datei herunterladen',
+        working: 'Wird verarbeitet…',
+        doneOne: 'Fertig: ein PDF mit {pages}, {size}.',
+        doneMany: 'Fertig: {n} Dateien, zusammen {size}.',
+        download: '{size} herunterladen',
+        downloadAll: 'Alle als ZIP herunterladen',
+        failed: 'Das hat nicht geklappt.',
+        encrypted: 'Dieses PDF ist passwortgeschützt. Entfernen Sie das Passwort in Ihrem PDF-Programm und wählen Sie die Datei erneut.',
+        unreadable: 'Diese Datei konnte nicht als PDF gelesen werden.',
+        formWarning:
+          'Dieses PDF hat ausfüllbare Formularfelder. Sie gehören zum Dokument und nicht zu seinen Seiten: die herausgenommenen Seiten zeigen weiterhin, was eingetragen wurde, sind aber nicht mehr ausfüllbar.',
+      },
+      content: {
+        howItWorks: [
+          'Ein PDF zu teilen ist fast immer der letzte Schritt, bevor etwas verschickt wird. Eine Seite aus einem zwölfseitigen Kontoauszug. Die zwei Blätter eines Vertrags, die tatsächlich unterschrieben wurden. Ein Scan, bei dem Seite drei kopfsteht und weg muss. Ein Heft, aus dem je Kapitel eine Datei werden soll. In allen Fällen sind die Seiten völlig in Ordnung, und falsch ist nur, welche davon in der Datei stehen.',
+          'Dieses Werkzeug kopiert die genannten Seiten in ein neues Dokument, Objekt für Objekt, in der genannten Reihenfolge. Nichts wird neu gezeichnet oder neu komprimiert: Text bleibt Text, Links funktionieren weiter, und ein Dokument aus A4 und Letter behält beide Formate. Das ist der Unterschied zwischen Teilen und Komprimieren: Komprimieren auf ein hartes Limit muss Seiten irgendwann in Bilder verwandeln, und das hier tut es nie.',
+          'Die Seitenliste benutzt dieselbe Schreibweise wie ein Druckdialog, weil das die ist, die alle schon kennen. Zwei Dinge, die ein Druckdialog meist nicht kann: das Ende offen lassen, sodass 8- von Seite acht bis zur letzten bedeutet, und einen Bereich rückwärts laufen lassen, sodass 10-1 das Dokument umgekehrt zurückgibt. Die Reihenfolge, die Sie schreiben, ist die, die Sie bekommen, und eine zweimal genannte Seite wird zweimal kopiert.',
+        ],
+        steps: [
+          'Wählen Sie Ihr PDF.',
+          'Schreiben Sie die gewünschten Seiten auf, etwa 1-3, 7. Das Ergebnis erscheint beim Tippen darunter.',
+          'Sortieren Sie dort um oder werfen Sie Seiten raus, oder bearbeiten Sie die Liste direkt.',
+          'Nehmen Sie die Auswahl als ein PDF mit, oder als je eine Datei in einem ZIP.',
+        ],
+        tips: [
+          'Zum Löschen nennen Sie die Seiten, die bleiben. 1-4, 6- behält alles außer Seite fünf.',
+          'Die Reihenfolge gehört Ihnen: 3,1,2 stellt Seite drei wirklich nach vorn, und 1,1 kopiert eine Seite zweimal.',
+          'Nichts wird neu kodiert, die herausgenommenen Seiten wiegen also so viel wie zuvor. Bei einem Größenlimit danach komprimieren.',
+          'Lesezeichen und Formularfelder gehören zum Dokument und nicht zu den Seiten, sie überleben also nicht. Was auf der Seite gedruckt steht, bleibt unverändert.',
+          'Ein passwortgeschütztes PDF lässt sich nicht lesen. Entfernen Sie das Passwort zuerst in Ihrem PDF-Programm und nehmen Sie die Kopie.',
+        ],
+        faqs: [
+          { q: 'Wie teile ich ein PDF, ohne es hochzuladen?', a: 'Wählen Sie die Datei hier aus. Sie wird in diesem Browser-Tab von Ihrem eigenen Gerät gelesen, und die gewünschten Seiten kommen direkt als Download zurück. Sie können es im Tab Netzwerk der Entwicklerwerkzeuge prüfen: keine Anfrage trägt das Dokument.' },
+          { q: 'Wie lösche ich Seiten aus einem PDF?', a: 'Nennen Sie die Seiten, die bleiben sollen, nicht die, die weg sollen. Für zehn Seiten ohne Seite fünf ist das 1-4, 6-. Das Ergebnis ist ein neues Dokument mit genau dem, was Sie genannt haben.' },
+          { q: 'Kann ich die Reihenfolge der Seiten ändern?', a: 'Ja. Was Sie schreiben, bekommen Sie: 3,1,2 stellt Seite drei nach vorn. Die Pfeile neben dem Ergebnis tun dasselbe, indem sie die Liste für Sie umschreiben, und ein rückwärts geschriebener Bereich wie 10-1 dreht das ganze Dokument auf einmal um.' },
+          { q: 'Bleibt der Text markierbar?', a: 'Ja. Die Seiten werden kopiert statt neu gezeichnet, der Text bleibt also Text und lässt sich durchsuchen, markieren und vorlesen. Auch Bilder behalten ihre ursprüngliche Auflösung.' },
+          { q: 'Bekomme ich je Seite eine Datei?', a: 'Ja. Die zweite Schaltfläche schreibt für jede Seite Ihrer Auswahl ein einseitiges PDF und übergibt sie als ein ZIP, benannt nach dem Original mit angehängter Seitenzahl.' },
+          { q: 'Kann ich ein passwortgeschütztes PDF teilen?', a: 'Nein. Ein verschlüsseltes PDF lässt sich ohne sein Passwort nicht lesen. Öffnen Sie es in Ihrem PDF-Programm, speichern Sie eine Kopie ohne Passwort, und verwenden Sie diese Kopie hier.' },
+        ],
+      },
+    },
     'image-convert': {
       title: 'Ein Bild in JPEG, PNG, WebP oder AVIF umwandeln',
       blurb: 'HEIC vom iPhone inbegriffen. Kein Upload.',

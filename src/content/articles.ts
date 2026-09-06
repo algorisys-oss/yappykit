@@ -29,6 +29,16 @@ export interface ToolArticle {
 }
 
 export const ARTICLES: Partial<Record<ToolKey, ToolArticle>> = {
+  'pdf-split': {
+    heading: 'A PDF is a bag of objects, which is why taking pages out costs nothing',
+    paragraphs: [
+      'Most file formats are a stream you read from the start. A PDF is not. It is a collection of numbered objects, and at the very end sits a cross-reference table saying which byte offset each object lives at. A page is one of those objects. It holds references to the fonts it uses, the images it draws, the text operators that place its glyphs, and a box giving its size. Nothing about a page says which document it belongs to or which page number it is, because that lives in a separate tree of nodes whose leaves point back at the pages.',
+      'That structure is the reason splitting can be free. Extracting page seven means copying that object and everything it refers to into a new document, then building a one-leaf page tree that points at it. The glyph positions are untouched. The images are the same compressed streams they already were, at the same resolution. Nothing is decoded and nothing is re-encoded, so there is nothing to lose. Compare that with compressing to a hard size target, which eventually has no choice but to rasterise a page into a picture of itself and throw the text away.',
+      'It also means the page size travels with the page rather than with the document. A file where page one is A4 and page two is US Letter is completely ordinary, and each page carries its own MediaBox to say so. A splitter that normalised everything to one size, or that assumed the first page spoke for the rest, would silently reflow scans that were fine. Copying the object keeps the box, so a mixed document stays mixed.',
+      'Two things genuinely do not survive, and it is worth knowing why rather than being surprised later. Bookmarks are a separate outline tree with its own destinations, pointing at pages by reference; keep four pages out of forty and most of those destinations now point at nothing, so the outline is dropped rather than left broken. Form fields are the same story: the fields live in a document-wide AcroForm structure while only their widgets sit on the page, so an extracted page still shows the text that was typed into it, drawn exactly where it was, but there is no longer a field behind it to edit. The page looks identical and is no longer fillable.',
+      'The last piece is the page list itself. It uses print-dialog notation because that is a notation people already have in their heads, and it turns out to express more than a print dialog uses it for. Order is meaningful, so 3,1,2 is a reordering rather than a selection. Repetition is meaningful, so 1,1 copies a page twice. Direction is meaningful, so 10-1 walks the range backwards and hands back a reversed document. One grammar covers extracting, deleting, reordering and reversing, which is why this tool has one text box instead of four modes.',
+    ],
+  },
   'image-convert': {
     heading: 'Why an iPhone photo is not a JPEG, and what renaming it does',
     paragraphs: [
