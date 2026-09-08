@@ -14,6 +14,7 @@ import {
   pathFor,
   resolveRoute,
   type Category,
+  type RouteKey,
   type ToolKey,
 } from '../i18n/routes';
 import type { LocaleCode } from '../i18n/locales';
@@ -46,14 +47,21 @@ export function categoryLinks(m: Messages, locale: LocaleCode): CategoryLink[] {
 }
 
 /**
- * The section a path belongs to: the hub itself, or the hub of the tool being
- * used. Null on the home page and everywhere else, which leaves the nav with no
- * item marked rather than an arbitrary one.
+ * The section a route belongs to: the hub itself, or the hub of the tool on it.
+ * Null on the home page and everywhere else, which leaves the nav with no item
+ * marked rather than an arbitrary one.
+ *
+ * Both the rendered nav and the prerendered one call this. They must agree:
+ * when the prerenderer had its own rule, it marked the hubs and not the tool
+ * pages, so a tool page arrived with nothing marked and the highlight appeared
+ * only once the bundle ran.
  */
+export function sectionFor(key: RouteKey): Category | null {
+  return categoryFor(key) ?? TOOL_CATEGORY[key as ToolKey] ?? null;
+}
+
+/** `sectionFor`, addressed by URL. */
 export function activeCategory(pathname: string): Category | null {
   const hit = resolveRoute(pathname);
-  if (!hit) return null;
-  const hub = categoryFor(hit.key);
-  if (hub) return hub;
-  return TOOL_CATEGORY[hit.key as ToolKey] ?? null;
+  return hit ? sectionFor(hit.key) : null;
 }

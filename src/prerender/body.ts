@@ -49,7 +49,7 @@ import type { Messages } from '../i18n/messages/en';
 import { esc } from './head';
 import { VERSION } from '../version';
 import { contributeUrl } from '../lib/support';
-import { categoryLinks } from '../lib/categories';
+import { categoryLinks, sectionFor } from '../lib/categories';
 import { VISITORS_30D, roundDown, showsVisitors } from '../lib/visitors';
 
 const YAPPYDRAW = 'https://yappydraw.com';
@@ -68,7 +68,7 @@ function tpl(template: string, map: Record<string, string>): string {
  * reaches the hub pages, and hreflang alone is a hint rather than a crawl path.
  */
 function header(key: RouteKey | 'not-found', locale: LocaleCode, m: Messages): string {
-  const here = categoryFor(key === 'not-found' ? 'home' : key);
+  const here = sectionFor(key === 'not-found' ? 'home' : key);
   const item = (href: string, label: string, active: boolean) =>
     `<li><a href="${href}"${active ? ' aria-current="page"' : ''} class="inline-flex h-10 items-center whitespace-nowrap border-b-2 text-sm no-underline transition ${
       active

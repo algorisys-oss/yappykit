@@ -23,6 +23,13 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '0.15.1',
+    date: '2026-09-09',
+    fixed: [
+      'On a tool page the new header menu did not show which section you were in until the page had finished loading its code. The menu is written into the page twice, once as plain HTML that arrives with it and once by the app that takes over afterwards, and the two were deciding what to highlight by different rules: the plain copy knew a category page belonged to its own category but did not know that a tool belongs to one. So the highlight was missing on arrival and then appeared, and anyone reading the page without JavaScript never saw it at all. Both now ask the same question of the same code.',
+    ],
+  },
+  {
     version: '0.15.0',
     date: '2026-09-09',
     added: [

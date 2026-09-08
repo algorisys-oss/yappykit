@@ -3,6 +3,7 @@ import { buildBody } from './body';
 import { LOCALES } from '../i18n/locales';
 import {
   CATEGORIES,
+  TOOL_CATEGORY,
   TOOL_KEYS,
   categoryRouteKey,
   pathFor,
@@ -143,5 +144,35 @@ describe('the category hubs a returning visitor navigates by', () => {
     const html = buildBody({ key: categoryRouteKey('pdf'), locale: 'en', messages: en, locales: shipped });
     expect(html).toContain(`<h1 class="text-3xl font-bold tracking-tight sm:text-4xl">${en.categories.names.pdf}</h1>`);
     expect(html).toContain(`${toolsInCategory('pdf').length} tools`);
+  });
+});
+
+describe('the prerendered nav marks the same section the app does', () => {
+  // The static HTML is what a crawler and a no-JS visitor see, and what every
+  // visitor sees for the moment before the bundle runs. It marked the section
+  // only on the hubs, so a tool page arrived with nothing marked and the
+  // highlight appeared on hydration.
+  it('marks a tool page with the hub it belongs to', () => {
+    for (const key of ['pdf-merge', 'image-compress', 'mouse-test'] as const) {
+      const html = buildBody({ key, locale: 'en', messages: en, locales: shipped });
+      const header = html.slice(0, html.indexOf('</header>'));
+      const hub = pathFor(categoryRouteKey(TOOL_CATEGORY[key]), 'en');
+      expect(header, key).toContain(`href="${hub}" aria-current="page"`);
+      expect(header.match(/aria-current="page"/g), `${key} marks one item`).toHaveLength(1);
+    }
+  });
+
+  it('marks the hub itself, and home on home', () => {
+    const hub = buildBody({ key: categoryRouteKey('pdf'), locale: 'en', messages: en, locales: shipped });
+    expect(hub.slice(0, hub.indexOf('</header>'))).toContain(
+      `href="${pathFor(categoryRouteKey('pdf'), 'en')}" aria-current="page"`,
+    );
+    const home = buildBody({ key: 'home', locale: 'en', messages: en, locales: shipped });
+    expect(home.slice(0, home.indexOf('</header>'))).toContain('href="/" aria-current="page"');
+  });
+
+  it('marks nothing on a page that is in no section', () => {
+    const html = buildBody({ key: 'about', locale: 'en', messages: en, locales: shipped });
+    expect(html.slice(0, html.indexOf('</header>'))).not.toContain('aria-current="page"');
   });
 });
