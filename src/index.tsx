@@ -14,11 +14,14 @@ import { I18nProvider, SHIPPED, loadMessages, localeFromPath } from './i18n/runt
 import { getLocale } from './i18n/locales';
 import {
   BUILD_GUIDE_TOOLS,
+  CATEGORIES,
   ROUTE_KEYS,
   ROUTES,
+  categoryRouteKey,
   pathFor,
   resolveRoute,
   type BuildKey,
+  type CategoryKey,
   type RouteKey,
 } from './i18n/routes';
 
@@ -31,6 +34,7 @@ rememberUpdater(registerSW({ immediate: true }));
 // the landing-page bundle. The landing route is imported eagerly because it is
 // the SEO asset and must paint immediately.
 const BuildGuidePage = lazy(() => import('./routes/build-guide'));
+const CategoryHub = lazy(() => import('./routes/category'));
 
 const COMPONENTS: Record<RouteKey, Component> = {
   home: Landing,
@@ -78,6 +82,11 @@ const COMPONENTS: Record<RouteKey, Component> = {
   ...(Object.fromEntries(
     BUILD_GUIDE_TOOLS.map((tool) => [`build/${tool}`, BuildGuidePage]),
   ) as unknown as Record<BuildKey, Component>),
+  // Every category hub shares one component, which resolves the category from
+  // the path, exactly as the build guides do.
+  ...(Object.fromEntries(
+    CATEGORIES.map((c) => [categoryRouteKey(c), CategoryHub]),
+  ) as unknown as Record<CategoryKey, Component>),
 };
 
 const NotFound = lazy(() => import('./routes/not-found'));

@@ -21,6 +21,7 @@ const vi: Messages = {
     versionRefreshHint: 'Lấy phiên bản mới nhất nếu đã có bản phát hành.',
     tagline: 'Công cụ hữu ích. Không tải tệp lên.',
     backToTools: 'Công cụ',
+    categoryNav: 'Danh mục công cụ',
     headerNoUploads: 'Không tải tệp lên',
     searchPlaceholder: 'Tìm công cụ…',
     searchLabel: 'Tìm công cụ',
@@ -119,6 +120,21 @@ const vi: Messages = {
     ],
     sisterCta: 'Mở YappyDraw',
     sisterNewWindow: '(mở trong thẻ mới)',
+  },
+
+  categories: {
+    seoTitle: '{category} chạy ngay trong trình duyệt | YappyKit',
+    seoDescription:
+      '{category}, miễn phí và riêng tư. Cả {n} công cụ đều chạy trong trình duyệt: tệp của bạn không được tải lên và không cần tài khoản.',
+    intro: 'Mọi công cụ ở đây đều chạy trong trình duyệt của bạn. Tệp không được tải lên và không cần tài khoản.',
+    names: {
+      image: 'Công cụ hình ảnh',
+      pdf: 'Công cụ PDF',
+      video: 'Công cụ video',
+      data: 'Công cụ bảng tính và dữ liệu',
+      text: 'Công cụ văn bản và phông chữ',
+      device: 'Kiểm tra thiết bị',
+    },
   },
 
   contact: {

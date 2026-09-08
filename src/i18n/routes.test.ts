@@ -12,6 +12,8 @@ import {
   allPaths,
   relatedTools,
   redirects,
+  categoryRouteKey,
+  categoryFor,
 } from './routes';
 
 describe('splitLocale', () => {
@@ -228,5 +230,49 @@ describe('tool categories', () => {
     for (const [tool, category] of Object.entries(TOOL_CATEGORY)) {
       expect(CATEGORIES, `${tool}`).toContain(category);
     }
+  });
+});
+
+describe('category hub routes', () => {
+  it('gives every category a page, in every locale', () => {
+    for (const c of CATEGORIES) {
+      const key = categoryRouteKey(c);
+      expect(ROUTES[key], `${c} has no route`).toBeDefined();
+      expect(ROUTES[key].localized).toBe(true);
+      for (const l of LOCALES) {
+        expect(resolveRoute(pathFor(key, l.code))).toEqual({ key, locale: l.code });
+      }
+    }
+  });
+
+  it('keeps the English hub URLs short and stable', () => {
+    expect(pathFor(categoryRouteKey('image'), 'en')).toBe('/images');
+    expect(pathFor(categoryRouteKey('pdf'), 'en')).toBe('/pdf');
+    expect(pathFor(categoryRouteKey('video'), 'en')).toBe('/videos');
+    expect(pathFor(categoryRouteKey('data'), 'en')).toBe('/spreadsheets');
+    expect(pathFor(categoryRouteKey('text'), 'en')).toBe('/fonts');
+    expect(pathFor(categoryRouteKey('device'), 'en')).toBe('/device-tests');
+  });
+
+  it('reads back the category from its route key', () => {
+    for (const c of CATEGORIES) expect(categoryFor(categoryRouteKey(c))).toBe(c);
+    expect(categoryFor('home')).toBeNull();
+    expect(categoryFor('image-compress')).toBeNull();
+  });
+
+  it('translates the hub slug, like every other localized page', () => {
+    expect(pathFor(categoryRouteKey('image'), 'es')).toBe('/es/imagenes');
+    expect(pathFor(categoryRouteKey('pdf'), 'de')).toBe('/de/pdf');
+    // Japanese and Arabic keep the English slug, as the tool routes do.
+    expect(pathFor(categoryRouteKey('video'), 'ja')).toBe('/ja/videos');
+    expect(pathFor(categoryRouteKey('video'), 'ar')).toBe('/ar/videos');
+  });
+
+  it('is in the sitemap and the hreflang cluster', () => {
+    const paths = allPaths().map((p) => p.path);
+    for (const c of CATEGORIES) {
+      for (const l of LOCALES) expect(paths).toContain(pathFor(categoryRouteKey(c), l.code));
+    }
+    expect(alternatesFor(categoryRouteKey('image'))).toHaveLength(LOCALES.length + 1);
   });
 });

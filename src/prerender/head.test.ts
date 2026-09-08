@@ -1,7 +1,15 @@
 import { describe, it, expect } from 'vitest';
 import { buildHead, structuredData, metaFor, esc, jsonLd, htmlAttrs } from './head';
 import { LOCALES } from '../i18n/locales';
-import { ROUTE_KEYS, ROUTES, TOOL_KEYS, urlFor } from '../i18n/routes';
+import {
+  CATEGORIES,
+  ROUTE_KEYS,
+  ROUTES,
+  TOOL_KEYS,
+  categoryRouteKey,
+  toolsInCategory,
+  urlFor,
+} from '../i18n/routes';
 import en from '../i18n/messages/en';
 
 const M = en;
@@ -146,5 +154,29 @@ describe('hreflang never advertises an unpublished locale', () => {
     const head = buildHead({ key: 'mouse-test', locale: 'en', messages: M, locales: shipped });
     expect(head).toContain('og:locale:alternate" content="es_ES"');
     expect(head).not.toContain('og:locale:alternate" content="ja_JP"');
+  });
+});
+
+describe('category hub pages', () => {
+  it('titles and describes each hub from its own category, never from the tool table', () => {
+    for (const c of CATEGORIES) {
+      const meta = metaFor(categoryRouteKey(c), M);
+      expect(meta.title, c).toContain(M.categories.names[c]);
+      expect(meta.title, c).not.toContain('{');
+      expect(meta.description, c).toContain(String(toolsInCategory(c).length));
+      expect(meta.description, c).not.toContain('{');
+    }
+  });
+
+  it('lists the category\'s tools, and only those, as its structured data', () => {
+    const blocks = structuredData(categoryRouteKey('video'), 'en', M) as {
+      '@type': string;
+      itemListElement?: { name: string }[];
+    }[];
+    const list = blocks.find((b) => b['@type'] === 'ItemList');
+    expect(list).toBeDefined();
+    expect(list!.itemListElement!.map((i) => i.name).sort()).toEqual(
+      toolsInCategory('video').map((k) => M.tools[k].title).sort(),
+    );
   });
 });

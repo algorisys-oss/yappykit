@@ -21,6 +21,7 @@ const it: Messages = {
     versionRefreshHint: 'Prende la versione più recente, se ne è uscita una.',
     tagline: 'Strumenti utili. Nessun caricamento.',
     backToTools: 'Strumenti',
+    categoryNav: 'Categorie di strumenti',
     headerNoUploads: 'Nessun file caricato',
     searchPlaceholder: 'Cerca uno strumento…',
     searchLabel: 'Cerca uno strumento',
@@ -119,6 +120,21 @@ const it: Messages = {
     ],
     sisterCta: 'Apri YappyDraw',
     sisterNewWindow: '(si apre in una nuova scheda)',
+  },
+
+  categories: {
+    seoTitle: '{category} che funzionano nel tuo browser | YappyKit',
+    seoDescription:
+      '{category}, gratuiti e privati. Tutti e {n} funzionano nel tuo browser: i tuoi file non vengono caricati e non serve un account.',
+    intro: 'Tutti gli strumenti qui funzionano nel tuo browser. I tuoi file non vengono caricati e non serve un account.',
+    names: {
+      image: 'Strumenti per immagini',
+      pdf: 'Strumenti PDF',
+      video: 'Strumenti video',
+      data: 'Strumenti per fogli di calcolo e dati',
+      text: 'Strumenti per testo e font',
+      device: 'Test del dispositivo',
+    },
   },
 
   contact: {

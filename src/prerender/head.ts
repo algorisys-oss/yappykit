@@ -12,7 +12,18 @@
  * head and body cannot disagree.
  */
 import { LOCALES, DEFAULT_LOCALE, getLocale, type Locale, type LocaleCode } from '../i18n/locales';
-import { alternatesFor, urlFor, pathFor, SITE, TOOL_KEYS, ROUTES, type RouteKey, type ToolKey } from '../i18n/routes';
+import {
+  alternatesFor,
+  categoryFor,
+  urlFor,
+  pathFor,
+  toolsInCategory,
+  SITE,
+  TOOL_KEYS,
+  ROUTES,
+  type RouteKey,
+  type ToolKey,
+} from '../i18n/routes';
 import type { Messages } from '../i18n/messages/en';
 import { metaFor } from '../i18n/meta';
 
@@ -70,6 +81,30 @@ export function structuredData(key: RouteKey, locale: LocaleCode, m: Messages): 
       '@type': 'ItemList',
       name: m.landing.toolsHeading,
       itemListElement: TOOL_KEYS.map((k, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: m.tools[k].title,
+        url: urlFor(k, locale),
+      })),
+    });
+    return out;
+  }
+
+  const category = categoryFor(key);
+  if (category) {
+    out.push({
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: metaFor(key, m).title,
+      url: urlFor(key, locale),
+      inLanguage: locale,
+      description: metaFor(key, m).description,
+    });
+    out.push({
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: m.categories.names[category],
+      itemListElement: toolsInCategory(category).map((k, i) => ({
         '@type': 'ListItem',
         position: i + 1,
         name: m.tools[k].title,

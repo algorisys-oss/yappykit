@@ -1,7 +1,13 @@
 import { describe, it, expect } from 'vitest';
 import { buildBody } from './body';
 import { LOCALES } from '../i18n/locales';
-import { TOOL_KEYS, pathFor } from '../i18n/routes';
+import {
+  CATEGORIES,
+  TOOL_KEYS,
+  categoryRouteKey,
+  pathFor,
+  toolsInCategory,
+} from '../i18n/routes';
 import en from '../i18n/messages/en';
 import { PRIVACY_LEAD, PRIVACY_SECTIONS } from '../content/privacy';
 import { esc } from './head';
@@ -102,5 +108,40 @@ describe('the privacy policy is prerendered in full', () => {
   it('is substantially longer than its own chrome', () => {
     // A guard against silently regressing to an empty <main>.
     expect(html().length).toBeGreaterThan(6000);
+  });
+});
+
+describe('the category hubs a returning visitor navigates by', () => {
+  it('puts a real link to every hub in the header of every page, so they are crawlable', () => {
+    for (const key of ['home', 'image-compress', 'about'] as const) {
+      const html = buildBody({ key, locale: 'en', messages: en, locales: shipped });
+      const header = html.slice(0, html.indexOf('</header>'));
+      for (const c of CATEGORIES) {
+        expect(header, `${key} -> ${c}`).toContain(`href="${pathFor(categoryRouteKey(c), 'en')}"`);
+      }
+    }
+  });
+
+  it('keeps the header nav in the page locale', () => {
+    const html = buildBody({ key: 'home', locale: 'es', messages: en, locales: shipped });
+    expect(html).toContain(`href="${pathFor(categoryRouteKey('image'), 'es')}"`);
+    expect(html).not.toContain(`href="${pathFor(categoryRouteKey('image'), 'en')}"`);
+  });
+
+  it('lists exactly the tools in the category, and no others', () => {
+    for (const c of CATEGORIES) {
+      const html = buildBody({ key: categoryRouteKey(c), locale: 'en', messages: en, locales: shipped });
+      const main = html.slice(html.indexOf('<main'), html.indexOf('</main>'));
+      for (const k of TOOL_KEYS) {
+        const linked = main.includes(`href="${pathFor(k, 'en')}"`);
+        expect(linked, `${c} / ${k}`).toBe(toolsInCategory(c).includes(k));
+      }
+    }
+  });
+
+  it('heads the hub with its own name and count', () => {
+    const html = buildBody({ key: categoryRouteKey('pdf'), locale: 'en', messages: en, locales: shipped });
+    expect(html).toContain(`<h1 class="text-3xl font-bold tracking-tight sm:text-4xl">${en.categories.names.pdf}</h1>`);
+    expect(html).toContain(`${toolsInCategory('pdf').length} tools`);
   });
 });

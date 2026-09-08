@@ -21,6 +21,7 @@ const id: Messages = {
     versionRefreshHint: 'Mengambil versi terbaru kalau sudah ada yang dirilis.',
     tagline: 'Alat yang berguna. Tanpa unggah.',
     backToTools: 'Alat',
+    categoryNav: 'Kategori alat',
     headerNoUploads: 'Tidak ada file yang diunggah',
     searchPlaceholder: 'Cari alat…',
     searchLabel: 'Cari alat',
@@ -119,6 +120,21 @@ const id: Messages = {
     ],
     sisterCta: 'Buka YappyDraw',
     sisterNewWindow: '(terbuka di tab baru)',
+  },
+
+  categories: {
+    seoTitle: '{category} yang berjalan di browser Anda | YappyKit',
+    seoDescription:
+      '{category}, gratis dan privat. Semua {n} alat berjalan di browser Anda: file Anda tidak diunggah dan tidak perlu akun.',
+    intro: 'Semua alat di sini berjalan di browser Anda. File Anda tidak diunggah dan tidak perlu akun.',
+    names: {
+      image: 'Alat gambar',
+      pdf: 'Alat PDF',
+      video: 'Alat video',
+      data: 'Alat spreadsheet dan data',
+      text: 'Alat teks dan font',
+      device: 'Tes perangkat',
+    },
   },
 
   contact: {

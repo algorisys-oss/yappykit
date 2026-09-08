@@ -21,6 +21,7 @@ const ja: Messages = {
     versionRefreshHint: '新しいバージョンが出ていれば取得します。',
     tagline: '便利なツール。アップロードなし。',
     backToTools: 'ツール一覧',
+    categoryNav: 'ツールのカテゴリ',
     headerNoUploads: 'ファイルのアップロードなし',
     searchPlaceholder: 'ツールを検索…',
     searchLabel: 'ツールを検索',
@@ -119,6 +120,21 @@ const ja: Messages = {
     ],
     sisterCta: 'YappyDraw を開く',
     sisterNewWindow: '（新しいタブで開きます）',
+  },
+
+  categories: {
+    seoTitle: '{category}｜ブラウザだけで動く | YappyKit',
+    seoDescription:
+      '{category}。無料で、プライベート。{n} 個すべてがブラウザ内で動作します。ファイルはアップロードされず、アカウントも不要です。',
+    intro: 'ここにあるツールはすべてブラウザ内で動きます。ファイルはアップロードされず、アカウントも不要です。',
+    names: {
+      image: '画像ツール',
+      pdf: 'PDF ツール',
+      video: '動画ツール',
+      data: '表計算・データツール',
+      text: 'テキスト・フォントツール',
+      device: 'デバイステスト',
+    },
   },
 
   contact: {

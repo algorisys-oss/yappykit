@@ -23,6 +23,7 @@ const ar: Messages = {
     versionRefreshHint: 'يجلب أحدث إصدار إن كان قد صدر.',
     tagline: 'أدوات مفيدة. بلا رفع للملفات.',
     backToTools: 'الأدوات',
+    categoryNav: 'فئات الأدوات',
     headerNoUploads: 'لا يتم رفع أي ملف',
     searchPlaceholder: 'ابحث عن أداة…',
     searchLabel: 'ابحث عن أداة',
@@ -121,6 +122,21 @@ const ar: Messages = {
     ],
     sisterCta: 'افتح YappyDraw',
     sisterNewWindow: '(يفتح في لسان جديد)',
+  },
+
+  categories: {
+    seoTitle: '{category} تعمل داخل متصفحك | YappyKit',
+    seoDescription:
+      '{category}، مجانية وخاصة. جميع الأدوات الـ {n} تعمل داخل متصفحك: ملفاتك لا تُرفع ولا حاجة إلى حساب.',
+    intro: 'كل أداة هنا تعمل داخل متصفحك. ملفاتك لا تُرفع ولا حاجة إلى حساب.',
+    names: {
+      image: 'أدوات الصور',
+      pdf: 'أدوات PDF',
+      video: 'أدوات الفيديو',
+      data: 'أدوات الجداول والبيانات',
+      text: 'أدوات النصوص والخطوط',
+      device: 'اختبارات الجهاز',
+    },
   },
 
   contact: {

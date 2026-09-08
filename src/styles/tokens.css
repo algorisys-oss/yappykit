@@ -8,6 +8,18 @@
  * `text-fg`, `bg-surface`, `border-border`, `bg-accent` etc. resolve to the same
  * tokens zen uses. That's the unification.
  */
+/*
+ * The header is sticky, so anything scrolled to by an in-page anchor or by
+ * scrollIntoView lands underneath it unless the scroll port reserves its
+ * height. The value is the header's own: a 3.5rem bar and its 1px rule, over a
+ * 2.5rem nav row whose 2px active underline sits outside that height (nothing
+ * here sets box-sizing, so borders are additive) and its own 1px rule.
+ * tests/e2e/category-nav.spec.ts asserts the two agree.
+ */
+html {
+  scroll-padding-top: calc(6rem + 4px);
+}
+
 body {
   margin: 0;
   background: var(--zen-color-background);

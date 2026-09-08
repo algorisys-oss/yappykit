@@ -21,6 +21,7 @@ const fr: Messages = {
     versionRefreshHint: 'Prend la version la plus récente si elle est publiée.',
     tagline: 'Des outils utiles. Sans envoi.',
     backToTools: 'Outils',
+    categoryNav: 'Catégories d\'outils',
     headerNoUploads: 'Aucun fichier envoyé',
     searchPlaceholder: 'Rechercher un outil…',
     searchLabel: 'Rechercher un outil',
@@ -119,6 +120,21 @@ const fr: Messages = {
     ],
     sisterCta: 'Ouvrir YappyDraw',
     sisterNewWindow: '(s’ouvre dans un nouvel onglet)',
+  },
+
+  categories: {
+    seoTitle: '{category} qui fonctionnent dans votre navigateur | YappyKit',
+    seoDescription:
+      '{category}, gratuits et privés. Les {n} fonctionnent dans votre navigateur : vos fichiers ne sont pas envoyés et il n\'y a pas de compte.',
+    intro: 'Tous ces outils fonctionnent dans votre navigateur. Vos fichiers ne sont pas envoyés et il n\'y a pas de compte.',
+    names: {
+      image: 'Outils pour images',
+      pdf: 'Outils PDF',
+      video: 'Outils vidéo',
+      data: 'Outils pour tableurs et données',
+      text: 'Outils de texte et de polices',
+      device: 'Tests de matériel',
+    },
   },
 
   contact: {

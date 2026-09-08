@@ -1,9 +1,9 @@
 import { A } from '@solidjs/router';
 import { For, Show, createMemo, createSignal, type JSX } from 'solid-js';
-import { TOOL_PREVIEWS } from './tool-previews';
+import ToolCard from '../components/ToolCard';
 import { useSeo } from '../lib/seo';
 import { useI18n } from '../i18n/runtime';
-import { toolList, type Tool } from '../lib/tools';
+import { toolList } from '../lib/tools';
 import { VISITORS_30D, roundDown, showsVisitors } from '../lib/visitors';
 import { CATEGORIES, TOOL_CATEGORY, type Category } from '../i18n/routes';
 
@@ -240,30 +240,6 @@ function FilterPill(props: { label: string; active: boolean; onClick: () => void
   );
 }
 
-function ToolCard(props: { tool: Tool }) {
-  const Preview = TOOL_PREVIEWS[props.tool.key];
-  return (
-    <A
-      href={props.tool.href}
-      class="group relative flex flex-col rounded-lg border p-5 no-underline transition-all duration-150 cursor-pointer overflow-hidden border-border bg-surface shadow-sm hover:-translate-y-0.5 hover:border-accent hover:shadow-md"
-    >
-      <Show when={Preview}>
-        {(P) => (
-          <div class="-mx-5 -mt-5 mb-4 flex h-28 items-center justify-center border-b border-border px-8 py-4">
-            {P()()}
-          </div>
-        )}
-      </Show>
-      <span class="flex items-center justify-between gap-2">
-        <span class="font-semibold text-fg">{props.tool.title}</span>
-        <span aria-hidden="true" class="text-accent transition-transform duration-150 group-hover:translate-x-1">
-          →
-        </span>
-      </span>
-      <span class="mt-1 text-sm text-muted">{props.tool.blurb}</span>
-    </A>
-  );
-}
 
 /* Inline icons — no icon-font dependency, currentColor so they theme for free. */
 function ShieldIcon() {

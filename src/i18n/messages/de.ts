@@ -21,6 +21,7 @@ const de: Messages = {
     versionRefreshHint: 'Holt die neueste Version, falls eine veröffentlicht wurde.',
     tagline: 'Nützliche Werkzeuge. Keine Uploads.',
     backToTools: 'Werkzeuge',
+    categoryNav: 'Werkzeug-Kategorien',
     headerNoUploads: 'Keine Datei-Uploads',
     searchPlaceholder: 'Werkzeuge suchen…',
     searchLabel: 'Werkzeuge suchen',
@@ -119,6 +120,21 @@ const de: Messages = {
     ],
     sisterCta: 'YappyDraw öffnen',
     sisterNewWindow: '(öffnet in einem neuen Tab)',
+  },
+
+  categories: {
+    seoTitle: '{category}, die in Ihrem Browser laufen | YappyKit',
+    seoDescription:
+      '{category}, kostenlos und privat. Alle {n} laufen in Ihrem Browser: Ihre Dateien werden nicht hochgeladen und es gibt kein Konto.',
+    intro: 'Alle Werkzeuge hier laufen in Ihrem Browser. Ihre Dateien werden nicht hochgeladen und es gibt kein Konto.',
+    names: {
+      image: 'Bild-Werkzeuge',
+      pdf: 'PDF-Werkzeuge',
+      video: 'Video-Werkzeuge',
+      data: 'Tabellen- und Datenwerkzeuge',
+      text: 'Text- und Schrift-Werkzeuge',
+      device: 'Geräte-Tests',
+    },
   },
 
   contact: {

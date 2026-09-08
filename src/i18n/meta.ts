@@ -6,9 +6,10 @@
  * the client (which re-applies them on client-side navigation). One source, so
  * the two cannot disagree — and no route can hardcode the wrong one.
  */
-import type { RouteKey, ToolKey } from './routes';
+import { categoryFor, toolsInCategory, type RouteKey, type ToolKey } from './routes';
 import type { Messages } from './messages/en';
 import { BUILD_GUIDE_META } from '../content/build-guide-meta';
+import { fmt } from './format';
 import type { BuildGuideTool } from './routes';
 
 export interface PageMeta {
@@ -54,6 +55,12 @@ export function metaFor(key: RouteKey, m: Messages): PageMeta {
       description:
         'Step-by-step accounts of how the tools on this site were built: the engines, the browser APIs, the code, and the mistakes that shaped each one.',
     };
+  }
+  const category = categoryFor(key);
+  if (category) {
+    const c = m.categories;
+    const params = { category: c.names[category], n: toolsInCategory(category).length };
+    return { title: fmt(c.seoTitle, params), description: fmt(c.seoDescription, params) };
   }
   if (key.startsWith('build/')) {
     const guide = BUILD_GUIDE_META[key.slice('build/'.length) as BuildGuideTool];

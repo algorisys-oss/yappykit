@@ -1,6 +1,13 @@
 import { describe, it, expect } from 'vitest';
 import { buildLlms } from './render';
-import { TOOL_KEYS, TOOL_CATEGORY, CATEGORIES, SITE, pathFor } from '../i18n/routes';
+import {
+  TOOL_KEYS,
+  TOOL_CATEGORY,
+  CATEGORIES,
+  SITE,
+  categoryRouteKey,
+  pathFor,
+} from '../i18n/routes';
 import en from '../i18n/messages/en';
 
 /**
@@ -64,5 +71,16 @@ describe('llms.txt', () => {
 
   it('says the thing the site is actually for', () => {
     expect(text).toContain('nothing is uploaded');
+  });
+});
+
+describe('the category hubs', () => {
+  const text = buildLlms();
+
+  it('names the hub URL under each category heading, so the map is not just tools', () => {
+    for (const category of CATEGORIES) {
+      const hub = `${SITE}${pathFor(categoryRouteKey(category), 'en')}`;
+      expect(text, category).toContain(hub);
+    }
   });
 });

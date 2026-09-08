@@ -10,6 +10,8 @@
  * Copy here is the pre-i18n copy, moved verbatim, the English pages must not
  * change wording as a side effect of adding translations.
  */
+import type { Category } from '../routes';
+
 export const en = {
   common: {
     contribute: 'Contribute',
@@ -23,6 +25,7 @@ export const en = {
     versionRefreshHint: 'Takes the newest version if one has been released.',
     tagline: 'Useful tools. No uploads.',
     backToTools: 'Tools',
+    categoryNav: 'Tool categories',
     headerNoUploads: 'No file uploads',
     searchPlaceholder: 'Search tools…',
     searchLabel: 'Search tools',
@@ -121,6 +124,21 @@ export const en = {
     ],
     sisterCta: 'Open YappyDraw',
     sisterNewWindow: '(opens in a new tab)',
+  },
+
+  categories: {
+    seoTitle: '{category} that run in your browser | YappyKit',
+    seoDescription:
+      '{category}, free and private. All {n} of them run in your browser: your files are not uploaded, and there is no account.',
+    intro: 'Every tool here runs in your browser. Your files are not uploaded and there is no account.',
+    names: {
+      image: 'Image tools',
+      pdf: 'PDF tools',
+      video: 'Video tools',
+      data: 'Spreadsheet and data tools',
+      text: 'Text and font tools',
+      device: 'Device tests',
+    } satisfies Record<Category, string>,
   },
 
   contact: {

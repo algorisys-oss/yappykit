@@ -19,9 +19,11 @@ import { getLocale, type Locale, type LocaleCode } from '../i18n/locales';
 import {
   BUILD_GUIDE_TOOLS,
   TOOL_KEYS,
+  categoryFor,
   pathFor,
   relatedTools,
   slugFor,
+  toolsInCategory,
   CATEGORIES,
   type BuildGuideTool,
   type Category,
@@ -47,6 +49,7 @@ import type { Messages } from '../i18n/messages/en';
 import { esc } from './head';
 import { VERSION } from '../version';
 import { contributeUrl } from '../lib/support';
+import { categoryLinks } from '../lib/categories';
 import { VISITORS_30D, roundDown, showsVisitors } from '../lib/visitors';
 
 const YAPPYDRAW = 'https://yappydraw.com';
@@ -58,18 +61,51 @@ function tpl(template: string, map: Record<string, string>): string {
     .join('');
 }
 
-function header(locale: LocaleCode, m: Messages): string {
-  return `<header class="sticky top-0 z-20 border-b border-border bg-bg/90 backdrop-blur">
-  <div class="mx-auto flex max-w-5xl flex-wrap items-center gap-x-3 gap-y-2 px-6 py-3">
-    <a href="${pathFor('home', locale)}" class="flex items-center gap-2 no-underline">
+/**
+ * Mirrors components/Header.tsx and components/CategoryNav.tsx. The search box
+ * and the theme toggle are omitted because neither does anything without
+ * JavaScript, but the category links are real anchors: they are how a crawler
+ * reaches the hub pages, and hreflang alone is a hint rather than a crawl path.
+ */
+function header(key: RouteKey | 'not-found', locale: LocaleCode, m: Messages): string {
+  const here = categoryFor(key === 'not-found' ? 'home' : key);
+  const item = (href: string, label: string, active: boolean) =>
+    `<li><a href="${href}"${active ? ' aria-current="page"' : ''} class="inline-flex h-10 items-center whitespace-nowrap border-b-2 text-sm no-underline transition ${
+      active
+        ? 'border-accent font-semibold text-fg'
+        : 'border-transparent text-muted hover:border-border hover:text-fg'
+    }">${esc(label)}</a></li>`;
+  const nav = [
+    item(pathFor('home', locale), m.common.backToTools, key === 'home'),
+    ...categoryLinks(m, locale).map((l) => item(l.href, l.label, l.category === here)),
+  ].join('');
+
+  return `<header class="sticky top-0 z-20 border-b border-border bg-bg">
+  <div class="mx-auto flex h-14 max-w-4xl items-center gap-3 px-6">
+    <a href="${pathFor('home', locale)}" class="flex shrink-0 items-center gap-2 no-underline">
       <span class="text-lg font-bold text-fg">YappyKit</span>
-      <span class="hidden text-xs text-muted lg:inline">${esc(m.common.tagline)}</span>
+      <span class="hidden text-xs text-muted xl:inline">${esc(m.common.tagline)}</span>
     </a>
-    <div class="ms-auto flex items-center gap-2">
+    <div class="ms-auto flex shrink-0 items-center gap-2">
       <span class="hidden rounded-full border border-border bg-surface px-2.5 py-1 text-xs text-muted lg:inline-block">${esc(m.common.headerNoUploads)}</span>
     </div>
   </div>
+  <nav aria-label="${esc(m.common.categoryNav)}" class="border-t border-border">
+    <ul class="mx-auto my-0 flex max-w-4xl list-none items-center gap-5 overflow-x-auto px-6 py-0">${nav}</ul>
+  </nav>
 </header>`;
+}
+
+function categoryPage(category: Category, locale: LocaleCode, m: Messages): string {
+  const keys = toolsInCategory(category);
+  return `<main class="mx-auto max-w-4xl px-6 pb-16 pt-10">
+  <div class="flex flex-wrap items-baseline gap-3">
+    <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">${esc(m.categories.names[category])}</h1>
+    <span class="rounded-full bg-surface px-2.5 py-0.5 text-xs font-medium text-muted">${tpl(m.landing.toolsCount, { n: String(keys.length) })}</span>
+  </div>
+  <p class="mt-3 max-w-2xl text-muted">${esc(m.categories.intro)}</p>
+  <div class="mt-8 grid gap-4 sm:grid-cols-2">${keys.map((k) => toolCard(k, locale, m)).join('')}</div>
+</main>`;
 }
 
 /**
@@ -751,6 +787,7 @@ export function buildBody({ key, locale, messages, locales }: BodyOptions): stri
   else if (key === 'build') main = buildIndex(locale, messages);
   else if (key.startsWith('build/'))
     main = buildGuide(key.slice('build/'.length) as BuildGuideTool, locale, messages);
+  else if (categoryFor(key)) main = categoryPage(categoryFor(key)!, locale, messages);
   else main = toolPage(key as ToolKey, locale, messages);
 
   const footerKey: RouteKey =
@@ -762,7 +799,7 @@ export function buildBody({ key, locale, messages, locales }: BodyOptions): stri
     key.startsWith('build/')
       ? 'home'
       : key;
-  return [header(locale, messages), main, footer(footerKey, locale, messages, locales)]
+  return [header(key, locale, messages), main, footer(footerKey, locale, messages, locales)]
     .filter(Boolean)
     .join('\n');
 }

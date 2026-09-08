@@ -21,6 +21,7 @@ const tr: Messages = {
     versionRefreshHint: 'Yeni bir sürüm çıktıysa onu alır.',
     tagline: 'Faydalı araçlar. Yükleme yok.',
     backToTools: 'Araçlar',
+    categoryNav: 'Araç kategorileri',
     headerNoUploads: 'Dosya yüklenmiyor',
     searchPlaceholder: 'Araç ara…',
     searchLabel: 'Araç ara',
@@ -119,6 +120,21 @@ const tr: Messages = {
     ],
     sisterCta: 'YappyDraw’ı aç',
     sisterNewWindow: '(yeni sekmede açılır)',
+  },
+
+  categories: {
+    seoTitle: 'Tarayıcınızda çalışan {category} | YappyKit',
+    seoDescription:
+      '{category}, ücretsiz ve gizli. {n} aracın hepsi tarayıcınızda çalışır: dosyalarınız yüklenmez ve hesap gerekmez.',
+    intro: 'Buradaki her araç tarayıcınızda çalışır. Dosyalarınız yüklenmez ve hesap gerekmez.',
+    names: {
+      image: 'Görsel araçları',
+      pdf: 'PDF araçları',
+      video: 'Video araçları',
+      data: 'Elektronik tablo ve veri araçları',
+      text: 'Metin ve font araçları',
+      device: 'Cihaz testleri',
+    },
   },
 
   contact: {

@@ -33,6 +33,7 @@ import {
   TOOL_KEYS,
   TOOL_CATEGORY,
   CATEGORIES,
+  categoryRouteKey,
   type RouteKey,
 } from '../i18n/routes';
 import { MESSAGES, SHIPPED_LOCALES, messagesFor } from '../i18n/all-messages';
@@ -249,7 +250,8 @@ export function buildLlms(): string {
     const rows = keys
       .map((k) => `- [${m.tools[k].title}](${SITE}${pathFor(k, DEFAULT_LOCALE)}): ${m.tools[k].blurb}`)
       .join('\n');
-    return `## ${heading[category] ?? category}\n\n${rows}\n`;
+    const hub = `${SITE}${pathFor(categoryRouteKey(category), DEFAULT_LOCALE)}`;
+    return `## ${heading[category] ?? category}\n\nAll of these on one page: ${hub}\n\n${rows}\n`;
   })
     .filter(Boolean)
     .join('\n');

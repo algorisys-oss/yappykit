@@ -23,6 +23,17 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '0.15.0',
+    date: '2026-09-09',
+    added: [
+      'A menu in the header, and a page behind each item: /images, /pdf, /videos, /spreadsheets, /fonts and /device-tests, each listing only the tools of that kind, and each translated into all twelve languages. Coming back a second time no longer means reading the home page again to reach a tool you already know you want. The menu is on every page and marks the section you are in, so a tool page tells you where it sits rather than leaving you to work it out. No tool address changed: these are pages that gather the tools, not folders the tools moved into, so every link anyone has saved still works.',
+    ],
+    fixed: [
+      'The header could be a row taller in Chrome than in Firefox. It was a single wrapping row, and a wrapping row will not shrink a search box below its natural width unless it is told it may: that natural width is a number each browser picks for itself, and Chrome picks a larger one, so the same window wrapped in one browser and not the other. The header is now a fixed height and measures the same in both. While it was open it was also given the same left edge as the rest of the page, which it had never had.',
+      'Anything the page scrolled to landed underneath the header, which stays at the top as you scroll. That was the "How it works" link on the home page arriving mid-heading, and, more seriously, the top of a document in the redaction tool sitting under the header, where a box drawn across it hit the header instead of the page. Scrolling now stops below the header.',
+    ],
+  },
+  {
     version: '0.14.1',
     date: '2026-09-08',
     fixed: [

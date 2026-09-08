@@ -53,6 +53,71 @@ export const TOOL_KEYS = [
 export type ToolKey = (typeof TOOL_KEYS)[number];
 
 /**
+ * What kind of job each tool does, for the filter on the landing page.
+ *
+ * Structural rather than editorial: the labels translate, the grouping does
+ * not. Every tool must appear exactly once, which routes.test.ts enforces, so
+ * adding a tool without categorising it fails the build rather than quietly
+ * dropping it out of every filter.
+ */
+export const CATEGORIES = ['image', 'pdf', 'video', 'data', 'text', 'device'] as const;
+
+export type Category = (typeof CATEGORIES)[number];
+
+export const TOOL_CATEGORY: Record<ToolKey, Category> = {
+  'image-compress': 'image',
+  'image-convert': 'image',
+  'image-resize': 'image',
+  'image-crop': 'image',
+  'image-watermark': 'image',
+  'metadata-remove': 'image',
+  'passport-photo': 'image',
+  'screenshot-stitch': 'image',
+  'screenshot-split': 'image',
+  'color-picker': 'image',
+  'batch-rename': 'image',
+  'sheet-convert': 'data',
+  'pdf-password': 'pdf',
+  'image-to-pdf': 'pdf',
+  'pdf-compress': 'pdf',
+  'pdf-merge': 'pdf',
+  'pdf-split': 'pdf',
+  'pdf-to-images': 'pdf',
+  redact: 'pdf',
+  'document-scan': 'pdf',
+  'markdown-to-pdf': 'pdf',
+  'video-compress': 'video',
+  'video-trim': 'video',
+  'spreadsheet-compare': 'data',
+  'sheet-clean': 'data',
+  'file-inspect': 'data',
+  'font-coverage': 'text',
+  'font-style': 'text',
+  'random-word': 'text',
+  'mouse-test': 'device',
+  'keyboard-test': 'device',
+  'camera-mic-test': 'device',
+  ruler: 'device',
+};
+
+export function toolsInCategory(category: Category): ToolKey[] {
+  return TOOL_KEYS.filter((k) => TOOL_CATEGORY[k] === category);
+}
+
+/** The route key for a category's hub page, e.g. `category/image`. */
+export type CategoryKey = `category/${Category}`;
+
+export function categoryRouteKey(category: Category): CategoryKey {
+  return `category/${category}`;
+}
+
+/** The category a route key belongs to, or null when it is not a hub page. */
+export function categoryFor(key: RouteKey): Category | null {
+  if (!key.startsWith('category/')) return null;
+  return key.slice('category/'.length) as Category;
+}
+
+/**
  * Tools that have a build guide written: a step-by-step account of how the tool
  * was actually made, for the technical reader. English only, and deliberately a
  * separate page rather than more text on the tool itself, so that someone who
@@ -80,6 +145,7 @@ export type BuildKey = `build/${BuildGuideTool}`;
 export type RouteKey =
   | ToolKey
   | BuildKey
+  | CategoryKey
   | 'home'
   | 'about'
   | 'privacy'
@@ -103,7 +169,7 @@ export interface RouteDef {
   localized: boolean;
 }
 
-const STATIC_ROUTES: Record<Exclude<RouteKey, BuildKey>, RouteDef> = {
+const STATIC_ROUTES: Record<Exclude<RouteKey, BuildKey | CategoryKey>, RouteDef> = {
   home: {
     localized: true,
     slugs: { en: '' },
@@ -674,7 +740,88 @@ const BUILD_ROUTES = Object.fromEntries(
   ]),
 ) as Record<BuildKey, RouteDef>;
 
-export const ROUTES: Record<RouteKey, RouteDef> = { ...STATIC_ROUTES, ...BUILD_ROUTES };
+/**
+ * One hub page per category, listing the tools in it.
+ *
+ * Short, plural, keyword-bearing slugs, translated like every other localized
+ * page: these are the header's navigation targets and the shortest path a
+ * returning visitor has to the tool they came back for. PDF is the same word in
+ * every locale we ship, so it carries only the English slug and every locale
+ * falls back to it.
+ */
+const CATEGORY_SLUGS: Record<Category, { en: string } & Partial<Record<LocaleCode, string>>> = {
+  image: {
+    en: 'images',
+    es: 'imagenes',
+    'pt-BR': 'imagens',
+    id: 'gambar',
+    fr: 'images',
+    de: 'bilder',
+    ru: 'izobrazheniya',
+    tr: 'resimler',
+    vi: 'hinh-anh',
+    it: 'immagini',
+  },
+  pdf: { en: 'pdf' },
+  video: {
+    en: 'videos',
+    es: 'videos',
+    'pt-BR': 'videos',
+    id: 'video',
+    fr: 'videos',
+    de: 'videos',
+    ru: 'video',
+    tr: 'videolar',
+    vi: 'video',
+    it: 'video',
+  },
+  data: {
+    en: 'spreadsheets',
+    es: 'hojas-de-calculo',
+    'pt-BR': 'planilhas',
+    id: 'spreadsheet',
+    fr: 'feuilles-de-calcul',
+    de: 'tabellen',
+    ru: 'tablitsy',
+    tr: 'elektronik-tablolar',
+    vi: 'bang-tinh',
+    it: 'fogli-di-calcolo',
+  },
+  text: {
+    en: 'fonts',
+    es: 'fuentes',
+    'pt-BR': 'fontes',
+    id: 'font',
+    fr: 'polices',
+    de: 'schriftarten',
+    ru: 'shrifty',
+    tr: 'fontlar',
+    vi: 'phong-chu',
+    it: 'font',
+  },
+  device: {
+    en: 'device-tests',
+    es: 'pruebas-de-dispositivo',
+    'pt-BR': 'testes-de-dispositivo',
+    id: 'tes-perangkat',
+    fr: 'tests-materiel',
+    de: 'geraete-tests',
+    ru: 'testy-ustroystv',
+    tr: 'cihaz-testleri',
+    vi: 'kiem-tra-thiet-bi',
+    it: 'test-dispositivo',
+  },
+};
+
+const CATEGORY_ROUTES = Object.fromEntries(
+  CATEGORIES.map((c) => [categoryRouteKey(c), { localized: true, slugs: CATEGORY_SLUGS[c] }]),
+) as Record<CategoryKey, RouteDef>;
+
+export const ROUTES: Record<RouteKey, RouteDef> = {
+  ...STATIC_ROUTES,
+  ...BUILD_ROUTES,
+  ...CATEGORY_ROUTES,
+};
 
 export const ROUTE_KEYS = Object.keys(ROUTES) as RouteKey[];
 
@@ -876,58 +1023,6 @@ const RELATED: Record<ToolKey, readonly ToolKey[]> = {
   'pdf-password': ['redact', 'metadata-remove', 'pdf-merge'],
   'markdown-to-pdf': ['image-to-pdf', 'pdf-merge', 'file-inspect'],
 };
-
-/**
- * What kind of job each tool does, for the filter on the landing page.
- *
- * Structural rather than editorial: the labels translate, the grouping does
- * not. Every tool must appear exactly once, which routes.test.ts enforces, so
- * adding a tool without categorising it fails the build rather than quietly
- * dropping it out of every filter.
- */
-export const CATEGORIES = ['image', 'pdf', 'video', 'data', 'text', 'device'] as const;
-
-export type Category = (typeof CATEGORIES)[number];
-
-export const TOOL_CATEGORY: Record<ToolKey, Category> = {
-  'image-compress': 'image',
-  'image-convert': 'image',
-  'image-resize': 'image',
-  'image-crop': 'image',
-  'image-watermark': 'image',
-  'metadata-remove': 'image',
-  'passport-photo': 'image',
-  'screenshot-stitch': 'image',
-  'screenshot-split': 'image',
-  'color-picker': 'image',
-  'batch-rename': 'image',
-  'sheet-convert': 'data',
-  'pdf-password': 'pdf',
-  'image-to-pdf': 'pdf',
-  'pdf-compress': 'pdf',
-  'pdf-merge': 'pdf',
-  'pdf-split': 'pdf',
-  'pdf-to-images': 'pdf',
-  redact: 'pdf',
-  'document-scan': 'pdf',
-  'markdown-to-pdf': 'pdf',
-  'video-compress': 'video',
-  'video-trim': 'video',
-  'spreadsheet-compare': 'data',
-  'sheet-clean': 'data',
-  'file-inspect': 'data',
-  'font-coverage': 'text',
-  'font-style': 'text',
-  'random-word': 'text',
-  'mouse-test': 'device',
-  'keyboard-test': 'device',
-  'camera-mic-test': 'device',
-  ruler: 'device',
-};
-
-export function toolsInCategory(category: Category): ToolKey[] {
-  return TOOL_KEYS.filter((k) => TOOL_CATEGORY[k] === category);
-}
 
 export function relatedTools(key: ToolKey, count = 3): ToolKey[] {
   const i = TOOL_KEYS.indexOf(key);

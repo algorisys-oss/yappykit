@@ -21,6 +21,7 @@ const es: Messages = {
     versionRefreshHint: 'Toma la versión más reciente si se ha publicado alguna.',
     tagline: 'Herramientas útiles. Sin subidas.',
     backToTools: 'Herramientas',
+    categoryNav: 'Categorías de herramientas',
     headerNoUploads: 'No se suben archivos',
     searchPlaceholder: 'Buscar herramientas…',
     searchLabel: 'Buscar herramientas',
@@ -119,6 +120,21 @@ const es: Messages = {
     ],
     sisterCta: 'Abrir YappyDraw',
     sisterNewWindow: '(se abre en una pestaña nueva)',
+  },
+
+  categories: {
+    seoTitle: '{category} que funcionan en tu navegador | YappyKit',
+    seoDescription:
+      '{category}, gratis y privadas. Las {n} funcionan en tu navegador: tus archivos no se suben y no hay cuentas.',
+    intro: 'Todas estas herramientas funcionan en tu navegador. Tus archivos no se suben y no hay cuentas.',
+    names: {
+      image: 'Herramientas de imagen',
+      pdf: 'Herramientas PDF',
+      video: 'Herramientas de vídeo',
+      data: 'Herramientas de hojas de cálculo y datos',
+      text: 'Herramientas de texto y fuentes',
+      device: 'Pruebas de dispositivo',
+    },
   },
 
   contact: {

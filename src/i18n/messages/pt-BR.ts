@@ -21,6 +21,7 @@ const ptBR: Messages = {
     versionRefreshHint: 'Pega a versão mais nova, se houver uma publicada.',
     tagline: 'Ferramentas úteis. Sem uploads.',
     backToTools: 'Ferramentas',
+    categoryNav: 'Categorias de ferramentas',
     headerNoUploads: 'Nenhum arquivo é enviado',
     searchPlaceholder: 'Buscar ferramentas…',
     searchLabel: 'Buscar ferramentas',
@@ -119,6 +120,21 @@ const ptBR: Messages = {
     ],
     sisterCta: 'Abrir o YappyDraw',
     sisterNewWindow: '(abre em uma nova aba)',
+  },
+
+  categories: {
+    seoTitle: '{category} que rodam no seu navegador | YappyKit',
+    seoDescription:
+      '{category}, grátis e privadas. Todas as {n} rodam no seu navegador: seus arquivos não são enviados e não há cadastro.',
+    intro: 'Todas as ferramentas aqui rodam no seu navegador. Seus arquivos não são enviados e não há cadastro.',
+    names: {
+      image: 'Ferramentas de imagem',
+      pdf: 'Ferramentas de PDF',
+      video: 'Ferramentas de vídeo',
+      data: 'Ferramentas de planilhas e dados',
+      text: 'Ferramentas de texto e fontes',
+      device: 'Testes de dispositivo',
+    },
   },
 
   contact: {
