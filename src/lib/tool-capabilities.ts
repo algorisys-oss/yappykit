@@ -31,6 +31,8 @@ export const TOOL_CAPABILITIES: Record<ToolKey, CapabilitySpec> = {
   'sheet-convert': { required: [], preferred: [] },
   'image-watermark': { required: [], preferred: ['createImageBitmap'] },
   'image-to-pdf': { required: [], preferred: ['createImageBitmap'] },
+  // Text and pdf-lib only: no canvas, no WebAssembly, nothing to fall back from.
+  'markdown-to-pdf': { required: [], preferred: [] },
   'screenshot-stitch': { required: [], preferred: ['createImageBitmap', 'offscreenCanvas'] },
   'pdf-compress': { required: [], preferred: ['offscreenCanvas'] },
   // ffmpeg is WebAssembly, and its core ships gzipped to fit the host's

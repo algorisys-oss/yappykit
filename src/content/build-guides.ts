@@ -75,7 +75,7 @@ export const BUILD_GUIDES: Record<BuildGuideTool, BuildGuide> = {
         heading: 'Step 2: spike it before writing a single line of UI',
         paragraphs: [
           'The package we found was version 0.1.0, published once, by one maintainer, with a 75-byte README and no API documentation whatsoever. Everything we know about it came from reading the minified Emscripten glue and running it.',
-          'That is exactly the situation where writing the route, the copy and the tests first is a way to waste a day. The spike had one question: does this actually encrypt in a browser, and does a real reader then demand the password? Not "does it return without an error" — that proves nothing about whether the output is protected.',
+          'That is exactly the situation where writing the route, the copy and the tests first is a way to waste a day. The spike had one question: does this actually encrypt in a browser, and does a real reader then demand the password? Not "does it return without an error", which proves nothing about whether the output is protected.',
           'The verification step is the one people skip. Searching the output bytes for `/Encrypt` would pass on a file that merely claims to be protected. The test that means something is to open the result with a real PDF reader and check that it refuses.',
         ],
         code: {

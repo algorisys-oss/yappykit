@@ -905,6 +905,45 @@ export function ImageToPdfPreview() {
   );
 }
 
+export function MarkdownToPdfPreview() {
+  return (
+    <Frame>
+      {/* The source, shown as the Markdown it is: hashes and a dash */}
+      <rect x="14" y="14" width="66" height="76" rx="5" fill={C.paper} stroke={C.border} stroke-width="2" />
+      <g fill={C.accent} font-family="monospace" font-size="11" font-weight="700">
+        <text x="22" y="34">#</text>
+        <text x="22" y="52">##</text>
+        <text x="22" y="70">-</text>
+      </g>
+      <g fill={C.muted} opacity="0.55">
+        <rect x="34" y="27" width="36" height="6" rx="3" />
+        <rect x="40" y="45" width="30" height="5" rx="2.5" />
+        <rect x="32" y="63" width="38" height="5" rx="2.5" />
+        <rect x="32" y="74" width="26" height="5" rx="2.5" />
+      </g>
+      {/* Becoming a laid-out page */}
+      <g stroke={C.accent} stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <path d="M90 51 h24" />
+        <path d="M107 44 l7 7 l-7 7" />
+      </g>
+      {/* The PDF, with the same structure set as type */}
+      <path
+        d="M126 14 h32 l16 16 v56 a4 4 0 0 1 -4 4 h-44 a4 4 0 0 1 -4 -4 V18 a4 4 0 0 1 4 -4 z"
+        fill={C.paper}
+        stroke={C.accent}
+        stroke-width="2"
+      />
+      <path d="M158 14 v16 h16" fill="none" stroke={C.accent} stroke-width="2" />
+      <rect x="134" y="40" width="26" height="7" rx="3.5" fill={C.accent} />
+      <g fill={C.muted} opacity="0.6">
+        <rect x="134" y="54" width="32" height="4" rx="2" />
+        <rect x="134" y="62" width="32" height="4" rx="2" />
+        <rect x="134" y="70" width="20" height="4" rx="2" />
+      </g>
+    </Frame>
+  );
+}
+
 export function WatermarkPreview() {
   return (
     <Frame>

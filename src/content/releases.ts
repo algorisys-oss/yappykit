@@ -23,6 +23,16 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '0.13.0',
+    date: '2026-09-08',
+    added: [
+      'A Markdown to PDF tool, at /markdown-to-pdf. Drop in a .md file or paste the text, and it is typeset as a document rather than dumped as monospaced text: headings sized by level with a rule under the top two, nested lists, blockquotes, fenced code blocks that wrap instead of running off the page, GFM tables whose columns are measured from their contents, and links written in as real annotations so they still work when clicked. Page breaks never leave a heading stranded at the foot of a page. Only the fourteen fonts every PDF reader already has are used, which keeps the file small and embeds nothing, and the cost of that is stated rather than hidden: text outside Latin and accented European, so CJK, Cyrillic, Greek, Hebrew and Arabic, cannot be drawn, and the tool names the exact characters it had to replace instead of handing back a page of question marks.',
+    ],
+    fixed: [
+      'On seven tools the label above the file picker was not attached to the picker, so clicking the words did nothing: the image compressor, the metadata remover, the PDF compressor, the video compressor, the document scanner, the passport photo tool and the spreadsheet comparison. Only the button inside the control responded, while the other nineteen tools had always worked either way. All of them are now wired, which also means a screen reader announces the control by its label instead of as an unlabelled file input.',
+    ],
+  },
+  {
     version: '0.12.1',
     date: '2026-09-07',
     fixed: [

@@ -180,8 +180,11 @@ export default function PassportPhoto() {
 
       <div class="mt-8 space-y-6">
         <div>
-          <label class="mb-2 block text-sm font-medium">{u.pickLabel}</label>
+          <label class="mb-2 block text-sm font-medium" for="photo-file">
+            {u.pickLabel}
+          </label>
           <input
+            id="photo-file"
             type="file"
             accept="image/jpeg,image/png,image/heic,image/heif,.heic,.heif"
             onChange={onPick}

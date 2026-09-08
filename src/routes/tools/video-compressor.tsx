@@ -143,8 +143,11 @@ export default function VideoCompressor() {
       >
         <div class="mt-8 space-y-6">
           <div>
-            <label class="mb-2 block text-sm font-medium">{u.pickLabel}</label>
+            <label class="mb-2 block text-sm font-medium" for="video-file">
+              {u.pickLabel}
+            </label>
             <input
+              id="video-file"
               type="file"
               accept="video/*"
               onChange={onPick}

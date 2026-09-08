@@ -54,6 +54,7 @@ const COMPONENTS: Record<RouteKey, Component> = {
   'font-coverage': lazy(() => import('./routes/tools/font-checker')),
   'font-style': lazy(() => import('./routes/tools/font-stylist')),
   'image-to-pdf': lazy(() => import('./routes/tools/image-to-pdf')),
+  'markdown-to-pdf': lazy(() => import('./routes/tools/markdown-to-pdf')),
   'image-watermark': lazy(() => import('./routes/tools/image-watermark')),
   'file-inspect': lazy(() => import('./routes/tools/file-inspector')),
   'image-convert': lazy(() => import('./routes/tools/image-converter')),

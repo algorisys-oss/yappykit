@@ -125,8 +125,11 @@ export default function DocumentScanner() {
 
       <div class="mt-8 space-y-6">
         <div>
-          <label class="mb-2 block text-sm font-medium">{u.pickLabel}</label>
+          <label class="mb-2 block text-sm font-medium" for="scan-file">
+            {u.pickLabel}
+          </label>
           <input
+            id="scan-file"
             type="file"
             accept="image/jpeg,image/png,image/heic,image/heif,.heic,.heif"
             onChange={onPick}

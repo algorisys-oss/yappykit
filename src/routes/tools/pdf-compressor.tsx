@@ -159,8 +159,11 @@ export default function PdfCompressor() {
 
       <div class="mt-8 space-y-6">
         <div>
-          <label class="mb-2 block text-sm font-medium">{u.pickLabel}</label>
+          <label class="mb-2 block text-sm font-medium" for="pdf-compress-file">
+            {u.pickLabel}
+          </label>
           <input
+            id="pdf-compress-file"
             type="file"
             accept="application/pdf,.pdf"
             onChange={(e) => void onPick(e)}

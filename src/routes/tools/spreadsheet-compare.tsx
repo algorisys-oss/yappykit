@@ -102,8 +102,18 @@ export default function SpreadsheetCompare() {
       </ToolHero>
 
       <div class="mt-8 grid gap-4 sm:grid-cols-2">
-        <FilePicker label={u.originalLabel} name={beforeName()} onPick={(e) => void pick('before', e)} />
-        <FilePicker label={u.updatedLabel} name={afterName()} onPick={(e) => void pick('after', e)} />
+        <FilePicker
+          id="compare-before"
+          label={u.originalLabel}
+          name={beforeName()}
+          onPick={(e) => void pick('before', e)}
+        />
+        <FilePicker
+          id="compare-after"
+          label={u.updatedLabel}
+          name={afterName()}
+          onPick={(e) => void pick('after', e)}
+        />
       </div>
 
       <Show when={error()}>
@@ -156,14 +166,20 @@ export default function SpreadsheetCompare() {
 }
 
 function FilePicker(props: {
+  // Rendered twice on this page, so the id that ties the label to its input
+  // cannot be a constant — each side passes its own.
+  id: string;
   label: string;
   name: string;
   onPick: (e: Event & { currentTarget: HTMLInputElement }) => void;
 }) {
   return (
     <div>
-      <label class="mb-2 block text-sm font-medium">{props.label}</label>
+      <label class="mb-2 block text-sm font-medium" for={props.id}>
+        {props.label}
+      </label>
       <input
+        id={props.id}
         type="file"
         accept=".csv,.xlsx,.xls,text/csv"
         onChange={props.onPick}

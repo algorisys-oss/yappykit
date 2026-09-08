@@ -186,8 +186,11 @@ export default function ImageCompressor() {
 
       <div class="mt-8 space-y-6">
         <div>
-          <label class="mb-2 block text-sm font-medium">{u.pickLabel}</label>
+          <label class="mb-2 block text-sm font-medium" for="compress-files">
+            {u.pickLabel}
+          </label>
           <input
+            id="compress-files"
             type="file"
             accept="image/*,.heic,.heif"
             multiple

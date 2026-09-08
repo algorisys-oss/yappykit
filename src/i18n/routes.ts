@@ -46,6 +46,7 @@ export const TOOL_KEYS = [
   'image-resize',
   'image-crop',
   'pdf-password',
+  'markdown-to-pdf',
 ] as const;
 
 export type ToolKey = (typeof TOOL_KEYS)[number];
@@ -119,6 +120,21 @@ const STATIC_ROUTES: Record<Exclude<RouteKey, BuildKey>, RouteDef> = {
       tr: 'resmi-boyuta-sikistir',
       vi: 'nen-anh-theo-kich-thuoc',
       it: 'comprimere-immagine-a-dimensione',
+    },
+  },
+  'markdown-to-pdf': {
+    localized: true,
+    slugs: {
+      en: 'markdown-to-pdf',
+      es: 'markdown-a-pdf',
+      'pt-BR': 'markdown-para-pdf',
+      id: 'markdown-ke-pdf',
+      fr: 'markdown-en-pdf',
+      de: 'markdown-in-pdf',
+      ru: 'markdown-v-pdf',
+      tr: 'markdown-pdf-donustur',
+      vi: 'markdown-sang-pdf',
+      it: 'markdown-in-pdf',
     },
   },
   'metadata-remove': {
@@ -822,7 +838,7 @@ const RELATED: Record<ToolKey, readonly ToolKey[]> = {
   'pdf-compress': ['pdf-split', 'pdf-merge', 'image-to-pdf'],
   'camera-mic-test': ['mouse-test', 'keyboard-test', 'video-compress'],
   'random-word': ['font-coverage', 'keyboard-test', 'mouse-test'],
-  'pdf-merge': ['pdf-split', 'pdf-compress', 'pdf-password'],
+  'pdf-merge': ['pdf-split', 'pdf-compress', 'markdown-to-pdf'],
   'screenshot-stitch': ['screenshot-split', 'image-compress', 'pdf-merge'],
   'screenshot-split': ['screenshot-stitch', 'image-crop', 'image-compress'],
   'color-picker': ['image-convert', 'font-style', 'image-crop'],
@@ -830,7 +846,7 @@ const RELATED: Record<ToolKey, readonly ToolKey[]> = {
   'sheet-convert': ['sheet-clean', 'spreadsheet-compare', 'file-inspect'],
   'font-coverage': ['font-style', 'random-word', 'keyboard-test'],
   'font-style': ['color-picker', 'font-coverage', 'random-word'],
-  'image-to-pdf': ['pdf-to-images', 'screenshot-stitch', 'pdf-merge'],
+  'image-to-pdf': ['pdf-to-images', 'markdown-to-pdf', 'pdf-merge'],
   'image-watermark': ['color-picker', 'metadata-remove', 'image-compress'],
   'file-inspect': ['image-convert', 'metadata-remove', 'image-compress'],
   'image-convert': ['image-resize', 'image-compress', 'image-watermark'],
@@ -841,6 +857,7 @@ const RELATED: Record<ToolKey, readonly ToolKey[]> = {
   redact: ['metadata-remove', 'pdf-password', 'file-inspect'],
   'sheet-clean': ['sheet-convert', 'spreadsheet-compare', 'redact'],
   'pdf-password': ['redact', 'metadata-remove', 'pdf-merge'],
+  'markdown-to-pdf': ['image-to-pdf', 'pdf-merge', 'file-inspect'],
 };
 
 /**
@@ -876,6 +893,7 @@ export const TOOL_CATEGORY: Record<ToolKey, Category> = {
   'pdf-to-images': 'pdf',
   redact: 'pdf',
   'document-scan': 'pdf',
+  'markdown-to-pdf': 'pdf',
   'video-compress': 'video',
   'spreadsheet-compare': 'data',
   'sheet-clean': 'data',

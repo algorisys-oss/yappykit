@@ -110,8 +110,11 @@ export default function MetadataCleaner() {
 
       <div class="mt-8 space-y-6">
         <div>
-          <label class="mb-2 block text-sm font-medium">{u.pickLabel}</label>
+          <label class="mb-2 block text-sm font-medium" for="metadata-file">
+            {u.pickLabel}
+          </label>
           <input
+            id="metadata-file"
             type="file"
             accept="image/jpeg,image/png,application/pdf,.pdf"
             onChange={onPick}
