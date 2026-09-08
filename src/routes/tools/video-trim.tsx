@@ -422,7 +422,7 @@ export default function VideoTrim() {
                   <Button onClick={keepOnly} disabled={busy()}>
                     {u.keepOnly}
                   </Button>
-                  <Button variant="secondary" onClick={cutOut} disabled={busy()}>
+                  <Button variant="outline" color="neutral" onClick={cutOut} disabled={busy()}>
                     {u.cutOut}
                   </Button>
                   <Button variant="ghost" onClick={undo} disabled={busy() || history().length === 0}>

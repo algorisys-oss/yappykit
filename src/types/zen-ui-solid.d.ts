@@ -13,16 +13,26 @@
 declare module '@algorisys/zen-ui-solid' {
   import type { JSX, ValidComponent } from 'solid-js';
 
-  export type ButtonSize = 'sm' | 'md' | 'lg' | 'icon';
-  export type ButtonVariant =
-    | 'default'
-    | 'secondary'
-    | 'destructive'
-    | 'outline'
-    | 'ghost'
-    | 'link';
+  /**
+   * These MUST match `buttonVariants` in
+   * vendor/zen-ui/packages/core/src/variants.ts, because nothing checks that
+   * they do. They previously carried shadcn's older vocabulary ('default',
+   * 'secondary', 'destructive'), which the vendored library has not used for
+   * some time: cva emits no classes at all for a variant value it does not
+   * know, so `variant="secondary"` typechecked and then rendered an unstyled
+   * button, black on the dark theme at a contrast of 1.18:1. A wrong name here
+   * is invisible until someone looks at the page.
+   *
+   * Weight is `variant`; hue is `color`. They are separate props.
+   */
+  export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  export type ButtonVariant = 'solid' | 'outline' | 'soft' | 'ghost' | 'link';
+  export type ButtonColor = 'primary' | 'neutral' | 'info' | 'success' | 'warning' | 'error';
+  export type ButtonShape = 'default' | 'square' | 'circle' | 'block';
   export type ButtonProps<T extends ValidComponent = 'button'> = JSX.ButtonHTMLAttributes<HTMLButtonElement> & {
     variant?: ButtonVariant;
+    color?: ButtonColor;
+    shape?: ButtonShape;
     size?: ButtonSize;
     loading?: boolean;
     iconLeft?: JSX.Element;

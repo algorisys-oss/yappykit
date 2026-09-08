@@ -23,6 +23,13 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '0.14.1',
+    date: '2026-09-08',
+    fixed: [
+      'The "Cut this out" button on the video trimmer was unreadable: black text on the dark theme, at a contrast of 1.18 to 1 where the standard asks for 4.5. It was asking the component library for a button style called "secondary", which that library stopped having some time ago, and an unknown style name yields no colours at all rather than an error, so the button rendered with none. Our own description of the library still listed the old names, which is why nothing caught it. That description now matches the library, so the same mistake is a compile error instead of something you have to notice by looking; the button is now outlined and reads at 14.4 to 1 on dark and 12.5 to 1 on light.',
+    ],
+  },
+  {
     version: '0.14.0',
     date: '2026-09-08',
     added: [
