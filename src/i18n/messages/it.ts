@@ -1369,6 +1369,73 @@ const it: Messages = {
       },
     },
 
+    'video-trim': {
+      title: 'Tagliare un video',
+      blurb: 'Tieni la parte che ti serve e togli pezzi dal mezzo.',
+      tags: ['video','tagliare','ritagliare','accorciare','clip','mp4','mov','webm','gif','togliere un pezzo','tagliare il centro','montare un video','accorciare un video'],
+      seoTitle: 'Tagliare un video nel browser, senza caricare nulla | YappyKit',
+      seoDescription:
+        'Tieni la parte utile di un video e togli sezioni dal mezzo. Funziona con MP4, MOV, WebM e GIF, tutto nel tuo browser.',
+      heroTitle: 'Tagliare un video',
+      heroNote:
+        'Tieni la parte che ti serve e togli i pezzi in mezzo che non ti servono, tutto in questa scheda del browser.',
+      ui: {
+        pickLabel: 'Scegli un video o una GIF',
+        fileMeta: '{name}, {size}, {duration}',
+        gifNote:
+          'Una GIF non si può scorrere nel browser, quindi imposta i punti di taglio a tempo. L’esportazione è un MP4, che si legge ovunque ed è molto più leggero.',
+        timelineLabel: 'Linea del tempo',
+        timelineHelp:
+          'Trascina le due maniglie per scegliere un intervallo, poi tienilo o taglialo via. Le frecce spostano una maniglia, e con Maiusc si sposta di un secondo.',
+        handleStart: 'Inizio della selezione',
+        handleEnd: 'Fine della selezione',
+        startLabel: 'Inizio',
+        endLabel: 'Fine',
+        keepOnly: 'Tieni solo questo',
+        cutOut: 'Taglia via questo',
+        undo: 'Annulla',
+        reset: 'Reimposta',
+        outputInfo: 'Risultato: {kept} su {total}',
+        piecesInfo: 'unito da {count} pezzi',
+        action: 'Esporta il taglio',
+        working: 'Taglio in corso…',
+        loading: 'Caricamento del motore video, alla prima esecuzione scarica circa 30 MB…',
+        readError: 'Non è stato possibile leggere quel video. Prova un MP4, MOV, WebM o GIF.',
+        nothingKept: 'È tutto tagliato. Annulla, o reimposta, per tenere qualcosa.',
+        download: 'Scarica {size}',
+        doneStatus: 'Fatto: {duration}, {size}.',
+        failedWith: 'Taglio non riuscito: {message}',
+        failed: 'Taglio non riuscito.',
+        unsupported: 'Questo browser non può eseguire WebAssembly, quindi qui il taglio non è disponibile.',
+      },
+      content: {
+        howItWorks: [
+          'Quasi tutti gli strumenti per tagliare video mandano prima il file a un server, il che significa aspettare e lasciare una copia del tuo materiale sul disco di qualcun altro. Questo fa tutto il taglio dentro la scheda del browser.',
+          'Lo strumento tiene un elenco di tagli invece di un solo inizio e una sola fine. Così puoi togliere una sezione dal mezzo e le parti ai lati vengono riunite. I tagli sono precisi al fotogramma: la clip viene ricodificata in MP4 invece di essere tagliata al fotogramma chiave più vicino, quindi il taglio cade esattamente dove hai messo la maniglia.',
+          'Il primo taglio scarica il motore video, circa 30 MB, e lo tiene in cache per la volta dopo. Siccome la clip viene ricodificata, l’esportazione dura più o meno quanto la parte che hai tenuto.',
+        ],
+        steps: [
+          'Scegli un video (MP4, MOV o WebM) o una GIF.',
+          'Trascina le due maniglie intorno alla parte che ti interessa.',
+          'Premi “Tieni solo questo”, oppure “Taglia via questo” per togliere una sezione dal mezzo.',
+          'Esporta il taglio e scarica l’MP4.',
+        ],
+        tips: [
+          'Togli quante sezioni vuoi. Quello che resta viene riunito nell’ordine.',
+          'Le frecce spostano una maniglia di un decimo di secondo, e con Maiusc di un secondo intero.',
+          'Annulla torna indietro sui tagli, e Reimposta riparte dalla clip originale.',
+          'Il tuo video non viene mai caricato. Tutto il taglio avviene in questa scheda del browser.',
+        ],
+        faqs: [
+          { q: 'Come tolgo la parte centrale di un video?', a: 'Trascina le maniglie intorno alla parte da eliminare e premi “Taglia via questo”. I pezzi ai lati vengono riuniti, e puoi ripeterlo tutte le volte che serve.' },
+          { q: 'Perché il taglio richiede tempo invece di essere immediato?', a: 'Perché la clip viene ricodificata, così il taglio cade esattamente dove hai messo la maniglia. Tagliare al fotogramma chiave più vicino è immediato, ma può sbagliare di diversi secondi, che è il motivo più comune per cui una clip tagliata inizia nel punto sbagliato.' },
+          { q: 'Tagliare fa perdere qualità?', a: 'Una ricodifica non è mai del tutto senza perdite, ma questa è impostata perché tu non veda la differenza, non per fare un file piccolo. Se ti serve anche stare sotto un limite di dimensione, passa poi il risultato nel compressore video.' },
+          { q: 'Posso tagliare una GIF?', a: 'Sì. Una GIF non si può scorrere nel browser, quindi imposti i punti di taglio a tempo. L’esportazione è un MP4, che si legge ovunque ed è molto più leggero di una GIF.' },
+          { q: 'Il mio video viene caricato su un server?', a: 'No. Tutto il taglio avviene dentro la scheda del tuo browser.' },
+        ],
+      },
+    },
+
     'passport-photo': {
       title: 'Studio foto per passaporto e visto',
       blurb: 'Preimpostazioni per paese, allineamento del volto e fogli pronti da stampare.',

@@ -23,6 +23,13 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '0.14.0',
+    date: '2026-09-08',
+    added: [
+      'A video trimmer, at /trim-a-video. It keeps the part you want and, unlike most browser trimmers, it will also take a section out of the middle and join what is left back together, as many times as you need. Cuts land on the frame you chose: the clip is re-encoded rather than sliced at the nearest keyframe, which is the reason a trimmed clip so often starts a second or three before the point you asked for. That accuracy is paid for in time, so expect the export to take roughly as long as the part you kept, and the first run downloads the video engine, about 30 MB, which is then cached. MP4, MOV and WebM all work, and so do GIFs: a GIF cannot be scrubbed in a browser, so its length is read out of the file itself and the cut points are set by time, with the result written as an MP4 that plays anywhere and is far smaller. Nothing is uploaded.',
+    ],
+  },
+  {
     version: '0.13.0',
     date: '2026-09-08',
     added: [

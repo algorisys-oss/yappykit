@@ -1370,6 +1370,73 @@ const fr: Messages = {
       },
     },
 
+    'video-trim': {
+      title: 'Couper une vidéo',
+      blurb: 'Gardez la partie qui vous intéresse et retirez des passages au milieu.',
+      tags: ['vidéo','couper','rogner','raccourcir','clip','mp4','mov','webm','gif','retirer un passage','couper le milieu','monter une vidéo','raccourcir une vidéo'],
+      seoTitle: 'Couper une vidéo dans le navigateur, sans envoi | YappyKit',
+      seoDescription:
+        'Gardez la partie utile d’une vidéo et retirez des passages au milieu. Fonctionne avec MP4, MOV, WebM et GIF, entièrement dans votre navigateur.',
+      heroTitle: 'Couper une vidéo',
+      heroNote:
+        'Gardez la partie qui vous intéresse et retirez les passages au milieu dont vous ne voulez pas, le tout dans cet onglet.',
+      ui: {
+        pickLabel: 'Choisissez une vidéo ou un GIF',
+        fileMeta: '{name}, {size}, {duration}',
+        gifNote:
+          'Un GIF ne peut pas être parcouru dans un navigateur, indiquez donc les points de coupe par le temps. L’export est un MP4, qui se lit partout et pèse bien moins lourd.',
+        timelineLabel: 'Ligne de temps',
+        timelineHelp:
+          'Faites glisser les deux poignées pour choisir une plage, puis gardez-la ou coupez-la. Les flèches déplacent une poignée, et Maj la déplace d’une seconde.',
+        handleStart: 'Début de la sélection',
+        handleEnd: 'Fin de la sélection',
+        startLabel: 'Début',
+        endLabel: 'Fin',
+        keepOnly: 'Garder seulement ceci',
+        cutOut: 'Couper ceci',
+        undo: 'Annuler',
+        reset: 'Réinitialiser',
+        outputInfo: 'Résultat : {kept} sur {total}',
+        piecesInfo: 'assemblé à partir de {count} morceaux',
+        action: 'Exporter la coupe',
+        working: 'Découpe en cours…',
+        loading: 'Chargement du moteur vidéo, le premier lancement télécharge environ 30 Mo…',
+        readError: 'Impossible de lire cette vidéo. Essayez un MP4, MOV, WebM ou GIF.',
+        nothingKept: 'Tout est coupé. Annulez ou réinitialisez pour garder quelque chose.',
+        download: 'Télécharger {size}',
+        doneStatus: 'Terminé : {duration}, {size}.',
+        failedWith: 'La découpe a échoué : {message}',
+        failed: 'La découpe a échoué.',
+        unsupported: 'Ce navigateur ne peut pas exécuter WebAssembly, la découpe n’est donc pas disponible ici.',
+      },
+      content: {
+        howItWorks: [
+          'La plupart des outils de découpe envoient d’abord votre fichier sur un serveur, ce qui veut dire attendre, et laisser une copie de vos images sur le disque de quelqu’un d’autre. Celui-ci fait toute la coupe dans votre onglet.',
+          'L’outil tient une liste de coupes plutôt qu’un simple début et une simple fin. Vous pouvez donc retirer un passage au milieu, et les morceaux de part et d’autre sont recollés. Les coupes sont exactes à l’image près : le clip est réencodé en MP4 au lieu d’être tranché à l’image clé la plus proche, la coupe tombe donc exactement où vous avez posé la poignée.',
+          'La première découpe télécharge le moteur vidéo, environ 30 Mo, et le garde en cache. Comme le clip est réencodé, l’export prend à peu près la durée de ce que vous avez gardé.',
+        ],
+        steps: [
+          'Choisissez une vidéo (MP4, MOV ou WebM) ou un GIF.',
+          'Faites glisser les deux poignées autour de la partie qui vous intéresse.',
+          'Appuyez sur « Garder seulement ceci », ou sur « Couper ceci » pour retirer un passage au milieu.',
+          'Exportez la coupe et téléchargez le MP4.',
+        ],
+        tips: [
+          'Retirez autant de passages que vous voulez. Ce qui reste est recollé dans l’ordre.',
+          'Les flèches déplacent une poignée d’un dixième de seconde, et Maj la déplace d’une seconde entière.',
+          'Annuler revient sur vos coupes, et Réinitialiser reprend le clip au départ.',
+          'Votre vidéo n’est jamais envoyée. Toute la découpe se fait dans cet onglet.',
+        ],
+        faqs: [
+          { q: 'Comment retirer le milieu d’une vidéo ?', a: 'Faites glisser les poignées autour du passage à supprimer et appuyez sur « Couper ceci ». Les morceaux de part et d’autre sont recollés, et vous pouvez recommencer autant de fois que nécessaire.' },
+          { q: 'Pourquoi la découpe prend-elle du temps au lieu d’être instantanée ?', a: 'Parce que le clip est réencodé pour que la coupe tombe exactement où vous avez posé la poignée. Trancher à l’image clé la plus proche est instantané, mais peut se tromper de plusieurs secondes, ce qui explique le plus souvent qu’un clip coupé commence au mauvais endroit.' },
+          { q: 'La découpe fait-elle perdre en qualité ?', a: 'Un réencodage n’est jamais tout à fait sans perte, mais celui-ci est réglé pour que vous ne voyiez pas la différence, pas pour produire un petit fichier. S’il vous faut aussi tenir dans une limite de taille, passez ensuite le résultat par le compresseur vidéo.' },
+          { q: 'Puis-je couper un GIF ?', a: 'Oui. Un GIF ne peut pas être parcouru dans un navigateur, vous indiquez donc les points de coupe par le temps. L’export est un MP4, qui se lit partout et pèse bien moins lourd qu’un GIF.' },
+          { q: 'Ma vidéo est-elle envoyée sur un serveur ?', a: 'Non. Toute la découpe se fait dans votre onglet.' },
+        ],
+      },
+    },
+
     'passport-photo': {
       title: 'Studio photo d’identité et de visa',
       blurb: 'Formats par pays, alignement du visage et planches à imprimer.',

@@ -40,6 +40,7 @@ const COMPONENTS: Record<RouteKey, Component> = {
   'spreadsheet-compare': lazy(() => import('./routes/tools/spreadsheet-compare')),
   'metadata-remove': lazy(() => import('./routes/tools/metadata-cleaner')),
   'video-compress': lazy(() => import('./routes/tools/video-compressor')),
+  'video-trim': lazy(() => import('./routes/tools/video-trim')),
   'passport-photo': lazy(() => import('./routes/tools/passport-photo')),
   'document-scan': lazy(() => import('./routes/tools/document-scanner')),
   'mouse-test': lazy(() => import('./routes/tools/mouse-test')),

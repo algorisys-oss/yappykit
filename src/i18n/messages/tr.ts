@@ -1369,6 +1369,73 @@ const tr: Messages = {
       },
     },
 
+    'video-trim': {
+      title: 'Bir videoyu kırpın',
+      blurb: 'Videoyu istediğiniz bölüme indirin ve ortadan parça çıkarın.',
+      tags: ['video','kırp','kes','kısalt','klip','mp4','mov','webm','gif','bölüm çıkar','ortadan kes','video düzenle','video kısaltma'],
+      seoTitle: 'Tarayıcıda Video Kırpma, Yükleme Yok | YappyKit',
+      seoDescription:
+        'Bir videoyu istediğiniz bölüme indirin ve ortadan bölümler çıkarın. MP4, MOV, WebM ve GIF ile çalışır, tamamen tarayıcınızda.',
+      heroTitle: 'Bir videoyu kırpın',
+      heroNote:
+        'Videoyu istediğiniz bölüme indirin ve aradaki istemediğiniz parçaları çıkarın, hepsi bu tarayıcı sekmesinde.',
+      ui: {
+        pickLabel: 'Video ya da GIF seçin',
+        fileMeta: '{name}, {size}, {duration}',
+        gifNote:
+          'GIF tarayıcıda ileri geri sarılamaz, bu yüzden kesme noktalarını zamanla belirleyin. Çıktı bir MP4 olur, her yerde oynar ve çok daha küçüktür.',
+        timelineLabel: 'Zaman çizelgesi',
+        timelineHelp:
+          'İki tutamacı sürükleyerek bir aralık seçin, sonra onu saklayın ya da kesip çıkarın. Ok tuşları tutamacı azar azar, Shift ile birer saniye oynatır.',
+        handleStart: 'Seçim başlangıcı',
+        handleEnd: 'Seçim sonu',
+        startLabel: 'Başlangıç',
+        endLabel: 'Bitiş',
+        keepOnly: 'Yalnızca bunu sakla',
+        cutOut: 'Bunu kesip çıkar',
+        undo: 'Geri al',
+        reset: 'Sıfırla',
+        outputInfo: 'Sonuç: {total} içinden {kept}',
+        piecesInfo: '{count} parçadan birleştirildi',
+        action: 'Kırpmayı dışa aktar',
+        working: 'Kırpılıyor…',
+        loading: 'Video motoru yükleniyor, ilk çalıştırmada yaklaşık 30 MB iner…',
+        readError: 'Bu video okunamadı. MP4, MOV, WebM ya da GIF deneyin.',
+        nothingKept: 'Her şey kesildi. Bir şey kalması için geri alın ya da sıfırlayın.',
+        download: '{size} indir',
+        doneStatus: 'Bitti: {duration}, {size}.',
+        failedWith: 'Kırpma başarısız: {message}',
+        failed: 'Kırpma başarısız.',
+        unsupported: 'Bu tarayıcı WebAssembly çalıştıramıyor, bu yüzden kırpma burada kullanılamıyor.',
+      },
+      content: {
+        howItWorks: [
+          'Video kırpma araçlarının çoğu dosyanızı önce bir sunucuya yükler, bu da beklemek ve görüntülerinizin bir kopyasının başkasının diskinde durması demektir. Bu araç kesmenin tamamını tarayıcı sekmenizin içinde yapar.',
+          'Araç tek bir başlangıç ve tek bir bitiş yerine bir kesim listesi tutar. Böylece ortadan bir bölüm çıkarabilirsiniz ve iki yandaki parçalar yeniden birleştirilir. Kesimler kareye kadar doğrudur: klip en yakın anahtar karede bölünmek yerine MP4 olarak yeniden kodlanır, yani kesim tam tutamacı bıraktığınız yere düşer.',
+          'İlk kırpma video motorunu indirir, yaklaşık 30 MB, ve sonraki sefer için saklar. Klip yeniden kodlandığı için dışa aktarma kabaca sakladığınız bölüm kadar sürer.',
+        ],
+        steps: [
+          'Bir video (MP4, MOV ya da WebM) veya bir GIF seçin.',
+          'İki tutamacı ilgilendiğiniz bölümün çevresine sürükleyin.',
+          '“Yalnızca bunu sakla” ya da ortadan bir bölüm çıkarmak için “Bunu kesip çıkar” düğmesine basın.',
+          'Kırpmayı dışa aktarın ve MP4 dosyasını indirin.',
+        ],
+        tips: [
+          'İstediğiniz kadar bölüm çıkarın. Kalanlar sırasıyla birleştirilir.',
+          'Ok tuşları tutamacı onda bir saniye, Shift ile tam bir saniye oynatır.',
+          'Geri al kesimlerinizde geriye gider, Sıfırla ise klibi baştan başlatır.',
+          'Videonuz asla yüklenmez. Kırpmanın tamamı bu tarayıcı sekmesinde çalışır.',
+        ],
+        faqs: [
+          { q: 'Bir videonun ortasını nasıl çıkarırım?', a: 'Tutamaçları gitmesini istediğiniz bölümün çevresine sürükleyin ve “Bunu kesip çıkar” düğmesine basın. İki yandaki parçalar yeniden birleştirilir ve bunu gerektiği kadar tekrarlayabilirsiniz.' },
+          { q: 'Kırpma neden anında olmuyor da zaman alıyor?', a: 'Çünkü kesim tam tutamacı bıraktığınız yere düşsün diye klip yeniden kodlanır. En yakın anahtar kareden bölmek anında olur ama birkaç saniye şaşabilir, kırpılmış bir klibin yanlış yerden başlamasının olağan sebebi budur.' },
+          { q: 'Kırpmak kaliteyi düşürür mü?', a: 'Yeniden kodlama hiçbir zaman tam anlamıyla kayıpsız değildir, ama buradaki küçük bir dosya üretmek için değil, farkı göremeyeceğiniz şekilde ayarlandı. Ayrıca bir boyut sınırına da girmeniz gerekiyorsa sonucu sonrasında video sıkıştırıcıdan geçirin.' },
+          { q: 'GIF kırpabilir miyim?', a: 'Evet. GIF tarayıcıda ileri geri sarılamaz, bu yüzden kesme noktalarını zamanla belirlersiniz. Çıktı bir MP4 olur, her yerde oynar ve bir GIF’ten çok daha küçüktür.' },
+          { q: 'Videom bir sunucuya yükleniyor mu?', a: 'Hayır. Kırpmanın tamamı tarayıcı sekmenizin içinde olur.' },
+        ],
+      },
+    },
+
     'passport-photo': {
       title: 'Pasaport ve vize fotoğrafı stüdyosu',
       blurb: 'Ülkeye göre hazır ayarlar, yüz hizalama ve baskıya hazır sayfalar.',

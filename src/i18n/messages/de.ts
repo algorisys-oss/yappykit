@@ -1371,6 +1371,73 @@ const de: Messages = {
       },
     },
 
+    'video-trim': {
+      title: 'Ein Video zuschneiden',
+      blurb: 'Schneiden Sie ein Video auf den gewünschten Teil und entfernen Sie Stellen aus der Mitte.',
+      tags: ['video','zuschneiden','schneiden','kürzen','clip','mp4','mov','webm','gif','stelle entfernen','mitte herausschneiden','video bearbeiten','video kürzen'],
+      seoTitle: 'Video im Browser zuschneiden, ohne Upload | YappyKit',
+      seoDescription:
+        'Schneiden Sie ein Video auf den gewünschten Teil und entfernen Sie Abschnitte aus der Mitte. Funktioniert mit MP4, MOV, WebM und GIF, komplett in Ihrem Browser.',
+      heroTitle: 'Ein Video zuschneiden',
+      heroNote:
+        'Schneiden Sie ein Video auf den gewünschten Teil und entfernen Sie die Stellen dazwischen, die Sie nicht brauchen, alles in diesem Browser-Tab.',
+      ui: {
+        pickLabel: 'Video oder GIF auswählen',
+        fileMeta: '{name}, {size}, {duration}',
+        gifNote:
+          'Ein GIF lässt sich im Browser nicht durchsuchen, legen Sie die Schnittpunkte daher über die Zeit fest. Der Export ist ein MP4, das überall läuft und deutlich kleiner ist.',
+        timelineLabel: 'Zeitleiste',
+        timelineHelp:
+          'Ziehen Sie die beiden Griffe, um einen Bereich zu wählen, und behalten Sie ihn oder schneiden Sie ihn heraus. Pfeiltasten bewegen einen Griff, mit Umschalt eine Sekunde weit.',
+        handleStart: 'Auswahlanfang',
+        handleEnd: 'Auswahlende',
+        startLabel: 'Start',
+        endLabel: 'Ende',
+        keepOnly: 'Nur das behalten',
+        cutOut: 'Das herausschneiden',
+        undo: 'Rückgängig',
+        reset: 'Zurücksetzen',
+        outputInfo: 'Ergebnis: {kept} von {total}',
+        piecesInfo: 'aus {count} Teilen zusammengesetzt',
+        action: 'Zuschnitt exportieren',
+        working: 'Wird zugeschnitten…',
+        loading: 'Die Video-Engine wird geladen, beim ersten Mal werden etwa 30 MB heruntergeladen…',
+        readError: 'Dieses Video konnte nicht gelesen werden. Versuchen Sie MP4, MOV, WebM oder GIF.',
+        nothingKept: 'Alles ist herausgeschnitten. Machen Sie einen Schritt rückgängig oder setzen Sie zurück.',
+        download: '{size} herunterladen',
+        doneStatus: 'Fertig: {duration}, {size}.',
+        failedWith: 'Zuschneiden fehlgeschlagen: {message}',
+        failed: 'Zuschneiden fehlgeschlagen.',
+        unsupported: 'Dieser Browser kann kein WebAssembly ausführen, daher ist das Zuschneiden hier nicht verfügbar.',
+      },
+      content: {
+        howItWorks: [
+          'Die meisten Zuschneide-Werkzeuge laden Ihre Datei zuerst auf einen Server, was Wartezeit bedeutet und eine Kopie Ihres Materials auf einer fremden Festplatte. Dieses Werkzeug schneidet vollständig in Ihrem Browser-Tab.',
+          'Das Werkzeug führt eine Schnittliste statt nur eines Anfangs und eines Endes. So können Sie einen Abschnitt aus der Mitte entfernen, und die Teile davor und danach werden wieder zusammengefügt. Die Schnitte sind bildgenau: Der Clip wird zu MP4 neu kodiert statt am nächsten Keyframe getrennt, der Schnitt sitzt also genau dort, wo Sie den Griff gesetzt haben.',
+          'Beim ersten Zuschnitt wird die Video-Engine geladen, etwa 30 MB, und für das nächste Mal zwischengespeichert. Da neu kodiert wird, dauert der Export ungefähr so lange wie der behaltene Teil.',
+        ],
+        steps: [
+          'Wählen Sie ein Video (MP4, MOV oder WebM) oder ein GIF.',
+          'Ziehen Sie die beiden Griffe um den Teil, der Sie interessiert.',
+          'Drücken Sie „Nur das behalten“ oder „Das herausschneiden“, um einen Abschnitt aus der Mitte zu entfernen.',
+          'Exportieren Sie den Zuschnitt und laden Sie das MP4 herunter.',
+        ],
+        tips: [
+          'Entfernen Sie so viele Abschnitte, wie Sie möchten. Was übrig bleibt, wird der Reihe nach zusammengefügt.',
+          'Pfeiltasten bewegen einen Griff um eine Zehntelsekunde, mit Umschalt um eine ganze Sekunde.',
+          'Rückgängig geht Ihre Schnitte zurück, Zurücksetzen beginnt den Clip von vorn.',
+          'Ihr Video wird nie hochgeladen. Der gesamte Zuschnitt läuft in diesem Browser-Tab.',
+        ],
+        faqs: [
+          { q: 'Wie schneide ich die Mitte aus einem Video heraus?', a: 'Ziehen Sie die Griffe um den Teil, der weg soll, und drücken Sie „Das herausschneiden“. Die Stücke davor und danach werden wieder zusammengefügt, und Sie können das so oft wiederholen, wie Sie möchten.' },
+          { q: 'Warum dauert das Zuschneiden, statt sofort fertig zu sein?', a: 'Weil der Clip neu kodiert wird, damit der Schnitt genau dort sitzt, wo Sie den Griff gesetzt haben. Ein Schnitt am nächsten Keyframe ist sofort fertig, kann aber mehrere Sekunden danebenliegen, was meist der Grund ist, wenn ein zugeschnittener Clip an der falschen Stelle beginnt.' },
+          { q: 'Verliert das Zuschneiden Qualität?', a: 'Eine Neukodierung ist nie ganz verlustfrei, aber diese ist so eingestellt, dass Sie keinen Unterschied sehen, statt eine möglichst kleine Datei zu erzeugen. Wenn Sie zusätzlich eine Größengrenze einhalten müssen, schicken Sie das Ergebnis danach durch den Video-Komprimierer.' },
+          { q: 'Kann ich ein GIF zuschneiden?', a: 'Ja. Ein GIF lässt sich im Browser nicht durchsuchen, Sie legen die Schnittpunkte daher über die Zeit fest. Der Export ist ein MP4, das überall läuft und viel kleiner ist als ein GIF.' },
+          { q: 'Wird mein Video auf einen Server hochgeladen?', a: 'Nein. Der gesamte Zuschnitt läuft in Ihrem Browser-Tab.' },
+        ],
+      },
+    },
+
     'passport-photo': {
       title: 'Passfoto- und Visumfoto-Studio',
       blurb: 'Ländervorlagen, Gesichtsausrichtung und druckfertige Bögen.',

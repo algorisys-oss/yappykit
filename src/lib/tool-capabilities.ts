@@ -38,6 +38,8 @@ export const TOOL_CAPABILITIES: Record<ToolKey, CapabilitySpec> = {
   // ffmpeg is WebAssembly, and its core ships gzipped to fit the host's
   // per-file limit, so expanding it is a hard requirement rather than a nicety.
   'video-compress': { required: ['wasm', 'decompressionStream'], preferred: ['webCodecs'] },
+  // Same engine, same gzipped core, so the same hard requirements.
+  'video-trim': { required: ['wasm', 'decompressionStream'], preferred: ['webCodecs'] },
   // qpdf is WebAssembly and its only build imports SHARED memory, so this tool
   // needs real cross-origin isolation — unlike the video tool, which has a
   // single-threaded core to fall back to. Without isolation qpdf does not fail,

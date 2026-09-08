@@ -1368,6 +1368,73 @@ const ptBR: Messages = {
       },
     },
 
+    'video-trim': {
+      title: 'Cortar um vídeo',
+      blurb: 'Fique com a parte que você quer e tire pedaços do meio.',
+      tags: ['vídeo','cortar','recortar','encurtar','clipe','mp4','mov','webm','gif','tirar um trecho','cortar o meio','editar vídeo','encurtar vídeo'],
+      seoTitle: 'Cortar um vídeo no navegador, sem enviar nada | YappyKit',
+      seoDescription:
+        'Fique com a parte útil de um vídeo e tire trechos do meio. Funciona com MP4, MOV, WebM e GIF, tudo no seu navegador.',
+      heroTitle: 'Cortar um vídeo',
+      heroNote:
+        'Fique com a parte que você quer e tire os pedaços do meio que não quer, tudo nesta aba do navegador.',
+      ui: {
+        pickLabel: 'Escolha um vídeo ou GIF',
+        fileMeta: '{name}, {size}, {duration}',
+        gifNote:
+          'Um GIF não dá para percorrer no navegador, então marque os pontos de corte por tempo. A exportação é um MP4, que toca em qualquer lugar e pesa bem menos.',
+        timelineLabel: 'Linha do tempo',
+        timelineHelp:
+          'Arraste as duas alças para escolher um trecho e então fique com ele ou corte fora. As setas movem uma alça, e com Shift ela anda um segundo inteiro.',
+        handleStart: 'Início da seleção',
+        handleEnd: 'Fim da seleção',
+        startLabel: 'Início',
+        endLabel: 'Fim',
+        keepOnly: 'Ficar só com isto',
+        cutOut: 'Cortar isto fora',
+        undo: 'Desfazer',
+        reset: 'Reiniciar',
+        outputInfo: 'Resultado: {kept} de {total}',
+        piecesInfo: 'juntado de {count} pedaços',
+        action: 'Exportar o corte',
+        working: 'Cortando…',
+        loading: 'Carregando o motor de vídeo, na primeira vez baixa cerca de 30 MB…',
+        readError: 'Não deu para ler esse vídeo. Tente um MP4, MOV, WebM ou GIF.',
+        nothingKept: 'Está tudo cortado. Desfaça, ou reinicie, para ficar com alguma coisa.',
+        download: 'Baixar {size}',
+        doneStatus: 'Pronto: {duration}, {size}.',
+        failedWith: 'O corte falhou: {message}',
+        failed: 'O corte falhou.',
+        unsupported: 'Este navegador não roda WebAssembly, então cortar não está disponível aqui.',
+      },
+      content: {
+        howItWorks: [
+          'A maioria dos cortadores de vídeo manda seu arquivo para um servidor antes, o que significa esperar, e deixar uma cópia do seu material no disco de outra pessoa. Este faz o corte inteiro dentro da aba do seu navegador.',
+          'A ferramenta guarda uma lista de cortes em vez de um único início e um único fim. Assim você tira um trecho do meio e as partes dos lados são juntadas de novo. Os cortes são exatos no quadro: o clipe é recodificado para MP4 em vez de ser fatiado no quadro-chave mais próximo, então o corte cai exatamente onde você pôs a alça.',
+          'O primeiro corte baixa o motor de vídeo, cerca de 30 MB, e guarda para a próxima vez. Como o clipe é recodificado, a exportação leva mais ou menos o tempo da parte que você manteve.',
+        ],
+        steps: [
+          'Escolha um vídeo (MP4, MOV ou WebM) ou um GIF.',
+          'Arraste as duas alças em volta da parte que te interessa.',
+          'Aperte “Ficar só com isto”, ou “Cortar isto fora” para tirar um trecho do meio.',
+          'Exporte o corte e baixe o MP4.',
+        ],
+        tips: [
+          'Tire quantos trechos quiser. O que sobra é juntado na ordem.',
+          'As setas movem uma alça um décimo de segundo, e com Shift ela anda um segundo inteiro.',
+          'Desfazer volta pelos seus cortes, e Reiniciar começa o clipe do zero.',
+          'Seu vídeo nunca é enviado. O corte inteiro acontece nesta aba do navegador.',
+        ],
+        faqs: [
+          { q: 'Como tiro o meio de um vídeo?', a: 'Arraste as alças em volta do trecho que deve sair e aperte “Cortar isto fora”. Os pedaços dos lados são juntados de novo, e você pode repetir quantas vezes precisar.' },
+          { q: 'Por que cortar demora em vez de ser instantâneo?', a: 'Porque o clipe é recodificado, para o corte cair exatamente onde você pôs a alça. Fatiar no quadro-chave mais próximo é instantâneo, mas pode errar por vários segundos, que é o motivo mais comum de um clipe cortado começar no lugar errado.' },
+          { q: 'Cortar perde qualidade?', a: 'Uma recodificação nunca é totalmente sem perdas, mas esta está ajustada para você não ver diferença, e não para gerar um arquivo pequeno. Se você também precisa caber em um limite de tamanho, passe o resultado depois pelo compressor de vídeo.' },
+          { q: 'Dá para cortar um GIF?', a: 'Dá. Um GIF não dá para percorrer no navegador, então você marca os pontos de corte por tempo. A exportação é um MP4, que toca em qualquer lugar e pesa muito menos que um GIF.' },
+          { q: 'Meu vídeo é enviado para um servidor?', a: 'Não. O corte inteiro acontece dentro da aba do seu navegador.' },
+        ],
+      },
+    },
+
     'passport-photo': {
       title: 'Estúdio de foto de passaporte e visto',
       blurb: 'Modelos por país, alinhamento do rosto e folhas para impressão.',

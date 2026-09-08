@@ -1365,6 +1365,73 @@ const vi: Messages = {
       },
     },
 
+    'video-trim': {
+      title: 'Cắt video',
+      blurb: 'Giữ lại đoạn bạn cần và bỏ những khúc ở giữa.',
+      tags: ['video','cắt','xén','rút ngắn','clip','mp4','mov','webm','gif','bỏ một đoạn','cắt giữa','chỉnh sửa video','rút ngắn video'],
+      seoTitle: 'Cắt Video Ngay Trong Trình Duyệt, Không Tải Lên | YappyKit',
+      seoDescription:
+        'Giữ lại đoạn video bạn cần và bỏ những khúc ở giữa. Dùng được với MP4, MOV, WebM và GIF, hoàn toàn trong trình duyệt của bạn.',
+      heroTitle: 'Cắt video',
+      heroNote:
+        'Giữ lại đoạn bạn cần và bỏ những khúc ở giữa mà bạn không muốn, tất cả ngay trong thẻ trình duyệt này.',
+      ui: {
+        pickLabel: 'Chọn video hoặc GIF',
+        fileMeta: '{name}, {size}, {duration}',
+        gifNote:
+          'GIF không tua được trong trình duyệt, nên hãy đặt điểm cắt theo thời gian. Bản xuất là MP4, phát được ở mọi nơi và nhẹ hơn nhiều.',
+        timelineLabel: 'Dòng thời gian',
+        timelineHelp:
+          'Kéo hai tay nắm để chọn một khoảng, rồi giữ lại hoặc cắt bỏ. Phím mũi tên nhích tay nắm, giữ Shift để đi trọn một giây.',
+        handleStart: 'Đầu vùng chọn',
+        handleEnd: 'Cuối vùng chọn',
+        startLabel: 'Bắt đầu',
+        endLabel: 'Kết thúc',
+        keepOnly: 'Chỉ giữ đoạn này',
+        cutOut: 'Cắt bỏ đoạn này',
+        undo: 'Hoàn tác',
+        reset: 'Đặt lại',
+        outputInfo: 'Kết quả: {kept} trên {total}',
+        piecesInfo: 'ghép từ {count} mảnh',
+        action: 'Xuất bản cắt',
+        working: 'Đang cắt…',
+        loading: 'Đang tải bộ máy video, lần đầu sẽ tải khoảng 30 MB…',
+        readError: 'Không đọc được video đó. Hãy thử MP4, MOV, WebM hoặc GIF.',
+        nothingKept: 'Mọi phần đều đã bị cắt. Hãy hoàn tác, hoặc đặt lại, để giữ lại thứ gì đó.',
+        download: 'Tải {size}',
+        doneStatus: 'Xong: {duration}, {size}.',
+        failedWith: 'Cắt thất bại: {message}',
+        failed: 'Cắt thất bại.',
+        unsupported: 'Trình duyệt này không chạy được WebAssembly, nên không cắt video ở đây được.',
+      },
+      content: {
+        howItWorks: [
+          'Hầu hết công cụ cắt video đều gửi tệp của bạn lên máy chủ trước, nghĩa là phải chờ, và để lại một bản sao thước phim của bạn trên ổ đĩa của người khác. Công cụ này cắt trọn vẹn ngay trong thẻ trình duyệt của bạn.',
+          'Công cụ giữ một danh sách các đoạn thay vì chỉ một điểm đầu và một điểm cuối. Nhờ vậy bạn có thể bỏ một khúc ở giữa, và hai phần hai bên được nối lại. Các nhát cắt chính xác tới từng khung hình: clip được mã hóa lại thành MP4 chứ không cắt tại khung khóa gần nhất, nên nhát cắt rơi đúng chỗ bạn đặt tay nắm.',
+          'Lần cắt đầu tiên sẽ tải bộ máy video, khoảng 30 MB, rồi lưu lại cho lần sau. Vì clip được mã hóa lại, bản xuất mất khoảng chừng thời gian của phần bạn giữ.',
+        ],
+        steps: [
+          'Chọn một video (MP4, MOV hoặc WebM) hoặc một GIF.',
+          'Kéo hai tay nắm quanh đoạn bạn quan tâm.',
+          'Nhấn “Chỉ giữ đoạn này”, hoặc “Cắt bỏ đoạn này” để bỏ một khúc ở giữa.',
+          'Xuất bản cắt và tải MP4 về.',
+        ],
+        tips: [
+          'Bỏ bao nhiêu khúc tùy bạn. Phần còn lại được nối theo thứ tự.',
+          'Phím mũi tên nhích tay nắm một phần mười giây, giữ Shift để đi trọn một giây.',
+          'Hoàn tác lùi lại qua các nhát cắt, còn Đặt lại đưa clip về ban đầu.',
+          'Video của bạn không bao giờ được tải lên. Toàn bộ việc cắt chạy trong thẻ trình duyệt này.',
+        ],
+        faqs: [
+          { q: 'Làm sao bỏ khúc giữa của một video?', a: 'Kéo hai tay nắm quanh khúc cần bỏ rồi nhấn “Cắt bỏ đoạn này”. Hai phần hai bên được nối lại, và bạn có thể làm lại bao nhiêu lần tùy ý.' },
+          { q: 'Vì sao cắt mất thời gian chứ không tức thì?', a: 'Vì clip được mã hóa lại, để nhát cắt rơi đúng chỗ bạn đặt tay nắm. Cắt tại khung khóa gần nhất thì tức thì, nhưng có thể lệch vài giây, và đó thường là lý do một clip đã cắt lại bắt đầu sai chỗ.' },
+          { q: 'Cắt có làm giảm chất lượng không?', a: 'Mã hóa lại thì không bao giờ hoàn toàn không mất mát, nhưng lần này được đặt sao cho bạn không thấy khác biệt, chứ không phải để tạo tệp nhỏ. Nếu bạn còn cần vừa một giới hạn dung lượng, hãy đưa kết quả qua công cụ nén video sau đó.' },
+          { q: 'Tôi cắt được GIF không?', a: 'Được. GIF không tua được trong trình duyệt, nên bạn đặt điểm cắt theo thời gian. Bản xuất là MP4, phát được ở mọi nơi và nhẹ hơn GIF rất nhiều.' },
+          { q: 'Video của tôi có bị tải lên máy chủ không?', a: 'Không. Toàn bộ việc cắt diễn ra bên trong thẻ trình duyệt của bạn.' },
+        ],
+      },
+    },
+
     'passport-photo': {
       title: 'Xưởng ảnh hộ chiếu và visa',
       blurb: 'Mẫu theo từng quốc gia, canh khuôn mặt và trang in sẵn.',

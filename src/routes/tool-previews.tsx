@@ -416,6 +416,37 @@ export function VideoPreview() {
   );
 }
 
+/** A filmstrip with a slice lifted out of the middle — the whole tool in one picture. */
+export function VideoTrimPreview() {
+  return (
+    <Frame>
+      <rect x="18" y="34" width="60" height="44" rx="5" fill={C.accentSoft} stroke={C.accent} stroke-width="2" />
+      <rect x="122" y="34" width="60" height="44" rx="5" fill={C.accentSoft} stroke={C.accent} stroke-width="2" />
+      {/* The removed middle, lifted clear of the strip and dashed. */}
+      <rect
+        x="84"
+        y="20"
+        width="32"
+        height="44"
+        rx="5"
+        fill={C.paper}
+        stroke={C.muted}
+        stroke-width="2"
+        stroke-dasharray="5 4"
+        opacity="0.65"
+      />
+      <g stroke={C.border} stroke-width="2" stroke-linecap="round">
+        <path d="M18 44 h60 M18 68 h60 M122 44 h60 M122 68 h60" />
+      </g>
+      {/* Handles at the two cut points. */}
+      <g fill={C.accent}>
+        <rect x="74" y="30" width="7" height="52" rx="3.5" />
+        <rect x="119" y="30" width="7" height="52" rx="3.5" />
+      </g>
+    </Frame>
+  );
+}
+
 export function PassportPreview() {
   return (
     <Frame>
@@ -978,6 +1009,7 @@ export const TOOL_PREVIEWS: Partial<Record<ToolKey, () => JSX.Element>> = {
   'metadata-remove': MetadataPreview,
   'spreadsheet-compare': SpreadsheetPreview,
   'video-compress': VideoPreview,
+  'video-trim': VideoTrimPreview,
   'passport-photo': PassportPreview,
   'document-scan': DocScanPreview,
   'mouse-test': MousePreview,

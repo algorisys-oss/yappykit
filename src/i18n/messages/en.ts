@@ -1369,6 +1369,73 @@ export const en = {
       },
     },
 
+    'video-trim': {
+      title: 'Trim a video',
+      blurb: 'Cut a video to the part you want, and drop bits from the middle.',
+      tags: ['video','trim','cut','clip','shorten','mp4','mov','webm','gif','remove section','cut middle','edit video','shorten video','clip maker'],
+      seoTitle: 'Trim a Video in Your Browser, Nothing Uploaded | YappyKit',
+      seoDescription:
+        'Cut a video down to the part you want and remove sections from the middle. Works on MP4, MOV, WebM and GIF, entirely in your browser.',
+      heroTitle: 'Trim a video',
+      heroNote:
+        'Cut a video down to the part you want, and remove the bits in the middle you do not, all in this browser tab.',
+      ui: {
+        pickLabel: 'Choose a video or GIF',
+        fileMeta: '{name}, {size}, {duration}',
+        gifNote:
+          'A GIF cannot be scrubbed in a browser, so set the cut points by time. The export is an MP4, which plays anywhere and is far smaller.',
+        timelineLabel: 'Timeline',
+        timelineHelp:
+          'Drag the two handles to pick a range, then keep it or cut it out. Arrow keys nudge a handle, and Shift moves it a second at a time.',
+        handleStart: 'Selection start',
+        handleEnd: 'Selection end',
+        startLabel: 'Start',
+        endLabel: 'End',
+        keepOnly: 'Keep only this',
+        cutOut: 'Cut this out',
+        undo: 'Undo',
+        reset: 'Reset',
+        outputInfo: 'Output: {kept} of {total}',
+        piecesInfo: 'joined from {count} pieces',
+        action: 'Export the trim',
+        working: 'Trimming…',
+        loading: 'Loading the video engine, the first run downloads about 30 MB…',
+        readError: 'Couldn’t read that video. Try an MP4, MOV, WebM or GIF.',
+        nothingKept: 'Every part is cut. Undo, or reset, to keep something.',
+        download: 'Download {size}',
+        doneStatus: 'Done: {duration}, {size}.',
+        failedWith: 'Trimming failed: {message}',
+        failed: 'Trimming failed.',
+        unsupported: 'This browser can’t run WebAssembly, so trimming isn’t available here.',
+      },
+      content: {
+        howItWorks: [
+          'Most video trimmers send your file to a server first, which means a wait, and a copy of your footage on someone else’s disk. This one does the whole cut inside your browser tab.',
+          'The tool holds an edit list rather than a single start and end, so you can take a section out of the middle and the parts either side are joined back together. Cuts are frame accurate: the clip is re-encoded to MP4 rather than sliced at the nearest keyframe, so the cut lands exactly where you put the handle.',
+          'The first trim downloads the video engine, about 30 MB, and caches it for next time. Because the clip is re-encoded, expect the export to take roughly as long as the part you kept.',
+        ],
+        steps: [
+          'Choose a video (MP4, MOV or WebM) or a GIF.',
+          'Drag the two handles around the part you care about.',
+          'Press “Keep only this”, or “Cut this out” to drop a section from the middle.',
+          'Export the trim, and download the MP4.',
+        ],
+        tips: [
+          'Take out as many sections as you like. What is left is joined back together in order.',
+          'Arrow keys nudge a handle by a tenth of a second, and Shift moves it a full second.',
+          'Undo steps back through your cuts, and Reset starts the clip over.',
+          'Your video is never uploaded. The whole trim runs in this browser tab.',
+        ],
+        faqs: [
+          { q: 'How do I cut the middle out of a video?', a: 'Drag the handles around the part you want gone and press “Cut this out”. The pieces either side are joined back together, and you can do it as many times as you need.' },
+          { q: 'Why does trimming take a while instead of being instant?', a: 'Because the clip is re-encoded, so the cut lands exactly where you put the handle. Slicing at the nearest keyframe is instant, but it can miss by several seconds, which is the usual reason a trimmed clip starts in the wrong place.' },
+          { q: 'Does trimming lose quality?', a: 'A re-encode is never quite lossless, but this one is set so you can’t see the difference rather than to make a small file. If you also need to hit a size limit, run the result through the video compressor afterwards.' },
+          { q: 'Can I trim a GIF?', a: 'Yes. A GIF can’t be scrubbed in a browser, so you set the cut points by time. The export is an MP4, which plays anywhere and is much smaller than a GIF.' },
+          { q: 'Is my video uploaded to a server?', a: 'No. The whole trim runs inside your browser tab.' },
+        ],
+      },
+    },
+
     'passport-photo': {
       title: 'Passport & visa photo studio',
       blurb: 'Country presets, face alignment and printable sheets.',

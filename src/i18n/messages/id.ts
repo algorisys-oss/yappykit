@@ -1367,6 +1367,73 @@ const id: Messages = {
       },
     },
 
+    'video-trim': {
+      title: 'Potong video',
+      blurb: 'Ambil bagian yang Anda mau, dan buang potongan di tengah.',
+      tags: ['video','potong','pangkas','perpendek','klip','mp4','mov','webm','gif','buang bagian','potong tengah','edit video','perpendek video'],
+      seoTitle: 'Potong Video di Browser, Tanpa Unggah | YappyKit',
+      seoDescription:
+        'Ambil bagian video yang Anda mau dan buang bagian di tengah. Bisa untuk MP4, MOV, WebM dan GIF, sepenuhnya di browser Anda.',
+      heroTitle: 'Potong video',
+      heroNote:
+        'Ambil bagian video yang Anda mau, dan buang bagian di tengah yang tidak Anda perlukan, semuanya di tab browser ini.',
+      ui: {
+        pickLabel: 'Pilih video atau GIF',
+        fileMeta: '{name}, {size}, {duration}',
+        gifNote:
+          'GIF tidak bisa digeser waktunya di browser, jadi tentukan titik potong lewat waktu. Hasilnya berupa MP4, yang bisa diputar di mana saja dan jauh lebih kecil.',
+        timelineLabel: 'Garis waktu',
+        timelineHelp:
+          'Geser dua pegangan untuk memilih rentang, lalu simpan atau potong. Tombol panah menggeser pegangan, dan dengan Shift geser satu detik.',
+        handleStart: 'Awal pilihan',
+        handleEnd: 'Akhir pilihan',
+        startLabel: 'Awal',
+        endLabel: 'Akhir',
+        keepOnly: 'Simpan yang ini saja',
+        cutOut: 'Potong yang ini',
+        undo: 'Urungkan',
+        reset: 'Atur ulang',
+        outputInfo: 'Hasil: {kept} dari {total}',
+        piecesInfo: 'disambung dari {count} potongan',
+        action: 'Ekspor hasil potong',
+        working: 'Memotong…',
+        loading: 'Memuat mesin video, kali pertama mengunduh sekitar 30 MB…',
+        readError: 'Video itu tidak terbaca. Coba MP4, MOV, WebM atau GIF.',
+        nothingKept: 'Semuanya terpotong. Urungkan, atau atur ulang, agar ada yang tersisa.',
+        download: 'Unduh {size}',
+        doneStatus: 'Selesai: {duration}, {size}.',
+        failedWith: 'Pemotongan gagal: {message}',
+        failed: 'Pemotongan gagal.',
+        unsupported: 'Browser ini tidak bisa menjalankan WebAssembly, jadi pemotongan tidak tersedia di sini.',
+      },
+      content: {
+        howItWorks: [
+          'Kebanyakan pemotong video mengunggah berkas Anda ke server dulu, yang berarti menunggu, dan meninggalkan salinan rekaman Anda di disk orang lain. Yang ini memotong sepenuhnya di dalam tab browser Anda.',
+          'Alat ini menyimpan daftar potongan, bukan sekadar satu awal dan satu akhir. Jadi Anda bisa membuang bagian di tengah, dan bagian di kiri kanannya disambung kembali. Potongannya tepat sampai ke frame: klip dikodekan ulang menjadi MP4, bukan dipotong di keyframe terdekat, sehingga potongan jatuh persis di tempat Anda menaruh pegangan.',
+          'Pemotongan pertama mengunduh mesin video, sekitar 30 MB, lalu menyimpannya untuk lain kali. Karena klip dikodekan ulang, ekspor kira-kira selama bagian yang Anda simpan.',
+        ],
+        steps: [
+          'Pilih video (MP4, MOV atau WebM) atau GIF.',
+          'Geser dua pegangan ke bagian yang Anda inginkan.',
+          'Tekan “Simpan yang ini saja”, atau “Potong yang ini” untuk membuang bagian di tengah.',
+          'Ekspor hasilnya dan unduh MP4.',
+        ],
+        tips: [
+          'Buang sebanyak apa pun bagian yang Anda mau. Sisanya disambung berurutan.',
+          'Tombol panah menggeser pegangan sepersepuluh detik, dan dengan Shift satu detik penuh.',
+          'Urungkan mundur lewat potongan Anda, dan Atur ulang memulai klip dari awal.',
+          'Video Anda tidak pernah diunggah. Seluruh pemotongan berjalan di tab browser ini.',
+        ],
+        faqs: [
+          { q: 'Bagaimana cara membuang bagian tengah video?', a: 'Geser pegangan ke bagian yang ingin dibuang lalu tekan “Potong yang ini”. Bagian di kiri kanannya disambung kembali, dan Anda bisa mengulanginya sebanyak yang diperlukan.' },
+          { q: 'Kenapa memotong butuh waktu, bukan langsung jadi?', a: 'Karena klip dikodekan ulang, agar potongan jatuh persis di tempat Anda menaruh pegangan. Memotong di keyframe terdekat memang instan, tetapi bisa meleset beberapa detik, dan itu alasan paling umum klip hasil potong mulai di tempat yang salah.' },
+          { q: 'Apakah memotong menurunkan kualitas?', a: 'Pengodean ulang tidak pernah benar-benar tanpa kehilangan, tetapi yang ini disetel agar Anda tidak melihat bedanya, bukan untuk menghasilkan berkas kecil. Kalau Anda juga perlu memenuhi batas ukuran, lewatkan hasilnya ke pengompres video setelahnya.' },
+          { q: 'Bisakah saya memotong GIF?', a: 'Bisa. GIF tidak bisa digeser waktunya di browser, jadi Anda menentukan titik potong lewat waktu. Hasilnya berupa MP4, yang bisa diputar di mana saja dan jauh lebih kecil daripada GIF.' },
+          { q: 'Apakah video saya diunggah ke server?', a: 'Tidak. Seluruh pemotongan berjalan di dalam tab browser Anda.' },
+        ],
+      },
+    },
+
     'passport-photo': {
       title: 'Studio pas foto paspor & visa',
       blurb: 'Preset per negara, penyelarasan wajah, dan lembar siap cetak.',

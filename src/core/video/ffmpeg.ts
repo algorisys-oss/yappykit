@@ -15,6 +15,7 @@ import { FFmpeg } from '@ffmpeg/ffmpeg';
 import { fetchFile, toBlobURL } from '@ffmpeg/util';
 import coreURL from '@ffmpeg/core?url';
 import wasmURL from '@ffmpeg/core/wasm?url';
+import { buildTrimArgs, totalDuration, type Segment } from './trim';
 
 /**
  * Fetch the core's wasm and hand ffmpeg a blob URL for it.
@@ -45,6 +46,7 @@ async function coreWasmUrl(): Promise<string> {
 let instance: FFmpeg | null = null;
 let loading: Promise<FFmpeg> | null = null;
 let progressCb: ((fraction: number) => void) | null = null;
+let logCb: ((line: string) => void) | null = null;
 
 export function isLoaded(): boolean {
   return instance != null;
@@ -57,6 +59,9 @@ async function load(): Promise<FFmpeg> {
       const ff = new FFmpeg();
       ff.on('progress', (e: { progress: number }) => {
         if (progressCb) progressCb(Math.min(1, Math.max(0, e.progress)));
+      });
+      ff.on('log', (e: { message: string }) => {
+        if (logCb) logCb(e.message);
       });
       await ff.load({
         coreURL: await toBlobURL(coreURL, 'text/javascript'),
@@ -103,6 +108,87 @@ export async function transcodeVideo(file: File, opts: TranscodeOptions): Promis
     return data;
   } finally {
     progressCb = null;
+    await ff.deleteFile(inName).catch(() => {});
+    await ff.deleteFile(outName).catch(() => {});
+  }
+}
+
+/** `time=00:01:02.34` out of ffmpeg's own stats line. */
+const TIME_LINE = /time=(\d+):(\d+):(\d+(?:\.\d+)?)/;
+
+/** A stream listing line for an audio track, from ffmpeg's input summary. */
+const AUDIO_STREAM = /Stream #\d+:\d+.*: Audio:/;
+
+/**
+ * Does this input carry an audio track?
+ *
+ * It has to be asked, because `concat` cannot take a stream that is not there:
+ * building an audio branch for a GIF or a silent clip does not degrade, it
+ * fails the whole encode. Running ffmpeg with no output is the cheap way to
+ * ask — it prints the stream table, then exits complaining, having decoded
+ * nothing.
+ */
+async function probeAudio(ff: FFmpeg, name: string): Promise<boolean> {
+  let found = false;
+  logCb = (line) => {
+    if (AUDIO_STREAM.test(line)) found = true;
+  };
+  try {
+    await ff.exec(['-i', name]);
+  } catch {
+    // No output file is an error by design; the stream table is already read.
+  } finally {
+    logCb = null;
+  }
+  return found;
+}
+
+export interface TrimOptions {
+  /** 0..1 encode progress. */
+  onProgress?: (fraction: number) => void;
+  /** Called once the (large) core has loaded, before encoding starts. */
+  onReady?: () => void;
+}
+
+/**
+ * Cut `file` down to `keep` and return MP4 bytes.
+ *
+ * Progress is read from ffmpeg's own `time=` output rather than from the
+ * library's progress event, which is documented as accurate only when the input
+ * and output durations match — the one thing trimming always breaks.
+ */
+export async function trimVideo(
+  file: File,
+  keep: readonly Segment[],
+  opts: TrimOptions = {},
+): Promise<Uint8Array> {
+  const expected = totalDuration(keep);
+  if (expected <= 0) throw new Error('Nothing is selected to keep.');
+
+  const ff = await load();
+  opts.onReady?.();
+
+  const ext = file.name.match(/\.[a-z0-9]+$/i)?.[0] ?? '.mp4';
+  const inName = `trim-input${ext}`;
+  const outName = 'trim-output.mp4';
+  try {
+    await ff.writeFile(inName, await fetchFile(file));
+    const hasAudio = await probeAudio(ff, inName);
+
+    logCb = (line) => {
+      const at = TIME_LINE.exec(line);
+      if (!at || !opts.onProgress) return;
+      const seconds = Number(at[1]) * 3600 + Number(at[2]) * 60 + Number(at[3]);
+      opts.onProgress(Math.min(1, Math.max(0, seconds / expected)));
+    };
+    await ff.exec(buildTrimArgs(keep, { input: inName, output: outName, hasAudio }));
+    logCb = null;
+
+    const data = (await ff.readFile(outName)) as Uint8Array;
+    if (data.byteLength === 0) throw new Error('The trimmed video came back empty.');
+    return data;
+  } finally {
+    logCb = null;
     await ff.deleteFile(inName).catch(() => {});
     await ff.deleteFile(outName).catch(() => {});
   }
