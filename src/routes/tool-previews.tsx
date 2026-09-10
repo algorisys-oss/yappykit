@@ -574,6 +574,29 @@ export function RulerPreview() {
   );
 }
 
+export function StreamTimerPreview() {
+  return (
+    <Frame>
+      {/* The display window, as it would be captured into a scene */}
+      <rect x="18" y="14" width="164" height="76" rx="6" fill={C.fg} stroke={C.border} stroke-width="2" />
+      <text x="100" y="40" fill={C.paper} font-size="12" font-weight="600" text-anchor="middle" opacity="0.85">
+        Back in
+      </text>
+      <text x="100" y="70" fill={C.paper} font-size="26" font-weight="700" text-anchor="middle">
+        5:00
+      </text>
+      {/* The bell that ends it */}
+      <g transform="translate(150 60)">
+        <path
+          d="M0 12 a10 10 0 0 1 -6 -9 v-4 a6 6 0 0 1 12 0 v4 a10 10 0 0 1 -6 9 z"
+          fill={C.accent}
+        />
+        <path d="M-2 14 a2 2 0 0 0 4 0" fill={C.accent} />
+      </g>
+    </Frame>
+  );
+}
+
 export function PdfPreview() {
   return (
     <Frame>
@@ -1037,4 +1060,5 @@ export const TOOL_PREVIEWS: Partial<Record<ToolKey, () => JSX.Element>> = {
   'image-resize': ImageResizePreview,
   'image-crop': ImageCropPreview,
   'pdf-password': PdfPasswordPreview,
+  'stream-timer': StreamTimerPreview,
 };

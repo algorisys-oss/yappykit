@@ -33,6 +33,11 @@ export const TOOL_CAPABILITIES: Record<ToolKey, CapabilitySpec> = {
   'image-to-pdf': { required: [], preferred: ['createImageBitmap'] },
   // Text and pdf-lib only: no canvas, no WebAssembly, nothing to fall back from.
   'markdown-to-pdf': { required: [], preferred: [] },
+  // A clock, a message and a synthesised bell: nothing here can be missing
+  // badly enough to stop the tool. Choosing WHICH output the bell plays to is
+  // Chromium-only, and everywhere else it goes to the system default, which is
+  // a real difference worth stating rather than a failure.
+  'stream-timer': { required: [], preferred: ['audioOutputSelection'] },
   'screenshot-stitch': { required: [], preferred: ['createImageBitmap', 'offscreenCanvas'] },
   'pdf-compress': { required: [], preferred: ['offscreenCanvas'] },
   // ffmpeg is WebAssembly, and its core ships gzipped to fit the host's

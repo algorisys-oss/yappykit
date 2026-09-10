@@ -62,6 +62,9 @@ const SINCE: Record<Capability, Record<BrowserId, number | null>> = {
   decompressionStream: { chrome: 80, firefox: 113, safari: 16.4, edge: 80 },
   // Local Font Access is Chromium-only and shows no sign of changing.
   localFonts: { chrome: 103, firefox: null, safari: null, edge: 103 },
+  // AudioContext.setSinkId. Chromium-only so far; elsewhere a page plays to
+  // whatever the system default output is and cannot ask for another.
+  audioOutputSelection: { chrome: 110, firefox: null, safari: null, edge: 110 },
 };
 
 export interface BrowserVerdict {

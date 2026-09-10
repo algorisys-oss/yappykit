@@ -13,6 +13,7 @@ const ALL_OFF: CapabilitySnapshot = {
   wasm: false,
   decompressionStream: false,
   localFonts: false,
+  audioOutputSelection: false,
 };
 
 const snapshot = (over: Partial<CapabilitySnapshot>): CapabilitySnapshot => ({

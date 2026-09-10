@@ -23,6 +23,14 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '0.16.0',
+    date: '2026-09-11',
+    added: [
+      'A countdown timer built for livestreams, at /stream-countdown-timer. Set how long the break is, write the message your audience should see, and open a separate display window carrying nothing but the clock and that message. You capture that window in OBS, so pausing, editing the wording or adding a minute never appears on the broadcast. Emoji work anywhere in the message, including flags and family emoji, which are several characters joined together and are usually the first thing a text box breaks. The background can be set to a key colour and chroma keyed out into an existing scene. A bell rings at zero, synthesised in the browser rather than downloaded, with a test button so you can check the level before going live, and on Chrome and Edge you can send it to a specific output device. Confetti at the end, unless you turn it off or your system asks for reduced motion. Nothing is uploaded and nothing about the stream is transmitted anywhere.',
+      'Two decisions inside that timer are worth stating, because they are the difference between a countdown that works behind streaming software and one that does not. Browsers deliberately slow down timers in tabs you are not looking at, which after a few minutes means about one wake a minute, so a clock that counts by subtracting a second at a time falls minutes behind exactly when it matters. This one records the moment it will reach zero and works backwards from the clock, so a slowed tab changes how smoothly the digits move and never what they say. The bell has the same problem and needs a different answer, because something has to be awake to make a sound: it is handed to the audio system when you press start, booked for a specific time, and the audio system rings it on schedule whatever the page is doing.',
+    ],
+  },
+  {
     version: '0.15.1',
     date: '2026-09-09',
     fixed: [

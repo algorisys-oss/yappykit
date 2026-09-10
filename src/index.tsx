@@ -1,7 +1,7 @@
 import { render } from 'solid-js/web';
 import { initAnalytics } from './lib/analytics';
 import { Router, Route, useLocation } from '@solidjs/router';
-import { createEffect, lazy, type Component, type ParentProps } from 'solid-js';
+import { createEffect, lazy, Show, type Component, type ParentProps } from 'solid-js';
 import 'virtual:uno.css';
 import '@algorisys/zen-ui-core/tokens.css'; // shared --zen-color-* palette (light + dark)
 import './styles/tokens.css';
@@ -73,6 +73,7 @@ const COMPONENTS: Record<RouteKey, Component> = {
   'color-picker': lazy(() => import('./routes/tools/color-picker')),
   'batch-rename': lazy(() => import('./routes/tools/batch-rename')),
   'sheet-convert': lazy(() => import('./routes/tools/sheet-convert')),
+  'stream-timer': lazy(() => import('./routes/tools/stream-timer')),
   about: lazy(() => import('./routes/about')),
   privacy: lazy(() => import('./routes/privacy')),
   terms: lazy(() => import('./routes/terms')),
@@ -145,11 +146,21 @@ async function start() {
       window.location.assign(location.pathname + location.search + location.hash);
     });
 
+    /**
+     * The stream timer's display window asks for the page WITHOUT the site
+     * around it: it is opened to be window-captured into a broadcast, and a
+     * header and footer in the capture defeat the point. It is the same route
+     * as the control page, so the surface is chosen by the query rather than by
+     * a second entry in the route table, which keeps it out of the sitemap and
+     * the hreflang cluster where an unindexable capture surface has no place.
+     */
+    const bare = () => new URLSearchParams(location.search).get('display') === '1';
+
     return (
       <I18nProvider locale={locale} messages={messages}>
-        <Header />
+        <Show when={!bare()}><Header /></Show>
         {props.children}
-        <Footer />
+        <Show when={!bare()}><Footer /></Show>
       </I18nProvider>
     );
   }

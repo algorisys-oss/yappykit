@@ -48,6 +48,7 @@ export const TOOL_KEYS = [
   'image-crop',
   'pdf-password',
   'markdown-to-pdf',
+  'stream-timer',
 ] as const;
 
 export type ToolKey = (typeof TOOL_KEYS)[number];
@@ -98,6 +99,7 @@ export const TOOL_CATEGORY: Record<ToolKey, Category> = {
   'keyboard-test': 'device',
   'camera-mic-test': 'device',
   ruler: 'device',
+  'stream-timer': 'device',
 };
 
 export function toolsInCategory(category: Category): ToolKey[] {
@@ -322,6 +324,21 @@ const STATIC_ROUTES: Record<Exclude<RouteKey, BuildKey | CategoryKey>, RouteDef>
       tr: 'klavye-testi',
       vi: 'kiem-tra-ban-phim',
       it: 'test-tastiera',
+    },
+  },
+  'stream-timer': {
+    localized: true,
+    slugs: {
+      en: 'stream-countdown-timer',
+      es: 'cuenta-atras-para-directos',
+      'pt-BR': 'cronometro-para-lives',
+      id: 'timer-mundur-streaming',
+      fr: 'compte-a-rebours-pour-stream',
+      de: 'countdown-timer-fuer-streams',
+      ru: 'tajmer-dlya-strima',
+      tr: 'yayin-icin-geri-sayim',
+      vi: 'dem-nguoc-cho-livestream',
+      it: 'conto-alla-rovescia-per-dirette',
     },
   },
   ruler: {
@@ -999,8 +1016,9 @@ const RELATED: Record<ToolKey, readonly ToolKey[]> = {
   'mouse-test': ['keyboard-test', 'camera-mic-test', 'ruler'],
   'keyboard-test': ['mouse-test', 'font-coverage', 'random-word'],
   ruler: ['mouse-test', 'keyboard-test', 'camera-mic-test'],
+  'stream-timer': ['camera-mic-test', 'ruler', 'random-word'],
   'pdf-compress': ['pdf-split', 'pdf-merge', 'image-to-pdf'],
-  'camera-mic-test': ['mouse-test', 'keyboard-test', 'video-compress'],
+  'camera-mic-test': ['mouse-test', 'keyboard-test', 'stream-timer'],
   'random-word': ['font-coverage', 'keyboard-test', 'mouse-test'],
   'pdf-merge': ['pdf-split', 'pdf-compress', 'markdown-to-pdf'],
   'screenshot-stitch': ['screenshot-split', 'image-compress', 'pdf-merge'],

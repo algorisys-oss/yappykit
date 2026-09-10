@@ -23,7 +23,8 @@ export type Capability =
   | 'webgpu'
   | 'wasm'
   | 'decompressionStream'
-  | 'localFonts';
+  | 'localFonts'
+  | 'audioOutputSelection';
 
 export type CapabilitySnapshot = Record<Capability, boolean>;
 
@@ -57,6 +58,10 @@ export function detectCapabilities(): CapabilitySnapshot {
     // prompt. Chromium desktop only, and no tool may require it.
     localFonts:
       typeof (globalThis as { queryLocalFonts?: unknown }).queryLocalFonts === 'function',
+    // Choosing which output device a sound plays to. Chromium-only, and only
+    // ever a nicety: without it the bell simply plays to the default output.
+    audioOutputSelection:
+      typeof AudioContext !== 'undefined' && 'setSinkId' in AudioContext.prototype,
   };
 }
 
