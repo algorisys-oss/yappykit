@@ -23,6 +23,14 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '0.16.1',
+    date: '2026-09-11',
+    fixed: [
+      'Refreshing the page in the middle of a break restarted the countdown at its full length. The message, the colours and the length were remembered on the device but the run itself was not, so a reload two minutes into a five minute break put the whole five minutes back on the clock in front of whoever was watching. The run is now remembered as well, and because the timer records the moment it will reach zero rather than counting seconds off one at a time, picking it back up is exact: a break reloaded two minutes in comes back with two minutes gone, and one that ran out while the page was closed comes back finished rather than counting down a second time. It is not kept forever. A run survives for about as long again as the timer itself lasted, so refreshing mid-break restores it while opening the tool the next morning does not ring a bell and throw confetti at an empty room, and pressing reset still clears it outright. One limit is worth knowing, and the page now states it rather than leaving you to find out: a restored countdown cannot arrange its bell until you press something, because a browser will not let a page make a sound until you have interacted with it.',
+      'Starting a timer briefly showed a second that was never on it. Press start on a five minute break and the clock read 5:01 for a moment before settling to 5:00. The clock is worked out by subtracting the current time from the moment the timer ends, and the current time was being re-read on a schedule rather than at the instant the button was pressed, so the subtraction came out a fraction longer than the length you had set. The display always rounds up, which is deliberate and is why a five minute timer reads 5:00 on its first frame instead of 4:59, and that rounding turned the fraction into a whole extra second. Both now come from a single reading of the clock. Pausing, adding a minute and taking one off were wrong in the same way and are fixed with it.',
+    ],
+  },
+  {
     version: '0.16.0',
     date: '2026-09-11',
     added: [

@@ -16,6 +16,7 @@ import {
   loadSettings, saveSettings, normalizeSettings, type TimerSettings,
 } from '@core/timer/settings';
 import { openTimerChannel, type TimerChannel } from '@core/timer/channel';
+import { loadSession, saveSession } from '@core/timer/session';
 import { createBell, listAudioOutputs, type AudioOutput } from '@core/timer/bell';
 
 /**
@@ -137,6 +138,7 @@ function ControlPanel() {
   const [displayOpen, setDisplayOpen] = createSignal(false);
   const [outputs, setOutputs] = createSignal<AudioOutput[]>([]);
   const [audioBlocked, setAudioBlocked] = createSignal(false);
+  const [audioReady, setAudioReady] = createSignal(false);
 
   const bell = createBell();
   let channel: TimerChannel | null = null;
@@ -149,10 +151,35 @@ function ControlPanel() {
   const running = () => phase() === 'running';
   const patch = (next: Partial<TimerSettings>) => setSettings((s) => normalizeSettings({ ...s, ...next }));
 
+  /**
+   * Move the countdown and the clock it is read against from the SAME instant.
+   *
+   * `remaining` is `endsAt - now()`, and `now` is a signal refreshed on an
+   * interval. Build `endsAt` from a fresh `Date.now()` while that signal is
+   * still a tick behind, and the subtraction comes out slightly LONGER than the
+   * duration: the clock rounds up, so pressing start on a five minute break
+   * shows 5:01 until the next tick catches up. A countdown whose first move is
+   * upwards is the one thing an audience is certain to notice. Taking one
+   * reading and stamping both with it removes the skew rather than hiding it
+   * behind a faster interval.
+   */
+  const advance = (step: (c: Countdown, at: number) => Countdown) => {
+    const at = Date.now();
+    setNow(at);
+    setCountdown((c) => step(c, at));
+  };
+
   onMount(() => {
     const stored = loadSettings(window.localStorage);
     setSettings(stored);
-    setCountdown(createCountdown(stored.durationMs));
+
+    // A break does not stop for a refresh, so a run that is still live is picked
+    // up where it was. Its bell cannot be: booking a strike needs an audio
+    // context, and a context needs a gesture this fresh page has not had yet.
+    // Say so rather than counting down to a silence the streamer is not expecting.
+    const resumed = loadSession(window.localStorage, Date.now());
+    setCountdown(resumed ?? createCountdown(stored.durationMs));
+    if (resumed?.phase === 'running' && stored.bellEnabled) setAudioBlocked(true);
 
     channel = openTimerChannel();
     channel.onMessage((message) => {
@@ -163,10 +190,7 @@ function ControlPanel() {
       if (message.type === 'closing') setDisplayOpen(false);
     });
 
-    const id = setInterval(() => {
-      setNow(Date.now());
-      setCountdown((c) => tick(c, Date.now()));
-    }, 200);
+    const id = setInterval(() => advance(tick), 200);
 
     // A screen wake lock is dropped whenever the page is hidden, so it has to be
     // taken again on the way back rather than assumed to still be held.
@@ -191,6 +215,7 @@ function ControlPanel() {
 
   createEffect(publish);
   createEffect(() => saveSettings(window.localStorage, settings()));
+  createEffect(() => saveSession(window.localStorage, countdown(), Date.now()));
 
   /**
    * Keep the scheduled strike in step with the clock.
@@ -206,8 +231,9 @@ function ControlPanel() {
     const c = countdown();
     const enabled = bellEnabled();
     const volume = bellVolume();
+    const ready = audioReady();
     bell.cancel();
-    if (c.phase === 'running' && enabled) bell.ringIn(remainingAt(c, Date.now()), volume);
+    if (ready && c.phase === 'running' && enabled) bell.ringIn(remainingAt(c, Date.now()), volume);
   });
 
   createEffect(() => {
@@ -241,6 +267,7 @@ function ControlPanel() {
    */
   async function unlockAudio() {
     const ready = await bell.unlock();
+    setAudioReady(ready);
     setAudioBlocked(!ready);
     if (ready && settings().sinkId) await bell.setSink(settings().sinkId);
     return ready;
@@ -248,16 +275,16 @@ function ControlPanel() {
 
   async function onStart() {
     await unlockAudio();
-    setCountdown((c) => start(c, Date.now()));
+    advance(start);
   }
 
   async function onResume() {
     await unlockAudio();
-    setCountdown((c) => resume(c, Date.now()));
+    advance(resume);
   }
 
   function onPause() {
-    setCountdown((c) => pause(c, Date.now()));
+    advance(pause);
   }
 
   function onReset() {
@@ -268,7 +295,7 @@ function ControlPanel() {
     // Adding time to a finished timer starts it running again, which needs the
     // same audio permission a fresh start does.
     if (deltaMs > 0 && phase() === 'elapsed') await unlockAudio();
-    setCountdown((c) => adjust(c, deltaMs, Date.now()));
+    advance((c, at) => adjust(c, deltaMs, at));
   }
 
   async function onTestBell() {

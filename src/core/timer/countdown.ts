@@ -124,3 +124,29 @@ export function formatRemaining(ms: number): string {
   const hours = Math.floor(total / 3600);
   return hours > 0 ? `${hours}:${pad(minutes)}:${pad(seconds)}` : `${minutes}:${pad(seconds)}`;
 }
+
+const PHASES: readonly Phase[] = ['idle', 'running', 'paused', 'elapsed'];
+
+const finite = (v: unknown): v is number => typeof v === 'number' && Number.isFinite(v);
+
+/**
+ * Rebuild a `Countdown` from untrusted input, or refuse it.
+ *
+ * A countdown reaches this process from two places that are equally outside our
+ * control: another window over BroadcastChannel, and localStorage. Both are
+ * checked here rather than at each call site, so the two paths cannot drift
+ * apart on what counts as a valid state.
+ */
+export function parseCountdown(input: unknown): Countdown | null {
+  if (typeof input !== 'object' || input === null) return null;
+  const c = input as Record<string, unknown>;
+  if (!PHASES.includes(c.phase as Phase)) return null;
+  if (!finite(c.durationMs) || !finite(c.remainingMs)) return null;
+  if (c.endsAt !== null && !finite(c.endsAt)) return null;
+  return {
+    phase: c.phase as Phase,
+    durationMs: c.durationMs,
+    endsAt: c.endsAt as number | null,
+    remainingMs: c.remainingMs,
+  };
+}

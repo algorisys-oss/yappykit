@@ -17,7 +17,7 @@
  * window, so `parseMessage` validates and repairs it before the display renders
  * a single field of it.
  */
-import type { Countdown, Phase } from './countdown';
+import { parseCountdown, type Countdown } from './countdown';
 import { normalizeSettings, type TimerSettings } from './settings';
 
 export type TimerMessage =
@@ -36,24 +36,6 @@ export interface TimerChannel {
   /** Set the handler. Only valid messages are delivered; junk is dropped. */
   onMessage(handler: (message: TimerMessage) => void): void;
   close(): void;
-}
-
-const PHASES: readonly Phase[] = ['idle', 'running', 'paused', 'elapsed'];
-
-const finite = (v: unknown): v is number => typeof v === 'number' && Number.isFinite(v);
-
-function parseCountdown(input: unknown): Countdown | null {
-  if (typeof input !== 'object' || input === null) return null;
-  const c = input as Record<string, unknown>;
-  if (!PHASES.includes(c.phase as Phase)) return null;
-  if (!finite(c.durationMs) || !finite(c.remainingMs)) return null;
-  if (c.endsAt !== null && !finite(c.endsAt)) return null;
-  return {
-    phase: c.phase as Phase,
-    durationMs: c.durationMs,
-    endsAt: c.endsAt as number | null,
-    remainingMs: c.remainingMs,
-  };
 }
 
 export function parseMessage(input: unknown): TimerMessage | null {
