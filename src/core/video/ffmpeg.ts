@@ -16,6 +16,7 @@ import { fetchFile, toBlobURL } from '@ffmpeg/util';
 import coreURL from '@ffmpeg/core?url';
 import wasmURL from '@ffmpeg/core/wasm?url';
 import { buildTrimArgs, totalDuration, type Segment } from './trim';
+import { buildBlurArgs, type BlurStrength, type Frame, type Mask } from './blur';
 
 /**
  * Fetch the core's wasm and hand ffmpeg a blob URL for it.
@@ -186,6 +187,69 @@ export async function trimVideo(
 
     const data = (await ff.readFile(outName)) as Uint8Array;
     if (data.byteLength === 0) throw new Error('The trimmed video came back empty.');
+    return data;
+  } finally {
+    logCb = null;
+    await ff.deleteFile(inName).catch(() => {});
+    await ff.deleteFile(outName).catch(() => {});
+  }
+}
+
+export interface BlurOptions {
+  /** The source's own dimensions. The caller already has them from the preview. */
+  frame: Frame;
+  /** Source duration in seconds, which is also how long the export is. */
+  duration: number;
+  strength: BlurStrength;
+  /** 0..1 encode progress. */
+  onProgress?: (fraction: number) => void;
+  /** Called once the (large) core has loaded, before encoding starts. */
+  onReady?: () => void;
+}
+
+/**
+ * Burn `masks` into `file` and return MP4 bytes.
+ *
+ * Every frame is decoded and re-encoded, because the blur has to be in the
+ * pixels: there is no keyframe shortcut, so this takes about as long as the
+ * clip plays. Progress is read from `time=` for the same reason as the trimmer.
+ */
+export async function blurVideo(
+  file: File,
+  masks: readonly Mask[],
+  opts: BlurOptions,
+): Promise<Uint8Array> {
+  const ff = await load();
+  opts.onReady?.();
+
+  const ext = file.name.match(/\.[a-z0-9]+$/i)?.[0] ?? '.mp4';
+  const inName = `blur-input${ext}`;
+  const outName = 'blur-output.mp4';
+  try {
+    await ff.writeFile(inName, await fetchFile(file));
+    const hasAudio = await probeAudio(ff, inName);
+    // Built after the probe, and before exec, so a mask list with nothing
+    // usable in it fails here with a message rather than as an ffmpeg error.
+    const args = buildBlurArgs(masks, {
+      input: inName,
+      output: outName,
+      hasAudio,
+      frame: opts.frame,
+      duration: opts.duration,
+      strength: opts.strength,
+    });
+
+    logCb = (line) => {
+      const at = TIME_LINE.exec(line);
+      if (!at || !opts.onProgress || opts.duration <= 0) return;
+      const seconds = Number(at[1]) * 3600 + Number(at[2]) * 60 + Number(at[3]);
+      opts.onProgress(Math.min(1, Math.max(0, seconds / opts.duration)));
+    };
+    await ff.exec(args);
+    logCb = null;
+
+    const data = (await ff.readFile(outName)) as Uint8Array;
+    if (data.byteLength === 0) throw new Error('The blurred video came back empty.');
     return data;
   } finally {
     logCb = null;

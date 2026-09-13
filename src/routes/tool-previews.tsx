@@ -447,6 +447,23 @@ export function VideoTrimPreview() {
   );
 }
 
+export function VideoBlurPreview() {
+  return (
+    <Frame>
+      <rect x="30" y="18" width="140" height="76" rx="6" fill={C.paper} stroke={C.border} stroke-width="2" />
+      {/* A head and shoulders, with the face under a blur box. */}
+      <path d="M72 94 C72 72 128 72 128 94" fill={C.accentSoft} stroke={C.accent} stroke-width="2.5" />
+      <rect x="80" y="28" width="40" height="40" rx="6" fill={C.accentSoft} stroke={C.accent} stroke-width="2.5" />
+      <g stroke={C.accent} stroke-width="2" stroke-linecap="round" opacity="0.55">
+        <path d="M88 40 h24 M86 48 h28 M88 56 h24" />
+      </g>
+      <g stroke={C.muted} stroke-width="2" stroke-linecap="round">
+        <path d="M44 30 h12 M144 30 h12" />
+      </g>
+    </Frame>
+  );
+}
+
 export function PassportPreview() {
   return (
     <Frame>
@@ -1033,6 +1050,7 @@ export const TOOL_PREVIEWS: Partial<Record<ToolKey, () => JSX.Element>> = {
   'spreadsheet-compare': SpreadsheetPreview,
   'video-compress': VideoPreview,
   'video-trim': VideoTrimPreview,
+  'video-blur': VideoBlurPreview,
   'passport-photo': PassportPreview,
   'document-scan': DocScanPreview,
   'mouse-test': MousePreview,

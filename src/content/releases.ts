@@ -23,6 +23,14 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '0.17.0',
+    date: '2026-09-13',
+    added: [
+      'A tool for blurring faces, number plates and screens in a video, at /blur-a-face-in-a-video. Drag a box over what should be hidden and it is blurred into the video for the whole clip, or for only the seconds you set, with Start here and End here buttons that time a box to the frame you are paused on. Add as many boxes as you need. The blur is painted into the pixels and the video is encoded again, so it cannot be switched off or removed from the file afterwards, which also means an export takes at least as long as the video plays. The first run downloads the video engine, about 30 MB, which is then cached. MP4, MOV and WebM all work, the export is an MP4, and nothing is uploaded, which matters more for this tool than most: a clip you are blurring for privacy should not reach someone else\u2019s server on the way.',
+      'Two choices on that page are stated plainly rather than left for you to discover. There are two strengths, and only one of them is for privacy. Unrecognisable scales the blur to the size of each box and repeats it until no structure is left inside; Softened is for tidying a background, and a face blurred that way can still be recognised, so the page says not to use it to hide anyone. And a box does not follow a face that moves. It stays where you drew it for the span you give it, so a subject who walks across the frame needs a larger box or several boxes with different timings. Following a face automatically needs a face detection model, which this tool does not have.',
+    ],
+  },
+  {
     version: '0.16.1',
     date: '2026-09-11',
     fixed: [

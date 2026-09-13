@@ -45,6 +45,7 @@ export const TOOL_CAPABILITIES: Record<ToolKey, CapabilitySpec> = {
   'video-compress': { required: ['wasm', 'decompressionStream'], preferred: ['webCodecs'] },
   // Same engine, same gzipped core, so the same hard requirements.
   'video-trim': { required: ['wasm', 'decompressionStream'], preferred: ['webCodecs'] },
+  'video-blur': { required: ['wasm', 'decompressionStream'], preferred: [] },
   // qpdf is WebAssembly and its only build imports SHARED memory, so this tool
   // needs real cross-origin isolation — unlike the video tool, which has a
   // single-threaded core to fall back to. Without isolation qpdf does not fail,
