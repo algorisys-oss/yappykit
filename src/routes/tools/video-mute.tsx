@@ -110,7 +110,7 @@ export default function VideoMute() {
 
   return (
     <main class="mx-auto max-w-2xl px-6 py-12">
-      <ToolHero title={tt.heroTitle} preview={VideoMutePreview}>
+      <ToolHero title={tt.heroTitle} tool="video-mute" preview={VideoMutePreview}>
         {tt.heroNote}
       </ToolHero>
       <Show

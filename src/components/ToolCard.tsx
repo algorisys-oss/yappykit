@@ -2,10 +2,12 @@ import { A } from '@solidjs/router';
 import { Show } from 'solid-js';
 import { TOOL_PREVIEWS } from '../routes/tool-previews';
 import type { Tool } from '../lib/tools';
+import { useI18n } from '../i18n/runtime';
 
 /** One tool in a grid. Shared by the landing page and the category hubs. */
 export default function ToolCard(props: { tool: Tool }) {
   const Preview = TOOL_PREVIEWS[props.tool.key];
+  const { m } = useI18n();
   return (
     <A
       href={props.tool.href}
@@ -19,7 +21,12 @@ export default function ToolCard(props: { tool: Tool }) {
         )}
       </Show>
       <span class="flex items-center justify-between gap-2">
-        <span class="font-semibold text-fg">{props.tool.title}</span>
+        <span class="flex flex-wrap items-center gap-2">
+          <span class="font-semibold text-fg">{props.tool.title}</span>
+          <Show when={props.tool.beta}>
+            <span class="rounded-full bg-accent-soft px-2 py-0.5 text-xs font-medium text-fg">{m.common.betaLabel}</span>
+          </Show>
+        </span>
         <span aria-hidden="true" class="text-accent transition-transform duration-150 group-hover:translate-x-1">
           →
         </span>

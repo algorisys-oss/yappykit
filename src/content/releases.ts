@@ -23,6 +23,15 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '0.20.0',
+    date: '2026-09-13',
+    added: [
+      'Split a video into parts, at /split-a-video: parts no longer than 15, 30 or 60 seconds, the limits stories and WhatsApp statuses have, or a number of equal parts. The length of every part is shown before anything is encoded, and the parts come back as separate MP4s or together in one ZIP. Every cut lands on the exact frame, so a 30 second part is 30 seconds and not a few over, which would get it refused.',
+      'Join videos into one, at /join-videos. Add the clips, put them in order and export a single MP4. The first clip sets the size and frame rate; a clip of a different shape is fitted inside with black bars instead of being stretched, and a clip with no sound gets silence. Each clip’s sound is made exactly as long as its picture before joining, so it stays in sync to the end: with three mismatched clips, a sound one second into the last clip landed exactly where it belongs.',
+      'A Beta label on the tools that are live but still being tested thoroughly: every video tool, and the document scanner with its text recognition. They work and nothing about them is uploaded, but they meet whatever a phone or screen recorder produced, so the label asks you to check the result before relying on it.',
+    ],
+  },
+  {
     version: '0.19.0',
     date: '2026-09-13',
     added: [

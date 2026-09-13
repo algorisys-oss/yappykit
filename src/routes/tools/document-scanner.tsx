@@ -119,7 +119,7 @@ export default function DocumentScanner() {
 
   return (
     <main class="mx-auto max-w-3xl px-6 py-12">
-      <ToolHero title={tt.heroTitle} preview={DocScanPreview}>
+      <ToolHero title={tt.heroTitle} tool="document-scan" preview={DocScanPreview}>
         {tt.heroNote}
       </ToolHero>
 

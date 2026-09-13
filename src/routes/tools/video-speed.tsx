@@ -255,7 +255,7 @@ export default function VideoSpeed() {
 
   return (
     <main class="mx-auto max-w-2xl px-6 py-12">
-      <ToolHero title={tt.heroTitle} preview={VideoSpeedPreview}>
+      <ToolHero title={tt.heroTitle} tool="video-speed" preview={VideoSpeedPreview}>
         {tt.heroNote}
       </ToolHero>
 

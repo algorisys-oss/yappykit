@@ -281,7 +281,7 @@ export default function VideoAnnotate() {
 
   return (
     <main class="mx-auto max-w-2xl px-6 py-12">
-      <ToolHero title={tt.heroTitle} preview={VideoAnnotatePreview}>
+      <ToolHero title={tt.heroTitle} tool="video-annotate" preview={VideoAnnotatePreview}>
         {tt.heroNote}
       </ToolHero>
 

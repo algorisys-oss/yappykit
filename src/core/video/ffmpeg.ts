@@ -23,6 +23,7 @@ import { buildReframeArgs, type ReframeMode } from './reframe';
 import { buildExtractArgs, buildMuteArgs, streamsFrom, type AudioFormat } from './audio';
 import { buildSpeedArgs, frameRateFrom, outputDuration, type Piece } from './speed';
 import { buildAnimatedArgs, fitAnimated, type AnimatedFormat, type FitResult } from './animated';
+import { buildJoinArgs, joinTarget } from './split-join';
 import type { Span } from './blur';
 
 /**
@@ -534,6 +535,114 @@ export async function animateVideo(file: File, opts: AnimatedOptions): Promise<F
   } finally {
     logCb = null;
     await ff.deleteFile(inName).catch(() => {});
+    await ff.deleteFile(outName).catch(() => {});
+  }
+}
+
+export interface SplitOptions {
+  /** 0..1 progress across all parts. */
+  onProgress?: (fraction: number) => void;
+  /** Called before each part is encoded, with its index from 0. */
+  onPart?: (index: number) => void;
+  onReady?: () => void;
+}
+
+/** Encode each range as its own MP4, reading the source file only once. */
+export async function splitVideo(
+  file: File,
+  parts: readonly Segment[],
+  opts: SplitOptions = {},
+): Promise<Uint8Array[]> {
+  const total = totalDuration(parts);
+  const ff = await load().catch((e: unknown) => {
+    throw toError(e);
+  });
+  opts.onReady?.();
+
+  const ext = file.name.match(/\.[a-z0-9]+$/i)?.[0] ?? '.mp4';
+  const inName = `split-input${ext}`;
+  const outName = 'split-part.mp4';
+  try {
+    await ff.writeFile(inName, await fetchFile(file));
+    const hasAudio = await probeAudio(ff, inName);
+    const outputs: Uint8Array[] = [];
+    let done = 0;
+    for (let i = 0; i < parts.length; i++) {
+      const part = parts[i]!;
+      opts.onPart?.(i);
+      logCb = (line) => {
+        const at = TIME_LINE.exec(line);
+        if (!at || !opts.onProgress || total <= 0) return;
+        const seconds = Number(at[1]) * 3600 + Number(at[2]) * 60 + Number(at[3]);
+        opts.onProgress(Math.min(1, (done + Math.min(seconds, part.end - part.start)) / total));
+      };
+      await run(ff, buildTrimArgs([part], { input: inName, output: outName, hasAudio }));
+      logCb = null;
+      const data = (await ff.readFile(outName)) as Uint8Array;
+      if (data.byteLength === 0) throw new Error(`Part ${i + 1} came back empty.`);
+      // A copy: the next part overwrites the file this view reads.
+      outputs.push(data.slice());
+      await ff.deleteFile(outName).catch(() => {});
+      done += part.end - part.start;
+    }
+    return outputs;
+  } catch (e) {
+    throw toError(e);
+  } finally {
+    logCb = null;
+    await ff.deleteFile(inName).catch(() => {});
+    await ff.deleteFile(outName).catch(() => {});
+  }
+}
+
+export interface JoinOptions {
+  /** Each clip's size and length, in order, from the page's own preview. */
+  clips: readonly { width: number; height: number; duration: number }[];
+  /** 0..1 encode progress. */
+  onProgress?: (fraction: number) => void;
+  onReady?: () => void;
+}
+
+/** Join `files` in order into one MP4 the size of the first. */
+export async function joinVideos(files: readonly File[], opts: JoinOptions): Promise<Uint8Array> {
+  if (files.length < 2) throw new Error('Choose at least two videos to join.');
+  const ff = await load().catch((e: unknown) => {
+    throw toError(e);
+  });
+  opts.onReady?.();
+
+  const names = files.map((f, i) => `join-input-${i}${f.name.match(/\.[a-z0-9]+$/i)?.[0] ?? '.mp4'}`);
+  const outName = 'join-output.mp4';
+  const expected = opts.clips.reduce((sum, c) => sum + c.duration, 0);
+  try {
+    const probed: { hasAudio: boolean; fps: number | null }[] = [];
+    for (let i = 0; i < files.length; i++) {
+      await ff.writeFile(names[i]!, await fetchFile(files[i]!));
+      const lines = await probeLines(ff, names[i]!);
+      probed.push({ hasAudio: streamsFrom(lines).audioCodec !== null, fps: frameRateFrom(lines) });
+    }
+    const target = joinTarget(opts.clips.map((c, i) => ({ ...c, fps: probed[i]!.fps })));
+    const args = buildJoinArgs(
+      opts.clips.map((c, i) => ({ input: names[i]!, hasAudio: probed[i]!.hasAudio, duration: c.duration })),
+      target,
+      outName,
+    );
+    logCb = (line) => {
+      const at = TIME_LINE.exec(line);
+      if (!at || !opts.onProgress || expected <= 0) return;
+      const seconds = Number(at[1]) * 3600 + Number(at[2]) * 60 + Number(at[3]);
+      opts.onProgress(Math.min(1, seconds / expected));
+    };
+    await run(ff, args);
+    logCb = null;
+    const data = (await ff.readFile(outName)) as Uint8Array;
+    if (data.byteLength === 0) throw new Error('The joined video came back empty.');
+    return data;
+  } catch (e) {
+    throw toError(e);
+  } finally {
+    logCb = null;
+    for (const n of names) await ff.deleteFile(n).catch(() => {});
     await ff.deleteFile(outName).catch(() => {});
   }
 }

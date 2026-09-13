@@ -234,7 +234,7 @@ export default function VideoReframe() {
 
   return (
     <main class="mx-auto max-w-2xl px-6 py-12">
-      <ToolHero title={tt.heroTitle} preview={VideoReframePreview}>
+      <ToolHero title={tt.heroTitle} tool="video-reframe" preview={VideoReframePreview}>
         {tt.heroNote}
       </ToolHero>
 

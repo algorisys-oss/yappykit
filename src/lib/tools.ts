@@ -13,6 +13,7 @@
 import { TOOL_KEYS, pathFor, type ToolKey } from '../i18n/routes';
 import type { LocaleCode } from '../i18n/locales';
 import type { Messages } from '../i18n/messages/en';
+import { isBeta } from './tool-status';
 
 export interface Tool {
   key: ToolKey;
@@ -20,6 +21,8 @@ export interface Tool {
   title: string;
   blurb: string;
   tags: string[];
+  /** Live but not yet thoroughly tested; see ./tool-status. */
+  beta: boolean;
 }
 
 export function toolList(m: Messages, locale: LocaleCode): Tool[] {
@@ -29,6 +32,7 @@ export function toolList(m: Messages, locale: LocaleCode): Tool[] {
     title: m.tools[key].title,
     blurb: m.tools[key].blurb,
     tags: m.tools[key].tags,
+    beta: isBeta(key),
   }));
 }
 

@@ -235,7 +235,7 @@ export default function VideoFrame() {
 
   return (
     <main class="mx-auto max-w-2xl px-6 py-12">
-      <ToolHero title={tt.heroTitle} preview={VideoFramePreview}>
+      <ToolHero title={tt.heroTitle} tool="video-frame" preview={VideoFramePreview}>
         {tt.heroNote}
       </ToolHero>
 

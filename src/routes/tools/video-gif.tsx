@@ -184,7 +184,7 @@ export default function VideoGif() {
 
   return (
     <main class="mx-auto max-w-2xl px-6 py-12">
-      <ToolHero title={tt.heroTitle} preview={VideoGifPreview}>
+      <ToolHero title={tt.heroTitle} tool="video-gif" preview={VideoGifPreview}>
         {tt.heroNote}
       </ToolHero>
 

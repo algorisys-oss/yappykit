@@ -120,7 +120,7 @@ export default function VideoExtractAudio() {
 
   return (
     <main class="mx-auto max-w-2xl px-6 py-12">
-      <ToolHero title={tt.heroTitle} preview={ExtractAudioPreview}>
+      <ToolHero title={tt.heroTitle} tool="video-extract-audio" preview={ExtractAudioPreview}>
         {tt.heroNote}
       </ToolHero>
       <Show

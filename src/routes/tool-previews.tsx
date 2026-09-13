@@ -561,6 +561,33 @@ export function VideoFramePreview() {
   );
 }
 
+export function VideoSplitPreview() {
+  return (
+    <Frame>
+      {/* One strip cut into three. */}
+      <rect x="22" y="40" width="46" height="26" rx="4" fill={C.accentSoft} stroke={C.accent} stroke-width="2.5" />
+      <rect x="77" y="40" width="46" height="26" rx="4" fill={C.accentSoft} stroke={C.accent} stroke-width="2.5" />
+      <rect x="132" y="40" width="46" height="26" rx="4" fill={C.accentSoft} stroke={C.accent} stroke-width="2.5" />
+      <g stroke={C.muted} stroke-width="2" stroke-dasharray="3 3">
+        <path d="M72.5 28 v50 M127.5 28 v50" />
+      </g>
+    </Frame>
+  );
+}
+
+export function VideoJoinPreview() {
+  return (
+    <Frame>
+      {/* Two strips meeting in one. */}
+      <rect x="22" y="22" width="50" height="22" rx="4" fill={C.paper} stroke={C.border} stroke-width="2" />
+      <rect x="22" y="62" width="50" height="22" rx="4" fill={C.paper} stroke={C.border} stroke-width="2" />
+      <path d="M78 33 C92 33 92 53 104 53 M78 73 C92 73 92 53 104 53" stroke={C.muted} stroke-width="2.5" stroke-linecap="round" fill="none" />
+      <rect x="110" y="42" width="70" height="22" rx="4" fill={C.accentSoft} stroke={C.accent} stroke-width="2.5" />
+      <path d="M145 42 v22" stroke={C.accent} stroke-width="2" />
+    </Frame>
+  );
+}
+
 export function PassportPreview() {
   return (
     <Frame>
@@ -1155,6 +1182,8 @@ export const TOOL_PREVIEWS: Partial<Record<ToolKey, () => JSX.Element>> = {
   'video-speed': VideoSpeedPreview,
   'video-gif': VideoGifPreview,
   'video-frame': VideoFramePreview,
+  'video-split': VideoSplitPreview,
+  'video-join': VideoJoinPreview,
   'passport-photo': PassportPreview,
   'document-scan': DocScanPreview,
   'mouse-test': MousePreview,
