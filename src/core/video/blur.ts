@@ -18,14 +18,18 @@
  */
 import { isDegenerate, toPixels, type PixelRect, type Rect } from '../redact/regions';
 import { MIN_SEGMENT_SEC } from './trim';
+import { EVEN_DIMENSIONS, encodeArgs, t } from './encode';
 
 export type BlurStrength = 'strong' | 'soft';
 
-export interface Mask {
-  rect: Rect;
-  /** Seconds from the start of the source. */
+/** A stretch of the source in seconds. Shared by everything drawn over a video. */
+export interface Span {
   start: number;
   end: number;
+}
+
+export interface Mask extends Span {
+  rect: Rect;
 }
 
 export interface Frame {
@@ -33,12 +37,6 @@ export interface Frame {
   height: number;
 }
 
-/** Matches the encode settings the trimmer uses: invisible, not small. The
- *  compressor is the tool for hitting a size. Duplicated rather than shared,
- *  because sharing them means editing ./trim for no behaviour change. */
-const CRF = '20';
-const AUDIO_KBPS = '128k';
-const EVEN_DIMENSIONS = 'pad=ceil(iw/2)*2:ceil(ih/2)*2';
 
 /**
  * How hard to blur, as a fraction of the region's short side.
@@ -53,8 +51,6 @@ const FACTOR: Record<BlurStrength, number> = { strong: 0.18, soft: 0.07 };
  *  the strong setting actually unrecoverable rather than merely smeared. */
 const POWER: Record<BlurStrength, number> = { strong: 3, soft: 1 };
 
-/** Drop the float noise that turns 6 into "6.000000000000001" in an argument. */
-const t = (n: number) => String(Number(n.toFixed(3)));
 
 /** The dimensions after `pad`, which is what the crop coordinates are relative to. */
 export function evenFrame(frame: Frame): Frame {
@@ -119,23 +115,23 @@ export function usableMasks(masks: readonly Mask[]): Mask[] {
 const clamp = (n: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, n));
 
 /**
- * Move a mask's start to `at`.
+ * Move a span's start to `at`, keeping everything else about it.
  *
  * "Start here" pressed after the mask's current end means "from now on", so
  * rather than refusing, or producing a span that covers nothing, the end runs
  * on to the end of the clip.
  */
-export function withStart(m: Mask, at: number, duration: number): Mask {
+export function withStart<T extends Span>(m: T, at: number, duration: number): T {
   const start = clamp(at, 0, Math.max(0, duration - MIN_SEGMENT_SEC));
   const end = start + MIN_SEGMENT_SEC <= m.end ? m.end : duration;
-  return { rect: m.rect, start, end };
+  return { ...m, start, end };
 }
 
-/** Move a mask's end to `at`; one placed before the start runs back to zero. */
-export function withEnd(m: Mask, at: number, duration: number): Mask {
+/** Move a span's end to `at`; one placed before the start runs back to zero. */
+export function withEnd<T extends Span>(m: T, at: number, duration: number): T {
   const end = clamp(at, Math.min(MIN_SEGMENT_SEC, duration), duration);
   const start = end - MIN_SEGMENT_SEC >= m.start ? m.start : 0;
-  return { rect: m.rect, start, end };
+  return { ...m, start, end };
 }
 
 export interface BlurArgsOptions {
@@ -198,19 +194,7 @@ export function buildBlurArgs(masks: readonly Mask[], opts: BlurArgsOptions): st
     '-map',
     '[outv]',
     ...(opts.hasAudio ? ['-map', '0:a'] : []),
-    '-c:v',
-    'libx264',
-    '-preset',
-    'veryfast',
-    '-crf',
-    CRF,
-    '-pix_fmt',
-    'yuv420p',
-    // Re-encoded rather than stream-copied: this tool accepts WebM, and an Opus
-    // track cannot be dropped into an MP4 untouched.
-    ...(opts.hasAudio ? ['-c:a', 'aac', '-b:a', AUDIO_KBPS] : ['-an']),
-    '-movflags',
-    '+faststart',
+    ...encodeArgs(opts.hasAudio),
     opts.output,
   ];
 }

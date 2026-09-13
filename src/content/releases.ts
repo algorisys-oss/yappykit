@@ -23,6 +23,17 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '0.18.0',
+    date: '2026-09-13',
+    added: [
+      'Add text, arrows, boxes, circles and callouts to a video, at /add-text-and-arrows-to-a-video. Draw them on the paused video, give each one the whole clip or only the seconds you set, and export an MP4 with them burned in. The preview and the export are painted by the same code with your browser’s own fonts, so an arrow lands in the file exactly where it sat in the preview. Text is outlined or placed on a box in black or white, whichever reads better against its colour. You cannot move an annotation after drawing it yet: remove it and draw it again.',
+      'Resize a video for Reels, TikTok and Shorts, at /resize-video-for-reels-and-tiktok. Choose vertical 9:16, square, 4:5 or landscape, then either Fill the frame, which crops and lets you drag the picture to choose what stays, or Show everything, which keeps the whole picture over a blurred copy of itself. The preview is the shape of the output and shows exactly the part of the frame that ends up in the file. The picture is never scaled up.',
+      'Mute a video, at /mute-a-video, and extract its sound as MP3, M4A or WAV, at /extract-audio-from-video. Neither re-encodes the picture. A muted video keeps its original frames bit for bit and has no audio track at all, so even a long recording is done in seconds, and it stays in its own format, so a WebM stays a WebM. Extracting copies the sound untouched when it already is the format you asked for, such as the AAC in most MP4s saved as M4A, and encodes it only when it has to. A video with no sound says so instead of failing.',
+      'Speed up or slow down a video, at /speed-up-a-video, all of it or only the parts you select: race through a setup at 4× and keep the explanation at normal speed in one export. Voices keep their normal pitch at every speed, checked down to a quarter speed. Or type a length, such as 1:00 for a Short, and the speed is worked out for you. Playing the video on the page plays each part at its speed, so you can check it before exporting.',
+      'Turn part of a video into a GIF or animated WebP, at /video-to-gif, under 1, 2 or 5 MB. You pick the size limit rather than a width and frame rate, and the page works those out, making the file again smaller if the first attempt is too big. The result says exactly what size and frame rate it ended up with, and if even the smallest version cannot get under the limit it says so rather than handing over a file that will be refused. GIFs get a palette built from your clip and store only what changes between frames, so screen recordings come out especially small; animated WebP is often a tenth of the size.',
+    ],
+  },
+  {
     version: '0.17.2',
     date: '2026-09-13',
     fixed: [

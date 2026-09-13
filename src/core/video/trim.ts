@@ -12,6 +12,8 @@
  * The encoder call lives in ./ffmpeg.
  */
 
+import { EVEN_DIMENSIONS, encodeArgs, t } from './encode';
+
 export interface Segment {
   /** Seconds from the start of the source. */
   start: number;
@@ -26,17 +28,6 @@ export interface Segment {
  */
 export const MIN_SEGMENT_SEC = 0.05;
 
-/** x264 quality. Re-encoding is unavoidable for a frame-accurate cut, so this
- *  is set for "you cannot see the difference" rather than for a size target —
- *  the compressor is the tool for hitting a size. */
-const CRF = '20';
-const AUDIO_KBPS = '128k';
-
-/** libx264 with yuv420p needs even dimensions, and plenty of GIFs are odd. */
-const EVEN_DIMENSIONS = 'pad=ceil(iw/2)*2:ceil(ih/2)*2';
-
-/** Drop the float noise that turns 6 into "6.000000000000001" in an argument. */
-const t = (n: number) => String(Number(n.toFixed(3)));
 
 /**
  * Subtract `cut` from the kept segments.
@@ -96,14 +87,7 @@ export interface TrimArgsOptions {
 export function buildTrimArgs(keep: readonly Segment[], opts: TrimArgsOptions): string[] {
   if (keep.length === 0) throw new RangeError('nothing to keep');
 
-  const encode = [
-    '-c:v', 'libx264',
-    '-preset', 'veryfast',
-    '-crf', CRF,
-    '-pix_fmt', 'yuv420p',
-    ...(opts.hasAudio ? ['-c:a', 'aac', '-b:a', AUDIO_KBPS] : ['-an']),
-    '-movflags', '+faststart',
-  ];
+  const encode = encodeArgs(opts.hasAudio);
 
   if (keep.length === 1) {
     const only = keep[0]!;

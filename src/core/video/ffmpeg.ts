@@ -18,6 +18,12 @@ import wasmURL from '@ffmpeg/core/wasm?url';
 import { buildTrimArgs, totalDuration, type Segment } from './trim';
 import { buildBlurArgs, type BlurStrength, type Frame, type Mask } from './blur';
 import { explainExit, rememberLine, toError } from './engine-error';
+import { buildAnnotateArgs } from './annotate';
+import { buildReframeArgs, type ReframeMode } from './reframe';
+import { buildExtractArgs, buildMuteArgs, streamsFrom, type AudioFormat } from './audio';
+import { buildSpeedArgs, frameRateFrom, outputDuration, type Piece } from './speed';
+import { buildAnimatedArgs, fitAnimated, type AnimatedFormat, type FitResult } from './animated';
+import type { Span } from './blur';
 
 /**
  * Fetch the core's wasm and hand ffmpeg a blob URL for it.
@@ -138,9 +144,6 @@ export async function transcodeVideo(file: File, opts: TranscodeOptions): Promis
 /** `time=00:01:02.34` out of ffmpeg's own stats line. */
 const TIME_LINE = /time=(\d+):(\d+):(\d+(?:\.\d+)?)/;
 
-/** A stream listing line for an audio track, from ffmpeg's input summary. */
-const AUDIO_STREAM = /Stream #\d+:\d+.*: Audio:/;
-
 /**
  * Does this input carry an audio track?
  *
@@ -150,11 +153,9 @@ const AUDIO_STREAM = /Stream #\d+:\d+.*: Audio:/;
  * ask — it prints the stream table, then exits complaining, having decoded
  * nothing.
  */
-async function probeAudio(ff: FFmpeg, name: string): Promise<boolean> {
-  let found = false;
-  logCb = (line) => {
-    if (AUDIO_STREAM.test(line)) found = true;
-  };
+async function probeLines(ff: FFmpeg, name: string): Promise<string[]> {
+  const lines: string[] = [];
+  logCb = (line) => lines.push(line);
   try {
     await ff.exec(['-i', name]);
   } catch {
@@ -162,7 +163,15 @@ async function probeAudio(ff: FFmpeg, name: string): Promise<boolean> {
   } finally {
     logCb = null;
   }
-  return found;
+  return lines;
+}
+
+async function probeStreams(ff: FFmpeg, name: string) {
+  return streamsFrom(await probeLines(ff, name));
+}
+
+async function probeAudio(ff: FFmpeg, name: string): Promise<boolean> {
+  return (await probeStreams(ff, name)).audioCodec !== null;
 }
 
 export interface TrimOptions {
@@ -285,4 +294,320 @@ export async function blurVideo(
     await ff.deleteFile(inName).catch(() => {});
     await ff.deleteFile(outName).catch(() => {});
   }
+}
+
+/** An annotation already painted to a transparent PNG, and where it goes. */
+export interface PaintedLayer extends Span {
+  bytes: Uint8Array;
+  x: number;
+  y: number;
+}
+
+export interface AnnotateOptions {
+  /** Source duration in seconds, which is also how long the export is. */
+  duration: number;
+  /** 0..1 encode progress. */
+  onProgress?: (fraction: number) => void;
+  /** Called once the (large) core has loaded, before encoding starts. */
+  onReady?: () => void;
+}
+
+/**
+ * Lay painted annotations over `file` and return MP4 bytes.
+ *
+ * The painting happened in the page, so the engine only composites: the
+ * layers go into its filesystem next to the video and are overlaid in order.
+ */
+export async function annotateVideo(
+  file: File,
+  layers: readonly PaintedLayer[],
+  opts: AnnotateOptions,
+): Promise<Uint8Array> {
+  if (layers.length === 0) throw new Error('Nothing is drawn on the video yet.');
+  const ff = await load().catch((e: unknown) => {
+    throw toError(e);
+  });
+  opts.onReady?.();
+
+  const ext = file.name.match(/\.[a-z0-9]+$/i)?.[0] ?? '.mp4';
+  const inName = `annotate-input${ext}`;
+  const outName = 'annotate-output.mp4';
+  const layerNames = layers.map((_, i) => `annotate-layer-${i}.png`);
+  try {
+    await ff.writeFile(inName, await fetchFile(file));
+    for (let i = 0; i < layers.length; i++) await ff.writeFile(layerNames[i]!, layers[i]!.bytes);
+    const hasAudio = await probeAudio(ff, inName);
+
+    logCb = (line) => {
+      const at = TIME_LINE.exec(line);
+      if (!at || !opts.onProgress || opts.duration <= 0) return;
+      const seconds = Number(at[1]) * 3600 + Number(at[2]) * 60 + Number(at[3]);
+      opts.onProgress(Math.min(1, Math.max(0, seconds / opts.duration)));
+    };
+    await run(
+      ff,
+      buildAnnotateArgs(
+        layers.map((l, i) => ({ name: layerNames[i]!, x: l.x, y: l.y, start: l.start, end: l.end })),
+        { input: inName, output: outName, hasAudio, duration: opts.duration },
+      ),
+    );
+    logCb = null;
+
+    const data = (await ff.readFile(outName)) as Uint8Array;
+    if (data.byteLength === 0) throw new Error('The annotated video came back empty.');
+    return data;
+  } catch (e) {
+    throw toError(e);
+  } finally {
+    logCb = null;
+    for (const name of [inName, outName, ...layerNames]) await ff.deleteFile(name).catch(() => {});
+  }
+}
+
+export interface ReframeOptions {
+  mode: ReframeMode;
+  /** Target width divided by height. */
+  ratio: number;
+  /** 0..1 along the axis the crop window can move; ignored when fitting. */
+  pan: number;
+  frame: Frame;
+  /** Source duration in seconds, which is also how long the export is. */
+  duration: number;
+  /** 0..1 encode progress. */
+  onProgress?: (fraction: number) => void;
+  /** Called once the (large) core has loaded, before encoding starts. */
+  onReady?: () => void;
+}
+
+/** Crop `file` to a new shape, or fit it over a blurred copy of itself. Returns MP4 bytes. */
+export async function reframeVideo(file: File, opts: ReframeOptions): Promise<Uint8Array> {
+  const ff = await load().catch((e: unknown) => {
+    throw toError(e);
+  });
+  opts.onReady?.();
+
+  const ext = file.name.match(/\.[a-z0-9]+$/i)?.[0] ?? '.mp4';
+  const inName = `reframe-input${ext}`;
+  const outName = 'reframe-output.mp4';
+  try {
+    await ff.writeFile(inName, await fetchFile(file));
+    const hasAudio = await probeAudio(ff, inName);
+    logCb = (line) => {
+      const at = TIME_LINE.exec(line);
+      if (!at || !opts.onProgress || opts.duration <= 0) return;
+      const seconds = Number(at[1]) * 3600 + Number(at[2]) * 60 + Number(at[3]);
+      opts.onProgress(Math.min(1, Math.max(0, seconds / opts.duration)));
+    };
+    await run(
+      ff,
+      buildReframeArgs({
+        mode: opts.mode,
+        input: inName,
+        output: outName,
+        hasAudio,
+        frame: opts.frame,
+        ratio: opts.ratio,
+        pan: opts.pan,
+      }),
+    );
+    logCb = null;
+    const data = (await ff.readFile(outName)) as Uint8Array;
+    if (data.byteLength === 0) throw new Error('The reframed video came back empty.');
+    return data;
+  } catch (e) {
+    throw toError(e);
+  } finally {
+    logCb = null;
+    await ff.deleteFile(inName).catch(() => {});
+    await ff.deleteFile(outName).catch(() => {});
+  }
+}
+
+export interface SpeedOptions {
+  /** 0..1 encode progress. */
+  onProgress?: (fraction: number) => void;
+  /** Called once the (large) core has loaded, before encoding starts. */
+  onReady?: () => void;
+}
+
+/**
+ * Re-time `file` piece by piece and return MP4 bytes.
+ *
+ * Progress is measured against the output's length, not the source's, because
+ * `time=` counts output time and a sped-up clip ends early.
+ */
+export async function speedVideo(
+  file: File,
+  pieces: readonly Piece[],
+  opts: SpeedOptions = {},
+): Promise<Uint8Array> {
+  const expected = outputDuration(pieces);
+  const ff = await load().catch((e: unknown) => {
+    throw toError(e);
+  });
+  opts.onReady?.();
+
+  const ext = file.name.match(/\.[a-z0-9]+$/i)?.[0] ?? '.mp4';
+  const inName = `speed-input${ext}`;
+  const outName = 'speed-output.mp4';
+  try {
+    await ff.writeFile(inName, await fetchFile(file));
+    const lines = await probeLines(ff, inName);
+    const args = buildSpeedArgs(pieces, {
+      input: inName,
+      output: outName,
+      hasAudio: streamsFrom(lines).audioCodec !== null,
+      fps: frameRateFrom(lines),
+    });
+    logCb = (line) => {
+      const at = TIME_LINE.exec(line);
+      if (!at || !opts.onProgress || expected <= 0) return;
+      const seconds = Number(at[1]) * 3600 + Number(at[2]) * 60 + Number(at[3]);
+      opts.onProgress(Math.min(1, Math.max(0, seconds / expected)));
+    };
+    await run(ff, args);
+    logCb = null;
+    const data = (await ff.readFile(outName)) as Uint8Array;
+    if (data.byteLength === 0) throw new Error('The video came back empty.');
+    return data;
+  } catch (e) {
+    throw toError(e);
+  } finally {
+    logCb = null;
+    await ff.deleteFile(inName).catch(() => {});
+    await ff.deleteFile(outName).catch(() => {});
+  }
+}
+
+export interface AnimatedOptions {
+  format: AnimatedFormat;
+  budgetBytes: number;
+  start: number;
+  duration: number;
+  /** The source's dimensions, which the page already has from its preview. */
+  frame: Frame;
+  /** 0..1 progress of the current encode. */
+  onProgress?: (fraction: number) => void;
+  /** Called before each encode, with its number starting at 1. */
+  onEncode?: (attempt: number) => void;
+  onReady?: () => void;
+}
+
+/** Cut a stretch into a GIF or animated WebP that fits the budget, if it can. */
+export async function animateVideo(file: File, opts: AnimatedOptions): Promise<FitResult> {
+  const ff = await load().catch((e: unknown) => {
+    throw toError(e);
+  });
+  opts.onReady?.();
+
+  const ext = file.name.match(/\.[a-z0-9]+$/i)?.[0] ?? '.mp4';
+  const inName = `animated-input${ext}`;
+  const outName = `animated-output.${opts.format}`;
+  try {
+    await ff.writeFile(inName, await fetchFile(file));
+    const clip = { ...opts.frame, fps: frameRateFrom(await probeLines(ff, inName)), duration: opts.duration };
+    let attempt = 0;
+    return await fitAnimated({
+      clip,
+      format: opts.format,
+      budgetBytes: opts.budgetBytes,
+      encode: async (settings) => {
+        attempt += 1;
+        opts.onEncode?.(attempt);
+        opts.onProgress?.(0);
+        logCb = (line) => {
+          const at = TIME_LINE.exec(line);
+          if (!at || !opts.onProgress || opts.duration <= 0) return;
+          const seconds = Number(at[1]) * 3600 + Number(at[2]) * 60 + Number(at[3]);
+          opts.onProgress(Math.min(1, Math.max(0, seconds / opts.duration)));
+        };
+        await run(ff, buildAnimatedArgs({ input: inName, output: outName, format: opts.format, start: opts.start, duration: opts.duration, settings }));
+        logCb = null;
+        const data = (await ff.readFile(outName)) as Uint8Array;
+        if (data.byteLength === 0) throw new Error('The animation came back empty.');
+        // A copy, because the next encode overwrites the file this view reads.
+        return data.slice();
+      },
+    });
+  } catch (e) {
+    throw toError(e);
+  } finally {
+    logCb = null;
+    await ff.deleteFile(inName).catch(() => {});
+    await ff.deleteFile(outName).catch(() => {});
+  }
+}
+
+export interface CopyJobOptions {
+  /** Source duration in seconds, for progress. */
+  duration: number;
+  /** 0..1 progress. */
+  onProgress?: (fraction: number) => void;
+  /** Called once the (large) core has loaded, before the work starts. */
+  onReady?: () => void;
+}
+
+/** Why a mute or extract cannot run, in terms the page can show. */
+export class NothingToDoError extends Error {
+  constructor(readonly reason: 'no-audio' | 'no-video') {
+    super(reason === 'no-audio' ? 'This file has no sound.' : 'This file has no picture.');
+  }
+}
+
+async function copyJob(
+  file: File,
+  opts: CopyJobOptions,
+  outName: string,
+  build: (input: string, streams: ReturnType<typeof streamsFrom>) => string[],
+): Promise<Uint8Array> {
+  const ff = await load().catch((e: unknown) => {
+    throw toError(e);
+  });
+  opts.onReady?.();
+  const ext = file.name.match(/\.[a-z0-9]+$/i)?.[0] ?? '.mp4';
+  const inName = `copy-input${ext}`;
+  try {
+    await ff.writeFile(inName, await fetchFile(file));
+    const streams = await probeStreams(ff, inName);
+    const args = build(inName, streams);
+    logCb = (line) => {
+      const at = TIME_LINE.exec(line);
+      if (!at || !opts.onProgress || opts.duration <= 0) return;
+      const seconds = Number(at[1]) * 3600 + Number(at[2]) * 60 + Number(at[3]);
+      opts.onProgress(Math.min(1, Math.max(0, seconds / opts.duration)));
+    };
+    await run(ff, args);
+    logCb = null;
+    const data = (await ff.readFile(outName)) as Uint8Array;
+    if (data.byteLength === 0) throw new Error('The result came back empty.');
+    return data;
+  } catch (e) {
+    if (e instanceof NothingToDoError) throw e;
+    throw toError(e);
+  } finally {
+    logCb = null;
+    await ff.deleteFile(inName).catch(() => {});
+    await ff.deleteFile(outName).catch(() => {});
+  }
+}
+
+/**
+ * Drop every audio track, copying the picture untouched. `ext` is the output
+ * container, which should be the source's own (see ./audio `containerFor`).
+ */
+export function muteVideo(file: File, ext: string, opts: CopyJobOptions): Promise<Uint8Array> {
+  const outName = `muted-output.${ext}`;
+  return copyJob(file, opts, outName, (input, streams) => {
+    if (!streams.hasVideo) throw new NothingToDoError('no-video');
+    return buildMuteArgs({ input, output: outName });
+  });
+}
+
+/** Keep only the first audio track, copied when it already is `format`. */
+export function extractAudio(file: File, format: AudioFormat, opts: CopyJobOptions): Promise<Uint8Array> {
+  const outName = `extract-output.${format}`;
+  return copyJob(file, opts, outName, (input, streams) => {
+    if (streams.audioCodec === null) throw new NothingToDoError('no-audio');
+    return buildExtractArgs({ input, output: outName, format, sourceCodec: streams.audioCodec });
+  });
 }

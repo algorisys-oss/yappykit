@@ -464,6 +464,90 @@ export function VideoBlurPreview() {
   );
 }
 
+export function VideoAnnotatePreview() {
+  return (
+    <Frame>
+      <rect x="30" y="18" width="140" height="76" rx="6" fill={C.paper} stroke={C.border} stroke-width="2" />
+      {/* A callout pointing at an ellipse, with an arrow across the frame. */}
+      <ellipse cx="128" cy="66" rx="24" ry="15" fill="none" stroke={C.accent} stroke-width="2.5" />
+      <path d="M50 82 L92 60" stroke={C.accent} stroke-width="2.5" stroke-linecap="round" />
+      <path d="M92 60 L82 60 M92 60 L87 69" stroke={C.accent} stroke-width="2.5" stroke-linecap="round" />
+      <rect x="44" y="26" width="56" height="18" rx="4" fill={C.accentSoft} stroke={C.accent} stroke-width="2" />
+      <path d="M52 35 h40" stroke={C.accent} stroke-width="2" stroke-linecap="round" />
+    </Frame>
+  );
+}
+
+export function VideoReframePreview() {
+  return (
+    <Frame>
+      {/* A landscape frame, and the vertical window cut from it. */}
+      <rect x="26" y="30" width="148" height="56" rx="5" fill={C.paper} stroke={C.border} stroke-width="2" stroke-dasharray="5 4" />
+      <rect x="84" y="14" width="40" height="88" rx="5" fill={C.accentSoft} stroke={C.accent} stroke-width="2.5" />
+      <g stroke={C.muted} stroke-width="2" stroke-linecap="round">
+        <path d="M70 58 h-10 M60 58 l4 -4 M60 58 l4 4" />
+        <path d="M138 58 h10 M148 58 l-4 -4 M148 58 l-4 4" />
+      </g>
+    </Frame>
+  );
+}
+
+export function VideoMutePreview() {
+  return (
+    <Frame>
+      {/* A speaker, struck through. */}
+      <path d="M62 46 h14 l20 -16 v52 l-20 -16 h-14 z" fill={C.accentSoft} stroke={C.accent} stroke-width="2.5" stroke-linejoin="round" />
+      <g stroke={C.muted} stroke-width="2.5" stroke-linecap="round">
+        <path d="M112 44 l24 24 M136 44 l-24 24" />
+      </g>
+    </Frame>
+  );
+}
+
+export function ExtractAudioPreview() {
+  return (
+    <Frame>
+      {/* A film frame, and the waveform lifted out of it. */}
+      <rect x="28" y="30" width="60" height="52" rx="5" fill={C.paper} stroke={C.border} stroke-width="2" />
+      <path d="M40 30 v52 M76 30 v52" stroke={C.border} stroke-width="2" />
+      <path d="M96 56 h10 M101 51 l5 5 -5 5" stroke={C.muted} stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+      <g stroke={C.accent} stroke-width="3" stroke-linecap="round">
+        <path d="M120 50 v12 M130 40 v32 M140 46 v20 M150 34 v44 M160 48 v16 M170 43 v26" />
+      </g>
+    </Frame>
+  );
+}
+
+export function VideoSpeedPreview() {
+  return (
+    <Frame>
+      {/* A timeline with one stretch running fast, and the double chevron for it. */}
+      <rect x="26" y="70" width="148" height="18" rx="4" fill={C.paper} stroke={C.border} stroke-width="2" />
+      <rect x="78" y="70" width="52" height="18" rx="3" fill={C.accentSoft} stroke={C.accent} stroke-width="2.5" />
+      <g fill={C.accent}>
+        <path d="M76 26 l24 18 -24 18 z" />
+        <path d="M102 26 l24 18 -24 18 z" />
+      </g>
+    </Frame>
+  );
+}
+
+export function VideoGifPreview() {
+  return (
+    <Frame>
+      {/* A strip of frames becoming one looping picture. */}
+      <g fill={C.paper} stroke={C.border} stroke-width="2">
+        <rect x="24" y="36" width="30" height="40" rx="3" />
+        <rect x="46" y="32" width="30" height="40" rx="3" />
+      </g>
+      <path d="M86 56 h12 M93 51 l5 5 -5 5" stroke={C.muted} stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+      <rect x="108" y="26" width="68" height="60" rx="6" fill={C.accentSoft} stroke={C.accent} stroke-width="2.5" />
+      <path d="M130 56 a12 12 0 1 1 12 12" stroke={C.accent} stroke-width="2.5" stroke-linecap="round" fill="none" />
+      <path d="M142 62 l0 6 6 0" stroke={C.accent} stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+    </Frame>
+  );
+}
+
 export function PassportPreview() {
   return (
     <Frame>
@@ -1051,6 +1135,12 @@ export const TOOL_PREVIEWS: Partial<Record<ToolKey, () => JSX.Element>> = {
   'video-compress': VideoPreview,
   'video-trim': VideoTrimPreview,
   'video-blur': VideoBlurPreview,
+  'video-annotate': VideoAnnotatePreview,
+  'video-reframe': VideoReframePreview,
+  'video-mute': VideoMutePreview,
+  'video-extract-audio': ExtractAudioPreview,
+  'video-speed': VideoSpeedPreview,
+  'video-gif': VideoGifPreview,
   'passport-photo': PassportPreview,
   'document-scan': DocScanPreview,
   'mouse-test': MousePreview,
