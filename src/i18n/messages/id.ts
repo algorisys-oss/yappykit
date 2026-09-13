@@ -1411,6 +1411,7 @@ const id: Messages = {
         reset: 'Atur ulang',
         outputInfo: 'Hasil: {kept} dari {total}',
         piecesInfo: 'disambung dari {count} potongan',
+        gapNote: 'Di antara potongan, mesin masih harus membaca bagian yang Anda buang, jadi progres bisa berhenti sebentar di situ. Prosesnya tetap berjalan.',
         action: 'Ekspor hasil potong',
         working: 'Memotong…',
         loading: 'Memuat mesin video, kali pertama mengunduh sekitar 30 MB…',

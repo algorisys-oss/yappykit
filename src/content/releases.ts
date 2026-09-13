@@ -23,6 +23,15 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '0.17.1',
+    date: '2026-09-13',
+    fixed: [
+      'Releasing a new version reloaded every open tab, including one in the middle of encoding a video. The site updates itself in the background so nobody sits on an old build, and the way that was set up, the moment a new version arrived the page reloaded on the spot and took the video, the edits and the unfinished export with it. So every release quietly cost anyone mid-export their work. A new version now waits while a video tool is holding a file, and is picked up when you leave the page. This covers the video compressor, trimmer and blur tool, which are where an export can run for many minutes; the other tools still update straight away.',
+      'When the video tools failed they said "Trimming failed." and nothing else, which gave no way to tell a video the engine could not read from a browser running out of memory. The cause was being thrown away twice. The video engine reports a failure as plain text rather than as an error object, and the page only printed errors it recognised, so the text was dropped; and a failed encode does not raise an error at all, it quietly returns a failure code, which nothing checked, so the export went on to look for a file that was never written. The failure code is now checked, and the message now carries the line the engine printed about what went wrong, such as "No such filter" or "Cannot allocate memory", on the trimmer, the compressor and the blur tool. This does not fix whatever made a long video fail; it makes the next failure say why.',
+      'Cutting a section out of the middle of a long video could make the progress bar stand still for minutes, which looks exactly like a frozen tab. It was working: joining several pieces means the engine reads through the part you removed, and on a two hour recording that took four and a half minutes with nothing moving. The trimmer now says so under the progress bar while it happens.',
+    ],
+  },
+  {
     version: '0.17.0',
     date: '2026-09-13',
     added: [

@@ -7,6 +7,7 @@ import { useSeo } from '../../lib/seo';
 import { useI18n } from '../../i18n/runtime';
 import { detectCapabilities, evaluate } from '@core/capability';
 import { TOOL_CAPABILITIES } from '../../lib/tool-capabilities';
+import { useHoldWorkWhile } from '../../lib/work-guard';
 import {
   removeRange,
   totalDuration,
@@ -100,6 +101,8 @@ export default function VideoTrim() {
     if (r) URL.revokeObjectURL(r.url);
   };
   onCleanup(cleanup);
+  // A new version waits rather than reloading a clip and its edits away.
+  useHoldWorkWhile(() => source() !== null);
 
   const duration = () => source()?.duration ?? 0;
   const kept = createMemo(() => totalDuration(keep()));
@@ -466,6 +469,13 @@ export default function VideoTrim() {
                 style={{ width: `${Math.round(progress() * 100)}%` }}
               />
             </div>
+          </Show>
+
+          {/* Several pieces are stitched from one decode that starts at zero, so the
+            engine reads through every removed stretch and the bar sits still
+            meanwhile. Saying so is cheaper than a user abandoning a working export. */}
+          <Show when={busy() && keep().length > 1}>
+            <p class="text-xs text-muted">{u.gapNote}</p>
           </Show>
 
           <Show when={status()}>

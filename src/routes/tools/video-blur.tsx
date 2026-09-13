@@ -7,6 +7,7 @@ import { useSeo } from '../../lib/seo';
 import { useI18n } from '../../i18n/runtime';
 import { detectCapabilities, evaluate } from '@core/capability';
 import { TOOL_CAPABILITIES } from '../../lib/tool-capabilities';
+import { useHoldWorkWhile } from '../../lib/work-guard';
 import { rectFromDrag, isDegenerate, type Point } from '@core/redact/regions';
 import { formatTimecode, parseTimecode } from '@core/video/trim';
 import {
@@ -108,6 +109,8 @@ export default function VideoBlur() {
     clearResult();
   };
   onCleanup(cleanup);
+  // A new version waits rather than reloading a clip and its boxes away.
+  useHoldWorkWhile(() => source() !== null);
 
   const duration = () => source()?.duration ?? 0;
   const boxesLabel = (n: number) => (n === 1 ? u.boxesOne : fmt(u.boxesMany, { n }));

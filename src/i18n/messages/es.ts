@@ -1413,6 +1413,7 @@ const es: Messages = {
         reset: 'Reiniciar',
         outputInfo: 'Resultado: {kept} de {total}',
         piecesInfo: 'unido a partir de {count} trozos',
+        gapNote: 'Entre los trozos, el motor todavía tiene que leer la parte que quitaste, así que el progreso puede detenerse un rato ahí. Sigue trabajando.',
         action: 'Exportar el recorte',
         working: 'Recortando…',
         loading: 'Cargando el motor de vídeo, la primera vez se descargan unos 30 MB…',

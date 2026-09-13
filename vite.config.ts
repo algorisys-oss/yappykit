@@ -1,5 +1,5 @@
 /// <reference types="vitest/config" />
-import { defineConfig } from 'vite';
+import { defineConfig, type Plugin } from 'vite';
 import solid from 'vite-plugin-solid';
 import unocss from 'unocss/vite';
 import { VitePWA } from 'vite-plugin-pwa';
@@ -74,6 +74,27 @@ function externalizeUninstalledZenPeers(id: string, importer: string | undefined
 }
 
 /**
+ * The same rule for the dev server, which never reads `build.rollupOptions`.
+ *
+ * Without it the dev server served zen-ui's entry, which re-exports every
+ * component, analysed <Map>'s `import("leaflet")`, failed to resolve it and
+ * answered with a 500, so every tool page broke in development while the build
+ * was fine. Marking the import external leaves it untouched in the served
+ * module; it is inside a try/catch and only runs if <Map> renders, which it
+ * does not.
+ */
+function zenOptionalPeersInDev(): Plugin {
+  return {
+    name: 'yappykit:zen-optional-peers-dev',
+    apply: 'serve',
+    enforce: 'pre',
+    resolveId(id, importer) {
+      return externalizeUninstalledZenPeers(id, importer) ? { id, external: true } : null;
+    },
+  };
+}
+
+/**
  * The visitor figure written by scripts/fetch-visitors.mjs, or 0.
  *
  * A file rather than an environment variable because the fetch happens in a
@@ -92,6 +113,7 @@ function visitors(): number {
 
 export default defineConfig({
   plugins: [
+    zenOptionalPeersInDev(),
     unocss(),
     solid(),
     // PWA: makes the "Works offline" promise real. The app shell + code chunks

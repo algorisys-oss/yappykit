@@ -9,6 +9,7 @@ import { detectCapabilities, evaluate } from '@core/capability';
 import { TOOL_CAPABILITIES } from '../../lib/tool-capabilities';
 import { planBitrate } from '@core/video/bitrate';
 import { transcodeVideo } from '@core/video/ffmpeg';
+import { useHoldWorkWhile } from '../../lib/work-guard';
 
 /**
  * Exact-Size Video Compressor.
@@ -71,6 +72,8 @@ export default function VideoCompressor() {
     if (r) URL.revokeObjectURL(r.url);
   };
   onCleanup(cleanup);
+  // A new version waits rather than reloading a video mid-compression.
+  useHoldWorkWhile(() => original() !== null || busy());
 
   async function onPick(e: Event & { currentTarget: HTMLInputElement }) {
     const f = e.currentTarget.files?.[0];

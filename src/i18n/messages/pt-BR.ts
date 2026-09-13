@@ -1412,6 +1412,7 @@ const ptBR: Messages = {
         reset: 'Reiniciar',
         outputInfo: 'Resultado: {kept} de {total}',
         piecesInfo: 'juntado de {count} pedaços',
+        gapNote: 'Entre os pedaços, o motor ainda precisa ler a parte que você cortou, então o progresso pode parar por um tempo ali. Ele continua trabalhando.',
         action: 'Exportar o corte',
         working: 'Cortando…',
         loading: 'Carregando o motor de vídeo, na primeira vez baixa cerca de 30 MB…',

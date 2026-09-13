@@ -1409,6 +1409,7 @@ const vi: Messages = {
         reset: 'Đặt lại',
         outputInfo: 'Kết quả: {kept} trên {total}',
         piecesInfo: 'ghép từ {count} mảnh',
+        gapNote: 'Giữa các đoạn, bộ máy vẫn phải đọc qua phần bạn đã cắt, nên tiến độ có thể đứng yên một lúc. Quá trình vẫn đang chạy.',
         action: 'Xuất bản cắt',
         working: 'Đang cắt…',
         loading: 'Đang tải bộ máy video, lần đầu sẽ tải khoảng 30 MB…',

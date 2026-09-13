@@ -1413,6 +1413,7 @@ const tr: Messages = {
         reset: 'Sıfırla',
         outputInfo: 'Sonuç: {total} içinden {kept}',
         piecesInfo: '{count} parçadan birleştirildi',
+        gapNote: 'Parçalar arasında motorun kestiğiniz bölümü yine de okuması gerekir, bu yüzden ilerleme orada bir süre durabilir. İşlem devam ediyor.',
         action: 'Kırpmayı dışa aktar',
         working: 'Kırpılıyor…',
         loading: 'Video motoru yükleniyor, ilk çalıştırmada yaklaşık 30 MB iner…',

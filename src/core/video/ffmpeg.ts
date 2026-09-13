@@ -17,6 +17,7 @@ import coreURL from '@ffmpeg/core?url';
 import wasmURL from '@ffmpeg/core/wasm?url';
 import { buildTrimArgs, totalDuration, type Segment } from './trim';
 import { buildBlurArgs, type BlurStrength, type Frame, type Mask } from './blur';
+import { explainExit, rememberLine, toError } from './engine-error';
 
 /**
  * Fetch the core's wasm and hand ffmpeg a blob URL for it.
@@ -48,6 +49,8 @@ let instance: FFmpeg | null = null;
 let loading: Promise<FFmpeg> | null = null;
 let progressCb: ((fraction: number) => void) | null = null;
 let logCb: ((line: string) => void) | null = null;
+/** The last few engine log lines, which is where a failure is explained. */
+const recentLog: string[] = [];
 
 export function isLoaded(): boolean {
   return instance != null;
@@ -62,6 +65,7 @@ async function load(): Promise<FFmpeg> {
         if (progressCb) progressCb(Math.min(1, Math.max(0, e.progress)));
       });
       ff.on('log', (e: { message: string }) => {
+        rememberLine(recentLog, e.message);
         if (logCb) logCb(e.message);
       });
       await ff.load({
@@ -75,6 +79,19 @@ async function load(): Promise<FFmpeg> {
   return loading;
 }
 
+/**
+ * Run one encode, and fail loudly if ffmpeg did.
+ *
+ * `exec` resolves with ffmpeg's exit code instead of rejecting, so without this
+ * a failed encode went on to read an output file that was missing or partial,
+ * and the real cause stayed in a log nobody saw. See ./engine-error.
+ */
+async function run(ff: FFmpeg, args: string[]): Promise<void> {
+  recentLog.length = 0;
+  const code = await ff.exec(args);
+  if (code !== 0) throw new Error(explainExit(code, recentLog));
+}
+
 export interface TranscodeOptions {
   videoKbps: number;
   audioKbps: number;
@@ -86,7 +103,9 @@ export interface TranscodeOptions {
 
 /** Transcode `file` to H.264/AAC MP4 at the requested bitrate. Returns MP4 bytes. */
 export async function transcodeVideo(file: File, opts: TranscodeOptions): Promise<Uint8Array> {
-  const ff = await load();
+  const ff = await load().catch((e: unknown) => {
+    throw toError(e);
+  });
   opts.onReady?.();
 
   progressCb = opts.onProgress ?? null;
@@ -95,7 +114,7 @@ export async function transcodeVideo(file: File, opts: TranscodeOptions): Promis
   const outName = 'output.mp4';
   try {
     await ff.writeFile(inName, await fetchFile(file));
-    await ff.exec([
+    await run(ff, [
       '-i', inName,
       '-c:v', 'libx264',
       '-b:v', `${opts.videoKbps}k`,
@@ -107,6 +126,8 @@ export async function transcodeVideo(file: File, opts: TranscodeOptions): Promis
     ]);
     const data = (await ff.readFile(outName)) as Uint8Array;
     return data;
+  } catch (e) {
+    throw toError(e);
   } finally {
     progressCb = null;
     await ff.deleteFile(inName).catch(() => {});
@@ -166,7 +187,9 @@ export async function trimVideo(
   const expected = totalDuration(keep);
   if (expected <= 0) throw new Error('Nothing is selected to keep.');
 
-  const ff = await load();
+  const ff = await load().catch((e: unknown) => {
+    throw toError(e);
+  });
   opts.onReady?.();
 
   const ext = file.name.match(/\.[a-z0-9]+$/i)?.[0] ?? '.mp4';
@@ -182,12 +205,14 @@ export async function trimVideo(
       const seconds = Number(at[1]) * 3600 + Number(at[2]) * 60 + Number(at[3]);
       opts.onProgress(Math.min(1, Math.max(0, seconds / expected)));
     };
-    await ff.exec(buildTrimArgs(keep, { input: inName, output: outName, hasAudio }));
+    await run(ff, buildTrimArgs(keep, { input: inName, output: outName, hasAudio }));
     logCb = null;
 
     const data = (await ff.readFile(outName)) as Uint8Array;
     if (data.byteLength === 0) throw new Error('The trimmed video came back empty.');
     return data;
+  } catch (e) {
+    throw toError(e);
   } finally {
     logCb = null;
     await ff.deleteFile(inName).catch(() => {});
@@ -219,7 +244,9 @@ export async function blurVideo(
   masks: readonly Mask[],
   opts: BlurOptions,
 ): Promise<Uint8Array> {
-  const ff = await load();
+  const ff = await load().catch((e: unknown) => {
+    throw toError(e);
+  });
   opts.onReady?.();
 
   const ext = file.name.match(/\.[a-z0-9]+$/i)?.[0] ?? '.mp4';
@@ -245,12 +272,14 @@ export async function blurVideo(
       const seconds = Number(at[1]) * 3600 + Number(at[2]) * 60 + Number(at[3]);
       opts.onProgress(Math.min(1, Math.max(0, seconds / opts.duration)));
     };
-    await ff.exec(args);
+    await run(ff, args);
     logCb = null;
 
     const data = (await ff.readFile(outName)) as Uint8Array;
     if (data.byteLength === 0) throw new Error('The blurred video came back empty.');
     return data;
+  } catch (e) {
+    throw toError(e);
   } finally {
     logCb = null;
     await ff.deleteFile(inName).catch(() => {});

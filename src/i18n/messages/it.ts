@@ -1413,6 +1413,7 @@ const it: Messages = {
         reset: 'Reimposta',
         outputInfo: 'Risultato: {kept} su {total}',
         piecesInfo: 'unito da {count} pezzi',
+        gapNote: 'Tra un pezzo e l’altro il motore deve comunque leggere la parte tagliata, quindi l’avanzamento può fermarsi per un po’. Il lavoro continua.',
         action: 'Esporta il taglio',
         working: 'Taglio in corso…',
         loading: 'Caricamento del motore video, alla prima esecuzione scarica circa 30 MB…',

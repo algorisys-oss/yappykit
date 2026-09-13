@@ -7,6 +7,7 @@ import '@algorisys/zen-ui-core/tokens.css'; // shared --zen-color-* palette (lig
 import './styles/tokens.css';
 import { registerSW } from 'virtual:pwa-register';
 import { rememberUpdater } from './lib/sw';
+import { reloadWhenIdle } from './lib/work-guard';
 import Landing from './routes/index';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -28,7 +29,13 @@ import {
 // Register the service worker so the tools keep working offline once cached.
 // The updater is kept so the footer can offer "refresh" and actually activate a
 // waiting build rather than reloading into the same cache.
-rememberUpdater(registerSW({ immediate: true }));
+//
+// onNeedReload replaces the reload auto-update mode would otherwise do on its
+// own the instant a new build activates, which took the work of anyone mid-export
+// with it. See lib/work-guard.
+rememberUpdater(
+  registerSW({ immediate: true, onNeedReload: () => reloadWhenIdle(() => window.location.reload()) }),
+);
 
 // Tool routes are lazy so their (eventually heavy) code and WASM never land in
 // the landing-page bundle. The landing route is imported eagerly because it is
