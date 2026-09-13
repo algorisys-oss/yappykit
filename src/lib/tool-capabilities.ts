@@ -53,6 +53,8 @@ export const TOOL_CAPABILITIES: Record<ToolKey, CapabilitySpec> = {
   'video-extract-audio': { required: ['wasm', 'decompressionStream'], preferred: [] },
   'video-speed': { required: ['wasm', 'decompressionStream'], preferred: [] },
   'video-gif': { required: ['wasm', 'decompressionStream'], preferred: [] },
+  // The browser decodes the frame; a canvas saves it. No engine, nothing to require.
+  'video-frame': { required: [], preferred: [] },
   // qpdf is WebAssembly and its only build imports SHARED memory, so this tool
   // needs real cross-origin isolation — unlike the video tool, which has a
   // single-threaded core to fall back to. Without isolation qpdf does not fail,

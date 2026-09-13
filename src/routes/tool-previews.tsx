@@ -548,6 +548,19 @@ export function VideoGifPreview() {
   );
 }
 
+export function VideoFramePreview() {
+  return (
+    <Frame>
+      {/* A film strip with one frame lifted out as a picture. */}
+      <rect x="22" y="30" width="78" height="44" rx="4" fill={C.paper} stroke={C.border} stroke-width="2" />
+      <path d="M48 30 v44 M74 30 v44" stroke={C.border} stroke-width="2" />
+      <rect x="50" y="34" width="22" height="36" fill={C.accentSoft} />
+      <path d="M104 52 h12 M111 47 l5 5 -5 5" stroke={C.muted} stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+      {pictureGlyph(122, 26, 58, 52)}
+    </Frame>
+  );
+}
+
 export function PassportPreview() {
   return (
     <Frame>
@@ -1141,6 +1154,7 @@ export const TOOL_PREVIEWS: Partial<Record<ToolKey, () => JSX.Element>> = {
   'video-extract-audio': ExtractAudioPreview,
   'video-speed': VideoSpeedPreview,
   'video-gif': VideoGifPreview,
+  'video-frame': VideoFramePreview,
   'passport-photo': PassportPreview,
   'document-scan': DocScanPreview,
   'mouse-test': MousePreview,

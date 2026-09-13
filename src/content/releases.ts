@@ -23,6 +23,13 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '0.19.0',
+    date: '2026-09-13',
+    added: [
+      'Save a frame from a video as a full-resolution PNG or JPEG, at /save-a-frame-from-a-video. Pause near the moment you want, then step one frame at a time with Previous frame and Next frame, or the , and . keys, until it is exactly right. Keep as many frames as you like, each named after the moment it came from, or copy one straight to the clipboard. There is no video engine to download: your browser already decodes the frame to show it, and it is copied at the video’s own size, so a 4K video gives a 3840 by 2160 image however small the player looks. Stepping lands on the very next picture the video contains, including in recordings whose frame rate changes, and works the same in every browser. A video only works if this browser can play it, and the page says so when it cannot.',
+    ],
+  },
+  {
     version: '0.18.0',
     date: '2026-09-13',
     added: [

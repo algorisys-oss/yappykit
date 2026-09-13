@@ -59,6 +59,7 @@ const COMPONENTS: Record<RouteKey, Component> = {
   'video-extract-audio': lazy(() => import('./routes/tools/video-extract-audio')),
   'video-speed': lazy(() => import('./routes/tools/video-speed')),
   'video-gif': lazy(() => import('./routes/tools/video-gif')),
+  'video-frame': lazy(() => import('./routes/tools/video-frame')),
   'passport-photo': lazy(() => import('./routes/tools/passport-photo')),
   'document-scan': lazy(() => import('./routes/tools/document-scanner')),
   'mouse-test': lazy(() => import('./routes/tools/mouse-test')),
