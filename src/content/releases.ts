@@ -23,6 +23,14 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '0.17.2',
+    date: '2026-09-13',
+    fixed: [
+      'Trimming a video into several pieces could lose the sound after the first join. Cut a section out of the middle of a long recording and the export played the first piece with its audio and everything after it in silence: on a two and a half hour lecture, cutting out the middle came back with 14 minutes of sound under 29 minutes of picture. Every piece now keeps its audio. A short test clip did not show the problem, which is how it went unnoticed; it depended on the recording, most likely on how long a stretch was cut out.',
+      'Trimming several pieces out of a long video is now far faster, and the progress bar no longer stands still between pieces. The trimmer used to decode the whole video from the start and throw away the parts you cut, so keeping two half-minute pieces two hours apart meant decoding two hours of footage first. Each piece is now read by jumping straight to it, and nothing you removed is decoded at all. On that lecture, the same two pieces took about two and a half minutes the old way and six seconds the new way, with every frame of the result identical. The note added in 0.17.1 explaining the pause is gone, because the pause is.',
+    ],
+  },
+  {
     version: '0.17.1',
     date: '2026-09-13',
     fixed: [

@@ -1390,7 +1390,6 @@ const ja: Messages = {
         reset: 'リセット',
         outputInfo: '出力: {total} のうち {kept}',
         piecesInfo: '{count} 個をつなげたもの',
-        gapNote: 'つなぐ部分の間では、切り取った区間もエンジンが読み進める必要があるため、進捗がしばらく止まることがあります。処理は続いています。',
         action: 'トリミングを書き出す',
         working: 'トリミング中…',
         loading: '動画エンジンを読み込んでいます。初回は約 30 MB をダウンロードします…',

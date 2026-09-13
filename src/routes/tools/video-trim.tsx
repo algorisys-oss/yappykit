@@ -471,13 +471,6 @@ export default function VideoTrim() {
             </div>
           </Show>
 
-          {/* Several pieces are stitched from one decode that starts at zero, so the
-            engine reads through every removed stretch and the bar sits still
-            meanwhile. Saying so is cheaper than a user abandoning a working export. */}
-          <Show when={busy() && keep().length > 1}>
-            <p class="text-xs text-muted">{u.gapNote}</p>
-          </Show>
-
           <Show when={status()}>
             <p class="rounded border border-border bg-surface p-3 text-sm text-fg" role="status">
               {status()}

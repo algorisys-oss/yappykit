@@ -1414,7 +1414,6 @@ const fr: Messages = {
         reset: 'Réinitialiser',
         outputInfo: 'Résultat : {kept} sur {total}',
         piecesInfo: 'assemblé à partir de {count} morceaux',
-        gapNote: 'Entre les morceaux, le moteur doit encore parcourir la partie coupée, la progression peut donc s’arrêter un moment. Le travail continue.',
         action: 'Exporter la coupe',
         working: 'Découpe en cours…',
         loading: 'Chargement du moteur vidéo, le premier lancement télécharge environ 30 Mo…',

@@ -1415,7 +1415,6 @@ const de: Messages = {
         reset: 'Zurücksetzen',
         outputInfo: 'Ergebnis: {kept} von {total}',
         piecesInfo: 'aus {count} Teilen zusammengesetzt',
-        gapNote: 'Zwischen den Teilen muss die Engine den herausgeschnittenen Abschnitt trotzdem durchlesen, deshalb kann der Fortschritt dort eine Weile stehen bleiben. Sie arbeitet weiter.',
         action: 'Zuschnitt exportieren',
         working: 'Wird zugeschnitten…',
         loading: 'Die Video-Engine wird geladen, beim ersten Mal werden etwa 30 MB heruntergeladen…',

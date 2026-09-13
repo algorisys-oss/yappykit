@@ -1415,7 +1415,6 @@ export const en = {
         reset: 'Reset',
         outputInfo: 'Output: {kept} of {total}',
         piecesInfo: 'joined from {count} pieces',
-        gapNote: 'Between the pieces the engine still has to read through the part you cut, so progress can stop moving there for a while. It is still working.',
         action: 'Export the trim',
         working: 'Trimming…',
         loading: 'Loading the video engine, the first run downloads about 30 MB…',

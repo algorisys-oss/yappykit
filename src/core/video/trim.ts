@@ -82,9 +82,16 @@ export interface TrimArgsOptions {
  * because `-to` as an input option has a long history of ambiguity about what
  * it is relative to, and being wrong there is silently wrong.
  *
- * Several segments have to be decoded and stitched, which means a filter graph
- * and a decode from zero. There is no way around that: the cuts are frame
- * accurate, so the frames have to exist.
+ * Several segments get the same trick once each: every kept range is its own
+ * seeked input, and the filter graph only concatenates them. The removed
+ * stretches are never decoded. The earlier graph trimmed ranges out of a single
+ * decode from zero, so keeping a minute near the end of a two hour recording
+ * first decoded the two hours in front of it, and the progress bar stood still
+ * for minutes while it did. Measured on that recording, two 30 s pieces two
+ * hours apart took 137 to 151 s that way and 6 s this way, with every output
+ * frame identical. Cuts stay frame accurate because an input seek while
+ * transcoding decodes from the keyframe before the seek point and discards up to
+ * it; nothing is cut on a keyframe boundary.
  */
 export function buildTrimArgs(keep: readonly Segment[], opts: TrimArgsOptions): string[] {
   if (keep.length === 0) throw new RangeError('nothing to keep');
@@ -110,27 +117,20 @@ export function buildTrimArgs(keep: readonly Segment[], opts: TrimArgsOptions): 
     ];
   }
 
-  const chains: string[] = [];
-  const concatInputs: string[] = [];
-  keep.forEach((s, i) => {
-    const range = `start=${t(s.start)}:end=${t(s.end)}`;
-    chains.push(`[0:v]trim=${range},setpts=PTS-STARTPTS[v${i}]`);
-    concatInputs.push(`[v${i}]`);
-    if (opts.hasAudio) {
-      chains.push(`[0:a]atrim=${range},asetpts=PTS-STARTPTS[a${i}]`);
-      concatInputs.push(`[a${i}]`);
-    }
-  });
-
+  const inputs = keep.flatMap((s) => [
+    '-ss', t(s.start),
+    '-t', t(s.end - s.start),
+    '-i', opts.input,
+  ]);
+  const streams = keep.map((_, i) => (opts.hasAudio ? `[${i}:v][${i}:a]` : `[${i}:v]`)).join('');
   const outputs = opts.hasAudio ? '[cv][outa]' : '[cv]';
-  chains.push(
-    `${concatInputs.join('')}concat=n=${keep.length}:v=1:a=${opts.hasAudio ? 1 : 0}${outputs}`,
-  );
-  chains.push(`[cv]${EVEN_DIMENSIONS}[outv]`);
+  const graph =
+    `${streams}concat=n=${keep.length}:v=1:a=${opts.hasAudio ? 1 : 0}${outputs};` +
+    `[cv]${EVEN_DIMENSIONS}[outv]`;
 
   return [
-    '-i', opts.input,
-    '-filter_complex', chains.join(';'),
+    ...inputs,
+    '-filter_complex', graph,
     '-map', '[outv]',
     ...(opts.hasAudio ? ['-map', '[outa]'] : []),
     ...encode,

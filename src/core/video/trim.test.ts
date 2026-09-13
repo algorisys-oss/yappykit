@@ -99,17 +99,25 @@ describe('buildTrimArgs', () => {
     expect(silent).not.toContain('aac');
   });
 
-  it('concatenates several ranges through a filter graph', () => {
-    const args = buildTrimArgs([seg(0, 4), seg(6, 10)], {
+  it('seeks each kept range as its own input, so nothing between them is decoded', () => {
+    // The removed stretches are never read. Stitching ranges out of one decode
+    // from zero made a cut near the end of a two hour recording decode the
+    // whole two hours first, with the progress bar standing still meanwhile.
+    const args = buildTrimArgs([seg(0, 4), seg(6, 10), seg(7200, 7230.5)], {
       input: 'in.mp4',
       output: 'out.mp4',
       hasAudio: true,
     });
+    expect(args.slice(0, 18)).toEqual([
+      '-ss', '0', '-t', '4', '-i', 'in.mp4',
+      '-ss', '6', '-t', '4', '-i', 'in.mp4',
+      '-ss', '7200', '-t', '30.5', '-i', 'in.mp4',
+    ]);
     const graph = args[args.indexOf('-filter_complex') + 1];
-    expect(graph).toContain('[0:v]trim=start=0:end=4,setpts=PTS-STARTPTS[v0]');
-    expect(graph).toContain('[0:a]atrim=start=6:end=10,asetpts=PTS-STARTPTS[a1]');
-    expect(graph).toContain('[v0][a0][v1][a1]concat=n=2:v=1:a=1[cv][outa]');
-    expect(args).toContain('-map');
+    expect(graph).toBe(
+      '[0:v][0:a][1:v][1:a][2:v][2:a]concat=n=3:v=1:a=1[cv][outa];[cv]pad=ceil(iw/2)*2:ceil(ih/2)*2[outv]',
+    );
+    expect(graph).not.toContain('trim=');
     expect(args).toContain('[outv]');
     expect(args).toContain('[outa]');
   });
@@ -123,8 +131,8 @@ describe('buildTrimArgs', () => {
       hasAudio: false,
     });
     const graph = args[args.indexOf('-filter_complex') + 1];
-    expect(graph).not.toContain('atrim');
-    expect(graph).toContain('[v0][v1]concat=n=2:v=1:a=0[cv]');
+    expect(graph).not.toContain(':a]');
+    expect(graph).toContain('[0:v][1:v]concat=n=2:v=1:a=0[cv]');
     expect(args).not.toContain('[outa]');
     expect(args).toContain('-an');
   });
