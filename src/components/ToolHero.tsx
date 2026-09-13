@@ -35,7 +35,7 @@ export default function ToolHero(props: {
         <h1 class="flex flex-wrap items-center gap-x-3 gap-y-1 text-2xl font-bold">
           {props.title}
           <Show when={beta()}>
-            <span class="rounded-full bg-accent-soft px-2.5 py-0.5 text-sm font-medium text-fg">{m.common.betaLabel}</span>
+            <span class="rounded-full bg-warning px-2.5 py-0.5 text-sm font-semibold text-warning-fg">{m.common.betaLabel}</span>
           </Show>
         </h1>
         <p class="mt-2 max-w-prose text-sm text-muted">{props.children}</p>

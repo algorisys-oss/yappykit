@@ -70,6 +70,11 @@ export default defineConfig({
         fg: 'var(--zen-color-success-fg)',
         soft: 'var(--zen-color-success-soft)',
       },
+      warning: {
+        DEFAULT: 'var(--zen-color-warning)',
+        fg: 'var(--zen-color-warning-fg)',
+        soft: 'var(--zen-color-warning-soft)',
+      },
     },
     borderRadius: {
       DEFAULT: 'var(--zen-radius-md)',

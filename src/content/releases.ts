@@ -23,6 +23,13 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '0.20.1',
+    date: '2026-09-13',
+    fixed: [
+      'The Beta label added in 0.20.0 was easy to miss: a pale blue tint that barely stood out from the card behind it, especially in the light theme. It now sits on a solid amber background with dark text, in both the light and dark themes, at a contrast of 7.1 to 1 in light and 10.5 to 1 in dark, so the tools still being tested are obvious at a glance.',
+    ],
+  },
+  {
     version: '0.20.0',
     date: '2026-09-13',
     added: [

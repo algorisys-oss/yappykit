@@ -24,7 +24,7 @@ export default function ToolCard(props: { tool: Tool }) {
         <span class="flex flex-wrap items-center gap-2">
           <span class="font-semibold text-fg">{props.tool.title}</span>
           <Show when={props.tool.beta}>
-            <span class="rounded-full bg-accent-soft px-2 py-0.5 text-xs font-medium text-fg">{m.common.betaLabel}</span>
+            <span class="rounded-full bg-warning px-2 py-0.5 text-xs font-semibold text-warning-fg">{m.common.betaLabel}</span>
           </Show>
         </span>
         <span aria-hidden="true" class="text-accent transition-transform duration-150 group-hover:translate-x-1">
