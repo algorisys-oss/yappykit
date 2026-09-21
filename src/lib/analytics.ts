@@ -87,6 +87,20 @@ export function countryFromTrace(body: string): string | null {
   return match ? match[1]! : null;
 }
 
+/**
+ * Google's `gtag` stub, bound to a dataLayer.
+ *
+ * It must push the `arguments` object itself. gtag.js tells commands apart
+ * from plain dataLayer events by that type, and an ordinary array (what a
+ * rest parameter gives you) is ignored without an error: the script loads,
+ * `config` never runs, and no hit is ever sent.
+ */
+export function makeGtag(dataLayer: unknown[]): (...args: unknown[]) => void {
+  return function gtag() {
+    dataLayer.push(arguments);
+  };
+}
+
 function injectTag(): void {
   const tag = document.createElement('script');
   tag.async = true;
@@ -95,9 +109,7 @@ function injectTag(): void {
 
   const w = window as typeof window & { dataLayer?: unknown[]; gtag?: (...a: unknown[]) => void };
   w.dataLayer = w.dataLayer ?? [];
-  const gtag = (...args: unknown[]) => {
-    w.dataLayer!.push(args);
-  };
+  const gtag = makeGtag(w.dataLayer);
   w.gtag = gtag;
   gtag('js', new Date());
   gtag('config', MEASUREMENT_ID);

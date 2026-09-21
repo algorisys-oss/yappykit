@@ -23,6 +23,13 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '0.20.2',
+    date: '2026-09-21',
+    fixed: [
+      'Google Analytics loaded but never recorded a visit. The small piece of code that hands it instructions passed them in a form it silently ignores, so it never sent a single page view. It now passes them the way Google expects. Nothing else changed: it still runs only outside the EEA and the UK, and it still never sees your files.',
+    ],
+  },
+  {
     version: '0.20.1',
     date: '2026-09-13',
     fixed: [

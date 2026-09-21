@@ -5,6 +5,7 @@ import {
   countryFromTrace,
   CONSENT_REQUIRED,
   MEASUREMENT_ID,
+  makeGtag,
 } from './analytics';
 
 describe('analyticsAllowed', () => {
@@ -104,5 +105,19 @@ describe('beaconFor', () => {
     // environment so a fork cannot ship a beacon reporting into our account,
     // and a test is no reason to put it back in the source.
     expect(beaconFor('0123456789abcdef0123456789abcdef')?.token).toHaveLength(32);
+  });
+});
+
+describe('makeGtag', () => {
+  // gtag.js only acts on dataLayer entries that are `arguments` objects. A real
+  // array is silently ignored, so the tag loads, `config` never runs and not
+  // one hit is sent. That shipped once and measured nothing.
+  it('pushes an arguments object, not an array', () => {
+    const dataLayer: unknown[] = [];
+    makeGtag(dataLayer)('config', MEASUREMENT_ID);
+    const entry = dataLayer[0];
+    expect(Array.isArray(entry)).toBe(false);
+    expect(Object.prototype.toString.call(entry)).toBe('[object Arguments]');
+    expect(Array.from(entry as ArrayLike<unknown>)).toEqual(['config', MEASUREMENT_ID]);
   });
 });
