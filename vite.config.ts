@@ -10,6 +10,14 @@ import { fileURLToPath } from 'node:url';
 
 const require = createRequire(import.meta.url);
 
+/**
+ * Mermaid and the packages only it pulls in. Nothing else in the app imports
+ * any of these, so a chunk holding one of them is a chunk only the diagram
+ * editor loads.
+ */
+const MERMAID_DEPS =
+  /[\\/]node_modules[\\/](?:mermaid|@mermaid-js|elkjs|cytoscape|cytoscape-[^\\/]+|katex|d3|d3-[^\\/]+|dagre-d3-es|chevrotain|@chevrotain|langium|roughjs|khroma|stylis|@iconify|@upsetjs|dayjs|marked|dompurify|lodash-es)[\\/]/;
+
 const { version } = JSON.parse(readFileSync('./package.json', 'utf8')) as { version: string };
 
 /**
@@ -140,7 +148,7 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,svg,png}'],
         // The 32 MB ffmpeg core and any wasm are excluded from precache and
         // cached at runtime instead (below).
-        globIgnores: ['**/ffmpeg-core*', '**/*.wasm', '**/*.wasmz'],
+        globIgnores: ['**/ffmpeg-core*', '**/*.wasm', '**/*.wasmz', '**/assets/mermaid/**'],
         maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
         // Explicitly OFF. vite-plugin-pwa defaults it to 'index.html', which
         // installs a NavigationRoute bound to the precached /index.html, so
@@ -173,6 +181,14 @@ export default defineConfig({
             urlPattern: /tesseract|traineddata|tessdata/i,
             handler: 'CacheFirst',
             options: { cacheName: 'yappykit-ocr', expiration: { maxEntries: 12 } },
+          },
+          {
+            // Mermaid is several megabytes over a hundred chunks, one per
+            // diagram type. Only the ones a visitor actually draws are fetched,
+            // and they are kept once fetched; see MERMAID_DEPS below.
+            urlPattern: ({ url }) => url.pathname.startsWith('/assets/mermaid/'),
+            handler: 'CacheFirst',
+            options: { cacheName: 'yappykit-mermaid', expiration: { maxEntries: 160 } },
           },
         ],
       },
@@ -227,6 +243,15 @@ export default defineConfig({
     rollupOptions: {
       // See externalizeUninstalledZenPeers above.
       external: externalizeUninstalledZenPeers,
+      output: {
+        // Only a file NAME, never a grouping: Vite still decides what goes in
+        // each chunk. Mermaid's chunks land in their own folder so the service
+        // worker can leave them out of the precache every visitor downloads.
+        chunkFileNames: (chunk) =>
+          chunk.moduleIds.some((id) => MERMAID_DEPS.test(id))
+            ? 'assets/mermaid/[name]-[hash].js'
+            : 'assets/[name]-[hash].js',
+      },
     },
     // No manualChunks on purpose. Each tool route is a dynamic import, so Vite
     // splits it (and its heavy deps — zen-ui/DataTable, xlsx) into its own

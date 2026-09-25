@@ -1100,6 +1100,36 @@ export function ImageToPdfPreview() {
   );
 }
 
+export function MermaidEditorPreview() {
+  return (
+    <Frame>
+      {/* The source: a line of text with an arrow in it */}
+      <rect x="14" y="14" width="66" height="76" rx="5" fill={C.paper} stroke={C.border} stroke-width="2" />
+      <g font-family="monospace" font-size="10" font-weight="700">
+        <text x="21" y="32" fill={C.accent}>graph</text>
+        <text x="21" y="50" fill={C.muted}>A</text>
+        <text x="31" y="50" fill={C.accent}>--&gt;</text>
+        <text x="55" y="50" fill={C.muted}>B</text>
+        <text x="21" y="68" fill={C.muted}>A</text>
+        <text x="31" y="68" fill={C.accent}>--&gt;</text>
+        <text x="55" y="68" fill={C.muted}>C</text>
+      </g>
+      <g stroke={C.accent} stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <path d="M90 51 h20" />
+        <path d="M103 44 l7 7 l-7 7" />
+      </g>
+      {/* Drawn as the diagram it describes */}
+      <rect x="138" y="14" width="34" height="20" rx="5" fill={C.accentSoft} stroke={C.accent} stroke-width="2" />
+      <rect x="120" y="70" width="30" height="20" rx="5" fill={C.paper} stroke={C.border} stroke-width="2" />
+      <rect x="160" y="70" width="30" height="20" rx="5" fill={C.paper} stroke={C.border} stroke-width="2" />
+      <g stroke={C.muted} stroke-width="2" fill="none" stroke-linecap="round">
+        <path d="M150 34 L137 68" />
+        <path d="M160 34 L173 68" />
+      </g>
+    </Frame>
+  );
+}
+
 export function MarkdownToPdfPreview() {
   return (
     <Frame>
@@ -1212,4 +1242,6 @@ export const TOOL_PREVIEWS: Partial<Record<ToolKey, () => JSX.Element>> = {
   'image-crop': ImageCropPreview,
   'pdf-password': PdfPasswordPreview,
   'stream-timer': StreamTimerPreview,
+  'markdown-to-pdf': MarkdownToPdfPreview,
+  'mermaid-editor': MermaidEditorPreview,
 };

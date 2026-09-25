@@ -23,6 +23,13 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '0.21.0',
+    date: '2026-09-25',
+    added: [
+      'A Mermaid diagram editor, at /mermaid-editor. Type Mermaid on one side and the diagram draws on the other as you go. When a line is wrong, that line is underlined with Mermaid’s message, and the last version that worked stays on screen instead of vanishing mid-keystroke. Mermaid numbers lines without its front matter and comments, so its error line is mapped back to the one you typed. Drag and zoom large diagrams, start from an example of any common type, open a .mmd file or a README (its first Mermaid block opens), and save as SVG or as a PNG sized for a document, slides or print. Share links carry the diagram inside the link after the #, the part a browser never sends to a server, so nothing is uploaded to share one. Diagrams run in Mermaid’s strict mode, which a diagram cannot switch off.',
+    ],
+  },
+  {
     version: '0.20.2',
     date: '2026-09-21',
     fixed: [

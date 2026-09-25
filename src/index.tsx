@@ -77,6 +77,7 @@ const COMPONENTS: Record<RouteKey, Component> = {
   'font-style': lazy(() => import('./routes/tools/font-stylist')),
   'image-to-pdf': lazy(() => import('./routes/tools/image-to-pdf')),
   'markdown-to-pdf': lazy(() => import('./routes/tools/markdown-to-pdf')),
+  'mermaid-editor': lazy(() => import('./routes/tools/mermaid-editor')),
   'image-watermark': lazy(() => import('./routes/tools/image-watermark')),
   'file-inspect': lazy(() => import('./routes/tools/file-inspector')),
   'image-convert': lazy(() => import('./routes/tools/image-converter')),

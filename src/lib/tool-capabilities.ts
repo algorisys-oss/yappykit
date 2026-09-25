@@ -33,6 +33,10 @@ export const TOOL_CAPABILITIES: Record<ToolKey, CapabilitySpec> = {
   'image-to-pdf': { required: [], preferred: ['createImageBitmap'] },
   // Text and pdf-lib only: no canvas, no WebAssembly, nothing to fall back from.
   'markdown-to-pdf': { required: [], preferred: [] },
+  // Mermaid is plain script and SVG, so nothing is required. Share links
+  // compress through CompressionStream, which every engine shipped in the same
+  // release as DecompressionStream; without them the Copy link button is hidden.
+  'mermaid-editor': { required: [], preferred: ['decompressionStream'] },
   // A clock, a message and a synthesised bell: nothing here can be missing
   // badly enough to stop the tool. Choosing WHICH output the bell plays to is
   // Chromium-only, and everywhere else it goes to the system default, which is

@@ -58,6 +58,7 @@ export const TOOL_KEYS = [
   'image-crop',
   'pdf-password',
   'markdown-to-pdf',
+  'mermaid-editor',
   'stream-timer',
 ] as const;
 
@@ -115,6 +116,7 @@ export const TOOL_CATEGORY: Record<ToolKey, Category> = {
   'font-coverage': 'text',
   'font-style': 'text',
   'random-word': 'text',
+  'mermaid-editor': 'text',
   'mouse-test': 'device',
   'keyboard-test': 'device',
   'camera-mic-test': 'device',
@@ -209,6 +211,21 @@ const STATIC_ROUTES: Record<Exclude<RouteKey, BuildKey | CategoryKey>, RouteDef>
       tr: 'resmi-boyuta-sikistir',
       vi: 'nen-anh-theo-kich-thuoc',
       it: 'comprimere-immagine-a-dimensione',
+    },
+  },
+  'mermaid-editor': {
+    localized: true,
+    slugs: {
+      en: 'mermaid-editor',
+      es: 'editor-de-mermaid',
+      'pt-BR': 'editor-de-mermaid',
+      id: 'editor-mermaid',
+      fr: 'editeur-mermaid',
+      de: 'mermaid-editor',
+      ru: 'redaktor-mermaid',
+      tr: 'mermaid-duzenleyici',
+      vi: 'trinh-soan-thao-mermaid',
+      it: 'editor-mermaid',
     },
   },
   'markdown-to-pdf': {
@@ -1219,7 +1236,8 @@ const RELATED: Record<ToolKey, readonly ToolKey[]> = {
   redact: ['metadata-remove', 'pdf-password', 'file-inspect'],
   'sheet-clean': ['sheet-convert', 'spreadsheet-compare', 'redact'],
   'pdf-password': ['redact', 'metadata-remove', 'pdf-merge'],
-  'markdown-to-pdf': ['image-to-pdf', 'pdf-merge', 'file-inspect'],
+  'markdown-to-pdf': ['image-to-pdf', 'pdf-merge', 'mermaid-editor'],
+  'mermaid-editor': ['markdown-to-pdf', 'image-convert', 'image-to-pdf'],
 };
 
 export function relatedTools(key: ToolKey, count = 3): ToolKey[] {
