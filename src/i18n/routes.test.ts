@@ -137,7 +137,7 @@ describe('allPaths', () => {
   });
 
   it('covers every tool', () => {
-    expect(TOOL_KEYS).toHaveLength(45);
+    expect(TOOL_KEYS).toHaveLength(46);
   });
 });
 

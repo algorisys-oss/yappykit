@@ -92,6 +92,7 @@ const COMPONENTS: Record<RouteKey, Component> = {
   'batch-rename': lazy(() => import('./routes/tools/batch-rename')),
   'sheet-convert': lazy(() => import('./routes/tools/sheet-convert')),
   'stream-timer': lazy(() => import('./routes/tools/stream-timer')),
+  'world-clock': lazy(() => import('./routes/tools/world-clock')),
   about: lazy(() => import('./routes/about')),
   privacy: lazy(() => import('./routes/privacy')),
   terms: lazy(() => import('./routes/terms')),

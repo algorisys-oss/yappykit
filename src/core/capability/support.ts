@@ -65,6 +65,9 @@ const SINCE: Record<Capability, Record<BrowserId, number | null>> = {
   // AudioContext.setSinkId. Chromium-only so far; elsewhere a page plays to
   // whatever the system default output is and cannot ask for another.
   audioOutputSelection: { chrome: 110, firefox: null, safari: null, edge: 110 },
+  // Intl.supportedValuesOf. Firefox and Safari had it before the baseline;
+  // Chrome 94 to 98 can run the bundle without it.
+  timeZoneList: { chrome: 99, firefox: 93, safari: 15.4, edge: 99 },
 };
 
 export interface BrowserVerdict {

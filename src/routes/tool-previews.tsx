@@ -738,6 +738,33 @@ export function StreamTimerPreview() {
   );
 }
 
+export function WorldClockPreview() {
+  // Three clocks, each with its hours across the home day: green for the
+  // working day, soft for the edges, plain for night, and one planned column.
+  const rows: { time: string; bands: ('w' | 'e' | 'n')[] }[] = [
+    { time: '19:30', bands: ['e', 'e', 'w', 'w', 'w', 'w', 'e', 'e', 'e', 'n'] },
+    { time: '10:00', bands: ['n', 'n', 'n', 'e', 'w', 'w', 'w', 'w', 'w', 'w'] },
+    { time: '15:00', bands: ['n', 'e', 'w', 'w', 'w', 'w', 'w', 'w', 'e', 'e'] },
+  ];
+  const fill = { w: C.ok, e: C.accentSoft, n: C.border };
+  return (
+    <Frame>
+      {rows.map((row, r) => (
+        <g transform={`translate(0 ${14 + r * 28})`}>
+          <text x="14" y="16" fill={C.fg} font-size="13" font-weight="700">
+            {row.time}
+          </text>
+          {row.bands.map((b, i) => (
+            <rect x={62 + i * 12.5} y="4" width="11" height="16" rx="2" fill={fill[b]} opacity={b === 'w' ? 0.75 : 1} />
+          ))}
+        </g>
+      ))}
+      {/* The planned hour, the same column in every row */}
+      <rect x="135.5" y="15" width="14" height="74" rx="3" fill="none" stroke={C.accent} stroke-width="2.5" />
+    </Frame>
+  );
+}
+
 export function PdfPreview() {
   return (
     <Frame>
@@ -1242,6 +1269,7 @@ export const TOOL_PREVIEWS: Partial<Record<ToolKey, () => JSX.Element>> = {
   'image-crop': ImageCropPreview,
   'pdf-password': PdfPasswordPreview,
   'stream-timer': StreamTimerPreview,
+  'world-clock': WorldClockPreview,
   'markdown-to-pdf': MarkdownToPdfPreview,
   'mermaid-editor': MermaidEditorPreview,
 };

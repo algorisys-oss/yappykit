@@ -23,6 +23,13 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '0.22.0',
+    date: '2026-10-04',
+    added: [
+      'A world clock that doubles as a meeting planner, at /world-clock. Your own time zone is the first clock, read from your device, so nothing about your location is looked up. Add cities by name, by a nearby city, by country or by abbreviation: "Bangalore", "USA" and "PST" all work, and every time zone your browser knows is searchable behind about fifty popular cities. Each clock shows its hours across your day, shaded for the working day where it is. Drag the time or click an hour and every clock moves to that moment, so you can see that 7 in the evening in India is 9:30 in the morning in New York. Daylight saving changes come from your browser’s own time zone rules, on the right date in each country. Your clocks are remembered on this device, and a share link sends the same set of cities to someone else.',
+    ],
+  },
+  {
     version: '0.21.0',
     date: '2026-09-25',
     added: [

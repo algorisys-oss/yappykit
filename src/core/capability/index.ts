@@ -24,7 +24,8 @@ export type Capability =
   | 'wasm'
   | 'decompressionStream'
   | 'localFonts'
-  | 'audioOutputSelection';
+  | 'audioOutputSelection'
+  | 'timeZoneList';
 
 export type CapabilitySnapshot = Record<Capability, boolean>;
 
@@ -62,6 +63,10 @@ export function detectCapabilities(): CapabilitySnapshot {
     // ever a nicety: without it the bell simply plays to the default output.
     audioOutputSelection:
       typeof AudioContext !== 'undefined' && 'setSinkId' in AudioContext.prototype,
+    // Intl.supportedValuesOf('timeZone'): every zone the browser knows, for the
+    // world clock's full search. Without it the curated cities still work.
+    timeZoneList:
+      typeof (Intl as { supportedValuesOf?: unknown }).supportedValuesOf === 'function',
   };
 }
 

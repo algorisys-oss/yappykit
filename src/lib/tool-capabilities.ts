@@ -42,6 +42,9 @@ export const TOOL_CAPABILITIES: Record<ToolKey, CapabilitySpec> = {
   // Chromium-only, and everywhere else it goes to the system default, which is
   // a real difference worth stating rather than a failure.
   'stream-timer': { required: [], preferred: ['audioOutputSelection'] },
+  // Clocks are Intl, which every supported browser has. Searching every zone
+  // rather than the curated cities needs Intl.supportedValuesOf.
+  'world-clock': { required: [], preferred: ['timeZoneList'] },
   'screenshot-stitch': { required: [], preferred: ['createImageBitmap', 'offscreenCanvas'] },
   'pdf-compress': { required: [], preferred: ['offscreenCanvas'] },
   // ffmpeg is WebAssembly, and its core ships gzipped to fit the host's

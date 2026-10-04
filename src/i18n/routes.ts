@@ -60,6 +60,7 @@ export const TOOL_KEYS = [
   'markdown-to-pdf',
   'mermaid-editor',
   'stream-timer',
+  'world-clock',
 ] as const;
 
 export type ToolKey = (typeof TOOL_KEYS)[number];
@@ -122,6 +123,7 @@ export const TOOL_CATEGORY: Record<ToolKey, Category> = {
   'camera-mic-test': 'device',
   ruler: 'device',
   'stream-timer': 'device',
+  'world-clock': 'device',
 };
 
 export function toolsInCategory(category: Category): ToolKey[] {
@@ -511,6 +513,21 @@ const STATIC_ROUTES: Record<Exclude<RouteKey, BuildKey | CategoryKey>, RouteDef>
       tr: 'klavye-testi',
       vi: 'kiem-tra-ban-phim',
       it: 'test-tastiera',
+    },
+  },
+  'world-clock': {
+    localized: true,
+    slugs: {
+      en: 'world-clock',
+      es: 'reloj-mundial',
+      'pt-BR': 'relogio-mundial',
+      id: 'jam-dunia',
+      fr: 'horloge-mondiale',
+      de: 'weltuhr',
+      ru: 'mirovye-chasy',
+      tr: 'dunya-saati',
+      vi: 'dong-ho-the-gioi',
+      it: 'orologio-mondiale',
     },
   },
   'stream-timer': {
@@ -1213,7 +1230,8 @@ const RELATED: Record<ToolKey, readonly ToolKey[]> = {
   'mouse-test': ['keyboard-test', 'camera-mic-test', 'ruler'],
   'keyboard-test': ['mouse-test', 'font-coverage', 'random-word'],
   ruler: ['mouse-test', 'keyboard-test', 'camera-mic-test'],
-  'stream-timer': ['camera-mic-test', 'ruler', 'random-word'],
+  'stream-timer': ['world-clock', 'camera-mic-test', 'ruler'],
+  'world-clock': ['stream-timer', 'ruler', 'random-word'],
   'pdf-compress': ['pdf-split', 'pdf-merge', 'image-to-pdf'],
   'camera-mic-test': ['mouse-test', 'keyboard-test', 'stream-timer'],
   'random-word': ['font-coverage', 'keyboard-test', 'mouse-test'],

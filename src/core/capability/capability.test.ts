@@ -14,6 +14,7 @@ const ALL_OFF: CapabilitySnapshot = {
   decompressionStream: false,
   localFonts: false,
   audioOutputSelection: false,
+  timeZoneList: false,
 };
 
 const snapshot = (over: Partial<CapabilitySnapshot>): CapabilitySnapshot => ({
