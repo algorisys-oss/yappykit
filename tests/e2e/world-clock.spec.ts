@@ -89,13 +89,8 @@ test('fits a phone screen without scrolling sideways', async ({ page }) => {
   await page.setViewportSize({ width: 360, height: 800 });
   await page.goto('/world-clock');
   await addClock(page, 'new york');
-  // Measured inside <main>: the site header is shared by every page, and in
-  // Firefox it overflows narrow screens on its own, which is not this tool's.
-  const overflowing = await page.evaluate(() => {
-    const width = document.documentElement.clientWidth;
-    return [...document.querySelectorAll('main *')]
-      .filter((el) => el.getBoundingClientRect().right > width + 1)
-      .map((el) => el.tagName);
-  });
-  expect(overflowing).toEqual([]);
+  const overflow = await page.evaluate(
+    () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+  );
+  expect(overflow).toBe(0);
 });

@@ -352,7 +352,7 @@ function ControlPanel() {
           </div>
 
           <div
-            class="mt-4 aspect-video w-full overflow-hidden rounded-lg border border-border"
+            class="mt-4 box-border aspect-video w-full overflow-hidden rounded-lg border border-border"
             style={{ 'font-size': `calc(1.6rem * ${settings().fontScale})` }}
           >
             <TimerFace settings={settings()} remainingMs={remaining()} elapsed={phase() === 'elapsed'} />
@@ -441,7 +441,7 @@ function ControlPanel() {
           <input
             id="timer-headline"
             type="text"
-            class="mt-1 w-full max-w-lg rounded border border-border bg-bg px-3 py-2 text-sm text-fg"
+            class="mt-1 box-border w-full max-w-lg rounded border border-border bg-bg px-3 py-2 text-sm text-fg"
             placeholder={u.headlinePlaceholder}
             value={settings().headline}
             onInput={(e) => patch({ headline: e.currentTarget.value })}
@@ -450,7 +450,7 @@ function ControlPanel() {
           <input
             id="timer-subline"
             type="text"
-            class="mt-1 w-full max-w-lg rounded border border-border bg-bg px-3 py-2 text-sm text-fg"
+            class="mt-1 box-border w-full max-w-lg rounded border border-border bg-bg px-3 py-2 text-sm text-fg"
             placeholder={u.sublinePlaceholder}
             value={settings().subline}
             onInput={(e) => patch({ subline: e.currentTarget.value })}
@@ -551,7 +551,7 @@ function ControlPanel() {
             <label class="mt-4 block text-sm font-medium text-fg" for="timer-output">{u.outputLabel}</label>
             <select
               id="timer-output"
-              class="mt-1 w-full max-w-lg rounded border border-border bg-bg px-3 py-2 text-sm text-fg"
+              class="mt-1 box-border w-full max-w-lg rounded border border-border bg-bg px-3 py-2 text-sm text-fg"
               value={settings().sinkId}
               onFocus={() => void loadOutputs()}
               onChange={(e) => void onSinkChange(e.currentTarget.value)}

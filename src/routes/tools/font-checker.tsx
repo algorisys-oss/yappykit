@@ -186,7 +186,7 @@ export default function FontChecker() {
             rows="3"
             value={text()}
             onInput={(e) => setText(e.currentTarget.value)}
-            class="block w-full rounded border border-border bg-surface p-3 text-base text-fg"
+            class="box-border block w-full rounded border border-border bg-surface p-3 text-base text-fg"
           />
           <p class="mt-2 text-xs text-muted">{u.textHint}</p>
         </div>

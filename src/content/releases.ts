@@ -23,6 +23,14 @@ export interface Release {
 
 export const RELEASES: Release[] = [
   {
+    version: '0.22.1',
+    date: '2026-10-04',
+    fixed: [
+      'In Firefox on a phone, every page scrolled sideways and the search box in the header was squeezed to nothing. Firefox was showing things meant only for wide screens, such as the No file uploads label, because a rule for hiding a scrollbar had been merged with the rule that hides those items, in a form Firefox rejects as a whole. The two are now separate, so Firefox hides them again, and a test checks the stylesheet for that pattern on every change.',
+      'Some text boxes were slightly wider than the space they sit in on a phone, so the page could be nudged sideways: the message boxes in the stream timer, and the text boxes in Markdown to PDF, the font checker, the font stylist and the watermark tool. They now fit exactly.',
+    ],
+  },
+  {
     version: '0.22.0',
     date: '2026-10-04',
     added: [

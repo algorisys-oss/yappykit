@@ -453,7 +453,7 @@ export default function ImageWatermark() {
                 placeholder={u.textPlaceholder}
                 aria-label={u.textLabel}
                 onInput={(e) => setText(e.currentTarget.value)}
-                class="block w-full rounded border border-border bg-surface p-2 text-sm text-fg"
+                class="box-border block w-full rounded border border-border bg-surface p-2 text-sm text-fg"
               />
               <div class="flex flex-wrap items-center gap-3">
                 <SegmentedControl

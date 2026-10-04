@@ -288,7 +288,7 @@ export default function FontStylist() {
                   type="text"
                   value={sample()}
                   onInput={(e) => setSample(e.currentTarget.value)}
-                  class="block w-full rounded border border-border bg-surface p-2 text-sm text-fg"
+                  class="box-border block w-full rounded border border-border bg-surface p-2 text-sm text-fg"
                 />
               </div>
               <p class="text-sm text-muted">

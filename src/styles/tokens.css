@@ -59,3 +59,20 @@ button {
 :root[data-theme='dark'] {
   --yk-highlight: var(--zen-color-warning);
 }
+
+/*
+ * A horizontal scroller with no visible scrollbar (the category nav).
+ *
+ * A rule of its own, not a `[&::-webkit-scrollbar]:hidden` utility: UnoCSS
+ * merges that with `.hidden` into one selector list, and Firefox, which has no
+ * ::-webkit-scrollbar, drops the whole rule, so `hidden` stopped hiding
+ * anything there. Here Firefox discards only the WebKit rule and uses the
+ * standard property above it. src/styles/uno.test.ts keeps it that way.
+ */
+.yk-no-scrollbar {
+  scrollbar-width: none;
+}
+
+.yk-no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

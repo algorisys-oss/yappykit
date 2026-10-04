@@ -78,3 +78,21 @@ test('clicking a hub link navigates without a full page load', async ({ page }) 
   await expect(page).toHaveURL(/\/videos$/);
   await expect(page.locator('main h1')).toHaveText('Video tools');
 });
+
+/**
+ * Firefox once showed every `hidden` element: UnoCSS had merged `.hidden` into
+ * one rule with a ::-webkit-scrollbar selector Firefox cannot parse, so it
+ * dropped the rule, the header laid out its desktop items on a phone and the
+ * whole site scrolled sideways by 103px. Chrome looked fine throughout.
+ */
+for (const path of ['/', '/stream-countdown-timer', '/markdown-to-pdf', '/world-clock']) {
+  test(`${path} does not scroll sideways on a phone`, async ({ page }) => {
+    await page.setViewportSize({ width: 360, height: 800 });
+    await page.goto(path);
+    await expect(page.locator('header').first().getByText('No file uploads')).toBeHidden();
+    const overflow = await page.evaluate(
+      () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    );
+    expect(overflow).toBe(0);
+  });
+}

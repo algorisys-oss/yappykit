@@ -17,7 +17,7 @@ export default function CategoryNav(props: { pathname: string }) {
 
   return (
     <nav aria-label={m.common.categoryNav} class="border-t border-border">
-      <ul class="mx-auto my-0 flex max-w-4xl list-none items-center gap-5 overflow-x-auto px-6 py-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <ul class="mx-auto my-0 flex max-w-4xl list-none items-center gap-5 overflow-x-auto px-6 py-0 yk-no-scrollbar">
         <li>
           <Item href={path('home')} label={m.common.backToTools} active={onHome()} />
         </li>

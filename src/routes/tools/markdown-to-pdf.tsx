@@ -162,7 +162,7 @@ export default function MarkdownToPdf() {
             value={source()}
             onInput={(e) => replace(e.currentTarget.value)}
             placeholder={u.pastePlaceholder}
-            class="block w-full rounded border border-border bg-surface p-3 font-mono text-sm text-fg"
+            class="box-border block w-full rounded border border-border bg-surface p-3 font-mono text-sm text-fg"
           />
           <p class="mt-2 text-xs text-muted">{u.pasteHint}</p>
         </div>
